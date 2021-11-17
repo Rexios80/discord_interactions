@@ -65,4 +65,6 @@ class DiscordCommandManagementApi {
   }) {
     return _dio.delete('/guilds/$guildId/commands/$commandId');
   }
+
+  // TODO: Command permissions
 }
