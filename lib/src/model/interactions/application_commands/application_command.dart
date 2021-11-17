@@ -12,7 +12,7 @@ class ApplicationCommand {
   final String? id;
 
   /// the type of command, defaults [ApplicationCommandType.chatInput] if not set
-  final ApplicationCommandType type;
+  final ApplicationCommandType? type;
 
   /// unique id of the parent application
   @JsonKey(name: 'application_id')
@@ -23,10 +23,10 @@ class ApplicationCommand {
   final String? guildId;
 
   /// 1-32 character name
-  final String name;
+  final String? name;
 
   /// 1-100 character description for CHAT_INPUT commands, empty string for USER and MESSAGE commands
-  final String description;
+  final String? description;
 
   /// the parameters for the command, max 25
   ///
@@ -37,7 +37,7 @@ class ApplicationCommand {
   ///
   /// default true
   @JsonKey(name: 'default_permission')
-  final bool defaultPermission;
+  final bool? defaultPermission;
 
   /// autoincrementing version identifier updated during substantial record changes
   final String? version;
@@ -45,13 +45,13 @@ class ApplicationCommand {
   /// Create an [ApplicationCommand]
   ApplicationCommand({
     this.id,
-    this.type = ApplicationCommandType.chatInput,
+    this.type,
     this.applicationId,
     this.guildId,
-    required this.name,
-    required this.description,
+    this.name,
+    this.description,
     this.options,
-    this.defaultPermission = true,
+    this.defaultPermission,
     this.version,
   });
 

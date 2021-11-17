@@ -10,8 +10,8 @@ GuildApplicationCommandPermissions _$GuildApplicationCommandPermissionsFromJson(
         Map<String, dynamic> json) =>
     GuildApplicationCommandPermissions(
       id: json['id'] as String,
-      appplicationId: json['application_id'] as String,
-      guildId: json['guild_id'] as String,
+      appplicationId: json['application_id'] as String?,
+      guildId: json['guild_id'] as String?,
       permissions: (json['permissions'] as List<dynamic>)
           .map((e) =>
               ApplicationCommandPermissions.fromJson(e as Map<String, dynamic>))

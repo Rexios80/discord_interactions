@@ -15,7 +15,7 @@ class GuildApplicationCommandPermissions {
 
   /// the id of the guild
   @JsonKey(name: 'guild_id')
-  final String guildId;
+  final String? guildId;
 
   /// the permissions for the command in the guild
   final List<ApplicationCommandPermissions> permissions;
@@ -23,14 +23,15 @@ class GuildApplicationCommandPermissions {
   /// Create a new instance of [GuildApplicationCommandPermissions]
   GuildApplicationCommandPermissions({
     required this.id,
-    this.appplicationId,
+    required this.appplicationId,
     required this.guildId,
     required this.permissions,
   });
 
   /// From json
   factory GuildApplicationCommandPermissions.fromJson(
-          Map<String, dynamic> json) =>
+    Map<String, dynamic> json,
+  ) =>
       _$GuildApplicationCommandPermissionsFromJson(json);
 
   /// To json

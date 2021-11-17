@@ -9,18 +9,16 @@ part of 'application_command.dart';
 ApplicationCommand _$ApplicationCommandFromJson(Map<String, dynamic> json) =>
     ApplicationCommand(
       id: json['id'] as String?,
-      type:
-          $enumDecodeNullable(_$ApplicationCommandTypeEnumMap, json['type']) ??
-              ApplicationCommandType.chatInput,
+      type: $enumDecodeNullable(_$ApplicationCommandTypeEnumMap, json['type']),
       applicationId: json['application_id'] as String?,
       guildId: json['guild_id'] as String?,
-      name: json['name'] as String,
-      description: json['description'] as String,
+      name: json['name'] as String?,
+      description: json['description'] as String?,
       options: (json['options'] as List<dynamic>?)
           ?.map((e) =>
               ApplicationCommandOption.fromJson(e as Map<String, dynamic>))
           .toList(),
-      defaultPermission: json['default_permission'] as bool? ?? true,
+      defaultPermission: json['default_permission'] as bool?,
       version: json['version'] as String?,
     );
 
