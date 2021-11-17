@@ -1,6 +1,3 @@
-import 'package:discord_interactions/discord_interactions.dart';
+// TODO
 
-void main() {
-  var awesome = Awesome();
-  print('awesome: ${awesome.isAwesome}');
-}
+void main() {}
