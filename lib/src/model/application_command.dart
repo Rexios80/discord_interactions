@@ -1,6 +1,10 @@
 import 'package:discord_interactions/src/model/application_command_option.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+part 'application_command.g.dart';
 
 /// Application commands are commands that an application can register to Discord
+@JsonSerializable()
 class ApplicationCommand {
   /// unique id of the command
   final String? id;
@@ -8,12 +12,12 @@ class ApplicationCommand {
   /// the type of command, defaults [ApplicationCommandType.chatInput] if not set
   final ApplicationCommandType type;
 
-  // TODO: Add json key
   /// unique id of the parent application
+  @JsonKey(name: 'application_id')
   final String? applicationId;
 
-  // TODO: add json key
   /// guild id of the command, if not global
+  @JsonKey(name: 'guild_id')
   final String? guildId;
 
   /// 1-32 character name
@@ -27,10 +31,10 @@ class ApplicationCommand {
   /// valid for CHAT_INPUT only
   final List<ApplicationCommandOption>? options;
 
-  // TODO: Add json key
   /// whether the command is enabled by default when the app is added to a guild
   ///
   /// default true
+  @JsonKey(name: 'default_permission')
   final bool defaultPermission;
 
   /// autoincrementing version identifier updated during substantial record changes
@@ -48,17 +52,27 @@ class ApplicationCommand {
     this.defaultPermission = true,
     this.version,
   });
+
+  /// From json
+  factory ApplicationCommand.fromJson(Map<String, dynamic> json) =>
+      _$ApplicationCommandFromJson(json);
+  
+  /// To json
+  Map<String, dynamic> toJson() => _$ApplicationCommandToJson(this);
 }
 
 // TODO: Add json serialization values
 /// The type of command
 enum ApplicationCommandType {
   /// Slash commands; a text-based command that shows up when a user types /
+  @JsonValue(1)
   chatInput,
 
   /// A UI-based command that shows up when you right click or tap on a user
+  @JsonValue(2)
   user,
 
   /// A UI-based command that shows up when you right click or tap on a message
+  @JsonValue(3)
   message,
 }
