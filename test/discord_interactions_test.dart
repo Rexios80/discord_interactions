@@ -1,2 +1,0 @@
-// TODO: Tests
-void main() {}

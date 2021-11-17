@@ -27,4 +27,13 @@ class GuildApplicationCommandPermissions {
     required this.guildId,
     required this.permissions,
   });
+
+  /// From json
+  factory GuildApplicationCommandPermissions.fromJson(
+          Map<String, dynamic> json) =>
+      _$GuildApplicationCommandPermissionsFromJson(json);
+
+  /// To json
+  Map<String, dynamic> toJson() =>
+      _$GuildApplicationCommandPermissionsToJson(this);
 }

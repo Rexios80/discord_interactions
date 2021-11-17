@@ -21,4 +21,11 @@ class ApplicationCommandPermissions {
     required this.type,
     required this.permission,
   });
+
+  /// From json
+  factory ApplicationCommandPermissions.fromJson(Map<String, dynamic> json) =>
+      _$ApplicationCommandPermissionsFromJson(json);
+  
+  /// To json
+  Map<String, dynamic> toJson() => _$ApplicationCommandPermissionsToJson(this);
 }

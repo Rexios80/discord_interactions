@@ -16,18 +16,22 @@ class ApplicationCommands {
   }) : _path = '$_basePath/$applicationId';
 
   /// Fetch all of the global commands for your application. Returns an array of [ApplicationCommand] objects.
-  Future<Response<List<ApplicationCommand>>> getGlobalApplicationCommands() {
-    return _dio.get('$_path/commands');
+  Future<List<ApplicationCommand>> getGlobalApplicationCommands() async {
+    final response = await _dio.get('$_path/commands');
+    return (response.data as List)
+        .map((e) => ApplicationCommand.fromJson(e))
+        .toList();
   }
 
   /// Create a new global command. New global commands will be available in all guilds after 1 hour.
   /// Returns 201 and an [ApplicationCommand] object.
   ///
   /// Creating a command with the same name as an existing command for your application will overwrite the old command.
-  Future<Response<ApplicationCommand>> createGlobalApplicationCommand(
+  Future<ApplicationCommand> createGlobalApplicationCommand(
     ApplicationCommand command,
-  ) {
-    return _dio.post('/$_path/commands', data: command);
+  ) async {
+    final response = await _dio.post('/$_path/commands', data: command);
+    return ApplicationCommand.fromJson(response.data);
   }
 
   /// Fetch a global command for your application. Returns an [ApplicationCommand] object.
@@ -55,11 +59,13 @@ class ApplicationCommands {
   /// Commands that do not already exist will count toward daily application command create limits.
   ///
   /// This will overwrite all types of application commands: slash commands, user commands, and message commands.
-  Future<Response<List<ApplicationCommand>>>
-      bulkOverwriteGlobalApplicationCommands(
+  Future<List<ApplicationCommand>> bulkOverwriteGlobalApplicationCommands(
     List<ApplicationCommand> commands,
-  ) {
-    return _dio.put('$_path/commands', data: commands);
+  ) async {
+    final response = await _dio.put('$_path/commands', data: commands);
+    return (response.data as List)
+        .map((e) => ApplicationCommand.fromJson(e))
+        .toList();
   }
 
   /// Fetch all of the guild commands for your application for a specific guild.
