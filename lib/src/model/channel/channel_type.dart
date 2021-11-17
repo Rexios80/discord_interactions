@@ -38,7 +38,8 @@ enum ChannelType {
   @JsonValue(11)
   guildPublicThread,
 
-  /// a temporary sub-channel within a GUILD_TEXT channel that is only viewable by those invited and those with the MANAGE_THREADS permission
+  /// a temporary sub-channel within a GUILD_TEXT channel that is only viewable
+  /// by those invited and those with the MANAGE_THREADS permission
   @JsonValue(12)
   guildPrivateThread,
 
