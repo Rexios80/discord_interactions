@@ -56,12 +56,11 @@ class ApplicationCommand {
   /// From json
   factory ApplicationCommand.fromJson(Map<String, dynamic> json) =>
       _$ApplicationCommandFromJson(json);
-  
+
   /// To json
   Map<String, dynamic> toJson() => _$ApplicationCommandToJson(this);
 }
 
-// TODO: Add json serialization values
 /// The type of command
 enum ApplicationCommandType {
   /// Slash commands; a text-based command that shows up when a user types /

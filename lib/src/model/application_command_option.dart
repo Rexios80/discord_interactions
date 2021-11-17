@@ -134,10 +134,7 @@ class ApplicationCommandOptionChoice {
   /// From json
   factory ApplicationCommandOptionChoice.fromJson(Map<String, dynamic> json) =>
       _$ApplicationCommandOptionChoiceFromJson(json);
-  
+
   /// To json
   Map<String, dynamic> toJson() => _$ApplicationCommandOptionChoiceToJson(this);
 }
-
-// TODO: What is Application Command Interaction Data Option
-// https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-interaction-data-option-structure

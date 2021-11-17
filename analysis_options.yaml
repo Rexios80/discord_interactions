@@ -6,3 +6,6 @@ linter:
     - unawaited_futures
     - public_member_api_docs
     - require_trailing_commas
+
+analyzer:
+  exclude: ['**/*.g.dart']
