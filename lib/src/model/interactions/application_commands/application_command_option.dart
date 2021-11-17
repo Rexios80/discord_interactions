@@ -1,5 +1,8 @@
-import 'package:discord_interactions/src/model/channel_type.dart';
+import 'package:discord_interactions/src/model/channel/channel_type.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import 'application_command_option_choice.dart';
+import 'application_command_option_type.dart';
 
 part 'application_command_option.g.dart';
 
@@ -69,72 +72,4 @@ class ApplicationCommandOption {
 
   /// To json
   Map<String, dynamic> toJson() => _$ApplicationCommandOptionToJson(this);
-}
-
-/// Application command option type
-enum ApplicationCommandOptionType {
-  /// sub command
-  @JsonValue(1)
-  subCommand,
-
-  /// sub command group
-  @JsonValue(2)
-  subCommandGroup,
-
-  /// string
-  @JsonValue(3)
-  string,
-
-  /// Any integer between -2^53 and 2^53
-  @JsonValue(4)
-  integer,
-
-  /// boolean
-  @JsonValue(5)
-  boolean,
-
-  /// user
-  @JsonValue(6)
-  user,
-
-  /// Includes all channel types + categories
-  @JsonValue(7)
-  channel,
-
-  /// role
-  @JsonValue(8)
-  role,
-
-  /// Includes users and roles
-  @JsonValue(9)
-  mentionable,
-
-  /// Any double between -2^53 and 2^53
-  @JsonValue(10)
-  number,
-}
-
-/// If you specify choices for an option, they are the only valid values for a user to pick
-@JsonSerializable()
-class ApplicationCommandOptionChoice {
-  /// 1-100 character choice name
-  final String name;
-
-  /// value of the choice, up to 100 characters if string
-  ///
-  /// string, integer, or double depending on the [ApplicationCommandOptionType]
-  final dynamic value;
-
-  /// Create an [ApplicationCommandOptionChoice]
-  ApplicationCommandOptionChoice({
-    required this.name,
-    required this.value,
-  });
-
-  /// From json
-  factory ApplicationCommandOptionChoice.fromJson(Map<String, dynamic> json) =>
-      _$ApplicationCommandOptionChoiceFromJson(json);
-
-  /// To json
-  Map<String, dynamic> toJson() => _$ApplicationCommandOptionChoiceToJson(this);
 }

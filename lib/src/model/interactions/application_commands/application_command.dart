@@ -1,5 +1,7 @@
-import 'package:discord_interactions/src/model/application_command_option.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import 'application_command_type.dart';
+import 'application_command_option.dart';
 
 part 'application_command.g.dart';
 
@@ -59,19 +61,4 @@ class ApplicationCommand {
 
   /// To json
   Map<String, dynamic> toJson() => _$ApplicationCommandToJson(this);
-}
-
-/// The type of command
-enum ApplicationCommandType {
-  /// Slash commands; a text-based command that shows up when a user types /
-  @JsonValue(1)
-  chatInput,
-
-  /// A UI-based command that shows up when you right click or tap on a user
-  @JsonValue(2)
-  user,
-
-  /// A UI-based command that shows up when you right click or tap on a message
-  @JsonValue(3)
-  message,
 }

@@ -1,9 +1,14 @@
 library discord_interactions;
 
-export 'src/discord_interactions_base.dart';
+// api
+export 'src/api/discord_api.dart';
 
-export 'src/api/discord_command_management_api.dart';
+// model
+export 'src/model/discord_user_agent.dart';
 
-export 'src/model/application_command.dart';
-export 'src/model/application_command_option.dart';
-export 'src/model/channel_type.dart';
+// application commands
+export 'src/model/interactions/application_commands/application_command_option_choice.dart';
+export 'src/model/interactions/application_commands/application_command_option_type.dart';
+export 'src/model/interactions/application_commands/application_command_option.dart';
+export 'src/model/interactions/application_commands/application_command_type.dart';
+export 'src/model/interactions/application_commands/application_command.dart';

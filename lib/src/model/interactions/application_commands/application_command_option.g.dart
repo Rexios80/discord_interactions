@@ -71,17 +71,3 @@ const _$ChannelTypeEnumMap = {
   ChannelType.guildPrivateThread: 12,
   ChannelType.guildStageVoice: 13,
 };
-
-ApplicationCommandOptionChoice _$ApplicationCommandOptionChoiceFromJson(
-        Map<String, dynamic> json) =>
-    ApplicationCommandOptionChoice(
-      name: json['name'] as String,
-      value: json['value'],
-    );
-
-Map<String, dynamic> _$ApplicationCommandOptionChoiceToJson(
-        ApplicationCommandOptionChoice instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'value': instance.value,
-    };
