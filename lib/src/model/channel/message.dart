@@ -1,19 +1,9 @@
-import 'package:discord_interactions/src/converter/iso8601_converter.dart';
-import 'package:discord_interactions/src/model/application/application.dart';
-import 'package:discord_interactions/src/model/channel/attachment.dart';
-import 'package:discord_interactions/src/model/channel/channel.dart';
-import 'package:discord_interactions/src/model/channel/channel_mention.dart';
-import 'package:discord_interactions/src/model/channel/embed/embed.dart';
-import 'package:discord_interactions/src/model/channel/message_activity.dart';
-import 'package:discord_interactions/src/model/channel/message_reference.dart';
-import 'package:discord_interactions/src/model/channel/message_type.dart';
-import 'package:discord_interactions/src/model/channel/reaction.dart';
-import 'package:discord_interactions/src/model/guild/guild_member.dart';
-import 'package:discord_interactions/src/model/interactions/components/component.dart';
-import 'package:discord_interactions/src/model/interactions/interactions/message_interaction.dart';
-import 'package:discord_interactions/src/model/sticker/sticker_item.dart';
-import 'package:discord_interactions/src/model/user/user.dart';
+// Package imports:
 import 'package:json_annotation/json_annotation.dart';
+
+// Project imports:
+import 'package:discord_interactions/src/converter/iso8601_converter.dart';
+import 'package:discord_interactions/src/model/discord_model.dart';
 
 part 'message.g.dart';
 

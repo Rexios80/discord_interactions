@@ -1,5 +1,8 @@
-import 'package:discord_interactions/src/model/interactions/application_commands/application_command_permission_type.dart';
+// Package imports:
 import 'package:json_annotation/json_annotation.dart';
+
+// Project imports:
+import 'package:discord_interactions/src/model/discord_model.dart';
 
 part 'application_command_permissions.g.dart';
 

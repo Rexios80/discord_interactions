@@ -1,5 +1,8 @@
+// Package imports:
 import 'package:dio/dio.dart';
-import 'package:discord_interactions/src/model/discord_response.dart';
+
+// Project imports:
+import 'package:discord_interactions/src/model/discord_model.dart';
 
 /// Call a Discord API endpoint and validate the response
 Future<DiscordResponse<T>> validateApiCall<T>(

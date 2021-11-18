@@ -1,5 +1,8 @@
-import 'package:discord_interactions/src/model/channel/channel_type.dart';
+// Package imports:
 import 'package:json_annotation/json_annotation.dart';
+
+// Project imports:
+import 'package:discord_interactions/src/model/discord_model.dart';
 
 part 'channel_mention.g.dart';
 

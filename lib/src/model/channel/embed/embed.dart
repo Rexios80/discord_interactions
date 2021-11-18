@@ -1,13 +1,9 @@
-import 'package:discord_interactions/src/converter/iso8601_converter.dart';
-import 'package:discord_interactions/src/model/channel/embed/embed_author.dart';
-import 'package:discord_interactions/src/model/channel/embed/embed_field.dart';
-import 'package:discord_interactions/src/model/channel/embed/embed_footer.dart';
-import 'package:discord_interactions/src/model/channel/embed/embed_image.dart';
-import 'package:discord_interactions/src/model/channel/embed/embed_provider.dart';
-import 'package:discord_interactions/src/model/channel/embed/embed_thumbnail.dart';
-import 'package:discord_interactions/src/model/channel/embed/embed_type.dart';
-import 'package:discord_interactions/src/model/channel/embed/embed_video.dart';
+// Package imports:
 import 'package:json_annotation/json_annotation.dart';
+
+// Project imports:
+import 'package:discord_interactions/src/converter/iso8601_converter.dart';
+import 'package:discord_interactions/src/model/discord_model.dart';
 
 part 'embed.g.dart';
 

@@ -1,5 +1,8 @@
-import 'package:discord_interactions/src/model/sticker/sticker_format_type.dart';
+// Package imports:
 import 'package:json_annotation/json_annotation.dart';
+
+// Project imports:
+import 'package:discord_interactions/src/model/discord_model.dart';
 
 part 'sticker_item.g.dart';
 

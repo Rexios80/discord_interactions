@@ -1,8 +1,8 @@
-import 'package:discord_interactions/src/model/emoji/emoji.dart';
-import 'package:discord_interactions/src/model/interactions/components/button_style.dart';
-import 'package:discord_interactions/src/model/interactions/components/component_type.dart';
-import 'package:discord_interactions/src/model/interactions/components/select_option.dart';
+// Package imports:
 import 'package:json_annotation/json_annotation.dart';
+
+// Project imports:
+import 'package:discord_interactions/src/model/discord_model.dart';
 
 part 'component.g.dart';
 

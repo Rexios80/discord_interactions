@@ -1,8 +1,12 @@
+// Dart imports:
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:discord_interactions/discord_interactions.dart';
+// Package imports:
 import 'package:yaml/yaml.dart';
+
+// Project imports:
+import 'package:discord_interactions/discord_interactions.dart';
 
 late final DiscordApi api;
 late final Map<String, dynamic> applicationInfo;

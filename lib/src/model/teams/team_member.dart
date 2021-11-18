@@ -1,6 +1,9 @@
+// Package imports:
+import 'package:json_annotation/json_annotation.dart';
+
+// Project imports:
 import 'package:discord_interactions/src/model/teams/membership_state.dart';
 import 'package:discord_interactions/src/model/user/user.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'team_member.g.dart';
 

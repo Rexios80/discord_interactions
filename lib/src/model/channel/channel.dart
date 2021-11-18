@@ -1,11 +1,9 @@
-import 'package:discord_interactions/src/converter/iso8601_converter.dart';
-import 'package:discord_interactions/src/model/channel/channel_type.dart';
-import 'package:discord_interactions/src/model/channel/overwrite.dart';
-import 'package:discord_interactions/src/model/channel/thread_member.dart';
-import 'package:discord_interactions/src/model/channel/thread_metadata.dart';
-import 'package:discord_interactions/src/model/channel/video_quality_mode.dart';
-import 'package:discord_interactions/src/model/user/user.dart';
+// Package imports:
 import 'package:json_annotation/json_annotation.dart';
+
+// Project imports:
+import 'package:discord_interactions/src/converter/iso8601_converter.dart';
+import 'package:discord_interactions/src/model/discord_model.dart';
 
 part 'channel.g.dart';
 

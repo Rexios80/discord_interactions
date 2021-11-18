@@ -1,5 +1,8 @@
-import 'package:discord_interactions/src/model/guild/guild_member.dart';
+// Package imports:
 import 'package:json_annotation/json_annotation.dart';
+
+// Project imports:
+import 'package:discord_interactions/src/model/guild/guild_member.dart';
 import 'package:discord_interactions/src/model/user/premium_type.dart';
 
 part 'user.g.dart';

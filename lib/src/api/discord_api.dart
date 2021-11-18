@@ -1,6 +1,9 @@
+// Package imports:
 import 'package:dio/dio.dart';
-import 'package:discord_interactions/src/model/discord_user_agent.dart';
+
+// Project imports:
 import 'package:discord_interactions/src/api/interactions/application_commands.dart';
+import 'package:discord_interactions/src/model/discord_model.dart';
 
 /// Base class for accessing the Discord API
 class DiscordApi {

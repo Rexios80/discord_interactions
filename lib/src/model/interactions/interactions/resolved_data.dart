@@ -1,9 +1,8 @@
-import 'package:discord_interactions/src/model/channel/channel.dart';
-import 'package:discord_interactions/src/model/guild/guild_member.dart';
-import 'package:discord_interactions/src/model/channel/message.dart';
-import 'package:discord_interactions/src/model/permissions/role.dart';
-import 'package:discord_interactions/src/model/user/user.dart';
+// Package imports:
 import 'package:json_annotation/json_annotation.dart';
+
+// Project imports:
+import 'package:discord_interactions/src/model/discord_model.dart';
 
 part 'resolved_data.g.dart';
 

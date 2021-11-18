@@ -1,5 +1,8 @@
-import 'package:discord_interactions/src/converter/iso8601_converter.dart';
+// Package imports:
 import 'package:json_annotation/json_annotation.dart';
+
+// Project imports:
+import 'package:discord_interactions/src/converter/iso8601_converter.dart';
 
 part 'thread_member.g.dart';
 

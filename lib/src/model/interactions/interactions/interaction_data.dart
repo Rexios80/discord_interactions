@@ -1,9 +1,8 @@
-import 'package:discord_interactions/discord_interactions.dart';
-import 'package:discord_interactions/src/model/interactions/application_commands/application_command_interaction_data_option.dart';
-import 'package:discord_interactions/src/model/interactions/components/component_type.dart';
-import 'package:discord_interactions/src/model/interactions/components/select_option.dart';
+// Package imports:
 import 'package:json_annotation/json_annotation.dart';
-import 'package:discord_interactions/src/model/interactions/interactions/resolved_data.dart';
+
+// Project imports:
+import 'package:discord_interactions/src/model/discord_model.dart';
 
 part 'interaction_data.g.dart';
 

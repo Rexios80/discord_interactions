@@ -1,5 +1,8 @@
-import 'package:discord_interactions/discord_interactions.dart';
+// Package imports:
 import 'package:json_annotation/json_annotation.dart';
+
+// Project imports:
+import 'package:discord_interactions/src/model/discord_model.dart';
 
 part 'application_command_interaction_data_option.g.dart';
 

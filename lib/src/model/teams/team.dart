@@ -1,5 +1,8 @@
-import 'package:discord_interactions/src/model/teams/team_member.dart';
+// Package imports:
 import 'package:json_annotation/json_annotation.dart';
+
+// Project imports:
+import 'package:discord_interactions/src/model/teams/team_member.dart';
 
 part 'team.g.dart';
 

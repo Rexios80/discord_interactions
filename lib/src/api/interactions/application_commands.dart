@@ -1,8 +1,8 @@
+// Package imports:
 import 'package:dio/dio.dart';
-import 'package:discord_interactions/src/model/discord_response.dart';
-import 'package:discord_interactions/src/model/interactions/application_commands/application_command.dart';
-import 'package:discord_interactions/src/model/interactions/application_commands/application_command_permissions.dart';
-import 'package:discord_interactions/src/model/interactions/application_commands/guild_application_command_permissions.dart';
+
+// Project imports:
+import 'package:discord_interactions/src/model/discord_model.dart';
 import 'package:discord_interactions/src/util/discord_api_utils.dart';
 
 /// Access to the Application Commands API

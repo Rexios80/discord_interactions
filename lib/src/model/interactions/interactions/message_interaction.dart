@@ -1,6 +1,8 @@
-import 'package:discord_interactions/src/model/interactions/interactions/interaction_type.dart';
-import 'package:discord_interactions/src/model/user/user.dart';
+// Package imports:
 import 'package:json_annotation/json_annotation.dart';
+
+// Project imports:
+import 'package:discord_interactions/src/model/discord_model.dart';
 
 part 'message_interaction.g.dart';
 
