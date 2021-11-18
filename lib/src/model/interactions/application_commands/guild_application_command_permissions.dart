@@ -23,8 +23,8 @@ class GuildApplicationCommandPermissions {
   /// Create a new instance of [GuildApplicationCommandPermissions]
   GuildApplicationCommandPermissions({
     required this.id,
-    required this.appplicationId,
-    required this.guildId,
+    this.appplicationId,
+    this.guildId,
     required this.permissions,
   });
 

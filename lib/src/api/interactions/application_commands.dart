@@ -185,7 +185,7 @@ class ApplicationCommands {
     required String guildId,
   }) {
     return validateApiCall(
-      _dio.get('$_path/guilds/$guildId/commands/permissions/$commandId'),
+      _dio.get('$_path/guilds/$guildId/commands/$commandId/permissions'),
       responseTransformer: (data) =>
           GuildApplicationCommandPermissions.fromJson(data),
     );
@@ -227,7 +227,7 @@ class ApplicationCommands {
     required String guildId,
   }) {
     return validateApiCall(
-      _dio.patch(
+      _dio.put(
         '$_path/guilds/$guildId/commands/permissions',
         data: permissions,
       ),

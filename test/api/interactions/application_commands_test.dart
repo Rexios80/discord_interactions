@@ -154,5 +154,28 @@ void main() async {
     );
     final permissions = permissionsResponse.data!;
     expect(permissions.permissions.length, 1);
+
+    final getGuildPermissionsResponse =
+        await api.applicationCommands.getGuildApplicationCommandPermissions(
+      guildId: guildId,
+    );
+    final guildPermissions = getGuildPermissionsResponse.data!;
+    expect(guildPermissions.length, 1);
+
+    final getPermissionsResponse =
+        await api.applicationCommands.getApplicationCommandPermissions(
+      command.id!,
+      guildId: guildId,
+    );
+    final fetchedPermissions = getPermissionsResponse.data!;
+    expect(fetchedPermissions.permissions.length, 1);
+
+    final batchPermissionsResponse =
+        await api.applicationCommands.batchEditApplicationCommandPermissions(
+      [],
+      guildId: guildId,
+    );
+    final batchPermissions = batchPermissionsResponse.data!;
+    expect(batchPermissions.length, 0);
   });
 }
