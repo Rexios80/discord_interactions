@@ -5,9 +5,13 @@ import 'package:discord_interactions/src/model/channel/channel.dart';
 import 'package:discord_interactions/src/model/channel/channel_mention.dart';
 import 'package:discord_interactions/src/model/channel/embed/embed.dart';
 import 'package:discord_interactions/src/model/channel/message_activity.dart';
+import 'package:discord_interactions/src/model/channel/message_reference.dart';
 import 'package:discord_interactions/src/model/channel/message_type.dart';
 import 'package:discord_interactions/src/model/channel/reaction.dart';
 import 'package:discord_interactions/src/model/guild/guild_member.dart';
+import 'package:discord_interactions/src/model/interactions/components/component.dart';
+import 'package:discord_interactions/src/model/interactions/interactions/message_interaction.dart';
+import 'package:discord_interactions/src/model/sticker/sticker_item.dart';
 import 'package:discord_interactions/src/model/user/user.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -64,7 +68,7 @@ class Message {
   final bool mentionEveryone;
 
   /// users specifically mentioned in the message
-  /// 
+  ///
   /// array of user objects, with an additional partial member field
   ///
   /// The user objects in the mentions array will only have the partial member
@@ -144,11 +148,15 @@ class Message {
 
   /// sent if the message contains components like buttons, action rows, or
   /// other interactive components
-  final List<MessageComponent>? components;
+  final List<Component>? components;
 
   /// sent if the message contains stickers
   @JsonKey(name: 'sitcker_items')
-  final List<MessageStickerItem>? stickerItems;
+  final List<StickerItem>? stickerItems;
+
+  /// array of sticker objects
+  // @Deprecated('Use stickerItems instead')
+  // final List<Sticker>? stickers;
 
   /// Constructor
   Message({
@@ -185,7 +193,8 @@ class Message {
   });
 
   /// From json
-  factory Message.fromJson(Map<String, dynamic> json) => _$MessageFromJson(json);
+  factory Message.fromJson(Map<String, dynamic> json) =>
+      _$MessageFromJson(json);
 
   /// To json
   Map<String, dynamic> toJson() => _$MessageToJson(this);

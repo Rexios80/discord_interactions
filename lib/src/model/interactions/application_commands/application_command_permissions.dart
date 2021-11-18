@@ -25,7 +25,7 @@ class ApplicationCommandPermissions {
   /// From json
   factory ApplicationCommandPermissions.fromJson(Map<String, dynamic> json) =>
       _$ApplicationCommandPermissionsFromJson(json);
-  
+
   /// To json
   Map<String, dynamic> toJson() => _$ApplicationCommandPermissionsToJson(this);
 }

@@ -49,18 +49,28 @@ Message _$MessageFromJson(Map<String, dynamic> json) => Message(
           ? null
           : Application.fromJson(json['application'] as Map<String, dynamic>),
       applicationId: json['application_id'] as String?,
-      messageReference: json['message_reference'],
+      messageReference: json['message_reference'] == null
+          ? null
+          : MessageReference.fromJson(
+              json['message_reference'] as Map<String, dynamic>),
       flags: json['flags'] as int?,
       referencedMessage: json['referenced_message'] == null
           ? null
           : Message.fromJson(
               json['referenced_message'] as Map<String, dynamic>),
-      interaction: json['interaction'],
+      interaction: json['interaction'] == null
+          ? null
+          : MessageInteraction.fromJson(
+              json['interaction'] as Map<String, dynamic>),
       thread: json['thread'] == null
           ? null
           : Channel.fromJson(json['thread'] as Map<String, dynamic>),
-      components: json['components'] as List<dynamic>?,
-      stickerItems: json['sitcker_items'] as List<dynamic>?,
+      components: (json['components'] as List<dynamic>?)
+          ?.map((e) => Component.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      stickerItems: (json['sitcker_items'] as List<dynamic>?)
+          ?.map((e) => StickerItem.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$MessageToJson(Message instance) => <String, dynamic>{
