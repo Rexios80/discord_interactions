@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-/// Application command option type
+/// the type of option
 enum ApplicationCommandOptionType {
   /// sub command
   @JsonValue(1)

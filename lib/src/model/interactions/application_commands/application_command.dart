@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'application_command_type.dart';
-import 'application_command_option.dart';
+import 'package:discord_interactions/src/model/interactions/application_commands/application_command_type.dart';
+import 'package:discord_interactions/src/model/interactions/application_commands/application_command_option.dart';
 
 part 'application_command.g.dart';
 

@@ -1,8 +1,7 @@
 import 'package:discord_interactions/src/model/channel/channel_type.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-import 'application_command_option_choice.dart';
-import 'application_command_option_type.dart';
+import 'package:discord_interactions/src/model/interactions/application_commands/application_command_option_choice.dart';
+import 'package:discord_interactions/src/model/interactions/application_commands/application_command_option_type.dart';
 
 part 'application_command_option.g.dart';
 
