@@ -1,4 +1,5 @@
-import 'package:discord_interactions/src/model/message/message.dart';
+import 'package:discord_interactions/src/model/guild/guild_member.dart';
+import 'package:discord_interactions/src/model/channel/message.dart';
 import 'package:discord_interactions/src/model/user/user.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:discord_interactions/src/model/interactions/interactions/interaction_data.dart';

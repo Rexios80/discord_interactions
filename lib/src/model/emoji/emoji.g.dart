@@ -11,7 +11,9 @@ Emoji _$EmojiFromJson(Map<String, dynamic> json) => Emoji(
       name: json['name'] as String?,
       roles:
           (json['roles'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      user: json['user'],
+      user: json['user'] == null
+          ? null
+          : User.fromJson(json['user'] as Map<String, dynamic>),
       requireColons: json['require_colons'] as bool?,
       managed: json['managed'] as bool?,
       animated: json['animated'] as bool?,

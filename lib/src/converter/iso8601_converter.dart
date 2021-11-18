@@ -12,6 +12,7 @@ class ISO8601Converter extends JsonConverter<DateTime, String> {
   String toJson(DateTime object) => object.toIso8601String();
 }
 
+/// Converter between ISO8601 strings and DateTime that is nullable
 class ISO8601ConverterNullable extends JsonConverter<DateTime?, String?> {
   /// Constructor
   const ISO8601ConverterNullable();

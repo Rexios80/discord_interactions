@@ -1,3 +1,4 @@
+import 'package:discord_interactions/src/model/guild/guild_member.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:discord_interactions/src/model/user/premium_type.dart';
 

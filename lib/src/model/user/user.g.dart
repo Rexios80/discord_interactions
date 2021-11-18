@@ -23,6 +23,9 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       premiumType:
           $enumDecodeNullable(_$PremiumTypeEnumMap, json['premium_type']),
       publicFlags: json['public_flags'] as int?,
+      member: json['member'] == null
+          ? null
+          : GuildMember.fromJson(json['member'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
@@ -41,6 +44,7 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'flags': instance.flags,
       'premium_type': _$PremiumTypeEnumMap[instance.premiumType],
       'public_flags': instance.publicFlags,
+      'member': instance.member,
     };
 
 const _$PremiumTypeEnumMap = {

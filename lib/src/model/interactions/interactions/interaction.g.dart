@@ -15,13 +15,17 @@ Interaction _$InteractionFromJson(Map<String, dynamic> json) => Interaction(
           : InteractionData.fromJson(json['data'] as Map<String, dynamic>),
       guildId: json['guild_id'] as String,
       channelId: json['channel_id'] as String,
-      member: json['member'],
+      member: json['member'] == null
+          ? null
+          : GuildMember.fromJson(json['member'] as Map<String, dynamic>),
       user: json['user'] == null
           ? null
           : User.fromJson(json['user'] as Map<String, dynamic>),
       token: json['token'] as String,
       version: json['version'] as int,
-      message: json['message'],
+      message: json['message'] == null
+          ? null
+          : Message.fromJson(json['message'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$InteractionToJson(Interaction instance) =>

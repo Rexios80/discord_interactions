@@ -1,4 +1,7 @@
-import 'package:discord_interactions/src/model/message/message.dart';
+import 'package:discord_interactions/src/model/channel/channel.dart';
+import 'package:discord_interactions/src/model/guild/guild_member.dart';
+import 'package:discord_interactions/src/model/channel/message.dart';
+import 'package:discord_interactions/src/model/permissions/role.dart';
 import 'package:discord_interactions/src/model/user/user.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -13,7 +16,7 @@ class ResolvedData {
   /// the ids and partial Member objects
   ///
   /// Partial Member objects are missing user, deaf and mute fields
-  final Map<String, Member>? members;
+  final Map<String, GuildMember>? members;
 
   /// the ids and Role objects
   final Map<String, Role>? roles;

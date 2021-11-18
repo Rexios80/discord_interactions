@@ -1,6 +1,10 @@
 import 'package:discord_interactions/src/converter/iso8601_converter.dart';
+import 'package:discord_interactions/src/model/channel/channel.dart';
+import 'package:discord_interactions/src/model/guild/guild_member.dart';
 import 'package:discord_interactions/src/model/user/user.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+part 'message.g.dart';
 
 /// content, embeds, attachments, and components will require a privileged intent in 2022. Learn more here.
 @JsonSerializable()
@@ -53,6 +57,8 @@ class Message {
   final bool mentionEveryone;
 
   /// users specifically mentioned in the message
+  /// 
+  /// array of user objects, with an additional partial member field
   ///
   /// The user objects in the mentions array will only have the partial member
   /// field present in MESSAGE_CREATE and MESSAGE_UPDATE events from text-based
