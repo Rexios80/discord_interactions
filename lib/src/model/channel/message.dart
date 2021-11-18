@@ -1,8 +1,12 @@
 import 'package:discord_interactions/src/converter/iso8601_converter.dart';
+import 'package:discord_interactions/src/model/application/application.dart';
 import 'package:discord_interactions/src/model/channel/attachment.dart';
 import 'package:discord_interactions/src/model/channel/channel.dart';
 import 'package:discord_interactions/src/model/channel/channel_mention.dart';
+import 'package:discord_interactions/src/model/channel/embed/embed.dart';
+import 'package:discord_interactions/src/model/channel/message_activity.dart';
 import 'package:discord_interactions/src/model/channel/message_type.dart';
+import 'package:discord_interactions/src/model/channel/reaction.dart';
 import 'package:discord_interactions/src/model/guild/guild_member.dart';
 import 'package:discord_interactions/src/model/user/user.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -167,7 +171,7 @@ class Message {
     this.nonce,
     required this.pinned,
     this.webhookId,
-    this.type,
+    required this.type,
     this.activity,
     this.application,
     this.applicationId,

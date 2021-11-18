@@ -32,14 +32,22 @@ Message _$MessageFromJson(Map<String, dynamic> json) => Message(
       attachments: (json['attachments'] as List<dynamic>)
           .map((e) => Attachment.fromJson(e as Map<String, dynamic>))
           .toList(),
-      embeds: json['embeds'] as List<dynamic>,
-      reactions: json['reactions'] as List<dynamic>?,
+      embeds: (json['embeds'] as List<dynamic>)
+          .map((e) => Embed.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      reactions: (json['reactions'] as List<dynamic>?)
+          ?.map((e) => Reaction.fromJson(e as Map<String, dynamic>))
+          .toList(),
       nonce: json['nonce'],
       pinned: json['pinned'] as bool,
       webhookId: json['webhook_id'] as String?,
       type: $enumDecode(_$MessageTypeEnumMap, json['type']),
-      activity: json['activity'],
-      application: json['application'],
+      activity: json['activity'] == null
+          ? null
+          : MessageActivity.fromJson(json['activity'] as Map<String, dynamic>),
+      application: json['application'] == null
+          ? null
+          : Application.fromJson(json['application'] as Map<String, dynamic>),
       applicationId: json['application_id'] as String?,
       messageReference: json['message_reference'],
       flags: json['flags'] as int?,
