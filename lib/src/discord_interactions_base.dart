@@ -1,5 +1,6 @@
 /// TODO
 /// 
 // TODO: Clean up imports across the codebase
-// TODO: Consistend constructor docs
+// TODO: Consistent constructor docs
+// TODO: Consistent class docs
 class DiscordInteractions {}

@@ -26,14 +26,18 @@ Message _$MessageFromJson(Map<String, dynamic> json) => Message(
       mentionRoles: (json['mention_roles'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
-      mentionChannels: json['mention_channels'] as List<dynamic>?,
-      attachments: json['attachments'] as List<dynamic>,
+      mentionChannels: (json['mention_channels'] as List<dynamic>?)
+          ?.map((e) => ChannelMention.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      attachments: (json['attachments'] as List<dynamic>)
+          .map((e) => Attachment.fromJson(e as Map<String, dynamic>))
+          .toList(),
       embeds: json['embeds'] as List<dynamic>,
       reactions: json['reactions'] as List<dynamic>?,
       nonce: json['nonce'],
       pinned: json['pinned'] as bool,
       webhookId: json['webhook_id'] as String?,
-      type: json['type'],
+      type: $enumDecode(_$MessageTypeEnumMap, json['type']),
       activity: json['activity'],
       application: json['application'],
       applicationId: json['application_id'] as String?,
@@ -72,7 +76,7 @@ Map<String, dynamic> _$MessageToJson(Message instance) => <String, dynamic>{
       'nonce': instance.nonce,
       'pinned': instance.pinned,
       'webhook_id': instance.webhookId,
-      'type': instance.type,
+      'type': _$MessageTypeEnumMap[instance.type],
       'activity': instance.activity,
       'application': instance.application,
       'application_id': instance.applicationId,
@@ -84,3 +88,29 @@ Map<String, dynamic> _$MessageToJson(Message instance) => <String, dynamic>{
       'components': instance.components,
       'sitcker_items': instance.stickerItems,
     };
+
+const _$MessageTypeEnumMap = {
+  MessageType.defaultType: 0,
+  MessageType.recipientAdd: 1,
+  MessageType.recipientRemove: 2,
+  MessageType.call: 3,
+  MessageType.channelNameChange: 4,
+  MessageType.channelIconChange: 5,
+  MessageType.channelPinnedMessage: 6,
+  MessageType.guildMemberJoin: 7,
+  MessageType.userPremiumGuildSubscription: 8,
+  MessageType.userPremiumGuildSubscriptionTier1: 9,
+  MessageType.userPremiumGuildSubscriptionTier2: 10,
+  MessageType.userPremiumGuildSubscriptionTier3: 11,
+  MessageType.channelFollowAdd: 12,
+  MessageType.guildDiscoveryDisqualified: 14,
+  MessageType.guildDiscoveryRequalified: 15,
+  MessageType.guildDiscoveryGracePeriodInitialWarning: 16,
+  MessageType.guildDiscoveryGracePeriodFinalWarning: 17,
+  MessageType.threadCreated: 18,
+  MessageType.reply: 19,
+  MessageType.chatInputCommand: 20,
+  MessageType.threadStarterMessage: 21,
+  MessageType.guildInviteReminder: 22,
+  MessageType.contextMenuCommand: 23,
+};

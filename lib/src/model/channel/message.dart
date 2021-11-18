@@ -1,5 +1,8 @@
 import 'package:discord_interactions/src/converter/iso8601_converter.dart';
+import 'package:discord_interactions/src/model/channel/attachment.dart';
 import 'package:discord_interactions/src/model/channel/channel.dart';
+import 'package:discord_interactions/src/model/channel/channel_mention.dart';
+import 'package:discord_interactions/src/model/channel/message_type.dart';
 import 'package:discord_interactions/src/model/guild/guild_member.dart';
 import 'package:discord_interactions/src/model/user/user.dart';
 import 'package:json_annotation/json_annotation.dart';
