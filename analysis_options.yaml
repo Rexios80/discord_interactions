@@ -9,4 +9,4 @@ linter:
     - always_use_package_imports
 
 analyzer:
-  exclude: [example/*, '**/*.g.dart']
+  exclude: ['**/*.g.dart']

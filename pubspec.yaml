@@ -22,3 +22,6 @@ dev_dependencies:
 
   # dart run import_sorter:main
   import_sorter: ^4.6.0
+
+  # dependencies for example
+  functions_framework: ^0.4.1

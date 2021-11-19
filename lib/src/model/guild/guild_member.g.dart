@@ -16,8 +16,8 @@ GuildMember _$GuildMemberFromJson(Map<String, dynamic> json) => GuildMember(
       joinedAt: const ISO8601Converter().fromJson(json['joined_at'] as String),
       premiumSince: const ISO8601ConverterNullable()
           .fromJson(json['premium_since'] as String?),
-      deaf: json['deaf'] as bool,
-      mute: json['mute'] as bool,
+      deaf: json['deaf'] as bool?,
+      mute: json['mute'] as bool?,
       pending: json['pending'] as bool?,
       permissions: json['permissions'] as String?,
     );

@@ -36,10 +36,10 @@ class GuildMember {
   final DateTime? premiumSince;
 
   /// whether the user is deafened in voice channels
-  final bool deaf;
+  final bool? deaf;
 
   /// whether the user is muted in voice channels
-  final bool mute;
+  final bool? mute;
 
   /// whether the user has not yet passed the guild's Membership Screening requirements
   ///
