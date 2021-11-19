@@ -11,11 +11,9 @@ AllowedMentions _$AllowedMentionsFromJson(Map<String, dynamic> json) =>
       parse: (json['parse'] as List<dynamic>)
           .map((e) => $enumDecode(_$AllowedMentionTypeEnumMap, e))
           .toList(),
-      roles:
-          (json['roles'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      users:
-          (json['users'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      repliedUser: json['replied_user'] as bool?,
+      roles: (json['roles'] as List<dynamic>).map((e) => e as String).toList(),
+      users: (json['users'] as List<dynamic>).map((e) => e as String).toList(),
+      repliedUser: json['replied_user'] as bool,
     );
 
 Map<String, dynamic> _$AllowedMentionsToJson(AllowedMentions instance) =>
