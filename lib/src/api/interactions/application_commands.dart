@@ -12,7 +12,7 @@ class ApplicationCommands {
   final Dio _dio;
   final String _path;
 
-  /// Creates a new instance of [ApplicationCommands]
+  /// Constructor
   ApplicationCommands(
     this._dio, {
     required String applicationId,

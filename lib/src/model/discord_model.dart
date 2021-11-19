@@ -8,6 +8,8 @@ export 'api/discord_user_agent.dart';
 export 'application/application.dart';
 
 // channel
+export 'channel/allowed_mention_type.dart';
+export 'channel/allowed_mentions.dart';
 export 'channel/attachment.dart';
 export 'channel/channel_mention.dart';
 export 'channel/channel_type.dart';
@@ -58,7 +60,10 @@ export 'interactions/components/component.dart';
 export 'interactions/components/select_option.dart';
 
 // interactions/interactions
+export 'interactions/interactions/interaction_callback_data.dart';
+export 'interactions/interactions/interaction_callback_type.dart';
 export 'interactions/interactions/interaction_data.dart';
+export 'interactions/interactions/interaction_response.dart';
 export 'interactions/interactions/interaction_type.dart';
 export 'interactions/interactions/interaction.dart';
 export 'interactions/interactions/message_interaction.dart';

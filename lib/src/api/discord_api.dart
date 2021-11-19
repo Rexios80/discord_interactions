@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 
 // Project imports:
 import 'package:discord_interactions/src/api/interactions/application_commands.dart';
+import 'package:discord_interactions/src/api/interactions/interactions.dart';
 import 'package:discord_interactions/src/model/discord_model.dart';
 
 /// Base class for accessing the Discord API
@@ -13,6 +14,9 @@ class DiscordApi {
 
   /// Access to Application Commands api
   late final ApplicationCommands applicationCommands;
+
+  /// Access to Interactions api
+  late final Interactions interactions;
 
   /// Access to the Discord API
   DiscordApi({
@@ -36,5 +40,6 @@ class DiscordApi {
       _dio,
       applicationId: applicationId,
     );
+    interactions = Interactions(_dio, applicationId: applicationId);
   }
 }
