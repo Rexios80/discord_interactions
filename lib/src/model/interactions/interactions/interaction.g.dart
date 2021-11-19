@@ -13,8 +13,8 @@ Interaction _$InteractionFromJson(Map<String, dynamic> json) => Interaction(
       data: json['data'] == null
           ? null
           : InteractionData.fromJson(json['data'] as Map<String, dynamic>),
-      guildId: json['guild_id'] as String,
-      channelId: json['channel_id'] as String,
+      guildId: json['guild_id'] as String?,
+      channelId: json['channel_id'] as String?,
       member: json['member'] == null
           ? null
           : GuildMember.fromJson(json['member'] as Map<String, dynamic>),

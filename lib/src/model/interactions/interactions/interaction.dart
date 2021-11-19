@@ -29,11 +29,11 @@ class Interaction {
 
   /// the guild it was sent from
   @JsonKey(name: 'guild_id')
-  final String guildId;
+  final String? guildId;
 
   /// the channel it was sent from
   @JsonKey(name: 'channel_id')
-  final String channelId;
+  final String? channelId;
 
   /// guild member data for the invoking user, including permissions
   ///
@@ -60,8 +60,8 @@ class Interaction {
     required this.applicationId,
     required this.type,
     this.data,
-    required this.guildId,
-    required this.channelId,
+    this.guildId,
+    this.channelId,
     this.member,
     this.user,
     required this.token,

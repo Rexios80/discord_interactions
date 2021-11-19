@@ -12,8 +12,11 @@ import 'package:pinenacl/ed25519.dart';
 /// you invalid signatures. If you fail the validation, we will remove your
 /// interactions URL in the future and alert you via email and System DM.
 class InteractionValidator {
-  static const String _signatureHeaderKey = 'X-Signature-Ed25519';
-  static const String _timestampHeaderKey = 'X-Signature-Timestamp';
+  /// The signature header key
+  static const String signatureHeaderKey = 'X-Signature-Ed25519';
+
+  /// The signature timestamp header key
+  static const String timestampHeaderKey = 'X-Signature-Timestamp';
 
   final VerifyKey _verifyKey;
 
@@ -24,8 +27,8 @@ class InteractionValidator {
 
   /// Validate an Interaction message
   bool validate({required Map<String, String> headers, required String body}) {
-    final signature = headers[_signatureHeaderKey];
-    final timestamp = headers[_timestampHeaderKey];
+    final signature = headers[signatureHeaderKey];
+    final timestamp = headers[timestampHeaderKey];
 
     if (signature == null || timestamp == null) {
       return false;
