@@ -11,7 +11,7 @@ class EmbedImage {
 
   /// a proxied url of the image
   @JsonKey(name: 'proxy_url')
-  final String proxyUrl;
+  final String? proxyUrl;
 
   /// height of image
   final int? height;
@@ -22,7 +22,7 @@ class EmbedImage {
   /// Constructor
   EmbedImage({
     required this.url,
-    required this.proxyUrl,
+    this.proxyUrl,
     this.height,
     this.width,
   });

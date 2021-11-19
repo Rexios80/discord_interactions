@@ -12,3 +12,6 @@ pubspec.lock
 # Folders
 test_resources
 coverage
+
+# macOS garbage
+.DS_Store

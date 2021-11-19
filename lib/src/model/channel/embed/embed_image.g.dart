@@ -8,7 +8,7 @@ part of 'embed_image.dart';
 
 EmbedImage _$EmbedImageFromJson(Map<String, dynamic> json) => EmbedImage(
       url: json['url'] as String,
-      proxyUrl: json['proxy_url'] as String,
+      proxyUrl: json['proxy_url'] as String?,
       height: json['height'] as int?,
       width: json['width'] as int?,
     );
