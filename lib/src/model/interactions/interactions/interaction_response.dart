@@ -18,7 +18,7 @@ class InteractionResponse {
   /// Constructor
   InteractionResponse({
     required this.type,
-    required this.data,
+    this.data,
   });
 
   /// From json

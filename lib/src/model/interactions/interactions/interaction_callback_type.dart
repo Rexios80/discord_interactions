@@ -1,6 +1,7 @@
 // Package imports:
 import 'package:json_annotation/json_annotation.dart';
 
+/// Interaction Callback types
 enum InteractionCallbackType {
   /// ACK a Ping
   @JsonValue(1)
