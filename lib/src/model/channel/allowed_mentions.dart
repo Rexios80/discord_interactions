@@ -38,7 +38,7 @@ class AllowedMentions {
   /// From json
   factory AllowedMentions.fromJson(Map<String, dynamic> json) =>
       _$AllowedMentionsFromJson(json);
-  
+
   /// To json
   Map<String, dynamic> toJson() => _$AllowedMentionsToJson(this);
 }

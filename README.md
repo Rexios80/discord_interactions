@@ -1,28 +1,72 @@
-<!-- TODO -->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+Create a serverless Discord bot in pure dart using Discord Interactions webhooks
 
 ## Features
+| Feature | Status |
+| --- | --- |
+| Manage Application Commands | Full test coverage |
+| Create message components | Partial support |
+| Respond to commands | Partial support |
+| Messaging | Partial support |
+| Moderation | Not yet |
+| Other API endpoints | Not yet |
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+Full support for all Discord API endpoints is planned. Full test coverage does not mean everything works, just that simple requests pass.
 
 ## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+This package is meant for running a Discord bot on serverless platforms. The example is made for Google Cloud Run, but other providers that support running dart code will work.
 
 ## Usage
+Discord has a couple requirements that must be met before you can enable webhooks for Interactions. This package comes with helper functions to help you get started.
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+First, you must validate all requests sent to your bot. You must reject invalid requests. The `Validator` class handles this for you. The `applicationPublicKey` comes from your application's page on the Discord Developer Portal.
 
 ```dart
-const like = 'sample';
+final validator = InteractionValidator(applicationPublicKey: '*****');
+
+final valid = validator.validate(headers: request.headers, body: body);
+if (!valid) {
+    return Response(401, body: 'invalid request signature');
+}
+```
+
+Second, you must respond to ping Interactions with a pong Response
+
+```dart
+final interaction = Interaction.fromJson(jsonDecode(body));
+
+if (interaction.type == InteractionType.ping) {
+    return Response.ok(
+        jsonEncode(InteractionResponse(type: InteractionCallbackType.pong)),
+    );
+}
+```
+
+If either of these requirements are not met, the Discord Developer Portal will reject your `INTERACTIONS ENDPOINT URL`
+
+Now you can respond to Application Commands
+
+Discord requires a specially formatted user agent for API calls. The `DiscordUserAgent` class handles this for you. The `applicationId` and `botToken` fields comes from your application's page on the Discord Developer Portal. The `url` field should point to a useful webpage for your bot. The `versionNumber` field should match your bot's version number. There is also an optional `extra` field if you would like to provide additional information about your bot to Discord. If you do not provide a `botToken` you must provide a `credentialsToken` instead.
+
+```dart
+final api = DiscordApi(
+  applicationId: '*****',
+  userAgent: DiscordUserAgent(
+    url: '*****',
+    versionNumber: '*****',
+  ),
+  botToken: '*****',
+);
+
+await api.interactions.createInteractionResponse(
+    interaction,
+    response: InteractionResponse(
+        type: InteractionCallbackType.channelMessageWithSource,
+        data: InteractionCallbackData(content: 'Hello, Discord Interactions!'),
+    ),
+);
+
+return Response.ok(null);
 ```
 
 ## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+This package is very much in-progress. If you have any suggestions or feedback, please open an issue on GitHub.

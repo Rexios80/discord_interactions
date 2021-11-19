@@ -10,6 +10,8 @@ class Interactions {
   static const _basePath = '/webhooks';
 
   final Dio _dio;
+  // TODO: Remove
+  // ignore: unused_field
   final String _path;
 
   /// Constructor

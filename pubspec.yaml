@@ -1,5 +1,5 @@
 name: discord_interactions
-description: A http based Discord Interactions API client. Made with serverless deployment in mind.
+description: A webhook-based Discord Interactions client. Made with serverless deployment in mind.
 version: 0.0.1
 homepage: https://github.com/Rexios80/discord_interactions
 
@@ -11,6 +11,7 @@ dependencies:
   json_annotation: ^4.3.0
   dio: ^4.0.3
   pinenacl: ^0.3.3
+  convert: ^3.0.1
 
 dev_dependencies:
   lints: ^1.0.0

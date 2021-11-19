@@ -24,7 +24,7 @@ class InteractionResponse {
   /// From json
   factory InteractionResponse.fromJson(Map<String, dynamic> json) =>
       _$InteractionResponseFromJson(json);
-  
+
   /// To json
   Map<String, dynamic> toJson() => _$InteractionResponseToJson(this);
 }

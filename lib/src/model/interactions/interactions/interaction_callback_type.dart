@@ -17,13 +17,13 @@ enum InteractionCallbackType {
 
   /// for components, ACK an interaction and edit the original message later;
   /// the user does not see a loading state
-  /// 
+  ///
   /// Only valid for component-based interactions
   @JsonValue(6)
   deferredUpdateMessage,
 
   /// for components, edit the message the component was attached to
-  /// 
+  ///
   /// Only valid for component-based interactions
   @JsonValue(7)
   updateMessage,
