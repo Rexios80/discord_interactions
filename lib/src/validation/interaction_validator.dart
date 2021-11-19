@@ -34,9 +34,13 @@ class InteractionValidator {
       return false;
     }
 
-    return _verifyKey.verify(
-      signature: Signature(Uint8List.fromList(hex.decode(signature))),
-      message: Uint8List.fromList('$timestamp$body'.codeUnits),
-    );
+    try {
+      return _verifyKey.verify(
+        signature: Signature(Uint8List.fromList(hex.decode(signature))),
+        message: Uint8List.fromList('$timestamp$body'.codeUnits),
+      );
+    } catch (e) {
+      return false;
+    }
   }
 }

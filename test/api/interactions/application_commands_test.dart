@@ -119,10 +119,12 @@ void main() async {
     });
 
     test(
-      'Delete all global commands',
+      'Delete all guild commands',
       () async {
+        final guildId = applicationInfo['guildId'] as String;
+
         await api.applicationCommands
-            .bulkOverwriteGlobalApplicationCommands([]);
+            .bulkOverwriteGuildApplicationCommands([], guildId: guildId);
       },
       skip: 'This test only runs manually',
     );
