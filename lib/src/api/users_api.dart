@@ -15,7 +15,7 @@ class UsersApi {
   /// and optionally the email scope, which returns the object with an email.
   /// 
   /// https://discord.com/developers/docs/resources/user#get-current-user
-  Future<DiscordResponse> getCurrentUser() {
+  Future<DiscordResponse<User>> getCurrentUser() {
     return validateApiCall(
       _dio.get(_baseUrl + '/@me'),
       responseTransformer: (data) => User.fromJson(data),
@@ -25,7 +25,7 @@ class UsersApi {
   /// Returns a user object for a given user ID.
   /// 
   /// https://discord.com/developers/docs/resources/user#get-user
-  Future<DiscordResponse> getUser(String userId) {
+  Future<DiscordResponse<User>> getUser(String userId) {
     return validateApiCall(
       _dio.get(_baseUrl + '/$userId'),
       responseTransformer: (data) => User.fromJson(data),
