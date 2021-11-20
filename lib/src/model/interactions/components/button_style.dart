@@ -2,7 +2,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 /// Button Styles
-/// 
+///
 /// https://discord.com/developers/docs/interactions/message-components#button-object-button-styles
 enum ButtonStyle {
   /// Color: blurple

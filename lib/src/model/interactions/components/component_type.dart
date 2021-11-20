@@ -2,7 +2,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 /// Component types
-/// 
+///
 /// https://discord.com/developers/docs/interactions/message-components#component-object-component-types
 enum ComponentType {
   /// A container for other components

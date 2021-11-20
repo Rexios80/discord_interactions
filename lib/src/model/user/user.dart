@@ -8,7 +8,7 @@ import 'package:discord_interactions/src/model/user/premium_type.dart';
 part 'user.g.dart';
 
 /// User structure
-/// 
+///
 /// https://discord.com/developers/docs/resources/user#user-object-user-structure
 @JsonSerializable()
 class User {

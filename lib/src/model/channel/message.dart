@@ -8,9 +8,9 @@ import 'package:discord_interactions/src/model/discord_model.dart';
 part 'message.g.dart';
 
 /// Message structure
-/// 
+///
 /// content, embeds, attachments, and components will require a privileged intent in 2022. Learn more here.
-/// 
+///
 /// https://discord.com/developers/docs/resources/channel#message-object-message-structure
 @JsonSerializable()
 class Message {

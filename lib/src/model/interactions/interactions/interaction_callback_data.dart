@@ -7,9 +7,9 @@ import 'package:discord_interactions/src/model/discord_model.dart';
 part 'interaction_callback_data.g.dart';
 
 /// Interaction Callback Data structure
-/// 
+///
 /// Not all message fields are currently supported.
-/// 
+///
 /// https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-callback-data-structure
 @JsonSerializable()
 class InteractionCallbackData {

@@ -7,7 +7,7 @@ import 'package:discord_interactions/src/model/discord_model.dart';
 part 'application_command_option.g.dart';
 
 /// Application Command Option structure
-/// 
+///
 /// https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
 @JsonSerializable()
 class ApplicationCommandOption {

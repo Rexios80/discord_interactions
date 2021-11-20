@@ -1,5 +1,3 @@
-import 'package:discord_interactions/discord_interactions.dart';
-
 /// Discord utilizes a subset of markdown for rendering message content on its
 /// clients, while also adding some custom functionality to enable things like
 /// mentioning users and channels.
@@ -7,30 +5,33 @@ import 'package:discord_interactions/discord_interactions.dart';
 /// https://discord.com/developers/docs/reference#message-formatting
 class MessageFormatting {
   /// <@USER_ID>
-  String user(Snowflake userId) => '<@$userId>';
+  static String user(String userId) => '<@$userId>';
 
   /// <@!USER_ID>
-  String userNickname(Snowflake userId) => '<@!$userId>';
+  static String userNickname(String userId) => '<@!$userId>';
 
   /// <#CHANNEL_ID>
-  String channel(Snowflake channelId) => '<#$channelId>';
+  static String channel(String channelId) => '<#$channelId>';
 
   /// <@&ROLE_ID>
-  String role(Snowflake roleId) => '<@&$roleId>';
+  static String role(String roleId) => '<@&$roleId>';
 
   /// <:NAME:ID>
-  String emoji(String name, Snowflake emojiId) => '<:$name:$emojiId>';
+  static String emoji(String name, String emojiId) => '<:$name:$emojiId>';
 
   /// <a:NAME:ID>
-  String emojiAnimated(String name, Snowflake emojiId) => '<a:$name:$emojiId>';
+  static String emojiAnimated(String name, String emojiId) =>
+      '<a:$name:$emojiId>';
 
   /// <t:TIMESTAMP>
-  String timestamp(DateTime timestamp) =>
+  static String timestamp(DateTime timestamp) =>
       '<t:${timestamp.millisecondsSinceEpoch / 1000}>';
 
   /// <t:TIMESTAMP:STYLE>
-  String timestampStyled(DateTime timestamp, TimestampStyle style) =>
+  static String timestampStyled(DateTime timestamp, TimestampStyle style) =>
       '<t:${timestamp.millisecondsSinceEpoch / 1000}:${style.value}>';
+
+  MessageFormatting._();
 }
 
 /// Timestamps will display the given timestamp in the user's timezone and locale

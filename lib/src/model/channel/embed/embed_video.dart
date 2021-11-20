@@ -4,7 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'embed_video.g.dart';
 
 /// Embed Video structure
-/// 
+///
 /// https://discord.com/developers/docs/resources/channel#embed-object-embed-video-structure
 @JsonSerializable()
 class EmbedVideo {

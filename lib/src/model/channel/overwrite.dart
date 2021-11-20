@@ -4,9 +4,9 @@ import 'package:json_annotation/json_annotation.dart';
 part 'overwrite.g.dart';
 
 /// Overwrite structure
-/// 
+///
 /// See permissions for more information about the allow and deny fields.
-/// 
+///
 /// https://discord.com/developers/docs/resources/channel#overwrite-object-overwrite-structure
 @JsonSerializable()
 class Overwrite {

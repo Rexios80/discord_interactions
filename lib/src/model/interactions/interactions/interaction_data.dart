@@ -7,9 +7,9 @@ import 'package:discord_interactions/src/model/discord_model.dart';
 part 'interaction_data.g.dart';
 
 /// Interaction Data structure
-/// 
+///
 /// the command data payload
-/// 
+///
 /// https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-data-structure
 @JsonSerializable()
 class InteractionData {

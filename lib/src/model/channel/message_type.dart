@@ -2,7 +2,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 /// Message types
-/// 
+///
 /// https://discord.com/developers/docs/resources/channel#message-object-message-types
 enum MessageType {
   /// default message type

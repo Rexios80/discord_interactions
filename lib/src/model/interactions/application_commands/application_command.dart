@@ -7,9 +7,9 @@ import 'package:discord_interactions/src/model/discord_model.dart';
 part 'application_command.g.dart';
 
 /// Application Command structure
-/// 
+///
 /// Application commands are commands that an application can register to Discord
-/// 
+///
 /// https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
 @JsonSerializable()
 class ApplicationCommand {

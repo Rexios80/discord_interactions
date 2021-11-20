@@ -4,7 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'message_reference.g.dart';
 
 /// Message Reference structure
-/// 
+///
 /// https://discord.com/developers/docs/resources/channel#message-reference-object-message-reference-structure
 @JsonSerializable()
 class MessageReference {

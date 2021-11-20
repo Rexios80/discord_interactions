@@ -7,11 +7,11 @@ import 'package:discord_interactions/src/model/discord_model.dart';
 part 'emoji.g.dart';
 
 /// Emoji structure
-/// 
+///
 /// Routes for controlling emojis do not follow the normal rate limit conventions.
 /// These routes are specifically limited on a per-guild basis to prevent abuse.
 /// This means that the quota returned by our APIs may be inaccurate, and you may encounter 429s.
-/// 
+///
 /// https://discord.com/developers/docs/resources/emoji#emoji-object-emoji-structure
 @JsonSerializable()
 class Emoji {

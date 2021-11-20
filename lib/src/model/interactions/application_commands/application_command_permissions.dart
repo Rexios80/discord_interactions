@@ -7,7 +7,7 @@ import 'package:discord_interactions/src/model/discord_model.dart';
 part 'application_command_permissions.g.dart';
 
 /// Application Command Permissions structure
-/// 
+///
 /// https://discord.com/developers/docs/interactions/application-commands#application-command-permissions-object-guild-application-command-permissions-structure
 @JsonSerializable()
 class ApplicationCommandPermissions {

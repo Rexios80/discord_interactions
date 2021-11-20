@@ -4,9 +4,9 @@ import 'package:json_annotation/json_annotation.dart';
 part 'application_command_option_choice.g.dart';
 
 /// Application Command Option Choice structure
-/// 
+///
 /// If you specify choices for an option, they are the only valid values for a user to pick
-/// 
+///
 /// https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-choice-structure
 @JsonSerializable()
 class ApplicationCommandOptionChoice {

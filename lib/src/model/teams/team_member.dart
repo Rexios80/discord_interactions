@@ -8,7 +8,7 @@ import 'package:discord_interactions/src/model/user/user.dart';
 part 'team_member.g.dart';
 
 /// Team Member object
-/// 
+///
 /// https://discord.com/developers/docs/topics/teams#data-models-team-member-object
 @JsonSerializable()
 class TeamMember {

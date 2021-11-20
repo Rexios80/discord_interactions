@@ -8,9 +8,9 @@ import 'package:discord_interactions/src/model/discord_model.dart';
 part 'channel.g.dart';
 
 /// Channel structure
-/// 
+///
 /// Represents a guild or DM channel within Discord.
-/// 
+///
 /// https://discord.com/developers/docs/resources/channel#channel-object-channel-structure
 @JsonSerializable()
 class Channel {

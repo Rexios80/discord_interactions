@@ -4,7 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'embed_provider.g.dart';
 
 /// Embed Provider structure
-/// 
+///
 /// https://discord.com/developers/docs/resources/channel#embed-object-embed-provider-structure
 @JsonSerializable()
 class EmbedProvider {

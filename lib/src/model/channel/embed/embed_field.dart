@@ -4,7 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'embed_field.g.dart';
 
 /// Embed Field structure
-/// 
+///
 /// https://discord.com/developers/docs/resources/channel#embed-object-embed-field-structure
 @JsonSerializable()
 class EmbedField {

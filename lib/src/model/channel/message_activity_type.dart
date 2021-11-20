@@ -2,7 +2,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 /// Message Activity types
-/// 
+///
 /// https://discord.com/developers/docs/resources/channel#message-object-message-activity-types
 enum MessageActivityType {
   /// join

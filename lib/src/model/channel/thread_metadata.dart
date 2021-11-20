@@ -7,10 +7,10 @@ import 'package:discord_interactions/src/converter/iso8601_converter.dart';
 part 'thread_metadata.g.dart';
 
 /// Thread Metadata structure
-/// 
+///
 /// The thread metadata object contains a number of thread-specific channel
 /// fields that are not needed by other channel types.
-/// 
+///
 /// https://discord.com/developers/docs/resources/channel#thread-metadata-object-thread-metadata-structure
 @JsonSerializable()
 class ThreadMetadata {

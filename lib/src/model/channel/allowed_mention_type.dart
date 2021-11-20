@@ -1,5 +1,5 @@
 /// Allowed Mention types
-/// 
+///
 /// https://discord.com/developers/docs/resources/channel#allowed-mentions-object-allowed-mention-types
 enum AllowedMentionType {
   /// Controls role mentions

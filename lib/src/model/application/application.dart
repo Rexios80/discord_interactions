@@ -7,7 +7,7 @@ import 'package:discord_interactions/src/model/discord_model.dart';
 part 'application.g.dart';
 
 /// Application structure
-/// 
+///
 /// https://discord.com/developers/docs/resources/application#application-object-application-structure
 @JsonSerializable()
 class Application {

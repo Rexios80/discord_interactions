@@ -9,10 +9,10 @@ part 'interaction.g.dart';
 @JsonSerializable()
 
 /// Inteaction structure
-/// 
+///
 /// An [Interaction] is the message that your application receives when a user
 /// uses an application command or a message component.
-/// 
+///
 /// https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-structure
 class Interaction {
   /// id of the interaction

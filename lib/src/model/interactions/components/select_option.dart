@@ -7,7 +7,7 @@ import 'package:discord_interactions/src/model/discord_model.dart';
 part 'select_option.g.dart';
 
 /// Select Option structure
-/// 
+///
 /// https://discord.com/developers/docs/interactions/message-components#select-menu-object-select-option-structure
 @JsonSerializable()
 class SelectOption {

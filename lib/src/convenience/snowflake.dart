@@ -23,16 +23,18 @@ class Snowflake {
   /// specify IDs before and after in combination with limit to retrieve a
   /// desired page of results. You will want to refer to the specific endpoint
   /// documentation for details.
-  /// 
+  ///
   /// It is useful to note that snowflake IDs are just numbers with a timestamp,
   /// so when dealing with pagination where you want results from the beginning
   /// of time (in Discord Epoch, but 0 works here too) or before/after a specific
   /// time you can generate a snowflake ID for that time.
-  /// 
+  ///
   /// https://discord.com/developers/docs/reference#snowflake-ids-in-pagination
   static String fromTimestamp(DateTime timestamp) {
     final snowflakeInt =
         (timestamp.millisecondsSinceEpoch - discordEpoch) << 22;
     return snowflakeInt.toString();
   }
+
+  Snowflake._();
 }

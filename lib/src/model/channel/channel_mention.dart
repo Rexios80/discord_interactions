@@ -7,7 +7,7 @@ import 'package:discord_interactions/src/model/discord_model.dart';
 part 'channel_mention.g.dart';
 
 /// Channel mention structure
-/// 
+///
 /// https://discord.com/developers/docs/resources/channel#channel-mention-object-channel-mention-structure
 @JsonSerializable()
 class ChannelMention {

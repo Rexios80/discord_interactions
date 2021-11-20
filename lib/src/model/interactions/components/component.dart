@@ -7,7 +7,7 @@ import 'package:discord_interactions/src/model/discord_model.dart';
 part 'component.g.dart';
 
 /// Component structure
-/// 
+///
 /// https://discord.com/developers/docs/interactions/message-components#component-object-component-structure
 @JsonSerializable()
 class Component {

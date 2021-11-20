@@ -4,9 +4,9 @@ import 'package:json_annotation/json_annotation.dart';
 part 'attachment.g.dart';
 
 /// Attachment structure
-/// 
+///
 /// For the attachments array in Message Create/Edit requests, only the id is required.
-/// 
+///
 /// https://discord.com/developers/docs/resources/channel#attachment-object-attachment-structure
 @JsonSerializable()
 class Attachment {
