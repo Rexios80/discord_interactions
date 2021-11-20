@@ -6,7 +6,7 @@ import 'package:discord_interactions/src/model/discord_model.dart';
 import 'package:discord_interactions/src/util/discord_api_utils.dart';
 
 /// Access to the Interactions API
-class Interactions {
+class InteractionsApi {
   static const _basePath = '/webhooks';
 
   final Dio _dio;
@@ -15,7 +15,7 @@ class Interactions {
   final String _path;
 
   /// Constructor
-  Interactions(
+  InteractionsApi(
     this._dio, {
     required String applicationId,
   }) : _path = '$_basePath/$applicationId';

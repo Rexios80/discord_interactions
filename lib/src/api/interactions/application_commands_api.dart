@@ -6,14 +6,14 @@ import 'package:discord_interactions/src/model/discord_model.dart';
 import 'package:discord_interactions/src/util/discord_api_utils.dart';
 
 /// Access to the Application Commands API
-class ApplicationCommands {
+class ApplicationCommandsApi {
   static const _basePath = '/applications';
 
   final Dio _dio;
   final String _path;
 
   /// Constructor
-  ApplicationCommands(
+  ApplicationCommandsApi(
     this._dio, {
     required String applicationId,
   }) : _path = '$_basePath/$applicationId';

@@ -2,8 +2,9 @@
 import 'package:dio/dio.dart';
 
 // Project imports:
-import 'package:discord_interactions/src/api/interactions/application_commands.dart';
-import 'package:discord_interactions/src/api/interactions/interactions.dart';
+import 'package:discord_interactions/src/api/interactions/application_commands_api.dart';
+import 'package:discord_interactions/src/api/interactions/interactions_api.dart';
+import 'package:discord_interactions/src/api/users_api.dart';
 import 'package:discord_interactions/src/model/discord_model.dart';
 
 /// Base class for accessing the Discord API
@@ -12,11 +13,14 @@ class DiscordApi {
 
   final Dio _dio;
 
-  /// Access to Application Commands api
-  late final ApplicationCommands applicationCommands;
+  /// Access to Application Commands API
+  late final ApplicationCommandsApi applicationCommands;
 
-  /// Access to Interactions api
-  late final Interactions interactions;
+  /// Access to Interactions API
+  late final InteractionsApi interactions;
+
+  /// Access to the Users API
+  late final UsersApi users;
 
   /// Access to the Discord API
   DiscordApi({
@@ -36,10 +40,11 @@ class DiscordApi {
             },
           ),
         ) {
-    applicationCommands = ApplicationCommands(
+    applicationCommands = ApplicationCommandsApi(
       _dio,
       applicationId: applicationId,
     );
-    interactions = Interactions(_dio, applicationId: applicationId);
+    interactions = InteractionsApi(_dio, applicationId: applicationId);
+    users = UsersApi(_dio);
   }
 }
