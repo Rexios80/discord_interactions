@@ -1,5 +1,6 @@
 // Package imports:
 import 'package:dio/dio.dart';
+import 'package:collection/collection.dart';
 
 // Project imports:
 import 'package:discord_interactions/src/model/discord_model.dart';
@@ -23,4 +24,19 @@ Future<DiscordResponse<T>> validateApiCall<T>(
   } catch (e) {
     return DiscordResponse.error(e);
   }
+}
+
+/// Create [FormData] from a [payload] and [files]
+FormData createFormData(dynamic payload, List<MultipartFile>? files) {
+  final formMap = <String, dynamic>{
+    'payload_json': payload,
+  };
+
+  if (files != null) {
+    files.forEachIndexed((index, file) {
+      formMap['files[$index]'] = file;
+    });
+  }
+
+  return FormData.fromMap(formMap);
 }

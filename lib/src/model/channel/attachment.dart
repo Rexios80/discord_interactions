@@ -11,7 +11,7 @@ part 'attachment.g.dart';
 @JsonSerializable()
 class Attachment {
   /// attachment id
-  final String id;
+  final String? id;
 
   /// name of the file attached
   final String filename;
@@ -24,14 +24,14 @@ class Attachment {
   final String? contentType;
 
   /// size of the file in bytes
-  final int size;
+  final int? size;
 
   /// source url of the file
-  final String url;
+  final String? url;
 
   /// a proxied url of the file
   @JsonKey(name: 'proxy_url')
-  final String proxyUrl;
+  final String? proxyUrl;
 
   /// height of the file (if image)
   final int? height;
@@ -48,13 +48,13 @@ class Attachment {
 
   /// Constructor
   Attachment({
-    required this.id,
+    this.id,
     required this.filename,
     this.description,
     this.contentType,
-    required this.size,
-    required this.url,
-    required this.proxyUrl,
+    this.size,
+    this.url,
+    this.proxyUrl,
     this.height,
     this.width,
     this.ephemeral,

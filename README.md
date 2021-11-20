@@ -58,14 +58,12 @@ final api = DiscordApi(
 );
 
 await api.interactions.createInteractionResponse(
-    interaction,
+    interaction: interaction,
     response: InteractionResponse(
         type: InteractionCallbackType.channelMessageWithSource,
         data: InteractionCallbackData(content: 'Hello, Discord Interactions!'),
     ),
 );
-
-return Response.ok(null);
 ```
 
 ## Additional information

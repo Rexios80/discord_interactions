@@ -60,6 +60,8 @@ export 'interactions/components/component.dart';
 export 'interactions/components/select_option.dart';
 
 // interactions/interactions
+export 'interactions/interactions/followup_message.dart';
+export 'interactions/interactions/interaction_callback_data_flag.dart';
 export 'interactions/interactions/interaction_callback_data.dart';
 export 'interactions/interactions/interaction_callback_type.dart';
 export 'interactions/interactions/interaction_data.dart';

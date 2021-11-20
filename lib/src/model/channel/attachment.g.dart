@@ -7,13 +7,13 @@ part of 'attachment.dart';
 // **************************************************************************
 
 Attachment _$AttachmentFromJson(Map<String, dynamic> json) => Attachment(
-      id: json['id'] as String,
+      id: json['id'] as String?,
       filename: json['filename'] as String,
       description: json['description'] as String?,
       contentType: json['content_type'] as String?,
-      size: json['size'] as int,
-      url: json['url'] as String,
-      proxyUrl: json['proxy_url'] as String,
+      size: json['size'] as int?,
+      url: json['url'] as String?,
+      proxyUrl: json['proxy_url'] as String?,
       height: json['height'] as int?,
       width: json['width'] as int?,
       ephemeral: json['ephemeral'] as bool?,
