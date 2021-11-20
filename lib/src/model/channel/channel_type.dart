@@ -2,6 +2,8 @@
 import 'package:json_annotation/json_annotation.dart';
 
 /// Channel types
+/// 
+/// https://discord.com/developers/docs/resources/channel#channel-object-channel-types
 enum ChannelType {
   /// a text channel within a server
   @JsonValue(0)

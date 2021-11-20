@@ -7,6 +7,8 @@ import 'package:discord_interactions/src/model/discord_model.dart';
 part 'reaction.g.dart';
 
 /// Reaction structure
+/// 
+/// https://discord.com/developers/docs/resources/channel#reaction-object-reaction-structure
 @JsonSerializable()
 class Reaction {
   /// times this emoji has been used to react

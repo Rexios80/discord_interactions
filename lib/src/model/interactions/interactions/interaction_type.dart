@@ -1,7 +1,9 @@
 // Package imports:
 import 'package:json_annotation/json_annotation.dart';
 
-/// the type of interaction
+/// Interaction types
+/// 
+/// https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-type
 enum InteractionType {
   /// ping
   @JsonValue(1)

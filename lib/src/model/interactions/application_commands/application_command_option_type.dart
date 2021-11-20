@@ -1,7 +1,9 @@
 // Package imports:
 import 'package:json_annotation/json_annotation.dart';
 
-/// the type of option
+/// Application Command Option types
+/// 
+/// https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-type
 enum ApplicationCommandOptionType {
   /// sub command
   @JsonValue(1)

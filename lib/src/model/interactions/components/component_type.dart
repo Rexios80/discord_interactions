@@ -1,7 +1,9 @@
 // Package imports:
 import 'package:json_annotation/json_annotation.dart';
 
-/// They type of component
+/// Component types
+/// 
+/// https://discord.com/developers/docs/interactions/message-components#component-object-component-types
 enum ComponentType {
   /// A container for other components
   @JsonValue(1)

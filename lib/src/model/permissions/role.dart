@@ -6,11 +6,15 @@ import 'package:discord_interactions/src/model/discord_model.dart';
 
 part 'role.g.dart';
 
+/// Role structure
+/// 
 /// Roles represent a set of permissions attached to a group of users. Roles
 /// have unique names, colors, and can be "pinned" to the side bar, causing
 /// their members to be listed separately. Roles are unique per guild, and can
 /// have separate permission profiles for the global context (guild) and channel
 /// context. The @everyone role has the same ID as the guild it belongs to.
+/// 
+/// https://discord.com/developers/docs/topics/permissions#role-object-role-structure
 @JsonSerializable()
 class Role {
   /// role id

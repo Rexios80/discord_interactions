@@ -7,6 +7,8 @@ import 'package:discord_interactions/src/model/discord_model.dart';
 part 'message_activity.g.dart';
 
 /// Message Activity structure
+/// 
+/// https://discord.com/developers/docs/resources/channel#message-object-message-activity-structure
 @JsonSerializable()
 class MessageActivity {
   /// type of message activity

@@ -8,6 +8,8 @@ import 'package:discord_interactions/src/model/discord_model.dart';
 part 'embed.g.dart';
 
 /// Embed structure
+/// 
+/// https://discord.com/developers/docs/resources/channel#embed-object-embed-structure
 @JsonSerializable()
 class Embed {
   /// title of embed

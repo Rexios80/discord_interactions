@@ -7,6 +7,8 @@ import 'package:discord_interactions/src/model/discord_model.dart';
 part 'interaction_response.g.dart';
 
 /// Interaction Response structure
+/// 
+/// https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-response-structure
 @JsonSerializable()
 class InteractionResponse {
   /// the type of response

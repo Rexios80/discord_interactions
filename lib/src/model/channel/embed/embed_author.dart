@@ -4,6 +4,8 @@ import 'package:json_annotation/json_annotation.dart';
 part 'embed_author.g.dart';
 
 /// Embed Author structure
+/// 
+/// https://discord.com/developers/docs/resources/channel#embed-object-embed-author-structure
 @JsonSerializable()
 class EmbedAuthor {
   /// name of author

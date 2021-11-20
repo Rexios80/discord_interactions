@@ -4,6 +4,8 @@ import 'package:json_annotation/json_annotation.dart';
 part 'embed_image.g.dart';
 
 /// Embed Image structure
+/// 
+/// https://discord.com/developers/docs/resources/channel#embed-object-embed-image-structure
 @JsonSerializable()
 class EmbedImage {
   /// source url of image (only supports http(s) and attachments)

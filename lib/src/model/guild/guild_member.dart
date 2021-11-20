@@ -7,7 +7,9 @@ import 'package:discord_interactions/src/model/discord_model.dart';
 
 part 'guild_member.g.dart';
 
-/// GuildMember object
+/// Guild Member structure
+/// 
+/// https://discord.com/developers/docs/resources/guild#guild-member-object-guild-member-structure
 @JsonSerializable()
 class GuildMember {
   /// the user this guild member represents

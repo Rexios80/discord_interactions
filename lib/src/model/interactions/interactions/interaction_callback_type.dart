@@ -2,6 +2,8 @@
 import 'package:json_annotation/json_annotation.dart';
 
 /// Interaction Callback types
+/// 
+/// https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-callback-type
 enum InteractionCallbackType {
   /// ACK a Ping
   @JsonValue(1)

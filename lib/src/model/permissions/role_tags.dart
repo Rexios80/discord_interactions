@@ -1,4 +1,6 @@
-/// Role tags
+/// Role Tags structure
+/// 
+/// https://discord.com/developers/docs/topics/permissions#role-object-role-tags-structure
 class RoleTags {
   /// the id of the bot this role belongs to
   final String? botId;

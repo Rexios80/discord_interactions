@@ -6,7 +6,9 @@ import 'package:discord_interactions/src/model/discord_model.dart';
 
 part 'select_option.g.dart';
 
-/// Select option
+/// Select Option structure
+/// 
+/// https://discord.com/developers/docs/interactions/message-components#select-menu-object-select-option-structure
 @JsonSerializable()
 class SelectOption {
   /// the user-facing name of the option, max 100 characters
@@ -27,7 +29,7 @@ class SelectOption {
   @JsonKey(name: 'default')
   final bool? defaultSelected;
 
-  /// Select option
+  /// Constructor
   SelectOption({
     required this.label,
     required this.value,

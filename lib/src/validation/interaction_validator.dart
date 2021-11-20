@@ -11,6 +11,8 @@ import 'package:pinenacl/ed25519.dart';
 /// routine security checks against your endpoint, including purposefully sending
 /// you invalid signatures. If you fail the validation, we will remove your
 /// interactions URL in the future and alert you via email and System DM.
+///
+/// https://discord.com/developers/docs/interactions/receiving-and-responding#security-and-authorization
 class InteractionValidator {
   /// The signature header key
   static const String signatureHeaderKey = 'X-Signature-Ed25519';

@@ -2,6 +2,8 @@
 import 'package:json_annotation/json_annotation.dart';
 
 /// Sticker Format types
+/// 
+/// https://discord.com/developers/docs/resources/sticker#sticker-object-sticker-format-types
 enum StickerFormatType {
   /// png
   @JsonValue(1)

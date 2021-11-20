@@ -6,7 +6,12 @@ import 'package:discord_interactions/src/model/discord_model.dart';
 
 part 'guild_application_command_permissions.g.dart';
 
-/// Application command permissions allow you to enable or disable commands for specific users or roles within a guild.
+/// Guild Application Command Permissions structure
+/// 
+/// Application command permissions allow you to enable or disable commands for
+/// specific users or roles within a guild.
+/// 
+/// https://discord.com/developers/docs/interactions/application-commands#application-command-permissions-object-guild-application-command-permissions-structure
 @JsonSerializable()
 class GuildApplicationCommandPermissions {
   /// the id of the command
@@ -23,7 +28,7 @@ class GuildApplicationCommandPermissions {
   /// the permissions for the command in the guild
   final List<ApplicationCommandPermissions> permissions;
 
-  /// Create a new instance of [GuildApplicationCommandPermissions]
+  /// Constructor
   GuildApplicationCommandPermissions({
     required this.id,
     this.appplicationId,

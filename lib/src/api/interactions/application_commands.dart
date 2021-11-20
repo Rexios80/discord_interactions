@@ -19,6 +19,8 @@ class ApplicationCommands {
   }) : _path = '$_basePath/$applicationId';
 
   /// Fetch all of the global commands for your application. Returns an array of [ApplicationCommand] objects.
+  /// 
+  /// https://discord.com/developers/docs/interactions/application-commands#get-global-application-commands
   Future<DiscordResponse<List<ApplicationCommand>>>
       getGlobalApplicationCommands() {
     return validateApiCall(
@@ -32,6 +34,8 @@ class ApplicationCommands {
   /// Returns 201 and an [ApplicationCommand] object.
   ///
   /// Creating a command with the same name as an existing command for your application will overwrite the old command.
+  /// 
+  /// https://discord.com/developers/docs/interactions/application-commands#create-global-application-command
   Future<DiscordResponse<ApplicationCommand>> createGlobalApplicationCommand(
     ApplicationCommand command,
   ) {
@@ -42,6 +46,8 @@ class ApplicationCommands {
   }
 
   /// Fetch a global command for your application. Returns an [ApplicationCommand] object.
+  /// 
+  /// https://discord.com/developers/docs/interactions/application-commands#get-global-application-command
   Future<DiscordResponse<ApplicationCommand>> getGlobalApplicationCommand(
     String commandId,
   ) {
@@ -53,6 +59,8 @@ class ApplicationCommands {
 
   /// Edit a global command. Updates will be available in all guilds after 1 hour.
   /// Returns 200 and an [ApplicationCommand] object.
+  /// 
+  /// https://discord.com/developers/docs/interactions/application-commands#edit-global-application-command
   Future<DiscordResponse<ApplicationCommand>> editGlobalApplicationCommand(
     ApplicationCommand command,
   ) {
@@ -63,6 +71,8 @@ class ApplicationCommands {
   }
 
   /// Deletes a global command. Returns 204.
+  /// 
+  /// https://discord.com/developers/docs/interactions/application-commands#delete-global-application-command
   Future<DiscordResponse> deleteGlobalApplicationCommand(String commandId) {
     return validateApiCall(_dio.delete('$_path/commands/$commandId'));
   }
@@ -72,6 +82,8 @@ class ApplicationCommands {
   /// Commands that do not already exist will count toward daily application command create limits.
   ///
   /// This will overwrite all types of application commands: slash commands, user commands, and message commands.
+  /// 
+  /// https://discord.com/developers/docs/interactions/application-commands#bulk-overwrite-global-application-commands
   Future<DiscordResponse<List<ApplicationCommand>>>
       bulkOverwriteGlobalApplicationCommands(
     List<ApplicationCommand> commands,
@@ -85,6 +97,8 @@ class ApplicationCommands {
 
   /// Fetch all of the guild commands for your application for a specific guild.
   /// Returns an array of [ApplicationCommand] objects.
+  /// 
+  /// https://discord.com/developers/docs/interactions/application-commands#get-guild-application-commands
   Future<DiscordResponse<List<ApplicationCommand>>>
       getGuildApplicationCommands({
     required String guildId,
@@ -101,6 +115,8 @@ class ApplicationCommands {
   /// it will count toward daily application command create limits.
   ///
   /// Creating a command with the same name as an existing command for your application will overwrite the old command.
+  /// 
+  /// https://discord.com/developers/docs/interactions/application-commands#create-guild-application-command
   Future<DiscordResponse<ApplicationCommand>> createGuildApplicationCommand(
     ApplicationCommand command, {
     required String guildId,
@@ -112,6 +128,8 @@ class ApplicationCommands {
   }
 
   /// Fetch a guild command for your application. Returns an [ApplicationCommand] object.
+  /// 
+  /// https://discord.com/developers/docs/interactions/application-commands#get-guild-application-command
   Future<DiscordResponse<ApplicationCommand>> getGuildApplicationCommand(
     String commandId, {
     required String guildId,
@@ -124,6 +142,8 @@ class ApplicationCommands {
 
   /// Edit a guild command. Updates for guild commands will be available immediately.
   /// Returns 200 and an [ApplicationCommand] object.
+  /// 
+  /// https://discord.com/developers/docs/interactions/application-commands#edit-guild-application-command
   Future<DiscordResponse<ApplicationCommand>> editGuildApplicationCommand(
     ApplicationCommand command, {
     required String guildId,
@@ -138,6 +158,8 @@ class ApplicationCommands {
   }
 
   /// Delete a guild command. Returns 204 on success.
+  /// 
+  /// https://discord.com/developers/docs/interactions/application-commands#delete-guild-application-command
   Future<DiscordResponse> deleteGuildApplicationCommand(
     String commandId, {
     required String guildId,
@@ -151,6 +173,8 @@ class ApplicationCommands {
   /// application for the targeted guild. Returns 200 and a list of [ApplicationCommand] objects.
   ///
   /// This will overwrite all types of application commands: slash commands, user commands, and message commands.
+  /// 
+  /// https://discord.com/developers/docs/interactions/application-commands#bulk-overwrite-guild-application-commands
   Future<DiscordResponse<List<ApplicationCommand>>>
       bulkOverwriteGuildApplicationCommands(
     List<ApplicationCommand> commands, {
@@ -165,6 +189,8 @@ class ApplicationCommands {
 
   /// Fetches command permissions for all commands for your application in a guild.
   /// Returns an array of [GuildApplicationCommandPermissions] objects.
+  /// 
+  /// https://discord.com/developers/docs/interactions/application-commands#get-guild-application-command-permissions
   Future<DiscordResponse<List<GuildApplicationCommandPermissions>>>
       getGuildApplicationCommandPermissions({
     required String guildId,
@@ -179,6 +205,8 @@ class ApplicationCommands {
 
   /// Fetches command permissions for a specific command for your application in a guild.
   /// Returns a [GuildApplicationCommandPermissions] object.
+  /// 
+  /// https://discord.com/developers/docs/interactions/application-commands#get-application-command-permissions
   Future<DiscordResponse<GuildApplicationCommandPermissions>>
       getApplicationCommandPermissions(
     String commandId, {
@@ -198,6 +226,8 @@ class ApplicationCommands {
   /// This endpoint will overwrite existing permissions for the command in that guild
   ///
   /// Deleting or renaming a command will permanently delete all permissions for that command
+  /// 
+  /// https://discord.com/developers/docs/interactions/application-commands#edit-application-command-permissions
   Future<DiscordResponse<GuildApplicationCommandPermissions>>
       editApplicationCommandPermissions(
     String commandId, {
@@ -221,6 +251,8 @@ class ApplicationCommands {
   ///
   /// This endpoint will overwrite all existing permissions for all commands in
   /// a guild,including slash commands, user commands, and message commands.
+  /// 
+  /// https://discord.com/developers/docs/interactions/application-commands#batch-edit-application-command-permissions
   Future<DiscordResponse<List<GuildApplicationCommandPermissions>>>
       batchEditApplicationCommandPermissions(
     List<GuildApplicationCommandPermissions> permissions, {

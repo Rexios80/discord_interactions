@@ -6,7 +6,11 @@ import 'package:discord_interactions/src/model/discord_model.dart';
 
 part 'sticker_item.g.dart';
 
+/// Sticker Item structure
+/// 
 /// The smallest amount of data required to render a sticker. A partial sticker object.
+/// 
+/// https://discord.com/developers/docs/resources/sticker#sticker-item-object-sticker-item-structure
 @JsonSerializable()
 class StickerItem {
   /// id of the sticker

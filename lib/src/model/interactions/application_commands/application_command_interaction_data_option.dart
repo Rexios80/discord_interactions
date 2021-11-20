@@ -6,11 +6,15 @@ import 'package:discord_interactions/src/model/discord_model.dart';
 
 part 'application_command_interaction_data_option.g.dart';
 
+/// Application Command Interaction Data Option structure
+/// 
 /// All options have names, and an option can either be a parameter and input
 /// value--in which case value will be set--or it can denote a subcommand or
 /// group--in which case it will contain a top-level key and another array of options.
 ///
 /// [value] and [options] are mutually exclusive.
+/// 
+/// https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-interaction-data-option-structure
 @JsonSerializable()
 class ApplicationCommandInteractionDataOption {
   /// the name of the parameter
@@ -28,7 +32,7 @@ class ApplicationCommandInteractionDataOption {
   /// true if this option is the currently focused option for autocomplete
   final bool? focused;
 
-  /// Create an ApplicationCommandInteractionDataOption
+  /// Constructor
   ApplicationCommandInteractionDataOption({
     required this.name,
     required this.type,

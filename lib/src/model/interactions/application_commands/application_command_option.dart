@@ -6,7 +6,9 @@ import 'package:discord_interactions/src/model/discord_model.dart';
 
 part 'application_command_option.g.dart';
 
-/// Application command option
+/// Application Command Option structure
+/// 
+/// https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
 @JsonSerializable()
 class ApplicationCommandOption {
   /// the type of option
@@ -52,7 +54,7 @@ class ApplicationCommandOption {
   /// Options using autocomplete are not confined to only use choices given by the application.
   final bool? autocomplete;
 
-  /// Create an [ApplicationCommandOption]
+  /// Constructor
   ApplicationCommandOption({
     required this.type,
     required this.name,

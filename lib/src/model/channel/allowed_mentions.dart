@@ -6,11 +6,15 @@ import 'package:discord_interactions/src/model/discord_model.dart';
 
 part 'allowed_mentions.g.dart';
 
+/// Allowed Mentions structure
+/// 
 /// The allowed mention field allows for more granular control over mentions
 /// without various hacks to the message content. This will always validate
 /// against message content to avoid phantom pings (e.g. to ping everyone, you
 /// must still have @everyone in the message content), and check against
 /// user/bot permissions.
+/// 
+/// https://discord.com/developers/docs/resources/channel#allowed-mentions-object-allowed-mentions-structure
 @JsonSerializable()
 class AllowedMentions {
   /// An array of allowed mention types to parse from the content.

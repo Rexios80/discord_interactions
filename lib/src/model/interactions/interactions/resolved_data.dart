@@ -6,7 +6,11 @@ import 'package:discord_interactions/src/model/discord_model.dart';
 
 part 'resolved_data.g.dart';
 
+/// Resolved Data structure
+/// 
 /// If data for a Member is included, data for its corresponding User will also be included.
+/// 
+/// https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure
 @JsonSerializable()
 class ResolvedData {
   /// the ids and User objects
@@ -29,7 +33,7 @@ class ResolvedData {
   /// the ids and partial Message objects
   final Map<String, Message>? messages;
 
-  /// Create a [ResolvedData]
+  /// Constructor
   ResolvedData({
     this.users,
     this.members,

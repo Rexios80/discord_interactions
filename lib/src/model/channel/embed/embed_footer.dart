@@ -4,6 +4,8 @@ import 'package:json_annotation/json_annotation.dart';
 part 'embed_footer.g.dart';
 
 /// Embed Footer structure
+/// 
+/// https://discord.com/developers/docs/resources/channel#embed-object-embed-footer-structure
 @JsonSerializable()
 class EmbedFooter {
   /// footer text

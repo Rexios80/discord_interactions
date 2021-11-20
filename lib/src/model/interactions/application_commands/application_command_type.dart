@@ -1,7 +1,9 @@
 // Package imports:
 import 'package:json_annotation/json_annotation.dart';
 
-/// The type of command
+/// Application Command types
+/// 
+/// https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-types
 enum ApplicationCommandType {
   /// Slash commands; a text-based command that shows up when a user types /
   @JsonValue(1)
