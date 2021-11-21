@@ -16,7 +16,16 @@ class ChannelsApi {
   /// Constructor
   ChannelsApi(this._dio);
 
-  // TODO: getChannel
+  /// Get a channel by ID. Returns a [Channel] object. If the channel is a thread,
+  /// a [ThreadMember] object is included in the returned result.
+  ///
+  /// https://discord.com/developers/docs/resources/channel#get-channel
+  Future<DiscordResponse<Channel>> getChannel(String channelId) async {
+    return validateApiCall(
+      _dio.get('$_basePath/$channelId'),
+      responseTransformer: (data) => Channel.fromJson(data),
+    );
+  }
 
   // TODO: modifyChannel
 
@@ -32,7 +41,7 @@ class ChannelsApi {
   /// content, consider sanitizing the data to prevent unexpected behavior and
   /// utilizing allowed_mentions to prevent unexpected mentions.
   ///
-  /// Post a [Messsage] to a guild text or DM channel. Returns a [Message] object.
+  /// Post a [Message] to a guild text or DM channel. Returns a [Message] object.
   /// Fires a Message Create Gateway event. See message formatting for more
   /// information on how to properly format messages.
   ///
