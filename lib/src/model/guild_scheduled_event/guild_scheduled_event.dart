@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
-import 'package:discord_interactions/src/converter/iso8601_converter.dart';
+import 'package:discord_interactions/src/converter/date/iso8601_converter.dart';
 
 part 'guild_scheduled_event.g.dart';
 

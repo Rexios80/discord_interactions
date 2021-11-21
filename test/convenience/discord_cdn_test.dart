@@ -47,7 +47,7 @@ void main() async {
 
     test('Default user avatar', () async {
       final cdnUrl =
-          DiscordCdn.defaultUserAvatar(int.parse(user.discriminator));
+          DiscordCdn.defaultUserAvatar(int.parse(user.discriminator!));
       await dio.get(cdnUrl);
     });
 

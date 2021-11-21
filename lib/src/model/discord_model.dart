@@ -43,6 +43,15 @@ export 'channel/message/message.dart';
 // emoji
 export 'emoji/emoji.dart';
 
+// gateway/presence
+export 'gateway/presence/presence_status.dart';
+export 'gateway/presence/presence_update_event.dart';
+
+// gateway/presence/activity
+export 'gateway/presence/activity/activity_timestamps.dart';
+export 'gateway/presence/activity/activity_type.dart';
+export 'gateway/presence/activity/activity.dart';
+
 // guild
 export 'guild/default_message_notification_level.dart';
 export 'guild/explicit_content_filter_level.dart';

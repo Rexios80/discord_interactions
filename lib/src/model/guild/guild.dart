@@ -3,9 +3,9 @@ import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
+import 'package:discord_interactions/src/converter/date/iso8601_converter.dart';
 import 'package:discord_interactions/src/converter/flag/permission_converter.dart';
 import 'package:discord_interactions/src/converter/flag/system_channel_flag_converter.dart';
-import 'package:discord_interactions/src/converter/iso8601_converter.dart';
 
 part 'guild.g.dart';
 
@@ -162,7 +162,7 @@ class Guild {
   /// members if the size is greater than large threshold
   ///
   /// *
-  final List<PresenceUpdate>? presences;
+  final List<PresenceUpdateEvent>? presences;
 
   /// the maximum number of presences for the guild (null is always returned,
   /// apart from the largest of guilds)

@@ -61,7 +61,9 @@ Guild _$GuildFromJson(Map<String, dynamic> json) => Guild(
       threads: (json['threads'] as List<dynamic>?)
           ?.map((e) => Channel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      presences: json['presences'] as List<dynamic>?,
+      presences: (json['presences'] as List<dynamic>?)
+          ?.map((e) => PresenceUpdateEvent.fromJson(e as Map<String, dynamic>))
+          .toList(),
       maxPresences: json['max_presences'] as int?,
       maxMembers: json['max_members'] as int?,
       vanityUrlCode: json['vanity_url_code'] as String?,
@@ -79,7 +81,8 @@ Guild _$GuildFromJson(Map<String, dynamic> json) => Guild(
           ? null
           : WelcomeScreen.fromJson(
               json['welcome_screen'] as Map<String, dynamic>),
-      nsfwLevel: json['nsfw_level'],
+      nsfwLevel:
+          $enumDecodeNullable(_$GuildNsfwLevelEnumMap, json['nsfw_level']),
       stageInstances: json['stage_instances'] as List<dynamic>?,
       stickers: json['stickers'] as List<dynamic>?,
     );
@@ -137,7 +140,7 @@ Map<String, dynamic> _$GuildToJson(Guild instance) => <String, dynamic>{
       'approximate_member_count': instance.approximateMemberCount,
       'approximate_presence_count': instance.approximatePresenceCount,
       'welcome_screen': instance.welcomeScreen,
-      'nsfw_level': instance.nsfwLevel,
+      'nsfw_level': _$GuildNsfwLevelEnumMap[instance.nsfwLevel],
       'stage_instances': instance.stageInstances,
       'stickers': instance.stickers,
     };
@@ -240,4 +243,11 @@ const _$PremiumTierEnumMap = {
   PremiumTier.tier1: 1,
   PremiumTier.tier2: 2,
   PremiumTier.tier3: 3,
+};
+
+const _$GuildNsfwLevelEnumMap = {
+  GuildNsfwLevel.defaultLevel: 0,
+  GuildNsfwLevel.explicit: 1,
+  GuildNsfwLevel.safe: 2,
+  GuildNsfwLevel.ageRestricted: 3,
 };

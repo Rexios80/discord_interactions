@@ -1,7 +1,8 @@
+// Package imports:
 import 'package:json_annotation/json_annotation.dart';
 
 /// Guild Nsfw levels
-/// 
+///
 /// https://discord.com/developers/docs/resources/guild#guild-object-guild-nsfw-level
 enum GuildNsfwLevel {
   /// default

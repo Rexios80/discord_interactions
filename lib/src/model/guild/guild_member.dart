@@ -2,8 +2,8 @@
 import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
+import 'package:discord_interactions/src/converter/date/iso8601_converter.dart';
 import 'package:discord_interactions/src/converter/flag/permission_converter.dart';
-import 'package:discord_interactions/src/converter/iso8601_converter.dart';
 import 'package:discord_interactions/src/model/discord_model.dart';
 
 part 'guild_member.g.dart';

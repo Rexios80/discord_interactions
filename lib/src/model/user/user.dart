@@ -20,12 +20,12 @@ class User {
   /// the user's username, not unique across the platform
   ///
   /// Required OAuth2 scope: identify
-  final String username;
+  final String? username;
 
   /// the user's 4-digit discord-tag
   ///
   /// Required OAuth2 scope: identify
-  final String discriminator;
+  final String? discriminator;
 
   /// the user's avatar hash
   ///
@@ -99,8 +99,8 @@ class User {
   /// Constructor
   User({
     required this.id,
-    required this.username,
-    required this.discriminator,
+    this.username,
+    this.discriminator,
     this.avatar,
     this.bot,
     this.system,
