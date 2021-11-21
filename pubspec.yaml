@@ -9,7 +9,11 @@ environment:
 
 dependencies:
   json_annotation: ^4.3.0
-  dio: ^4.0.3
+  dio:
+    git: 
+      url: https://github.com/Rexios80/dio.git
+      ref: d6df21b7cb433db7ff9988bfcd691b249e1bab76
+      path: dio
   pinenacl: ^0.3.3
   convert: ^3.0.1
 
