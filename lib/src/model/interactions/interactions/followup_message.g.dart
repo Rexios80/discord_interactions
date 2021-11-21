@@ -23,8 +23,7 @@ FollowupMessage _$FollowupMessageFromJson(Map<String, dynamic> json) =>
       attachments: (json['attachments'] as List<dynamic>?)
           ?.map((e) => Attachment.fromJson(e as Map<String, dynamic>))
           .toList(),
-      flags: const InteractionCallbackDataFlagConverter()
-          .fromJson(json['flags'] as int?),
+      flags: const MessageFlagConverter().fromJson(json['flags'] as int?),
     );
 
 Map<String, dynamic> _$FollowupMessageToJson(FollowupMessage instance) =>
@@ -35,6 +34,5 @@ Map<String, dynamic> _$FollowupMessageToJson(FollowupMessage instance) =>
       'allowedMentions': instance.allowedMentions,
       'components': instance.components,
       'attachments': instance.attachments,
-      'flags':
-          const InteractionCallbackDataFlagConverter().toJson(instance.flags),
+      'flags': const MessageFlagConverter().toJson(instance.flags),
     };

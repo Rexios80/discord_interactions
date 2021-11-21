@@ -1,4 +1,5 @@
 // Package imports:
+import 'package:discord_interactions/src/converter/flag/message_flag_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
@@ -121,8 +122,8 @@ class Message {
   final MessageReference? messageReference;
 
   /// message flags combined as a bitfield
-  /// TODO: Make this a list of MessageFlag
-  final int? flags;
+  @MessageFlagConverter()
+  final List<MessageFlag>? flags;
 
   /// the message associated with the message_reference
   ///

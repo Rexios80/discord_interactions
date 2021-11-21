@@ -1,4 +1,5 @@
 // Package imports:
+import 'package:discord_interactions/src/converter/flag/message_flag_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
@@ -27,8 +28,8 @@ class InteractionCallbackData {
   final AllowedMentions? allowedMentions;
 
   /// interaction callback data flags
-  /// TODO: Make this a list of InteractionCallbackDataFlag
-  final int? flags;
+  @MessageFlagConverter()
+  final List<MessageFlag>? flags;
 
   /// message components
   final List<Component>? components;

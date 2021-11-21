@@ -1,4 +1,5 @@
 // Package imports:
+import 'package:discord_interactions/src/converter/flag/application_flag_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
@@ -79,8 +80,8 @@ class Application {
   final String? coverImage;
 
   /// the application's public flags
-  /// TODO: Make this a list of ApplicationFlag
-  final int? flags;
+  @ApplicationFlagConverter()
+  final List<ApplicationFlag>? flags;
 
   /// Constructor
   Application({

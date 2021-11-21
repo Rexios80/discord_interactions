@@ -1,5 +1,5 @@
 import 'package:discord_interactions/discord_interactions.dart';
-import 'package:discord_interactions/src/converter/interaction_callback_data_flag_converter.dart';
+import 'package:discord_interactions/src/converter/flag/message_flag_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'followup_message.g.dart';
@@ -30,8 +30,8 @@ class FollowupMessage {
   final List<Attachment>? attachments;
 
   /// interaction callback data flags
-  @InteractionCallbackDataFlagConverter()
-  final List<InteractionCallbackDataFlag>? flags;
+  @MessageFlagConverter()
+  final List<MessageFlag>? flags;
 
   /// Constructor
   FollowupMessage({

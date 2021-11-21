@@ -53,7 +53,7 @@ Message _$MessageFromJson(Map<String, dynamic> json) => Message(
           ? null
           : MessageReference.fromJson(
               json['message_reference'] as Map<String, dynamic>),
-      flags: json['flags'] as int?,
+      flags: const MessageFlagConverter().fromJson(json['flags'] as int?),
       referencedMessage: json['referenced_message'] == null
           ? null
           : Message.fromJson(
@@ -99,7 +99,7 @@ Map<String, dynamic> _$MessageToJson(Message instance) => <String, dynamic>{
       'application': instance.application,
       'application_id': instance.applicationId,
       'message_reference': instance.messageReference,
-      'flags': instance.flags,
+      'flags': const MessageFlagConverter().toJson(instance.flags),
       'referenced_message': instance.referencedMessage,
       'interaction': instance.interaction,
       'thread': instance.thread,

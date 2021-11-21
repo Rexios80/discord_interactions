@@ -30,7 +30,7 @@ Application _$ApplicationFromJson(Map<String, dynamic> json) => Application(
       primarySkuId: json['primary_sku_id'] as String?,
       slug: json['slug'] as String?,
       coverImage: json['cover_image'] as String?,
-      flags: json['flags'] as int?,
+      flags: const ApplicationFlagConverter().fromJson(json['flags'] as int?),
     );
 
 Map<String, dynamic> _$ApplicationToJson(Application instance) =>
@@ -52,5 +52,5 @@ Map<String, dynamic> _$ApplicationToJson(Application instance) =>
       'primary_sku_id': instance.primarySkuId,
       'slug': instance.slug,
       'cover_image': instance.coverImage,
-      'flags': instance.flags,
+      'flags': const ApplicationFlagConverter().toJson(instance.flags),
     };

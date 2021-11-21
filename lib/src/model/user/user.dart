@@ -1,9 +1,7 @@
 // Package imports:
+import 'package:discord_interactions/discord_interactions.dart';
+import 'package:discord_interactions/src/converter/flag/user_flag_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
-
-// Project imports:
-import 'package:discord_interactions/src/model/guild/guild_member.dart';
-import 'package:discord_interactions/src/model/user/premium_type.dart';
 
 part 'user.g.dart';
 
@@ -77,8 +75,8 @@ class User {
   /// the flags on a user's account
   ///
   /// Required OAuth2 scope: identify
-  /// TODO: Make this a list of UserFlag
-  final int? flags;
+  @UserFlagConverter()
+  final List<UserFlag>? flags;
 
   /// the type of Nitro subscription on a user's account
   ///
@@ -89,9 +87,8 @@ class User {
   /// the public flags on a user's account
   ///
   /// Required OAuth2 scope: identify
-  /// TODO: Make this a list of UserFlag
   @JsonKey(name: 'public_flags')
-  final int? publicFlags;
+  final List<UserFlag>? publicFlags;
 
   /// partial [GuildMember] object
   final GuildMember? member;

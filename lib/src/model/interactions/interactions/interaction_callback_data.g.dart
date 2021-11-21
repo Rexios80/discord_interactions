@@ -18,7 +18,7 @@ InteractionCallbackData _$InteractionCallbackDataFromJson(
           ? null
           : AllowedMentions.fromJson(
               json['allowed_mentions'] as Map<String, dynamic>),
-      flags: json['flags'] as int?,
+      flags: const MessageFlagConverter().fromJson(json['flags'] as int?),
       components: (json['components'] as List<dynamic>?)
           ?.map((e) => Component.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -34,7 +34,7 @@ Map<String, dynamic> _$InteractionCallbackDataToJson(
       'content': instance.content,
       'embeds': instance.embeds,
       'allowed_mentions': instance.allowedMentions,
-      'flags': instance.flags,
+      'flags': const MessageFlagConverter().toJson(instance.flags),
       'components': instance.components,
       'attachments': instance.attachments,
     };

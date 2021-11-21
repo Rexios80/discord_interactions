@@ -1,22 +1,21 @@
 import 'package:discord_interactions/discord_interactions.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-/// Byte tranform int to InteracitonCallbackDataFlags
-class InteractionCallbackDataFlagConverter
-    extends JsonConverter<List<InteractionCallbackDataFlag>?, int?> {
+/// Byte tranform int to [MessageFlag]
+class MessageFlagConverter extends JsonConverter<List<MessageFlag>?, int?> {
   /// Constructor
-  const InteractionCallbackDataFlagConverter();
+  const MessageFlagConverter();
 
   @override
-  List<InteractionCallbackDataFlag>? fromJson(int? json) {
+  List<MessageFlag>? fromJson(int? json) {
     if (json == null) return null;
-    return InteractionCallbackDataFlag.values
+    return MessageFlag.values
         .where((flag) => (json & flag.value) == flag.value)
         .toList();
   }
 
   @override
-  int? toJson(List<InteractionCallbackDataFlag>? object) {
+  int? toJson(List<MessageFlag>? object) {
     if (object == null) return null;
     return object.fold<int>(0, (value, flag) => value | flag.value);
   }

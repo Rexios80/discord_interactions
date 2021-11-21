@@ -5,6 +5,7 @@ export 'api/discord_response.dart';
 export 'api/discord_user_agent.dart';
 
 // application
+export 'application/application_flag.dart';
 export 'application/application.dart';
 
 // channel
@@ -14,11 +15,6 @@ export 'channel/attachment.dart';
 export 'channel/channel_mention.dart';
 export 'channel/channel_type.dart';
 export 'channel/channel.dart';
-export 'channel/message_activity_type.dart';
-export 'channel/message_activity.dart';
-export 'channel/message_reference.dart';
-export 'channel/message_type.dart';
-export 'channel/message.dart';
 export 'channel/overwrite.dart';
 export 'channel/reaction.dart';
 export 'channel/thread_member.dart';
@@ -35,6 +31,14 @@ export 'channel/embed/embed_thumbnail.dart';
 export 'channel/embed/embed_type.dart';
 export 'channel/embed/embed_video.dart';
 export 'channel/embed/embed.dart';
+
+// channel/message
+export 'channel/message/message_activity_type.dart';
+export 'channel/message/message_activity.dart';
+export 'channel/message/message_flag.dart';
+export 'channel/message/message_reference.dart';
+export 'channel/message/message_type.dart';
+export 'channel/message/message.dart';
 
 // emoji
 export 'emoji/emoji.dart';
@@ -61,7 +65,6 @@ export 'interactions/components/select_option.dart';
 
 // interactions/interactions
 export 'interactions/interactions/followup_message.dart';
-export 'interactions/interactions/interaction_callback_data_flag.dart';
 export 'interactions/interactions/interaction_callback_data.dart';
 export 'interactions/interactions/interaction_callback_type.dart';
 export 'interactions/interactions/interaction_data.dart';
@@ -86,4 +89,5 @@ export 'teams/team.dart';
 
 // user
 export 'user/premium_type.dart';
+export 'user/user_flag.dart';
 export 'user/user.dart';
