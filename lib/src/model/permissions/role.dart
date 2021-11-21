@@ -40,6 +40,7 @@ class Role {
   final int position;
 
   /// permission bit set
+  /// TODO: Convert to list of Permission
   final String permissions;
 
   /// whether this role is managed by an integration

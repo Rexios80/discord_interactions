@@ -119,6 +119,7 @@ class Channel {
   /// computed permissions for the invoking user in the channel, including
   /// overwrites, only included when part of the resolved data received on a
   /// slash command interaction
+  /// TODO: Convert to list of Permission
   final String? permissions;
 
   /// Constructor

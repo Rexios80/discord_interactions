@@ -52,6 +52,7 @@ class GuildMember {
 
   /// total permissions of the member in the channel, including overwrites,
   /// returned when in the interaction object
+  /// TODO: Convert to list of Permission
   final String? permissions;
 
   /// Constructor
