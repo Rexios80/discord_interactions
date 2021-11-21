@@ -25,11 +25,11 @@ class MessageFormatting {
 
   /// <t:TIMESTAMP>
   static String timestamp(DateTime timestamp) =>
-      '<t:${timestamp.millisecondsSinceEpoch / 1000}>';
+      '<t:${timestamp.millisecondsSinceEpoch ~/ 1000}>';
 
   /// <t:TIMESTAMP:STYLE>
   static String timestampStyled(DateTime timestamp, TimestampStyle style) =>
-      '<t:${timestamp.millisecondsSinceEpoch / 1000}:${style.value}>';
+      '<t:${timestamp.millisecondsSinceEpoch ~/ 1000}:${style.value}>';
 
   MessageFormatting._();
 }

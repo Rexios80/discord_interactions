@@ -1,5 +1,8 @@
-import 'package:discord_interactions/discord_interactions.dart';
+// Package imports:
 import 'package:json_annotation/json_annotation.dart';
+
+// Project imports:
+import 'package:discord_interactions/discord_interactions.dart';
 
 /// Byte tranform int to [UserFlag]
 class UserFlagConverter extends JsonConverter<List<UserFlag>?, int?> {

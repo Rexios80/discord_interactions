@@ -1,20 +1,22 @@
+// Dart imports:
 import 'dart:io';
 
+// Package imports:
 import 'package:dio/dio.dart';
-import 'package:discord_interactions/discord_interactions.dart';
 import 'package:test/test.dart';
-import 'package:http_parser/http_parser.dart';
 
+// Project imports:
+import 'package:discord_interactions/discord_interactions.dart';
 import '../../test_config.dart';
 
 void main() async {
   await setup();
 
-  group('Channel:', () {
+  group('Messaging:', () {
     final channelId = applicationInfo['channelId'];
 
     test('Basic messaging actions', () async {
-      final message = Message(content: 'Hello world');
+      final message = Message(content: 'This is a test');
 
       final createMessageResponse = await api.channels.createMessage(
         channelId,
@@ -39,9 +41,7 @@ void main() async {
 
       final createMessageResponse = await api.channels.createMessage(
         channelId,
-        message: Message(
-          attachments: [attachment],
-        ),
+        message: Message(attachments: [attachment]),
         files: [multipartFile],
       );
 

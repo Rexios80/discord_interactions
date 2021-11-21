@@ -1,6 +1,9 @@
+// Package imports:
+import 'package:json_annotation/json_annotation.dart';
+
+// Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
 import 'package:discord_interactions/src/converter/flag/message_flag_converter.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'followup_message.g.dart';
 

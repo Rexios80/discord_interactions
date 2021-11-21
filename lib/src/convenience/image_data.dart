@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
 
 /// Image data is a Data URI scheme that supports JPG, GIF, and PNG formats

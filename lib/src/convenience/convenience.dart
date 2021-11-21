@@ -1,6 +1,6 @@
 library convenience;
 
-export 'cdn_endpoints.dart';
+export 'discord_cdn.dart';
 export 'image_data.dart';
 export 'image_format.dart';
 export 'message_formatting.dart';

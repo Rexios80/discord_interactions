@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:discord_interactions/src/convenience/convenience.dart';
 
 /// Discord uses ids and hashes to render images in the client. These hashes can
@@ -16,7 +17,7 @@ import 'package:discord_interactions/src/convenience/convenience.dart';
 /// These methods automatically return .gif endpoints for animates images and
 /// .png endpoints for static images. This behavior can be overridden by passing
 /// the `format` parameter.
-class CdnEndpoints {
+class DiscordCdn {
   /// The base url for the Discord CDN
   static const imageBaseUrl = 'https://cdn.discordapp.com';
 
@@ -240,5 +241,5 @@ class CdnEndpoints {
 
   static bool _isGif(String id) => id.startsWith('a_');
 
-  CdnEndpoints._();
+  DiscordCdn._();
 }

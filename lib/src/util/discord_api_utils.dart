@@ -1,8 +1,9 @@
-// Package imports:
+// Dart imports:
 import 'dart:convert';
 
-import 'package:dio/dio.dart';
+// Package imports:
 import 'package:collection/collection.dart';
+import 'package:dio/dio.dart';
 
 // Project imports:
 import 'package:discord_interactions/src/model/discord_model.dart';

@@ -3,11 +3,13 @@ import 'dart:convert';
 import 'dart:io';
 
 // Package imports:
+import 'package:dio/dio.dart';
 import 'package:yaml/yaml.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
 
+late final Dio dio;
 late final DiscordApi api;
 late final Map<String, dynamic> applicationInfo;
 
@@ -21,13 +23,17 @@ Future<void> setup() async {
   final pubspecString = await pubspecFile.readAsString();
   final pubspec = loadYaml(pubspecString);
 
+  final userAgent = DiscordUserAgent(
+    url: applicationInfo['userAgentUrl'],
+    versionNumber: pubspec['version'],
+    extra: 'Unit testing',
+  );
+
+  dio = Dio(BaseOptions(headers: {'User-Agent': userAgent.toString()}));
+
   api = DiscordApi(
     applicationId: applicationInfo['applicationId'],
-    userAgent: DiscordUserAgent(
-      url: applicationInfo['userAgentUrl'],
-      versionNumber: pubspec['version'],
-      extra: 'Unit testing',
-    ),
+    userAgent: userAgent,
     botToken: applicationInfo['botToken'],
   );
 }

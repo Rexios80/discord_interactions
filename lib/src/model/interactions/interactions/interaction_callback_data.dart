@@ -1,8 +1,8 @@
 // Package imports:
-import 'package:discord_interactions/src/converter/flag/message_flag_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
+import 'package:discord_interactions/src/converter/flag/message_flag_converter.dart';
 import 'package:discord_interactions/src/model/discord_model.dart';
 
 part 'interaction_callback_data.g.dart';

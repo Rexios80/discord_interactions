@@ -1,8 +1,8 @@
 // Package imports:
 import 'package:dio/dio.dart';
-import 'package:discord_interactions/src/api/channels_api.dart';
 
 // Project imports:
+import 'package:discord_interactions/src/api/channels_api.dart';
 import 'package:discord_interactions/src/api/interactions/application_commands_api.dart';
 import 'package:discord_interactions/src/api/interactions/interactions_api.dart';
 import 'package:discord_interactions/src/api/users_api.dart';
