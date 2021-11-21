@@ -12,6 +12,7 @@ dependencies:
   dio: ^4.0.3
   pinenacl: ^0.3.3
   convert: ^3.0.1
+  collection: ^1.15.0
 
 dev_dependencies:
   lints: ^1.0.0
