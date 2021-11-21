@@ -36,7 +36,8 @@ class InteractionsApi {
     return validateApiCall(
       _dio.post(
         '/interactions/${interaction.id}/${interaction.token}/callback',
-        data: createFormData(response, files),
+        // data: createFormData(response, files),
+        data: response,
       ),
       responseTransformer: (data) => InteractionResponse.fromJson(data),
     );
@@ -65,7 +66,8 @@ class InteractionsApi {
     return validateApiCall(
       _dio.patch(
         '$_path/$interactionToken/messages/@original',
-        data: createFormData(response, files),
+        // data: createFormData(response, files),
+        data: response,
       ),
       responseTransformer: (data) => InteractionResponse.fromJson(data),
     );
@@ -100,7 +102,8 @@ class InteractionsApi {
     return validateApiCall(
       _dio.post(
         '$_path/$interactionToken',
-        data: createFormData(message, files),
+        // data: createFormData(message, files),
+        data: message,
       ),
       responseTransformer: (data) => Message.fromJson(data),
     );
@@ -133,7 +136,8 @@ class InteractionsApi {
     return validateApiCall(
       _dio.patch(
         '$_path/$interactionToken/messages/$messageId',
-        data: createFormData(message, files),
+        // data: createFormData(message, files),
+        data: message,
       ),
       responseTransformer: (data) => Message.fromJson(data),
     );
