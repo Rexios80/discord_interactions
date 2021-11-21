@@ -12,8 +12,8 @@ void main() async {
     await dio.get(cdnUrl);
   });
 
-  final guildId = applicationInfo['guildId'];
   // TODO: Need the ability to fetch guilds first
+  // final guildId = applicationInfo['guildId'];
   // final guildResponse = await api.guilds.getGuild(guildId);
   // final guild = guildResponse.data!;
   group('Guild:', () {

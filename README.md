@@ -5,10 +5,10 @@ Create a serverless Discord bot in pure dart using Discord Interactions webhooks
 | --- | --- |
 | Manage Application Commands | Full support (unit-tested) |
 | Create message components | Full support (untested) |
-| Respond to commands | Full support (tested in practice) |
+| Respond to commands | Full support (not fully tested) |
 | File uploads | Full support (unit-tested) |
 | Messaging | Partial support (unit-tested) |
-| User moderation | Soon |
+| Moderation | Soon |
 | Channel management | Not yet |
 | Other API endpoints | Not yet |
 
