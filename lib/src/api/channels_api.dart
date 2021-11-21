@@ -124,9 +124,64 @@ class ChannelsApi {
     );
   }
 
-  // TODO: getChannelMessages
+  /// Returns the messages for a channel. If operating on a guild channel, this
+  /// endpoint requires the VIEW_CHANNEL permission to be present on the current
+  /// user. If the current user is missing the 'READ_MESSAGE_HISTORY' permission
+  /// in the channel then this will return no messages (since they cannot read
+  /// the message history). Returns an array of [Message] objects on success.
+  ///
+  /// The before, after, and around keys are mutually exclusive, only one may
+  /// be passed at a time.
+  ///
+  /// https://discord.com/developers/docs/resources/channel#get-channel-messages
+  Future<DiscordResponse<List<Message>>> getChannelMessages(
+    String channelId, {
 
-  // TODO: getChannelMessage
+    /// get messages around this message ID
+    String? around,
+
+    /// get messages before this message ID
+    String? before,
+
+    /// get messages after this message ID
+    String? after,
+
+    /// max number of messages to return (1-100)
+    ///
+    /// Default: 50
+    int? limit,
+  }) async {
+    final queryParameters = <String, dynamic>{
+      if (around != null) 'around': around,
+      if (before != null) 'before': before,
+      if (after != null) 'after': after,
+      if (limit != null) 'limit': limit,
+    };
+
+    return validateApiCall(
+      _dio.get(
+        '$_basePath/$channelId/messages',
+        queryParameters: queryParameters,
+      ),
+      responseTransformer: (data) =>
+          data.map((message) => Message.fromJson(message)).toList(),
+    );
+  }
+
+  /// Returns a specific message in the channel. If operating on a guild
+  /// channel, this endpoint requires the 'READ_MESSAGE_HISTORY' permission to
+  /// be present on the current user. Returns a message object on success.
+  ///
+  /// https://discord.com/developers/docs/resources/channel#get-channel-message
+  Future<DiscordResponse<Message>> getChannelMessage(
+    String channelId,
+    String messageId,
+  ) async {
+    return validateApiCall(
+      _dio.get('$_basePath/$channelId/messages/$messageId'),
+      responseTransformer: (data) => Message.fromJson(data),
+    );
+  }
 
   /// Discord may strip certain characters from message content, like invalid
   /// unicode characters or characters which cause unexpected message
@@ -181,6 +236,310 @@ class ChannelsApi {
       responseTransformer: (data) => Message.fromJson(data),
     );
   }
+
+  /// Crosspost a message in a News Channel to following channels. This endpoint
+  /// requires the 'SEND_MESSAGES' permission, if the current user sent the
+  /// message, or additionally the 'MANAGE_MESSAGES' permission, for all other
+  /// messages, to be present for the current user.
+  ///
+  /// Returns a [Message] object.
+  ///
+  /// https://discord.com/developers/docs/resources/channel#crosspost-message
+  Future<DiscordResponse<Message>> crosspostMessage({
+    required String channelId,
+    required String messageId,
+  }) async {
+    return validateApiCall(
+      _dio.post('$_basePath/$channelId/messages/$messageId/crosspost'),
+      responseTransformer: (data) => Message.fromJson(data),
+    );
+  }
+
+  /// Create a reaction for the message. This endpoint requires the
+  /// 'READ_MESSAGE_HISTORY' permission to be present on the current user.
+  /// Additionally, if nobody else has reacted to the message using this emoji,
+  /// this endpoint requires the 'ADD_REACTIONS' permission to be present on the
+  /// current user. Returns a 204 empty response on success. The emoji must be
+  /// URL Encoded or the request will fail with 10014: Unknown Emoji. To use
+  /// custom emoji, you must encode it in the format name:id with the emoji name
+  /// and emoji id.
+  ///
+  /// This method handles emoji encoding for you
+  ///
+  /// https://discord.com/developers/docs/resources/channel#create-reaction
+  Future<DiscordResponse> createReaction({
+    required String channelId,
+    required String messageId,
+    required String emojiName,
+    required String emojiId,
+  }) async {
+    final emoji = EmojiEncoder.urlEncode(emojiName, emojiId);
+    return validateApiCall(
+      _dio.put(
+        '$_basePath/$channelId/messages/$messageId/reactions/$emoji/@me',
+      ),
+    );
+  }
+
+  /// Delete a reaction the current user has made for the message. Returns a 204
+  /// empty response on success. The emoji must be URL Encoded or the request
+  /// will fail with 10014: Unknown Emoji. To use custom emoji, you must encode
+  /// it in the format name:id with the emoji name and emoji id.
+  ///
+  /// This method handles emoji encoding for you
+  ///
+  /// https://discord.com/developers/docs/resources/channel#delete-own-reaction
+  Future<DiscordResponse> deleteOwnReaction({
+    required String channelId,
+    required String messageId,
+    required String emojiName,
+    required String emojiId,
+  }) async {
+    final emoji = EmojiEncoder.urlEncode(emojiName, emojiId);
+    return validateApiCall(
+      _dio.delete(
+        '$_basePath/$channelId/messages/$messageId/reactions/$emoji/@me',
+      ),
+    );
+  }
+
+  /// Deletes another user's reaction. This endpoint requires the
+  /// 'MANAGE_MESSAGES' permission to be present on the current user. Returns a
+  /// 204 empty response on success. The emoji must be URL Encoded or the
+  /// request will fail with 10014: Unknown Emoji. To use custom emoji, you must
+  /// encode it in the format name:id with the emoji name and emoji id.
+  ///
+  /// This method handles emoji encoding for you
+  ///
+  /// https://discord.com/developers/docs/resources/channel#delete-user-reaction
+  Future<DiscordResponse> deleteUserReaction({
+    required String channelId,
+    required String messageId,
+    required String emojiName,
+    required String emojiId,
+    required String userId,
+  }) async {
+    final emoji = EmojiEncoder.urlEncode(emojiName, emojiId);
+    return validateApiCall(
+      _dio.delete(
+        '$_basePath/$channelId/messages/$messageId/reactions/$emoji/$userId',
+      ),
+    );
+  }
+
+  /// Get a list of users that reacted with this emoji. Returns an array of user
+  /// objects on success. The emoji must be URL Encoded or the request will fail
+  /// with 10014: Unknown Emoji. To use custom emoji, you must encode it in the
+  /// format name:id with the emoji name and emoji id.
+  ///
+  /// This method handles emoji encoding for you
+  ///
+  /// https://discord.com/developers/docs/resources/channel#get-reactions
+  Future<DiscordResponse<List<User>>> getReactions({
+    required String channelId,
+    required String messageId,
+    required String emojiName,
+    required String emojiId,
+
+    /// get users after this user ID
+    String? after,
+
+    /// max number of users to return (1-100)
+    ///
+    /// Default: 25
+    int? limit,
+  }) async {
+    final emoji = EmojiEncoder.urlEncode(emojiName, emojiId);
+    final query = {
+      if (after != null) 'after': after,
+      if (limit != null) 'limit': limit,
+    };
+    return validateApiCall(
+      _dio.get(
+        '$_basePath/$channelId/messages/$messageId/reactions/$emoji',
+        queryParameters: query,
+      ),
+      responseTransformer: (data) =>
+          data.map((user) => User.fromJson(user)).toList(),
+    );
+  }
+
+  /// Deletes all reactions on a message. This endpoint requires the
+  /// 'MANAGE_MESSAGES' permission to be present on the current user. Fires a
+  /// Message Reaction Remove All Gateway event.
+  ///
+  /// https://discord.com/developers/docs/resources/channel#delete-all-reactions
+  Future<DiscordResponse> deleteAllReactions({
+    required String channelId,
+    required String messageId,
+  }) async {
+    return validateApiCall(
+      _dio.delete('$_basePath/$channelId/messages/$messageId/reactions'),
+    );
+  }
+
+  /// Deletes all the reactions for a given emoji on a message. This endpoint
+  /// requires the MANAGE_MESSAGES permission to be present on the current user.
+  /// Fires a Message Reaction Remove Emoji Gateway event. The emoji must be URL
+  /// Encoded or the request will fail with 10014: Unknown Emoji. To use custom
+  /// emoji, you must encode it in the format name:id with the emoji name and
+  /// emoji id.
+  ///
+  /// This method handles emoji encoding for you
+  ///
+  /// https://discord.com/developers/docs/resources/channel#delete-all-reactions-for-emoji
+  Future<DiscordResponse> deleteAllReactionsForEmoji({
+    required String channelId,
+    required String messageId,
+    required String emojiName,
+    required String emojiId,
+  }) async {
+    final emoji = EmojiEncoder.urlEncode(emojiName, emojiId);
+    return validateApiCall(
+      _dio.delete('$_basePath/$channelId/messages/$messageId/reactions/$emoji'),
+    );
+  }
+
+  /// Edit a previously sent message. The fields content, embeds, and flags can
+  /// be edited by the original message author. Other users can only edit flags
+  /// and only if they have the MANAGE_MESSAGES permission in the corresponding
+  /// channel. When specifying flags, ensure to include all previously set
+  /// flags/bits in addition to ones that you are modifying. Only flags
+  /// documented in the table below may be modified by users (unsupported flag
+  /// changes are currently ignored without error).
+  ///
+  /// When the content field is edited, the mentions array in the message object
+  /// will be reconstructed from scratch based on the new content. The
+  /// allowed_mentions field of the edit request controls how this happens. If
+  /// there is no explicit allowed_mentions in the edit request, the content
+  /// will be parsed with default allowances, that is, without regard to whether
+  /// or not an allowed_mentions was present in the request that originally
+  /// created the message.
+  ///
+  /// Returns a [Message] object. Fires a Message Update Gateway event.
+  ///
+  /// Refer to Uploading Files for details on attachments and
+  /// multipart/form-data requests. Any provided files will be appended to the
+  /// message. To remove or replace files you will have to supply the
+  /// attachments field which specifies the files to retain on the message after
+  /// edit.
+  ///
+  /// Starting with API v10, the attachments array must contain all attachments
+  /// that should be present after edit, including retained and new attachments
+  /// provided in the request body.
+  ///
+  /// All parameters to this endpoint are optional and nullable.
+  ///
+  /// https://discord.com/developers/docs/resources/channel#edit-message
+  Future<DiscordResponse<Message>> editMessage({
+    required String channelId,
+    required String messageId,
+    required Message message,
+    List<MultipartFile>? files,
+  }) async {
+    return validateApiCall(
+      _dio.patch(
+        '$_basePath/$channelId/messages/$messageId',
+        data: createFormData(message, files),
+      ),
+      responseTransformer: (data) => Message.fromJson(data),
+    );
+  }
+
+  /// Delete a message. If operating on a guild channel and trying to delete a
+  /// message that was not sent by the current user, this endpoint requires the
+  /// MANAGE_MESSAGES permission. Returns a 204 empty response on success. Fires
+  /// a Message Delete Gateway event.
+  ///
+  /// This endpoint supports the X-Audit-Log-Reason header.
+  ///
+  /// https://discord.com/developers/docs/resources/channel#delete-message
+  Future<DiscordResponse> deleteMessage({
+    required String channelId,
+    required String messageId,
+    String? reason,
+  }) async {
+    return validateApiCall(
+      _dio.delete(
+        '$_basePath/$channelId/messages/$messageId',
+        options: Options(
+          headers: {
+            if (reason != null) DiscordHeader.auditLogReason: reason,
+          },
+        ),
+      ),
+    );
+  }
+
+  /// Delete multiple messages in a single request. This endpoint can only be
+  /// used on guild channels and requires the MANAGE_MESSAGES permission.
+  /// Returns a 204 empty response on success. Fires a Message Delete Bulk
+  /// Gateway event.
+  ///
+  /// Any message IDs given that do not exist or are invalid will count towards
+  /// the minimum and maximum message count (currently 2 and 100 respectively).
+  ///
+  /// This endpoint will not delete messages older than 2 weeks, and will fail
+  /// with a 400 BAD REQUEST if any message provided is older than that or if
+  /// any duplicate message IDs are provided.
+  ///
+  /// This endpoint supports the X-Audit-Log-Reason header.
+  ///
+  /// https://discord.com/developers/docs/resources/channel#bulk-delete-messages
+  Future<DiscordResponse> bulkDeleteMessages({
+    required String channelId,
+
+    /// an array of message ids to delete (2-100)
+    required List<String> messageIds,
+    String? reason,
+  }) async {
+    return validateApiCall(
+      _dio.delete(
+        '$_basePath/$channelId/messages/bulk-delete',
+        data: {
+          'messages': messageIds,
+        },
+        options: Options(
+          headers: {
+            if (reason != null) DiscordHeader.auditLogReason: reason,
+          },
+        ),
+      ),
+    );
+  }
+
+  /// Edit the channel permission overwrites for a user or role in a channel.
+  /// Only usable for guild channels. Requires the MANAGE_ROLES permission. Only
+  /// permissions your bot has in the guild or channel can be allowed/denied
+  /// (unless your bot has a MANAGE_ROLES overwrite in the channel). Returns a
+  /// 204 empty response on success. For more information about permissions, see
+  /// permissions.
+  ///
+  /// This endpoint supports the X-Audit-Log-Reason header.
+  ///
+  /// https://discord.com/developers/docs/resources/channel#edit-channel-permissions
+  Future<DiscordResponse> editChannelPermissions({
+    required String channelId,
+    required Overwrite overwrite,
+    String? reason,
+  }) async {
+    return validateApiCall(
+      _dio.put(
+        '$_basePath/$channelId/permissions/${overwrite.id}}',
+        data: overwrite,
+        options: Options(
+          headers: {
+            if (reason != null) DiscordHeader.auditLogReason: reason,
+          },
+        ),
+      ),
+    );
+  }
+
+  /// Returns a list of [Invite] objects (with [InviteMetadata]) for the channel.
+  /// Only usable for guild channels. Requires the MANAGE_CHANNELS permission.
+  ///
+  /// https://discord.com/developers/docs/resources/channel#get-channel-invites
 
   // TODO: Other endpoints
 }

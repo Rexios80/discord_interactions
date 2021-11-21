@@ -1,7 +1,9 @@
 // Package imports:
 import 'package:convert/convert.dart';
-import 'package:discord_interactions/discord_interactions.dart';
 import 'package:pinenacl/ed25519.dart';
+
+// Project imports:
+import 'package:discord_interactions/discord_interactions.dart';
 
 /// Validate received Interactions
 ///

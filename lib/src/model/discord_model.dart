@@ -44,7 +44,25 @@ export 'channel/message/message.dart';
 export 'emoji/emoji.dart';
 
 // guild
+export 'guild/default_message_notification_level.dart';
+export 'guild/explicit_content_filter_level.dart';
+export 'guild/guild_feature.dart';
 export 'guild/guild_member.dart';
+export 'guild/guild_nsfw_level.dart';
+export 'guild/guild.dart';
+export 'guild/mfa_level.dart';
+export 'guild/premium_tier.dart';
+export 'guild/system_channel_flag.dart';
+export 'guild/verification_level.dart';
+export 'guild/welcome_screen_channel.dart';
+export 'guild/welcome_screen.dart';
+
+// guild_scheduled_event
+export 'guild_scheduled_event/guild_scheduled_event_entity_metadata.dart';
+export 'guild_scheduled_event/guild_scheduled_event_entity_type.dart';
+export 'guild_scheduled_event/guild_scheduled_event_privacy_level.dart';
+export 'guild_scheduled_event/guild_scheduled_event_status.dart';
+export 'guild_scheduled_event/guild_scheduled_event.dart';
 
 // interactions/application_commands
 export 'interactions/application_commands/application_command_interaction_data_option.dart';
@@ -74,6 +92,11 @@ export 'interactions/interactions/interaction.dart';
 export 'interactions/interactions/message_interaction.dart';
 export 'interactions/interactions/resolved_data.dart';
 
+// invite
+export 'invite/invite_stage_instance.dart';
+export 'invite/invite_target_type.dart';
+export 'invite/invite.dart';
+
 // permissions
 export 'permissions/permission.dart';
 export 'permissions/role_tags.dart';
@@ -92,3 +115,6 @@ export 'teams/team.dart';
 export 'user/premium_type.dart';
 export 'user/user_flag.dart';
 export 'user/user.dart';
+
+// voice
+export 'voice/voice_state.dart';

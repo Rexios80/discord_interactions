@@ -25,4 +25,6 @@ class UsersApi {
       responseTransformer: (data) => User.fromJson(data),
     );
   }
+
+  // TODO: Other endpoints
 }
