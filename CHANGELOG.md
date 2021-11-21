@@ -1,3 +1,8 @@
+## 0.0.3
+- Added call to get channel by id
+- Added convenience constructor for InteractionResponse
+- Added DiscordColor class
+
 ## 0.0.2
 - Added more endpoints
 - Added convenience methods for message formatting, snowflakes, and other common tasks
