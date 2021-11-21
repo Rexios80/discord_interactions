@@ -44,7 +44,7 @@ class Message {
   final GuildMember? member;
 
   /// contents of the message
-  final String content;
+  final String? content;
 
   /// when this message was sent
   @ISO8601ConverterNullable()
@@ -160,7 +160,7 @@ class Message {
     this.guildId,
     this.author,
     this.member,
-    required this.content,
+    this.content,
     this.timestamp,
     this.editedTimestamp,
     this.tts,

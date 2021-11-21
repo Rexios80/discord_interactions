@@ -16,7 +16,7 @@ Message _$MessageFromJson(Map<String, dynamic> json) => Message(
       member: json['member'] == null
           ? null
           : GuildMember.fromJson(json['member'] as Map<String, dynamic>),
-      content: json['content'] as String,
+      content: json['content'] as String?,
       timestamp: const ISO8601ConverterNullable()
           .fromJson(json['timestamp'] as String?),
       editedTimestamp: const ISO8601ConverterNullable()

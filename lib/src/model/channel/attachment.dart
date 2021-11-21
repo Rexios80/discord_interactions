@@ -11,7 +11,7 @@ part 'attachment.g.dart';
 @JsonSerializable()
 class Attachment {
   /// attachment id
-  final String? id;
+  final String id;
 
   /// name of the file attached
   final String filename;
@@ -48,7 +48,7 @@ class Attachment {
 
   /// Constructor
   Attachment({
-    this.id,
+    required this.id,
     required this.filename,
     this.description,
     this.contentType,

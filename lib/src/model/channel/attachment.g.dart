@@ -7,7 +7,7 @@ part of 'attachment.dart';
 // **************************************************************************
 
 Attachment _$AttachmentFromJson(Map<String, dynamic> json) => Attachment(
-      id: json['id'] as String?,
+      id: json['id'] as String,
       filename: json['filename'] as String,
       description: json['description'] as String?,
       contentType: json['content_type'] as String?,
