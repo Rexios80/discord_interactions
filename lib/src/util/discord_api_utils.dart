@@ -1,6 +1,4 @@
 // Package imports:
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:collection/collection.dart';
 
@@ -30,14 +28,17 @@ Future<DiscordResponse<T>> validateApiCall<T>(
 
 /// Create [FormData] from a [payload] and [files]
 FormData createFormData(dynamic payload, List<MultipartFile>? files) {
-  /// Convert the payload to a json map
-  final formMap = jsonDecode(jsonEncode(payload));
+  return payload;
+  // TODO: Make this work
+  // final formMap = <String, dynamic>{
+  //   'payload_json': payload,
+  // };
 
-  if (files != null) {
-    files.forEachIndexed((index, file) {
-      formMap['files[$index]'] = file;
-    });
-  }
+  // if (files != null) {
+  //   files.forEachIndexed((index, file) {
+  //     formMap['files[$index]'] = file;
+  //   });
+  // }
 
-  return FormData.fromMap(formMap);
+  // return FormData.fromMap(formMap);
 }
