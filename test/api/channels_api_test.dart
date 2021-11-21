@@ -12,40 +12,40 @@ import '../test_config.dart';
 void main() async {
   await setup();
 
-  group('Messaging:', () {
-    final channelId = applicationInfo['channelId'];
+  final channelId = applicationInfo['channelId'];
 
-    test('Basic messaging actions', () async {
-      final message = Message(content: 'This is a test');
+  // TODO: getChannel
 
-      final createMessageResponse = await api.channels.createMessage(
-        channelId,
-        message: message,
-      );
+  test('Basic messaging actions', () async {
+    final message = Message(content: 'This is a test');
 
-      expect(createMessageResponse.data!.content, message.content);
-    });
+    final createMessageResponse = await api.channels.createMessage(
+      channelId,
+      message: message,
+    );
 
-    test('File upload', () async {
-      final testFile = File('test_resources/test_file.gif');
-      final testFileBytes = await testFile.readAsBytes();
-      final multipartFile = MultipartFile.fromBytes(
-        testFileBytes,
-        filename: 'test_file.gif',
-      );
+    expect(createMessageResponse.data!.content, message.content);
+  });
 
-      final attachment = Attachment(
-        id: '0',
-        filename: 'test_file.gif',
-      );
+  test('File upload', () async {
+    final testFile = File('test_resources/test_file.gif');
+    final testFileBytes = await testFile.readAsBytes();
+    final multipartFile = MultipartFile.fromBytes(
+      testFileBytes,
+      filename: 'test_file.gif',
+    );
 
-      final createMessageResponse = await api.channels.createMessage(
-        channelId,
-        message: Message(attachments: [attachment]),
-        files: [multipartFile],
-      );
+    final attachment = Attachment(
+      id: '0',
+      filename: 'test_file.gif',
+    );
 
-      expect(createMessageResponse.data!.attachments!.length, 1);
-    });
+    final createMessageResponse = await api.channels.createMessage(
+      channelId,
+      message: Message(attachments: [attachment]),
+      files: [multipartFile],
+    );
+
+    expect(createMessageResponse.data!.attachments!.length, 1);
   });
 }
