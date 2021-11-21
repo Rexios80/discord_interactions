@@ -6,6 +6,8 @@ import 'package:discord_interactions/src/model/discord_model.dart';
 import 'package:discord_interactions/src/util/discord_api_utils.dart';
 
 /// Access to the Application Commands API
+/// 
+/// https://discord.com/developers/docs/interactions/application-commands
 class ApplicationCommandsApi {
   static const _basePath = '/applications';
 

@@ -1,5 +1,6 @@
 // Package imports:
 import 'package:dio/dio.dart';
+import 'package:discord_interactions/src/api/channels_api.dart';
 
 // Project imports:
 import 'package:discord_interactions/src/api/interactions/application_commands_api.dart';
@@ -8,6 +9,8 @@ import 'package:discord_interactions/src/api/users_api.dart';
 import 'package:discord_interactions/src/model/discord_model.dart';
 
 /// Base class for accessing the Discord API
+///
+/// https://discord.com/developers/docs/intro
 class DiscordApi {
   static const _baseUrl = 'https://discord.com/api/v9';
 
@@ -21,6 +24,9 @@ class DiscordApi {
 
   /// Access to the Users API
   late final UsersApi users;
+
+  /// Access to the Channels API
+  late final ChannelsApi channels;
 
   /// Access to the Discord API
   DiscordApi({
@@ -46,5 +52,6 @@ class DiscordApi {
     );
     interactions = InteractionsApi(_dio, applicationId: applicationId);
     users = UsersApi(_dio);
+    channels = ChannelsApi(_dio);
   }
 }

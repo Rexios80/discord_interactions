@@ -3,6 +3,8 @@ import 'package:discord_interactions/discord_interactions.dart';
 import 'package:discord_interactions/src/util/discord_api_utils.dart';
 
 /// Access to the Users API
+/// 
+/// https://discord.com/developers/docs/resources/user
 class UsersApi {
   static const _baseUrl = '/users';
 

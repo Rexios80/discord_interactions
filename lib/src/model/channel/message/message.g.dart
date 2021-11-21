@@ -7,41 +7,44 @@ part of 'message.dart';
 // **************************************************************************
 
 Message _$MessageFromJson(Map<String, dynamic> json) => Message(
-      id: json['id'] as String,
-      channelId: json['channel_id'] as String,
+      id: json['id'] as String?,
+      channelId: json['channel_id'] as String?,
       guildId: json['guild_id'] as String?,
-      author: User.fromJson(json['author'] as Map<String, dynamic>),
+      author: json['author'] == null
+          ? null
+          : User.fromJson(json['author'] as Map<String, dynamic>),
       member: json['member'] == null
           ? null
           : GuildMember.fromJson(json['member'] as Map<String, dynamic>),
       content: json['content'] as String,
-      timestamp: const ISO8601Converter().fromJson(json['timestamp'] as String),
+      timestamp: const ISO8601ConverterNullable()
+          .fromJson(json['timestamp'] as String?),
       editedTimestamp: const ISO8601ConverterNullable()
           .fromJson(json['edited_timestamp'] as String?),
-      tts: json['tts'] as bool,
-      mentionEveryone: json['mention_everyone'] as bool,
+      tts: json['tts'] as bool?,
+      mentionEveryone: json['mention_everyone'] as bool?,
       mentions: (json['mentions'] as List<dynamic>?)
           ?.map((e) => User.fromJson(e as Map<String, dynamic>))
           .toList(),
-      mentionRoles: (json['mention_roles'] as List<dynamic>)
-          .map((e) => e as String)
+      mentionRoles: (json['mention_roles'] as List<dynamic>?)
+          ?.map((e) => e as String)
           .toList(),
       mentionChannels: (json['mention_channels'] as List<dynamic>?)
           ?.map((e) => ChannelMention.fromJson(e as Map<String, dynamic>))
           .toList(),
-      attachments: (json['attachments'] as List<dynamic>)
-          .map((e) => Attachment.fromJson(e as Map<String, dynamic>))
+      attachments: (json['attachments'] as List<dynamic>?)
+          ?.map((e) => Attachment.fromJson(e as Map<String, dynamic>))
           .toList(),
-      embeds: (json['embeds'] as List<dynamic>)
-          .map((e) => Embed.fromJson(e as Map<String, dynamic>))
+      embeds: (json['embeds'] as List<dynamic>?)
+          ?.map((e) => Embed.fromJson(e as Map<String, dynamic>))
           .toList(),
       reactions: (json['reactions'] as List<dynamic>?)
           ?.map((e) => Reaction.fromJson(e as Map<String, dynamic>))
           .toList(),
       nonce: json['nonce'],
-      pinned: json['pinned'] as bool,
+      pinned: json['pinned'] as bool?,
       webhookId: json['webhook_id'] as String?,
-      type: $enumDecode(_$MessageTypeEnumMap, json['type']),
+      type: $enumDecodeNullable(_$MessageTypeEnumMap, json['type']),
       activity: json['activity'] == null
           ? null
           : MessageActivity.fromJson(json['activity'] as Map<String, dynamic>),
@@ -80,7 +83,7 @@ Map<String, dynamic> _$MessageToJson(Message instance) => <String, dynamic>{
       'author': instance.author,
       'member': instance.member,
       'content': instance.content,
-      'timestamp': const ISO8601Converter().toJson(instance.timestamp),
+      'timestamp': const ISO8601ConverterNullable().toJson(instance.timestamp),
       'edited_timestamp':
           const ISO8601ConverterNullable().toJson(instance.editedTimestamp),
       'tts': instance.tts,

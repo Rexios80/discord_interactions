@@ -10,6 +10,8 @@ import 'package:discord_interactions/src/util/discord_api_utils.dart';
 ///
 /// Interaction tokens are valid for 15 minutes, meaning you can respond to an
 /// interaction within that amount of time.
+/// 
+/// https://discord.com/developers/docs/interactions/receiving-and-responding
 class InteractionsApi {
   static const _basePath = '/webhooks';
 
