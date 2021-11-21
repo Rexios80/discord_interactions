@@ -23,6 +23,26 @@ class InteractionResponse {
     this.data,
   });
 
+  /// Convenience method to create an [InteractionResponse] with message data
+  InteractionResponse.withData({
+    this.type = InteractionCallbackType.channelMessageWithSource,
+    bool? tts,
+    String? content,
+    List<Embed>? embeds,
+    AllowedMentions? allowedMentions,
+    List<MessageFlag>? flags,
+    List<Component>? components,
+    List<Attachment>? attachments,
+  }) : data = InteractionCallbackData(
+          tts: tts,
+          content: content,
+          embeds: embeds,
+          allowedMentions: allowedMentions,
+          flags: flags,
+          components: components,
+          attachments: attachments,
+        );
+
   /// From json
   factory InteractionResponse.fromJson(Map<String, dynamic> json) =>
       _$InteractionResponseFromJson(json);
