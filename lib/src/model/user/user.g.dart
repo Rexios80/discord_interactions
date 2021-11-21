@@ -22,9 +22,8 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       flags: const UserFlagConverter().fromJson(json['flags'] as int?),
       premiumType:
           $enumDecodeNullable(_$PremiumTypeEnumMap, json['premium_type']),
-      publicFlags: (json['public_flags'] as List<dynamic>?)
-          ?.map((e) => $enumDecode(_$UserFlagEnumMap, e))
-          .toList(),
+      publicFlags:
+          const UserFlagConverter().fromJson(json['public_flags'] as int?),
       member: json['member'] == null
           ? null
           : GuildMember.fromJson(json['member'] as Map<String, dynamic>),
@@ -45,8 +44,7 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'email': instance.email,
       'flags': const UserFlagConverter().toJson(instance.flags),
       'premium_type': _$PremiumTypeEnumMap[instance.premiumType],
-      'public_flags':
-          instance.publicFlags?.map((e) => _$UserFlagEnumMap[e]).toList(),
+      'public_flags': const UserFlagConverter().toJson(instance.publicFlags),
       'member': instance.member,
     };
 
@@ -54,21 +52,4 @@ const _$PremiumTypeEnumMap = {
   PremiumType.none: 0,
   PremiumType.nitroClassic: 1,
   PremiumType.nitro: 2,
-};
-
-const _$UserFlagEnumMap = {
-  UserFlag.staff: 'staff',
-  UserFlag.partner: 'partner',
-  UserFlag.hypesquad: 'hypesquad',
-  UserFlag.bugHunterLevel1: 'bugHunterLevel1',
-  UserFlag.hypesquadOnlineHouse1: 'hypesquadOnlineHouse1',
-  UserFlag.hypesquadOnlineHouse2: 'hypesquadOnlineHouse2',
-  UserFlag.hypesquadOnlineHouse3: 'hypesquadOnlineHouse3',
-  UserFlag.premiumEarlySupporter: 'premiumEarlySupporter',
-  UserFlag.teamPseudoUser: 'teamPseudoUser',
-  UserFlag.bugHunterLevel2: 'bugHunterLevel2',
-  UserFlag.verifiedBot: 'verifiedBot',
-  UserFlag.verifiedDeveloper: 'verifiedDeveloper',
-  UserFlag.certifiedModerator: 'certifiedModerator',
-  UserFlag.botHttpInteractions: 'botHttpInteractions',
 };

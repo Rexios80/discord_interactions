@@ -88,6 +88,7 @@ class User {
   ///
   /// Required OAuth2 scope: identify
   @JsonKey(name: 'public_flags')
+  @UserFlagConverter()
   final List<UserFlag>? publicFlags;
 
   /// partial [GuildMember] object
