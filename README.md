@@ -1,15 +1,15 @@
 Create a serverless Discord bot in pure dart using Discord Interactions webhooks
 
 ## Features
-| Feature | Status |
-| --- | --- |
-| Manage Application Commands | Full support (unit-tested) |
-| Create message components | Full support (untested) |
-| Respond to commands | Full support (not fully tested) |
-| File uploads | Full support (unit-tested) |
-| Channels API | Partial support (unit-tested) |
-| Moderation | Soon |
-| Other API endpoints | Not yet |
+| Feature                     | Status                          |
+| --------------------------- | ------------------------------- |
+| Manage Application Commands | Full support (unit-tested)      |
+| Create message components   | Full support (untested)         |
+| Respond to commands         | Full support (not fully tested) |
+| File uploads                | Full support (unit-tested)      |
+| Channels API                | Partial support (unit-tested)   |
+| Moderation                  | Soon                            |
+| Other API endpoints         | Not yet                         |
 
 Full support for all Discord API endpoints is planned
 
@@ -60,10 +60,8 @@ final api = DiscordApi(
 
 await api.interactions.createInteractionResponse(
     interaction: interaction,
-    response: InteractionResponse(
-        type: InteractionCallbackType.channelMessageWithSource,
-        data: InteractionCallbackData(content: 'Hello, Discord Interactions!'),
-    ),
+    response:
+        InteractionResponse.withData(content: 'Hello, Discord Interactions!'),
 );
 ```
 

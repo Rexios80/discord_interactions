@@ -38,10 +38,8 @@ Future<Response> function(Request request) async {
 
   await api.interactions.createInteractionResponse(
     interaction: interaction,
-    response: InteractionResponse(
-      type: InteractionCallbackType.channelMessageWithSource,
-      data: InteractionCallbackData(content: 'Hello, Discord Interactions!'),
-    ),
+    response:
+        InteractionResponse.withData(content: 'Hello, Discord Interactions!'),
   );
 
   return Response.ok(null);
