@@ -1,4 +1,5 @@
 /// All colors from the nyxx DiscordColor class
+/// 
 /// https://github.com/nyxx-discord/nyxx/blob/1ea7a859168c6fcabfcfa4778fb1dd3d1f97c7cc/lib/src/core/DiscordColor.dart
 class DiscordColor {
   /// Represents no color, or integer 0.
