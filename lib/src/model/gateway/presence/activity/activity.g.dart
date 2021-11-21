@@ -11,19 +11,28 @@ Activity _$ActivityFromJson(Map<String, dynamic> json) => Activity(
       type: $enumDecode(_$ActivityTypeEnumMap, json['type']),
       url: json['url'] as String?,
       createdAt: const UnixTimeConverter().fromJson(json['created_at'] as int),
-      timestamps: json['timestamps'],
+      timestamps: json['timestamps'] == null
+          ? null
+          : ActivityTimestamps.fromJson(
+              json['timestamps'] as Map<String, dynamic>),
       applicationId: json['application_id'] as String?,
       details: json['details'] as String?,
       state: json['state'] as String?,
       emoji: json['emoji'] == null
           ? null
           : Emoji.fromJson(json['emoji'] as Map<String, dynamic>),
-      party: json['party'],
-      assets: json['assets'],
-      secrets: json['secrets'],
+      party: json['party'] == null
+          ? null
+          : ActivityParty.fromJson(json['party'] as Map<String, dynamic>),
+      assets: json['assets'] == null
+          ? null
+          : ActivityAssets.fromJson(json['assets'] as Map<String, dynamic>),
+      secrets: json['secrets'] == null
+          ? null
+          : ActivitySecrets.fromJson(json['secrets'] as Map<String, dynamic>),
       instance: json['instance'] as bool?,
-      flags: json['flags'] as List<dynamic>?,
-      buttons: json['buttons'] as List<dynamic>?,
+      flags: const ActivityFlagConverter().fromJson(json['flags'] as int?),
+      buttons: const ActivityButtonListConverter().fromJson(json['buttons']),
     );
 
 Map<String, dynamic> _$ActivityToJson(Activity instance) => <String, dynamic>{
@@ -40,8 +49,8 @@ Map<String, dynamic> _$ActivityToJson(Activity instance) => <String, dynamic>{
       'assets': instance.assets,
       'secrets': instance.secrets,
       'instance': instance.instance,
-      'flags': instance.flags,
-      'buttons': instance.buttons,
+      'flags': const ActivityFlagConverter().toJson(instance.flags),
+      'buttons': const ActivityButtonListConverter().toJson(instance.buttons),
     };
 
 const _$ActivityTypeEnumMap = {

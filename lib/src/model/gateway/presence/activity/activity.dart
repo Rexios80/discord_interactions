@@ -3,7 +3,9 @@ import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
+import 'package:discord_interactions/src/converter/activity_button_list_converter.dart';
 import 'package:discord_interactions/src/converter/date/unix_time_converter.dart';
+import 'package:discord_interactions/src/converter/flag/activity_flag_converter.dart';
 
 part 'activity.g.dart';
 
@@ -46,27 +48,29 @@ class Activity {
   final Emoji? emoji;
 
   /// information for the current party of the player
-  final Party? party;
+  final ActivityParty? party;
 
   /// images for the presence and their hover texts
-  final Assets? assets;
+  final ActivityAssets? assets;
 
   /// secrets for Rich Presence joining and spectating
-  final Secrets? secrets;
+  final ActivitySecrets? secrets;
 
   /// whether or not the activity is an instanced game session
   final bool? instance;
 
   /// activity flags ORd together, describes what the payload includes
+  @ActivityFlagConverter()
   final List<ActivityFlag>? flags;
 
   /// the custom buttons shown in the Rich Presence (max 2)
-  final List<Button>? buttons;
+  @ActivityButtonListConverter()
+  final List<ActivityButton>? buttons;
 
   /// Constructor
   Activity({
     required this.name,
-    this.type,
+    required this.type,
     this.url,
     required this.createdAt,
     this.timestamps,

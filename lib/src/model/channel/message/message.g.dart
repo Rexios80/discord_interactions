@@ -72,7 +72,7 @@ Message _$MessageFromJson(Map<String, dynamic> json) => Message(
           ?.map((e) => Component.fromJson(e as Map<String, dynamic>))
           .toList(),
       stickerItems: (json['sitcker_items'] as List<dynamic>?)
-          ?.map((e) => StickerItem.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => Sticker.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

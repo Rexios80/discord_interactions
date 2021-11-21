@@ -16,7 +16,10 @@ PresenceUpdateEvent _$PresenceUpdateEventFromJson(Map<String, dynamic> json) =>
       activities: (json['activities'] as List<dynamic>?)
           ?.map((e) => Activity.fromJson(e as Map<String, dynamic>))
           .toList(),
-      clientStatus: json['client_status'],
+      clientStatus: json['client_status'] == null
+          ? null
+          : ClientStatus.fromJson(
+              json['client_status'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$PresenceUpdateEventToJson(

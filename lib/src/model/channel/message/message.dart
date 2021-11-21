@@ -147,7 +147,7 @@ class Message {
 
   /// sent if the message contains stickers
   @JsonKey(name: 'sitcker_items')
-  final List<StickerItem>? stickerItems;
+  final List<Sticker>? stickerItems;
 
   /// array of sticker objects
   // @Deprecated('Use stickerItems instead')

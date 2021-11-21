@@ -44,10 +44,16 @@ export 'channel/message/message.dart';
 export 'emoji/emoji.dart';
 
 // gateway/presence
+export 'gateway/presence/client_status.dart';
 export 'gateway/presence/presence_status.dart';
 export 'gateway/presence/presence_update_event.dart';
 
 // gateway/presence/activity
+export 'gateway/presence/activity/activity_assets.dart';
+export 'gateway/presence/activity/activity_button.dart';
+export 'gateway/presence/activity/activity_flag.dart';
+export 'gateway/presence/activity/activity_party.dart';
+export 'gateway/presence/activity/activity_secrets.dart';
 export 'gateway/presence/activity/activity_timestamps.dart';
 export 'gateway/presence/activity/activity_type.dart';
 export 'gateway/presence/activity/activity.dart';
@@ -111,9 +117,14 @@ export 'permissions/permission.dart';
 export 'permissions/role_tags.dart';
 export 'permissions/role.dart';
 
+// stage_instance
+export 'stage_instance/stage_instance_privacy_level.dart';
+export 'stage_instance/stage_instance.dart';
+
 // sticker
 export 'sticker/sticker_format_type.dart';
-export 'sticker/sticker_item.dart';
+export 'sticker/sticker_type.dart';
+export 'sticker/sticker.dart';
 
 // teams
 export 'teams/membership_state.dart';

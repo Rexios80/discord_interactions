@@ -83,8 +83,12 @@ Guild _$GuildFromJson(Map<String, dynamic> json) => Guild(
               json['welcome_screen'] as Map<String, dynamic>),
       nsfwLevel:
           $enumDecodeNullable(_$GuildNsfwLevelEnumMap, json['nsfw_level']),
-      stageInstances: json['stage_instances'] as List<dynamic>?,
-      stickers: json['stickers'] as List<dynamic>?,
+      stageInstances: (json['stage_instances'] as List<dynamic>?)
+          ?.map((e) => StageInstance.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      stickers: (json['stickers'] as List<dynamic>?)
+          ?.map((e) => Sticker.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$GuildToJson(Guild instance) => <String, dynamic>{
