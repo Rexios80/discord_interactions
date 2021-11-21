@@ -14,7 +14,8 @@ Role _$RoleFromJson(Map<String, dynamic> json) => Role(
       icon: json['icon'] as String?,
       unicodeEmoji: json['unicode_emoji'] as String?,
       position: json['position'] as int,
-      permissions: json['permissions'] as String,
+      permissions:
+          const PermissionConverter().fromJson(json['permissions'] as String),
       managed: json['managed'] as bool,
       mentionable: json['mentionable'] as bool,
       tags: json['tags'] == null
@@ -30,7 +31,7 @@ Map<String, dynamic> _$RoleToJson(Role instance) => <String, dynamic>{
       'icon': instance.icon,
       'unicode_emoji': instance.unicodeEmoji,
       'position': instance.position,
-      'permissions': instance.permissions,
+      'permissions': const PermissionConverter().toJson(instance.permissions),
       'managed': instance.managed,
       'mentionable': instance.mentionable,
       'tags': instance.tags,

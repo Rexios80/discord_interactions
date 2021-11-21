@@ -19,7 +19,8 @@ GuildMember _$GuildMemberFromJson(Map<String, dynamic> json) => GuildMember(
       deaf: json['deaf'] as bool?,
       mute: json['mute'] as bool?,
       pending: json['pending'] as bool?,
-      permissions: json['permissions'] as String?,
+      permissions: const PermissionConverterNullable()
+          .fromJson(json['permissions'] as String?),
     );
 
 Map<String, dynamic> _$GuildMemberToJson(GuildMember instance) =>
@@ -34,5 +35,6 @@ Map<String, dynamic> _$GuildMemberToJson(GuildMember instance) =>
       'deaf': instance.deaf,
       'mute': instance.mute,
       'pending': instance.pending,
-      'permissions': instance.permissions,
+      'permissions':
+          const PermissionConverterNullable().toJson(instance.permissions),
     };

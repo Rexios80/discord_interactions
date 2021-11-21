@@ -43,7 +43,8 @@ Channel _$ChannelFromJson(Map<String, dynamic> json) => Channel(
           ? null
           : ThreadMember.fromJson(json['threadMember'] as Map<String, dynamic>),
       defaultAutoArchiveDuration: json['default_auto_archive_duration'] as int?,
-      permissions: json['permissions'] as String?,
+      permissions: const PermissionConverterNullable()
+          .fromJson(json['permissions'] as String?),
     );
 
 Map<String, dynamic> _$ChannelToJson(Channel instance) => <String, dynamic>{
@@ -74,7 +75,8 @@ Map<String, dynamic> _$ChannelToJson(Channel instance) => <String, dynamic>{
       'thread_metadata': instance.threadMetadata,
       'threadMember': instance.threadMember,
       'default_auto_archive_duration': instance.defaultAutoArchiveDuration,
-      'permissions': instance.permissions,
+      'permissions':
+          const PermissionConverterNullable().toJson(instance.permissions),
     };
 
 const _$ChannelTypeEnumMap = {

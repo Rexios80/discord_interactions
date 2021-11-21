@@ -2,6 +2,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
+import 'package:discord_interactions/src/converter/flag/permission_converter.dart';
 import 'package:discord_interactions/src/converter/iso8601_converter.dart';
 import 'package:discord_interactions/src/model/discord_model.dart';
 
@@ -52,8 +53,8 @@ class GuildMember {
 
   /// total permissions of the member in the channel, including overwrites,
   /// returned when in the interaction object
-  /// TODO: Convert to list of Permission
-  final String? permissions;
+  @PermissionConverterNullable()
+  final List<Permission>? permissions;
 
   /// Constructor
   GuildMember({

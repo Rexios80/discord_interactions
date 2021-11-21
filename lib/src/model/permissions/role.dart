@@ -2,6 +2,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
+import 'package:discord_interactions/src/converter/flag/permission_converter.dart';
 import 'package:discord_interactions/src/model/discord_model.dart';
 
 part 'role.g.dart';
@@ -40,8 +41,8 @@ class Role {
   final int position;
 
   /// permission bit set
-  /// TODO: Convert to list of Permission
-  final String permissions;
+  @PermissionConverter()
+  final List<Permission> permissions;
 
   /// whether this role is managed by an integration
   final bool managed;

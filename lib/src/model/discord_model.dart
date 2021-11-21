@@ -75,6 +75,7 @@ export 'interactions/interactions/message_interaction.dart';
 export 'interactions/interactions/resolved_data.dart';
 
 // permissions
+export 'permissions/permission.dart';
 export 'permissions/role_tags.dart';
 export 'permissions/role.dart';
 
