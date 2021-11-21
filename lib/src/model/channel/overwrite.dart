@@ -1,4 +1,6 @@
 // Package imports:
+import 'package:discord_interactions/discord_interactions.dart';
+import 'package:discord_interactions/src/converter/flag/permission_converter.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'overwrite.g.dart';
@@ -17,10 +19,12 @@ class Overwrite {
   final OverwriteType type;
 
   /// permission bit set
-  final String allow;
+  @PermissionConverter()
+  final List<Permission> allow;
 
   /// permission bit set
-  final String deny;
+  @PermissionConverter()
+  final List<Permission> deny;
 
   /// Constructor
   Overwrite({

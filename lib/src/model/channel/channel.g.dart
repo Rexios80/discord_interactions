@@ -7,12 +7,12 @@ part of 'channel.dart';
 // **************************************************************************
 
 Channel _$ChannelFromJson(Map<String, dynamic> json) => Channel(
-      id: json['id'] as String,
-      type: $enumDecode(_$ChannelTypeEnumMap, json['type']),
-      guildId: json['guild_id'] as String,
+      id: json['id'] as String?,
+      type: $enumDecodeNullable(_$ChannelTypeEnumMap, json['type']),
+      guildId: json['guild_id'] as String?,
       position: json['position'] as int?,
-      permissionOverwrites: (json['permission_overwrites'] as List<dynamic>)
-          .map((e) => Overwrite.fromJson(e as Map<String, dynamic>))
+      permissionOverwrites: (json['permission_overwrites'] as List<dynamic>?)
+          ?.map((e) => Overwrite.fromJson(e as Map<String, dynamic>))
           .toList(),
       name: json['name'] as String?,
       topic: json['topic'] as String?,

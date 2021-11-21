@@ -1,5 +1,6 @@
 // Package imports:
 import 'package:convert/convert.dart';
+import 'package:discord_interactions/discord_interactions.dart';
 import 'package:pinenacl/ed25519.dart';
 
 /// Validate received Interactions
@@ -14,12 +15,6 @@ import 'package:pinenacl/ed25519.dart';
 ///
 /// https://discord.com/developers/docs/interactions/receiving-and-responding#security-and-authorization
 class InteractionValidator {
-  /// The signature header key
-  static const String signatureHeaderKey = 'X-Signature-Ed25519';
-
-  /// The signature timestamp header key
-  static const String timestampHeaderKey = 'X-Signature-Timestamp';
-
   final VerifyKey _verifyKey;
 
   /// Your public key can be found on your application in the Developer Portal
@@ -29,8 +24,8 @@ class InteractionValidator {
 
   /// Validate an Interaction message
   bool validate({required Map<String, String> headers, required String body}) {
-    final signature = headers[signatureHeaderKey];
-    final timestamp = headers[timestampHeaderKey];
+    final signature = headers[DiscordHeader.signatureHeaderKey];
+    final timestamp = headers[DiscordHeader.timestampHeaderKey];
 
     if (signature == null || timestamp == null) {
       return false;

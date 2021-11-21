@@ -16,22 +16,22 @@ part 'channel.g.dart';
 @JsonSerializable()
 class Channel {
   /// the id of this channel
-  final String id;
+  final String? id;
 
   /// the type of channel
-  final ChannelType type;
+  final ChannelType? type;
 
   /// the id of the guild (may be missing for some channel objects received
   /// over gateway guild dispatches)
   @JsonKey(name: 'guild_id')
-  final String guildId;
+  final String? guildId;
 
   /// sorting position of the channel
   final int? position;
 
   /// explicit permission overwrites for members and roles
   @JsonKey(name: 'permission_overwrites')
-  final List<Overwrite> permissionOverwrites;
+  final List<Overwrite>? permissionOverwrites;
 
   /// the name of the channel (1-100 characters)
   final String? name;
@@ -125,11 +125,11 @@ class Channel {
 
   /// Constructor
   Channel({
-    required this.id,
-    required this.type,
-    required this.guildId,
+    this.id,
+    this.type,
+    this.guildId,
     this.position,
-    required this.permissionOverwrites,
+    this.permissionOverwrites,
     this.name,
     this.topic,
     this.nsfw,
