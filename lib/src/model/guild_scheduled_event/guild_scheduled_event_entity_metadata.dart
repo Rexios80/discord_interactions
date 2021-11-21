@@ -18,7 +18,8 @@ class GuildScheduledEventEntityMetadata {
 
   /// From json
   factory GuildScheduledEventEntityMetadata.fromJson(
-          Map<String, dynamic> json) =>
+    Map<String, dynamic> json,
+  ) =>
       _$GuildScheduledEventEntityMetadataFromJson(json);
 
   /// To json

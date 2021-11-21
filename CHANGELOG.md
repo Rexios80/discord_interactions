@@ -1,3 +1,6 @@
+## 0.0.4
+- Added more channel endpoints
+
 ## 0.0.3
 - Added call to get channel by id
 - Added convenience constructor for InteractionResponse
