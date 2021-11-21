@@ -66,11 +66,12 @@ class ChannelsApi {
   Future<DiscordResponse<Message>> createMessage(
     String channelId, {
     required Message message,
+    List<MultipartFile>? files,
   }) {
     return validateApiCall(
       _dio.post(
         '$_basePath/$channelId/messages',
-        data: message,
+        data: createFormData(message, files),
       ),
       responseTransformer: (data) => Message.fromJson(data),
     );
