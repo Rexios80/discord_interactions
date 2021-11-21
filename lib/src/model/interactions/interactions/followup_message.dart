@@ -10,7 +10,7 @@ part 'followup_message.g.dart';
 /// Webhook form params
 ///
 /// one of [content], [files], [embeds] must be set
-/// 
+///
 /// https://discord.com/developers/docs/resources/webhook#execute-webhook-jsonform-params
 @JsonSerializable()
 class FollowupMessage {

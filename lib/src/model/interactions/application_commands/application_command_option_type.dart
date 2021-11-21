@@ -26,19 +26,19 @@ enum ApplicationCommandOptionType {
   boolean,
 
   /// user
-  /// 
+  ///
   /// User ID
   @JsonValue(6)
   user,
 
   /// Includes all channel types + categories
-  /// 
+  ///
   /// Channel ID
   @JsonValue(7)
   channel,
 
   /// role
-  /// 
+  ///
   /// Role ID
   @JsonValue(8)
   role,

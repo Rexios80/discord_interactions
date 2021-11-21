@@ -25,7 +25,7 @@ void main() {
     }
   });
 
-    test('User flag converter', () {
+  test('User flag converter', () {
     final converter = UserFlagConverter();
 
     for (final flag in UserFlag.values) {

@@ -10,7 +10,7 @@ import 'package:discord_interactions/src/util/discord_api_utils.dart';
 ///
 /// Interaction tokens are valid for 15 minutes, meaning you can respond to an
 /// interaction within that amount of time.
-/// 
+///
 /// https://discord.com/developers/docs/interactions/receiving-and-responding
 class InteractionsApi {
   static const _basePath = '/webhooks';
@@ -124,7 +124,7 @@ class InteractionsApi {
 
   /// Edits a followup message for an Interaction. Functions the same as Edit
   /// Webhook Message. Does not support ephemeral followups.
-  /// 
+  ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#edit-followup-message
   Future<DiscordResponse<Message>> editFollowupMessage({
     required String interactionToken,
@@ -143,7 +143,7 @@ class InteractionsApi {
 
   /// Deletes a followup message for an Interaction. Returns 204 on success.
   /// Does not support ephemeral followups.
-  /// 
+  ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#delete-followup-message
   Future<DiscordResponse> deleteFollowupMessage({
     required String interactionToken,
