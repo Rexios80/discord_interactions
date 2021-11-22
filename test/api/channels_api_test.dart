@@ -12,7 +12,7 @@ import '../test_setup.dart';
 void main() async {
   await setup();
 
-  final channelId = credentials['channelId'];
+  final channelId = credentials.channelId;
 
   // TODO: getChannel
 

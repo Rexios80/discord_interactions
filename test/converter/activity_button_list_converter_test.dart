@@ -1,5 +1,8 @@
-import 'package:discord_interactions/src/converter/activity_button_list_converter.dart';
+// Package imports:
 import 'package:test/test.dart';
+
+// Project imports:
+import 'package:discord_interactions/src/converter/activity_button_list_converter.dart';
 
 void main() {
   test('Activity button list converter', () {

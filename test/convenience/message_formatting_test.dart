@@ -9,11 +9,11 @@ void main() async {
   await setup();
 
   test('Message formatting', () async {
-    final userId = credentials['userId'];
-    final channelId = credentials['channelId'];
-    final roleId = credentials['roleId'];
-    final emojiName = credentials['emojiName'];
-    final emojiId = credentials['emojiId'];
+    final userId = credentials.userId;
+    final channelId = credentials.channelId;
+    final roleId = credentials.roleId;
+    final emojiName = credentials.emojiName;
+    final emojiId = credentials.emojiId;
     final timestamp = DateTime.now();
 
     var content = MessageFormatting.user(userId);

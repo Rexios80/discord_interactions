@@ -9,13 +9,13 @@ void main() async {
   await setup();
 
   test('Emoji', () async {
-    final emojiId = credentials['emojiId'];
+    final emojiId = credentials.emojiId;
     final cdnUrl = DiscordCdn.emoji(emojiId);
     await dio.get(cdnUrl);
   });
 
   // TODO: Need the ability to fetch guilds first
-  // final guildId = applicationInfo['guildId'];
+  // final guildId = credentials.guildId;
   // final guildResponse = await api.guilds.getGuild(guildId);
   // final guild = guildResponse.data!;
   group('Guild:', () {
@@ -36,7 +36,7 @@ void main() async {
     });
   });
 
-  final userId = credentials['userId'];
+  final userId = credentials.userId;
   final userResponse = await api.users.getUser(userId);
   final user = userResponse.data!;
   group('User:', () {
@@ -92,7 +92,7 @@ void main() async {
   test(
     'Sticker',
     () async {
-      final stickerId = credentials['stickerId'];
+      final stickerId = credentials.stickerId;
       final cdnUrl = DiscordCdn.sticker(stickerId);
       await dio.get(cdnUrl);
     },
@@ -102,8 +102,8 @@ void main() async {
   test(
     'Role icon',
     () async {
-      final roleId = credentials['roleId'];
-      final roleIconId = credentials['rolIconId'];
+      final roleId = credentials.roleId;
+      final roleIconId = credentials.roleIconId;
       final cdnUrl = DiscordCdn.roleIcon(roleId, roleIconId);
       await dio.get(cdnUrl);
     },

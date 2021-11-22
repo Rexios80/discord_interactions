@@ -8,23 +8,25 @@ import 'package:yaml/yaml.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
+import 'test_credentials.dart';
 
 late final Dio dio;
 late final DiscordApi api;
-late final Map<String, dynamic> credentials;
+late final TestCredentials credentials;
 
 // TODO: Make this work in GitHub Actions
 Future<void> setup() async {
   final credentialsFile = File('test_resources/credentials.json');
   final credentialsString = await credentialsFile.readAsString();
-  credentials = jsonDecode(credentialsString);
+  final credentialsJson = jsonDecode(credentialsString);
+  credentials = TestCredentials.fromJson(credentialsJson);
 
   final pubspecFile = File('pubspec.yaml');
   final pubspecString = await pubspecFile.readAsString();
   final pubspec = loadYaml(pubspecString);
 
   final userAgent = DiscordUserAgent(
-    url: credentials['userAgentUrl'],
+    url: credentials.userAgentUrl,
     versionNumber: pubspec['version'],
     extra: 'Unit testing',
   );
@@ -32,8 +34,8 @@ Future<void> setup() async {
   dio = Dio(BaseOptions(headers: {'User-Agent': userAgent.toString()}));
 
   api = DiscordApi(
-    applicationId: credentials['applicationId'],
+    applicationId: credentials.applicationId,
     userAgent: userAgent,
-    botToken: credentials['botToken'],
+    botToken: credentials.botToken,
   );
 }

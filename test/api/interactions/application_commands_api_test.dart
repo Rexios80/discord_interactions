@@ -65,7 +65,7 @@ void main() async {
   });
 
   group('Guild commands:', () {
-    final guildId = credentials['guildId'] as String;
+    final guildId = credentials.guildId;
 
     test('Guild command tests', () async {
       final createCommandResponse =
@@ -121,7 +121,7 @@ void main() async {
     test(
       'Delete all guild commands',
       () async {
-        final guildId = credentials['guildId'] as String;
+        final guildId = credentials.guildId;
 
         await api.applicationCommands
             .bulkOverwriteGuildApplicationCommands([], guildId: guildId);
@@ -131,8 +131,8 @@ void main() async {
   });
 
   test('Guild command permissions:', () async {
-    final guildId = credentials['guildId'] as String;
-    final roleId = credentials['roleId'] as String;
+    final guildId = credentials.guildId;
+    final roleId = credentials.roleId;
 
     final createCommandResponse =
         await api.applicationCommands.createGuildApplicationCommand(
