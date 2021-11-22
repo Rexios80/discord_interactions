@@ -3,13 +3,13 @@ import 'package:test/test.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
-import '../test_config.dart';
+import '../test_setup.dart';
 
 void main() async {
   await setup();
 
   test('Emoji', () async {
-    final emojiId = applicationInfo['emojiId'];
+    final emojiId = credentials['emojiId'];
     final cdnUrl = DiscordCdn.emoji(emojiId);
     await dio.get(cdnUrl);
   });
@@ -36,7 +36,7 @@ void main() async {
     });
   });
 
-  final userId = applicationInfo['userId'];
+  final userId = credentials['userId'];
   final userResponse = await api.users.getUser(userId);
   final user = userResponse.data!;
   group('User:', () {
@@ -92,7 +92,7 @@ void main() async {
   test(
     'Sticker',
     () async {
-      final stickerId = applicationInfo['stickerId'];
+      final stickerId = credentials['stickerId'];
       final cdnUrl = DiscordCdn.sticker(stickerId);
       await dio.get(cdnUrl);
     },
@@ -102,8 +102,8 @@ void main() async {
   test(
     'Role icon',
     () async {
-      final roleId = applicationInfo['roleId'];
-      final roleIconId = applicationInfo['rolIconId'];
+      final roleId = credentials['roleId'];
+      final roleIconId = credentials['rolIconId'];
       final cdnUrl = DiscordCdn.roleIcon(roleId, roleIconId);
       await dio.get(cdnUrl);
     },

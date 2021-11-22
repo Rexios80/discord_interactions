@@ -3,17 +3,17 @@ import 'package:test/test.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
-import '../test_config.dart';
+import '../test_setup.dart';
 
 void main() async {
   await setup();
 
   test('Message formatting', () async {
-    final userId = applicationInfo['userId'];
-    final channelId = applicationInfo['channelId'];
-    final roleId = applicationInfo['roleId'];
-    final emojiName = applicationInfo['emojiName'];
-    final emojiId = applicationInfo['emojiId'];
+    final userId = credentials['userId'];
+    final channelId = credentials['channelId'];
+    final roleId = credentials['roleId'];
+    final emojiName = credentials['emojiName'];
+    final emojiId = credentials['emojiId'];
     final timestamp = DateTime.now();
 
     var content = MessageFormatting.user(userId);

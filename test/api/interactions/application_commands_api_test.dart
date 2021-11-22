@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
-import '../../test_config.dart';
+import '../../test_setup.dart';
 
 void main() async {
   await setup();
@@ -65,7 +65,7 @@ void main() async {
   });
 
   group('Guild commands:', () {
-    final guildId = applicationInfo['guildId'] as String;
+    final guildId = credentials['guildId'] as String;
 
     test('Guild command tests', () async {
       final createCommandResponse =
@@ -121,7 +121,7 @@ void main() async {
     test(
       'Delete all guild commands',
       () async {
-        final guildId = applicationInfo['guildId'] as String;
+        final guildId = credentials['guildId'] as String;
 
         await api.applicationCommands
             .bulkOverwriteGuildApplicationCommands([], guildId: guildId);
@@ -131,8 +131,8 @@ void main() async {
   });
 
   test('Guild command permissions:', () async {
-    final guildId = applicationInfo['guildId'] as String;
-    final roleId = applicationInfo['roleId'] as String;
+    final guildId = credentials['guildId'] as String;
+    final roleId = credentials['roleId'] as String;
 
     final createCommandResponse =
         await api.applicationCommands.createGuildApplicationCommand(
