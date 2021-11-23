@@ -2,7 +2,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
-import 'package:discord_interactions/src/converter/date/iso8601_converter.dart';
 import 'package:discord_interactions/src/converter/flag/message_flag_converter.dart';
 import 'package:discord_interactions/src/model/discord_model.dart';
 
@@ -47,11 +46,9 @@ class Message {
   final String? content;
 
   /// when this message was sent
-  @ISO8601ConverterNullable()
   final DateTime? timestamp;
 
   /// when this message was edited (or null if never)
-  @ISO8601ConverterNullable()
   @JsonKey(name: 'edited_timestamp')
   final DateTime? editedTimestamp;
 

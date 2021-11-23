@@ -2,7 +2,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
-import 'package:discord_interactions/src/converter/date/iso8601_converter.dart';
 import 'package:discord_interactions/src/converter/flag/permission_converter.dart';
 import 'package:discord_interactions/src/model/discord_model.dart';
 
@@ -83,7 +82,6 @@ class Channel {
 
   /// when the last pinned message was pinned. This may be null in events such
   /// as GUILD_CREATE when a message is not pinned.
-  @ISO8601ConverterNullable()
   @JsonKey(name: 'last_pin_timestamp')
   final DateTime? lastPinTimestamp;
 

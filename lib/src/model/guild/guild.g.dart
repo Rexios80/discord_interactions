@@ -44,8 +44,9 @@ Guild _$GuildFromJson(Map<String, dynamic> json) => Guild(
       systemChannelFlags: const SystemChannelFlagConverter()
           .fromJson(json['system_channel_flags'] as int?),
       rulesChannelId: json['rules_channel_id'] as String?,
-      joinedAt: const ISO8601ConverterNullable()
-          .fromJson(json['joined_at'] as String?),
+      joinedAt: json['joined_at'] == null
+          ? null
+          : DateTime.parse(json['joined_at'] as String),
       large: json['large'] as bool?,
       unavailable: json['unavailable'] as bool?,
       memberCount: json['member_count'] as int?,
@@ -122,7 +123,7 @@ Map<String, dynamic> _$GuildToJson(Guild instance) => <String, dynamic>{
       'system_channel_flags': const SystemChannelFlagConverter()
           .toJson(instance.systemChannelFlags),
       'rules_channel_id': instance.rulesChannelId,
-      'joined_at': const ISO8601ConverterNullable().toJson(instance.joinedAt),
+      'joined_at': instance.joinedAt?.toIso8601String(),
       'large': instance.large,
       'unavailable': instance.unavailable,
       'member_count': instance.memberCount,

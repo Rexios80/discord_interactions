@@ -2,7 +2,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
-import 'package:discord_interactions/src/converter/date/iso8601_converter.dart';
 import 'package:discord_interactions/src/converter/flag/permission_converter.dart';
 import 'package:discord_interactions/src/model/discord_model.dart';
 
@@ -29,12 +28,10 @@ class GuildMember {
   final List<String> roles;
 
   /// when the user joined the guild
-  @ISO8601Converter()
   @JsonKey(name: 'joined_at')
   final DateTime joinedAt;
 
   /// when the user started boosting the guild
-  @ISO8601ConverterNullable()
   @JsonKey(name: 'premium_since')
   final DateTime? premiumSince;
 

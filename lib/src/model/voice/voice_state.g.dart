@@ -21,8 +21,9 @@ VoiceState _$VoiceStateFromJson(Map<String, dynamic> json) => VoiceState(
       selfStream: json['self_stream'] as bool?,
       selfVideo: json['self_video'] as bool,
       suppress: json['suppress'] as bool,
-      requestToSpeakTimestamp: const ISO8601ConverterNullable()
-          .fromJson(json['request_to_speak_timestamp'] as String?),
+      requestToSpeakTimestamp: json['request_to_speak_timestamp'] == null
+          ? null
+          : DateTime.parse(json['request_to_speak_timestamp'] as String),
     );
 
 Map<String, dynamic> _$VoiceStateToJson(VoiceState instance) =>
@@ -39,6 +40,6 @@ Map<String, dynamic> _$VoiceStateToJson(VoiceState instance) =>
       'self_stream': instance.selfStream,
       'self_video': instance.selfVideo,
       'suppress': instance.suppress,
-      'request_to_speak_timestamp': const ISO8601ConverterNullable()
-          .toJson(instance.requestToSpeakTimestamp),
+      'request_to_speak_timestamp':
+          instance.requestToSpeakTimestamp?.toIso8601String(),
     };

@@ -1,9 +1,6 @@
 // Package imports:
 import 'package:json_annotation/json_annotation.dart';
 
-// Project imports:
-import 'package:discord_interactions/src/converter/date/iso8601_converter.dart';
-
 part 'thread_metadata.g.dart';
 
 /// Thread Metadata structure
@@ -24,7 +21,6 @@ class ThreadMetadata {
 
   /// timestamp when the thread's archive status was last changed, used for
   /// calculating recent activity
-  @ISO8601ConverterNullable()
   @JsonKey(name: 'archive_timestamp')
   final DateTime? archiveTimestamp;
 

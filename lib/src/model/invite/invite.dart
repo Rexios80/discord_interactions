@@ -3,7 +3,6 @@ import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
-import 'package:discord_interactions/src/converter/date/iso8601_converter.dart';
 
 part 'invite.g.dart';
 
@@ -49,7 +48,6 @@ class Invite {
 
   /// the expiration date of this invite, returned from the GET /invites/<code>
   /// endpoint when with_expiration is true
-  @ISO8601ConverterNullable()
   @JsonKey(name: 'expires_at')
   final DateTime? expiresAt;
 

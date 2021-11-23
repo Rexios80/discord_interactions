@@ -3,7 +3,6 @@ import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
-import 'package:discord_interactions/src/converter/date/iso8601_converter.dart';
 
 part 'guild_scheduled_event.g.dart';
 
@@ -43,12 +42,10 @@ class GuildScheduledEvent {
   final String? description;
 
   /// the time the scheduled event will start
-  @ISO8601ConverterNullable()
   @JsonKey(name: 'scheduled_start_time')
   final DateTime? scheduledStartTime;
 
   /// the time the scheduled event will end, required if entity_type is EXTERNAL
-  @ISO8601ConverterNullable()
   @JsonKey(name: 'scheduled_end_time')
   final DateTime? scheduledEndTime;
 

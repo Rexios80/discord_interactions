@@ -14,10 +14,12 @@ GuildScheduledEvent _$GuildScheduledEventFromJson(Map<String, dynamic> json) =>
       creatorId: json['creator_id'] as String?,
       name: json['name'] as String?,
       description: json['description'] as String?,
-      scheduledStartTime: const ISO8601ConverterNullable()
-          .fromJson(json['scheduled_start_time'] as String?),
-      scheduledEndTime: const ISO8601ConverterNullable()
-          .fromJson(json['scheduled_end_time'] as String?),
+      scheduledStartTime: json['scheduled_start_time'] == null
+          ? null
+          : DateTime.parse(json['scheduled_start_time'] as String),
+      scheduledEndTime: json['scheduled_end_time'] == null
+          ? null
+          : DateTime.parse(json['scheduled_end_time'] as String),
       privacyLevel: $enumDecodeNullable(
           _$GuildScheduledEventPrivacyLevelEnumMap, json['privacy_level']),
       status: $enumDecodeNullable(
@@ -44,10 +46,8 @@ Map<String, dynamic> _$GuildScheduledEventToJson(
       'creator_id': instance.creatorId,
       'name': instance.name,
       'description': instance.description,
-      'scheduled_start_time':
-          const ISO8601ConverterNullable().toJson(instance.scheduledStartTime),
-      'scheduled_end_time':
-          const ISO8601ConverterNullable().toJson(instance.scheduledEndTime),
+      'scheduled_start_time': instance.scheduledStartTime?.toIso8601String(),
+      'scheduled_end_time': instance.scheduledEndTime?.toIso8601String(),
       'privacy_level':
           _$GuildScheduledEventPrivacyLevelEnumMap[instance.privacyLevel],
       'status': _$GuildScheduledEventStatusEnumMap[instance.status],

@@ -26,8 +26,9 @@ Invite _$InviteFromJson(Map<String, dynamic> json) => Invite(
               json['target_application'] as Map<String, dynamic>),
       approximatePresenceCount: json['approximate_presence_count'] as int?,
       approximateMemberCount: json['approximate_member_count'] as int?,
-      expiresAt: const ISO8601ConverterNullable()
-          .fromJson(json['expires_at'] as String?),
+      expiresAt: json['expires_at'] == null
+          ? null
+          : DateTime.parse(json['expires_at'] as String),
       stageInstance: json['stage_instance'] == null
           ? null
           : InviteStageInstance.fromJson(
@@ -48,7 +49,7 @@ Map<String, dynamic> _$InviteToJson(Invite instance) => <String, dynamic>{
       'target_application': instance.targetApplication,
       'approximate_presence_count': instance.approximatePresenceCount,
       'approximate_member_count': instance.approximateMemberCount,
-      'expires_at': const ISO8601ConverterNullable().toJson(instance.expiresAt),
+      'expires_at': instance.expiresAt?.toIso8601String(),
       'stage_instance': instance.stageInstance,
       'guild_scheduled_event': instance.guildScheduledEvent,
     };

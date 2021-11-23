@@ -30,6 +30,7 @@ void main() async {
     testCommand = response.data!;
   });
 
+  // These test must run in the order they are written to pass
   group('Interaction responses:', () {
     late final Interaction interaction;
 

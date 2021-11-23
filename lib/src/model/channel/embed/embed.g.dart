@@ -11,8 +11,9 @@ Embed _$EmbedFromJson(Map<String, dynamic> json) => Embed(
       type: $enumDecodeNullable(_$EmbedTypeEnumMap, json['type']),
       description: json['description'] as String?,
       url: json['url'] as String?,
-      timestamp: const ISO8601ConverterNullable()
-          .fromJson(json['timestamp'] as String?),
+      timestamp: json['timestamp'] == null
+          ? null
+          : DateTime.parse(json['timestamp'] as String),
       color: json['color'] as int?,
       footer: json['footer'] == null
           ? null
@@ -42,7 +43,7 @@ Map<String, dynamic> _$EmbedToJson(Embed instance) => <String, dynamic>{
       'type': _$EmbedTypeEnumMap[instance.type],
       'description': instance.description,
       'url': instance.url,
-      'timestamp': const ISO8601ConverterNullable().toJson(instance.timestamp),
+      'timestamp': instance.timestamp?.toIso8601String(),
       'color': instance.color,
       'footer': instance.footer,
       'image': instance.image,

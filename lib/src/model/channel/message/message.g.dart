@@ -17,10 +17,12 @@ Message _$MessageFromJson(Map<String, dynamic> json) => Message(
           ? null
           : GuildMember.fromJson(json['member'] as Map<String, dynamic>),
       content: json['content'] as String?,
-      timestamp: const ISO8601ConverterNullable()
-          .fromJson(json['timestamp'] as String?),
-      editedTimestamp: const ISO8601ConverterNullable()
-          .fromJson(json['edited_timestamp'] as String?),
+      timestamp: json['timestamp'] == null
+          ? null
+          : DateTime.parse(json['timestamp'] as String),
+      editedTimestamp: json['edited_timestamp'] == null
+          ? null
+          : DateTime.parse(json['edited_timestamp'] as String),
       tts: json['tts'] as bool?,
       mentionEveryone: json['mention_everyone'] as bool?,
       mentions: (json['mentions'] as List<dynamic>?)
@@ -83,9 +85,8 @@ Map<String, dynamic> _$MessageToJson(Message instance) => <String, dynamic>{
       'author': instance.author,
       'member': instance.member,
       'content': instance.content,
-      'timestamp': const ISO8601ConverterNullable().toJson(instance.timestamp),
-      'edited_timestamp':
-          const ISO8601ConverterNullable().toJson(instance.editedTimestamp),
+      'timestamp': instance.timestamp?.toIso8601String(),
+      'edited_timestamp': instance.editedTimestamp?.toIso8601String(),
       'tts': instance.tts,
       'mention_everyone': instance.mentionEveryone,
       'mentions': instance.mentions,

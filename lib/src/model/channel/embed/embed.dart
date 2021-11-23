@@ -2,7 +2,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
-import 'package:discord_interactions/src/converter/date/iso8601_converter.dart';
 import 'package:discord_interactions/src/model/discord_model.dart';
 
 part 'embed.g.dart';
@@ -25,7 +24,6 @@ class Embed {
   final String? url;
 
   /// timestamp of embed content
-  @ISO8601ConverterNullable()
   final DateTime? timestamp;
 
   /// color code of the embed

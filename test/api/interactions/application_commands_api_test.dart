@@ -5,6 +5,7 @@ import 'package:test/test.dart';
 import 'package:discord_interactions/discord_interactions.dart';
 import '../../test_utils.dart';
 
+// These tests must run in the order they are written to pass
 void main() async {
   await setup();
 

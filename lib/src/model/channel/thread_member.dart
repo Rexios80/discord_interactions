@@ -1,9 +1,6 @@
 // Package imports:
 import 'package:json_annotation/json_annotation.dart';
 
-// Project imports:
-import 'package:discord_interactions/src/converter/date/iso8601_converter.dart';
-
 part 'thread_member.g.dart';
 
 /// Thread Member structure
@@ -25,7 +22,6 @@ class ThreadMember {
   final String? userId;
 
   /// the time the current user last joined the thread
-  @ISO8601Converter()
   @JsonKey(name: 'join_timestamp')
   final DateTime joinTimestamp;
 

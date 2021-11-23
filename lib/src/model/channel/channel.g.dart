@@ -28,8 +28,9 @@ Channel _$ChannelFromJson(Map<String, dynamic> json) => Channel(
       ownerId: json['ownerId'] as String?,
       applicationId: json['application_id'] as String?,
       parentId: json['parent_id'] as String?,
-      lastPinTimestamp: const ISO8601ConverterNullable()
-          .fromJson(json['last_pin_timestamp'] as String?),
+      lastPinTimestamp: json['last_pin_timestamp'] == null
+          ? null
+          : DateTime.parse(json['last_pin_timestamp'] as String),
       rtcRegion: json['rtc_region'] as String?,
       videoQualityMode: $enumDecodeNullable(
           _$VideoQualityModeEnumMap, json['video_quality_mode']),
@@ -65,8 +66,7 @@ Map<String, dynamic> _$ChannelToJson(Channel instance) => <String, dynamic>{
       'ownerId': instance.ownerId,
       'application_id': instance.applicationId,
       'parent_id': instance.parentId,
-      'last_pin_timestamp':
-          const ISO8601ConverterNullable().toJson(instance.lastPinTimestamp),
+      'last_pin_timestamp': instance.lastPinTimestamp?.toIso8601String(),
       'rtc_region': instance.rtcRegion,
       'video_quality_mode':
           _$VideoQualityModeEnumMap[instance.videoQualityMode],

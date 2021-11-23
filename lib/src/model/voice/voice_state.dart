@@ -3,7 +3,6 @@ import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
-import 'package:discord_interactions/src/converter/date/iso8601_converter.dart';
 
 part 'voice_state.g.dart';
 
@@ -57,7 +56,6 @@ class VoiceState {
   final bool suppress;
 
   /// the time at which the user requested to speak
-  @ISO8601ConverterNullable()
   @JsonKey(name: 'request_to_speak_timestamp')
   final DateTime? requestToSpeakTimestamp;
 

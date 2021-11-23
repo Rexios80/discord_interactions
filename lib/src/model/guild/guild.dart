@@ -3,7 +3,6 @@ import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
-import 'package:discord_interactions/src/converter/date/iso8601_converter.dart';
 import 'package:discord_interactions/src/converter/flag/permission_converter.dart';
 import 'package:discord_interactions/src/converter/flag/system_channel_flag_converter.dart';
 
@@ -118,7 +117,6 @@ class Guild {
   ///
   /// *
   @JsonKey(name: 'joined_at')
-  @ISO8601ConverterNullable()
   final DateTime? joinedAt;
 
   /// true if this is considered a large guild
