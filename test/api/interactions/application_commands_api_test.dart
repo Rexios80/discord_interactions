@@ -9,49 +9,61 @@ void main() async {
   await setup();
 
   group('Global commands:', () {
-    test('Global command tests', () async {
-      final createCommandResponse =
+    late final ApplicationCommand command;
+
+    test('Create global appliction command', () async {
+      final response =
           await api.applicationCommands.createGlobalApplicationCommand(
         ApplicationCommand(
           name: 'test_name',
           description: 'test description',
         ),
       );
-      final command = createCommandResponse.data!;
+      command = response.data!;
       expect(command.name, 'test_name');
       expect(command.description, 'test description');
+    });
 
-      final getCommandResponse = await api.applicationCommands
+    test('Get global appliction command', () async {
+      final response = await api.applicationCommands
           .getGlobalApplicationCommand(command.id!);
-      final fetchedCommand = getCommandResponse.data!;
+      final fetchedCommand = response.data!;
       expect(fetchedCommand.name, 'test_name');
+    });
 
-      final getCommandsResponse =
+    late final List<ApplicationCommand> commands;
+
+    test('Get global application commands', () async {
+      final response =
           await api.applicationCommands.getGlobalApplicationCommands();
-      final commands = getCommandsResponse.data!;
+      commands = response.data!;
       expect(commands.length, greaterThan(0));
-      expect(commands[0].name, 'test_name');
+      expect(commands.map((e) => e.name), contains('test_name'));
+    });
 
-      final editCommandResponse =
+    test('Edit global application command', () async {
+      final response =
           await api.applicationCommands.editGlobalApplicationCommand(
         ApplicationCommand(id: command.id, name: 'edited_name'),
       );
-      final editedCommand = editCommandResponse.data!;
+      final editedCommand = response.data!;
       expect(editedCommand.name, 'edited_name');
+    });
 
-      final getNewCommandsResponse = await api.applicationCommands
+    test('Bulk overwrite global application commands', () async {
+      final response = await api.applicationCommands
           .bulkOverwriteGlobalApplicationCommands(commands);
-      final newCommands = getNewCommandsResponse.data!;
-      expect(newCommands[0].name, 'test_name');
+      final newCommands = response.data!;
+      expect(newCommands.map((e) => e.name), contains('test_name'));
+    });
 
-      await api.applicationCommands.deleteGlobalApplicationCommand(
+    test('Delete global application command', () async {
+      final response =
+          await api.applicationCommands.deleteGlobalApplicationCommand(
         command.id!,
       );
 
-      final getCommandsAfterDeleteResponse =
-          await api.applicationCommands.getGlobalApplicationCommands();
-      final commandsAfterDelete = getCommandsAfterDeleteResponse.data!;
-      expect(commandsAfterDelete.length, 0);
+      expect(response.error, isNull);
     });
 
     test(
@@ -66,9 +78,10 @@ void main() async {
 
   group('Guild commands:', () {
     final guildId = credentials.guildId;
+    late final ApplicationCommand command;
 
-    test('Guild command tests', () async {
-      final createCommandResponse =
+    test('Create guild application command', () async {
+      final response =
           await api.applicationCommands.createGuildApplicationCommand(
         ApplicationCommand(
           name: 'test_name',
@@ -76,46 +89,54 @@ void main() async {
         ),
         guildId: guildId,
       );
-      final command = createCommandResponse.data!;
+      command = response.data!;
       expect(command.name, 'test_name');
       expect(command.description, 'test description');
+    });
 
-      final getCommandResponse =
-          await api.applicationCommands.getGuildApplicationCommand(
+    test('Get guild appliction command', () async {
+      final response = await api.applicationCommands.getGuildApplicationCommand(
         command.id!,
         guildId: guildId,
       );
-      final fetchedCommand = getCommandResponse.data!;
+      final fetchedCommand = response.data!;
       expect(fetchedCommand.name, 'test_name');
+    });
 
-      final getCommandsResponse = await api.applicationCommands
+    late final List<ApplicationCommand> commands;
+
+    test('Get guild application commands', () async {
+      final response = await api.applicationCommands
           .getGuildApplicationCommands(guildId: guildId);
-      final commands = getCommandsResponse.data!;
+      commands = response.data!;
       expect(commands.length, greaterThan(0));
-      expect(commands[0].name, 'test_name');
+      expect(commands.map((e) => e.name), contains('test_name'));
+    });
 
-      final editCommandResponse =
+    test('Edit guild application command', () async {
+      final response =
           await api.applicationCommands.editGuildApplicationCommand(
         ApplicationCommand(id: command.id, name: 'edited_name'),
         guildId: guildId,
       );
-      final editedCommand = editCommandResponse.data!;
+      final editedCommand = response.data!;
       expect(editedCommand.name, 'edited_name');
+    });
 
-      final getNewCommandsResponse = await api.applicationCommands
+    test('Bulk overwrite guild application commands', () async {
+      final response = await api.applicationCommands
           .bulkOverwriteGuildApplicationCommands(commands, guildId: guildId);
-      final newCommands = getNewCommandsResponse.data!;
-      expect(newCommands[0].name, 'test_name');
+      final newCommands = response.data!;
+      expect(newCommands.map((e) => e.name), contains('test_name'));
+    });
 
-      await api.applicationCommands.deleteGuildApplicationCommand(
+    test('Delete guild application command', () async {
+      final response =
+          await api.applicationCommands.deleteGuildApplicationCommand(
         command.id!,
         guildId: guildId,
       );
-
-      final getCommandsAfterDeleteResponse = await api.applicationCommands
-          .getGuildApplicationCommands(guildId: guildId);
-      final commandsAfterDelete = getCommandsAfterDeleteResponse.data!;
-      expect(commandsAfterDelete.length, 0);
+      expect(response.error, isNull);
     });
 
     test(
@@ -130,56 +151,74 @@ void main() async {
     );
   });
 
-  test('Guild command permissions:', () async {
+  group('Guild command permissions:', () {
     final guildId = credentials.guildId;
     final roleId = credentials.roleId;
+    late final ApplicationCommand command;
 
-    final createCommandResponse =
-        await api.applicationCommands.createGuildApplicationCommand(
-      ApplicationCommand(
-        name: 'test_name',
-        description: 'test description',
-      ),
-      guildId: guildId,
-    );
-    final command = createCommandResponse.data!;
-
-    final permissionsResponse =
-        await api.applicationCommands.editApplicationCommandPermissions(
-      command.id!,
-      guildId: guildId,
-      permissions: [
-        ApplicationCommandPermissions(
-          id: roleId,
-          type: ApplicationCommandPermissionType.role,
-          permission: true,
+    setUpAll(() async {
+      final response =
+          await api.applicationCommands.createGuildApplicationCommand(
+        ApplicationCommand(
+          name: 'test_name',
+          description: 'test description',
         ),
-      ],
-    );
-    final permissions = permissionsResponse.data!;
-    expect(permissions.permissions.length, 1);
+        guildId: guildId,
+      );
+      command = response.data!;
+    });
 
-    final getGuildPermissionsResponse =
-        await api.applicationCommands.getGuildApplicationCommandPermissions(
-      guildId: guildId,
-    );
-    final guildPermissions = getGuildPermissionsResponse.data!;
-    expect(guildPermissions.length, 1);
+    test('Edit application command permissions', () async {
+      final response =
+          await api.applicationCommands.editApplicationCommandPermissions(
+        command.id!,
+        guildId: guildId,
+        permissions: [
+          ApplicationCommandPermissions(
+            id: roleId,
+            type: ApplicationCommandPermissionType.role,
+            permission: true,
+          ),
+        ],
+      );
+      final permissions = response.data!;
+      expect(permissions.permissions.length, 1);
+    });
 
-    final getPermissionsResponse =
-        await api.applicationCommands.getApplicationCommandPermissions(
-      command.id!,
-      guildId: guildId,
-    );
-    final fetchedPermissions = getPermissionsResponse.data!;
-    expect(fetchedPermissions.permissions.length, 1);
+    test('Get guild application command permissions', () async {
+      final response =
+          await api.applicationCommands.getGuildApplicationCommandPermissions(
+        guildId: guildId,
+      );
+      final guildPermissions = response.data!;
+      expect(guildPermissions.length, 1);
+    });
 
-    final batchPermissionsResponse =
-        await api.applicationCommands.batchEditApplicationCommandPermissions(
-      [],
-      guildId: guildId,
-    );
-    final batchPermissions = batchPermissionsResponse.data!;
-    expect(batchPermissions.length, 0);
+    test('Get application command permissions', () async {
+      final response =
+          await api.applicationCommands.getApplicationCommandPermissions(
+        command.id!,
+        guildId: guildId,
+      );
+      final fetchedPermissions = response.data!;
+      expect(fetchedPermissions.permissions.length, 1);
+    });
+
+    test('Batch edit application command permissions', () async {
+      final response =
+          await api.applicationCommands.batchEditApplicationCommandPermissions(
+        [],
+        guildId: guildId,
+      );
+      final batchPermissions = response.data!;
+      expect(batchPermissions.length, 0);
+    });
+
+    tearDownAll(() async {
+      await api.applicationCommands.deleteGuildApplicationCommand(
+        command.id!,
+        guildId: guildId,
+      );
+    });
   });
 }

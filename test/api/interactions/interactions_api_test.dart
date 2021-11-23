@@ -21,169 +21,155 @@ void main() async {
 
   setUpAll(() async {
     // Create the test command
-    final testCommandResponse =
+    final response =
         await api.applicationCommands.createGuildApplicationCommand(
       ApplicationCommand(name: 'test', description: 'test command'),
       guildId: credentials.guildId,
     );
 
-    testCommand = testCommandResponse.data!;
+    testCommand = response.data!;
   });
 
-  test('Interaction response test', () async {
-    print('Invoke /${testCommand.name} in your test server');
+  group('Interaction responses:', () {
+    late final Interaction interaction;
 
-    final interaction = await client.waitForInteraction();
+    test('Create interaction response', () async {
+      print('Invoke /${testCommand.name} in your test server');
+      interaction = await client.waitForInteraction();
+      expect(interaction.data?.name, testCommand.name);
 
-    expect(interaction.data?.name, testCommand.name);
+      final response = await api.interactions.createInteractionResponse(
+        interaction: interaction,
+        response: InteractionResponse.withData(content: 'Test response'),
+      );
+      expect(response.error, isNull);
 
-    // Respond to the interaction
-    final createInteractionResponseResponse =
-        await api.interactions.createInteractionResponse(
-      interaction: interaction,
-      response: InteractionResponse.withData(content: 'Test response'),
-    );
+      client.notifyInteractionHandled();
+    });
 
-    expect(createInteractionResponseResponse.error, isNull);
+    test('Get original interaction response', () async {
+      final response = await api.interactions
+          .getOriginalInteractionResponse(interaction.token);
+      expect(
+        response.data?.content,
+        'Test response',
+      );
+      await avoidRateLimit();
+    });
 
-    client.notifyInteractionHandled();
+    test('Edit original interaction response', () async {
+      final response = await api.interactions.editOriginalInteractionResponse(
+        interactionToken: interaction.token,
+        message: Message(content: 'Edited response'),
+      );
+      expect(
+        response.data?.content,
+        'Edited response',
+      );
+      await avoidRateLimit();
+    });
 
-    // Get the interaction response
-    final getOriginalInteractionResponseResponse = await api.interactions
-        .getOriginalInteractionResponse(interaction.token);
+    test('Delete original interaction response', () async {
+      final response = await api.interactions
+          .deleteOriginalInteractionResponse(interaction.token);
+      expect(response.error, isNull);
+      await avoidRateLimit();
+    });
 
-    await avoidRateLimit();
+    late final Message followupMessage;
 
-    expect(
-      getOriginalInteractionResponseResponse.data?.content,
-      'Test response',
-    );
+    test('Create followup message', () async {
+      final response = await api.interactions.createFollowupMessage(
+        interactionToken: interaction.token,
+        message: Message(content: 'Test followup message'),
+      );
 
-    // Edit the interaction response
-    final editOriginalInteractionResponseResponse =
-        await api.interactions.editOriginalInteractionResponse(
-      interactionToken: interaction.token,
-      message: Message(content: 'Edited response'),
-    );
+      followupMessage = response.data!;
+      expect(followupMessage.content, 'Test followup message');
+      await avoidRateLimit();
+    });
 
-    expect(
-      editOriginalInteractionResponseResponse.data?.content,
-      'Edited response',
-    );
+    test('Get followup message', () async {
+      final response = await api.interactions.getFollowupMessage(
+        interactionToken: interaction.token,
+        messageId: followupMessage.id!,
+      );
+      expect(response.data?.content, 'Test followup message');
+      await avoidRateLimit();
+    });
 
-    await avoidRateLimit();
+    test('Edit followup message', () async {
+      final response = await api.interactions.editFollowupMessage(
+        interactionToken: interaction.token,
+        messageId: followupMessage.id!,
+        message: Message(content: 'Edited followup message'),
+      );
+      expect(
+        response.data?.content,
+        'Edited followup message',
+      );
+      await avoidRateLimit();
+    });
 
-    // Delete the interaction response
-    final deleteOriginalInteractionResponseResponse = await api.interactions
-        .deleteOriginalInteractionResponse(interaction.token);
-
-    expect(deleteOriginalInteractionResponseResponse.error, isNull);
-
-    await avoidRateLimit();
-
-    // Create followup message
-    final createFollowupMessageResponse =
-        await api.interactions.createFollowupMessage(
-      interactionToken: interaction.token,
-      message: Message(content: 'Test followup message'),
-    );
-
-    final followupMessage = createFollowupMessageResponse.data!;
-
-    expect(followupMessage.content, 'Test followup message');
-
-    await avoidRateLimit();
-
-    // Get followup message
-    final getFollowupMessageResponse =
-        await api.interactions.getFollowupMessage(
-      interactionToken: interaction.token,
-      messageId: followupMessage.id!,
-    );
-
-    expect(getFollowupMessageResponse.data?.content, 'Test followup message');
-
-    await avoidRateLimit();
-
-    // Edit followup message
-    final editFollowupMessageResponse =
-        await api.interactions.editFollowupMessage(
-      interactionToken: interaction.token,
-      messageId: followupMessage.id!,
-      message: Message(content: 'Edited followup message'),
-    );
-
-    expect(
-      editFollowupMessageResponse.data?.content,
-      'Edited followup message',
-    );
-
-    await avoidRateLimit();
-
-    // Delete followup message
-    final deleteFollowupMessageResponse =
-        await api.interactions.deleteFollowupMessage(
-      interactionToken: interaction.token,
-      messageId: followupMessage.id!,
-    );
-
-    expect(deleteFollowupMessageResponse.error, isNull);
+    test('Delete followup message', () async {
+      final response = await api.interactions.deleteFollowupMessage(
+        interactionToken: interaction.token,
+        messageId: followupMessage.id!,
+      );
+      expect(response.error, isNull);
+    });
   });
 
-  test('Message component test', () async {
-    print('Invoke /${testCommand.name} in your test server');
+  group('Message components:', () {
+    test('Button component', () async {
+      print('Invoke /${testCommand.name} in your test server');
+      final interaction = await client.waitForInteraction();
+      expect(interaction.data?.name, testCommand.name);
 
-    final interaction = await client.waitForInteraction();
+      // Respond to the interaction
+      final createInteractionResponseResponse =
+          await api.interactions.createInteractionResponse(
+        interaction: interaction,
+        response: InteractionResponse.withData(
+          content: 'Test response',
+          components: [
+            Component(
+              type: ComponentType.actionRow,
+              components: [
+                Component(
+                  customId: 'buttonId',
+                  label: 'Click me',
+                  type: ComponentType.button,
+                  style: ButtonStyle.danger,
+                ),
+              ],
+            )
+          ],
+        ),
+      );
+      expect(createInteractionResponseResponse.error, isNull);
 
-    expect(interaction.data?.name, testCommand.name);
+      client.notifyInteractionHandled();
 
-    // Respond to the interaction
-    final createInteractionResponseResponse =
-        await api.interactions.createInteractionResponse(
-      interaction: interaction,
-      response: InteractionResponse.withData(
-        content: 'Test response',
-        components: [
-          Component(
-            type: ComponentType.actionRow,
-            components: [
-              Component(
-                customId: 'buttonId',
-                label: 'Click me',
-                type: ComponentType.button,
-                style: ButtonStyle.danger,
-              ),
-            ],
-          )
-        ],
-      ),
-    );
+      print('Click the button');
+      final buttonInteraction = await client.waitForInteraction();
+      expect(buttonInteraction.data?.customId, 'buttonId');
+      expect(buttonInteraction.message?.interaction?.name, testCommand.name);
 
-    expect(createInteractionResponseResponse.error, isNull);
+      final buttonInteractionResponseResponse =
+          await api.interactions.createInteractionResponse(
+        interaction: buttonInteraction,
+        response: InteractionResponse.withData(
+          type: InteractionCallbackType.updateMessage,
+          content: 'Button clicked',
+          // Send an empty list of components to remove them
+          components: [],
+        ),
+      );
+      expect(buttonInteractionResponseResponse.error, isNull);
 
-    client.notifyInteractionHandled();
-
-    print('Click the button');
-
-    final buttonInteraction = await client.waitForInteraction();
-
-    expect(buttonInteraction.data?.customId, 'buttonId');
-    expect(buttonInteraction.message?.interaction?.name, testCommand.name);
-
-    final buttonInteractionResponseResponse =
-        await api.interactions.createInteractionResponse(
-      interaction: buttonInteraction,
-      response: InteractionResponse.withData(
-        type: InteractionCallbackType.updateMessage,
-        content: 'Button clicked',
-        // Send an empty list of components to remove them
-        components: [],
-      ),
-    );
-
-    expect(buttonInteractionResponseResponse.error, isNull);
-
-    client.notifyInteractionHandled();
+      client.notifyInteractionHandled();
+    });
   });
 
   tearDownAll(() async {
