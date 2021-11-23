@@ -75,7 +75,9 @@ class ApplicationCommandsApi {
   /// Deletes a global command. Returns 204.
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#delete-global-application-command
-  Future<DiscordResponse> deleteGlobalApplicationCommand(String commandId) {
+  Future<DiscordResponse<void>> deleteGlobalApplicationCommand(
+    String commandId,
+  ) {
     return validateApiCall(_dio.delete('$_path/commands/$commandId'));
   }
 
@@ -162,7 +164,7 @@ class ApplicationCommandsApi {
   /// Delete a guild command. Returns 204 on success.
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#delete-guild-application-command
-  Future<DiscordResponse> deleteGuildApplicationCommand(
+  Future<DiscordResponse<void>> deleteGuildApplicationCommand(
     String commandId, {
     required String guildId,
   }) {

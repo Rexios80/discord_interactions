@@ -15,6 +15,7 @@ late final DiscordApi api;
 late final TestCredentials credentials;
 
 // TODO: Make this work in GitHub Actions
+//! DO NOT USE WITH PRODUCTION CREDENTIALS OR SERVERS
 Future<void> setup() async {
   final credentialsFile = File('test_resources/credentials.json');
   final credentialsString = await credentialsFile.readAsString();

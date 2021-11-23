@@ -8,6 +8,7 @@ class TestCredentials {
   final String applicationId;
   final String botToken;
   final String userAgentUrl;
+  final String interactionsRouterUrl;
   final String guildId;
   final String roleId;
   final String roleIconId;
@@ -21,6 +22,7 @@ class TestCredentials {
     required this.applicationId,
     required this.botToken,
     required this.userAgentUrl,
+    required this.interactionsRouterUrl,
     required this.guildId,
     required this.roleId,
     required this.roleIconId,

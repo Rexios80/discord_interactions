@@ -108,7 +108,7 @@ class ChannelsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/channel#deleteclose-channel
-  Future<DiscordResponse> deleteChannel(
+  Future<DiscordResponse<void>> deleteChannel(
     String channelId, {
     String? reason,
   }) async {
@@ -267,7 +267,7 @@ class ChannelsApi {
   /// This method handles emoji encoding for you
   ///
   /// https://discord.com/developers/docs/resources/channel#create-reaction
-  Future<DiscordResponse> createReaction({
+  Future<DiscordResponse<void>> createReaction({
     required String channelId,
     required String messageId,
     required String emojiName,
@@ -289,7 +289,7 @@ class ChannelsApi {
   /// This method handles emoji encoding for you
   ///
   /// https://discord.com/developers/docs/resources/channel#delete-own-reaction
-  Future<DiscordResponse> deleteOwnReaction({
+  Future<DiscordResponse<void>> deleteOwnReaction({
     required String channelId,
     required String messageId,
     required String emojiName,
@@ -312,7 +312,7 @@ class ChannelsApi {
   /// This method handles emoji encoding for you
   ///
   /// https://discord.com/developers/docs/resources/channel#delete-user-reaction
-  Future<DiscordResponse> deleteUserReaction({
+  Future<DiscordResponse<void>> deleteUserReaction({
     required String channelId,
     required String messageId,
     required String emojiName,
@@ -369,7 +369,7 @@ class ChannelsApi {
   /// Message Reaction Remove All Gateway event.
   ///
   /// https://discord.com/developers/docs/resources/channel#delete-all-reactions
-  Future<DiscordResponse> deleteAllReactions({
+  Future<DiscordResponse<void>> deleteAllReactions({
     required String channelId,
     required String messageId,
   }) async {
@@ -388,7 +388,7 @@ class ChannelsApi {
   /// This method handles emoji encoding for you
   ///
   /// https://discord.com/developers/docs/resources/channel#delete-all-reactions-for-emoji
-  Future<DiscordResponse> deleteAllReactionsForEmoji({
+  Future<DiscordResponse<void>> deleteAllReactionsForEmoji({
     required String channelId,
     required String messageId,
     required String emojiName,
@@ -454,7 +454,7 @@ class ChannelsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/channel#delete-message
-  Future<DiscordResponse> deleteMessage({
+  Future<DiscordResponse<void>> deleteMessage({
     required String channelId,
     required String messageId,
     String? reason,
@@ -486,7 +486,7 @@ class ChannelsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/channel#bulk-delete-messages
-  Future<DiscordResponse> bulkDeleteMessages({
+  Future<DiscordResponse<void>> bulkDeleteMessages({
     required String channelId,
 
     /// an array of message ids to delete (2-100)
@@ -518,7 +518,7 @@ class ChannelsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/channel#edit-channel-permissions
-  Future<DiscordResponse> editChannelPermissions({
+  Future<DiscordResponse<void>> editChannelPermissions({
     required String channelId,
     required Overwrite overwrite,
     String? reason,

@@ -30,7 +30,7 @@ class InteractionsApi {
   /// uploading files and multipart/form-data requests.
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#create-interaction-response
-  Future<DiscordResponse<InteractionResponse>> createInteractionResponse({
+  Future<DiscordResponse<void>> createInteractionResponse({
     required Interaction interaction,
     required InteractionResponse response,
     List<MultipartFile>? files,
@@ -40,7 +40,6 @@ class InteractionsApi {
         '/interactions/${interaction.id}/${interaction.token}/callback',
         data: createFormData(response, files),
       ),
-      responseTransformer: (data) => InteractionResponse.fromJson(data),
     );
   }
 
@@ -76,7 +75,7 @@ class InteractionsApi {
   /// Deletes the initial Interaction response. Returns 204 on success.
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#delete-original-interaction-response
-  Future<DiscordResponse> deleteOriginalInteractionResponse(
+  Future<DiscordResponse<void>> deleteOriginalInteractionResponse(
     String interactionToken,
   ) {
     return validateApiCall(
@@ -145,7 +144,7 @@ class InteractionsApi {
   /// Does not support ephemeral followups.
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#delete-followup-message
-  Future<DiscordResponse> deleteFollowupMessage({
+  Future<DiscordResponse<void>> deleteFollowupMessage({
     required String interactionToken,
     required String messageId,
   }) {
