@@ -187,6 +187,8 @@ void main() async {
       response: InteractionResponse.withData(
         type: InteractionCallbackType.updateMessage,
         content: 'Button clicked',
+        // Send an empty list of components to remove them
+        components: [],
       ),
     );
 
