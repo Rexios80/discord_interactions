@@ -164,7 +164,7 @@ class ChannelsApi {
         queryParameters: queryParameters,
       ),
       responseTransformer: (data) =>
-          data.map((message) => Message.fromJson(message)).toList(),
+          (data as List).map((message) => Message.fromJson(message)).toList(),
     );
   }
 
@@ -174,9 +174,9 @@ class ChannelsApi {
   ///
   /// https://discord.com/developers/docs/resources/channel#get-channel-message
   Future<DiscordResponse<Message>> getChannelMessage(
-    String channelId,
-    String messageId,
-  ) async {
+    String channelId, {
+    required String messageId,
+  }) async {
     return validateApiCall(
       _dio.get('$_basePath/$channelId/messages/$messageId'),
       responseTransformer: (data) => Message.fromJson(data),
@@ -245,8 +245,8 @@ class ChannelsApi {
   /// Returns a [Message] object.
   ///
   /// https://discord.com/developers/docs/resources/channel#crosspost-message
-  Future<DiscordResponse<Message>> crosspostMessage({
-    required String channelId,
+  Future<DiscordResponse<Message>> crosspostMessage(
+    String channelId, {
     required String messageId,
   }) async {
     return validateApiCall(
@@ -267,8 +267,8 @@ class ChannelsApi {
   /// This method handles emoji encoding for you
   ///
   /// https://discord.com/developers/docs/resources/channel#create-reaction
-  Future<DiscordResponse<void>> createReaction({
-    required String channelId,
+  Future<DiscordResponse<void>> createReaction(
+    String channelId, {
     required String messageId,
     required String emojiName,
     required String emojiId,
@@ -289,8 +289,8 @@ class ChannelsApi {
   /// This method handles emoji encoding for you
   ///
   /// https://discord.com/developers/docs/resources/channel#delete-own-reaction
-  Future<DiscordResponse<void>> deleteOwnReaction({
-    required String channelId,
+  Future<DiscordResponse<void>> deleteOwnReaction(
+    String channelId, {
     required String messageId,
     required String emojiName,
     required String emojiId,
@@ -312,8 +312,8 @@ class ChannelsApi {
   /// This method handles emoji encoding for you
   ///
   /// https://discord.com/developers/docs/resources/channel#delete-user-reaction
-  Future<DiscordResponse<void>> deleteUserReaction({
-    required String channelId,
+  Future<DiscordResponse<void>> deleteUserReaction(
+    String channelId, {
     required String messageId,
     required String emojiName,
     required String emojiId,
@@ -335,8 +335,8 @@ class ChannelsApi {
   /// This method handles emoji encoding for you
   ///
   /// https://discord.com/developers/docs/resources/channel#get-reactions
-  Future<DiscordResponse<List<User>>> getReactions({
-    required String channelId,
+  Future<DiscordResponse<List<User>>> getReactions(
+    String channelId, {
     required String messageId,
     required String emojiName,
     required String emojiId,
@@ -360,7 +360,7 @@ class ChannelsApi {
         queryParameters: query,
       ),
       responseTransformer: (data) =>
-          data.map((user) => User.fromJson(user)).toList(),
+          (data as List).map((user) => User.fromJson(user)).toList(),
     );
   }
 
@@ -369,8 +369,8 @@ class ChannelsApi {
   /// Message Reaction Remove All Gateway event.
   ///
   /// https://discord.com/developers/docs/resources/channel#delete-all-reactions
-  Future<DiscordResponse<void>> deleteAllReactions({
-    required String channelId,
+  Future<DiscordResponse<void>> deleteAllReactions(
+    String channelId, {
     required String messageId,
   }) async {
     return validateApiCall(
@@ -388,8 +388,8 @@ class ChannelsApi {
   /// This method handles emoji encoding for you
   ///
   /// https://discord.com/developers/docs/resources/channel#delete-all-reactions-for-emoji
-  Future<DiscordResponse<void>> deleteAllReactionsForEmoji({
-    required String channelId,
+  Future<DiscordResponse<void>> deleteAllReactionsForEmoji(
+    String channelId, {
     required String messageId,
     required String emojiName,
     required String emojiId,
@@ -431,8 +431,8 @@ class ChannelsApi {
   /// All parameters to this endpoint are optional and nullable.
   ///
   /// https://discord.com/developers/docs/resources/channel#edit-message
-  Future<DiscordResponse<Message>> editMessage({
-    required String channelId,
+  Future<DiscordResponse<Message>> editMessage(
+    String channelId, {
     required String messageId,
     required Message message,
     List<MultipartFile>? files,
@@ -454,8 +454,8 @@ class ChannelsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/channel#delete-message
-  Future<DiscordResponse<void>> deleteMessage({
-    required String channelId,
+  Future<DiscordResponse<void>> deleteMessage(
+    String channelId, {
     required String messageId,
     String? reason,
   }) async {
@@ -486,8 +486,8 @@ class ChannelsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/channel#bulk-delete-messages
-  Future<DiscordResponse<void>> bulkDeleteMessages({
-    required String channelId,
+  Future<DiscordResponse<void>> bulkDeleteMessages(
+    String channelId, {
 
     /// an array of message ids to delete (2-100)
     required List<String> messageIds,
@@ -518,8 +518,8 @@ class ChannelsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/channel#edit-channel-permissions
-  Future<DiscordResponse<void>> editChannelPermissions({
-    required String channelId,
+  Future<DiscordResponse<void>> editChannelPermissions(
+    String channelId, {
     required Overwrite overwrite,
     String? reason,
   }) async {
