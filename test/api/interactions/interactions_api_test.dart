@@ -59,6 +59,33 @@ void main() async {
       testCommand.id!,
       guildId: credentials.guildId,
     );
+
+    // Get the interaction response
+    final getOriginalInteractionResponseResponse = await api.interactions
+        .getOriginalInteractionResponse(interaction.token);
+
+    expect(
+      getOriginalInteractionResponseResponse.data?.content,
+      'Test response',
+    );
+
+    // Edit the interaction response
+    final editOriginalInteractionResponseResponse =
+        await api.interactions.editOriginalInteractionResponse(
+      interactionToken: interaction.token,
+      message: Message(content: 'Edited response'),
+    );
+
+    expect(
+      editOriginalInteractionResponseResponse.data?.content,
+      'Edited response',
+    );
+
+    // Delete the interaction response
+    final deleteOriginalInteractionResponseResponse = await api.interactions
+        .deleteOriginalInteractionResponse(interaction.token);
+
+    expect(deleteOriginalInteractionResponseResponse.error, isNull);
   });
 
   tearDownAll(() async {

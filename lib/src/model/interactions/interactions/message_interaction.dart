@@ -25,7 +25,7 @@ class MessageInteraction {
   final InteractionType type;
 
   /// the name of the application command
-  final String command;
+  final String name;
 
   /// the user who invoked the interaction
   final User user;
@@ -34,7 +34,7 @@ class MessageInteraction {
   MessageInteraction({
     required this.id,
     required this.type,
-    required this.command,
+    required this.name,
     required this.user,
   });
 

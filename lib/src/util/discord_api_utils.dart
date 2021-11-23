@@ -13,11 +13,10 @@ Future<DiscordResponse<T>> validateApiCall<T>(
   Future<Response> call, {
   T Function(dynamic)? responseTransformer,
 }) async {
+  final Response response;
+
   try {
-    final response = await call;
-    return DiscordResponse.success(
-      responseTransformer != null ? responseTransformer(response.data) : null,
-    );
+    response = await call;
   } on DioError catch (e) {
     if (e.response != null) {
       return DiscordResponse.error(e.response!.data);
@@ -26,6 +25,15 @@ Future<DiscordResponse<T>> validateApiCall<T>(
     }
   } catch (e) {
     return DiscordResponse.error(e);
+  }
+
+  try {
+    return DiscordResponse.success(
+      responseTransformer != null ? responseTransformer(response.data) : null,
+      response.data,
+    );
+  } catch (e) {
+    return DiscordResponse.error(e, raw: response.data);
   }
 }
 

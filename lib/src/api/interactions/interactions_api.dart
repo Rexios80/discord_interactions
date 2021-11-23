@@ -43,32 +43,33 @@ class InteractionsApi {
     );
   }
 
-  /// Returns the initial [InteractionResponse]. Functions the same as Get Webhook Message.
+  /// Returns the initial [Message] object created by the Interaction.
+  /// Functions the same as Get Webhook Message.
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#get-original-interaction-response
-  Future<DiscordResponse<InteractionResponse>> getOriginalInteractionResponse(
+  Future<DiscordResponse<Message>> getOriginalInteractionResponse(
     String interactionToken,
   ) {
     return validateApiCall(
       _dio.get('$_path/$interactionToken/messages/@original'),
-      responseTransformer: (data) => InteractionResponse.fromJson(data),
+      responseTransformer: (data) => Message.fromJson(data),
     );
   }
 
   /// Edits the initial [InteractionResponse]. Functions the same as Edit Webhook Message.
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#edit-original-interaction-response
-  Future<DiscordResponse<InteractionResponse>> editOriginalInteractionResponse({
+  Future<DiscordResponse<Message>> editOriginalInteractionResponse({
     required String interactionToken,
-    required InteractionResponse response,
+    required Message message,
     List<MultipartFile>? files,
   }) {
     return validateApiCall(
       _dio.patch(
         '$_path/$interactionToken/messages/@original',
-        data: createFormData(response, files),
+        data: createFormData(message, files),
       ),
-      responseTransformer: (data) => InteractionResponse.fromJson(data),
+      responseTransformer: (data) => Message.fromJson(data),
     );
   }
 

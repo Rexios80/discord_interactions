@@ -10,7 +10,7 @@ MessageInteraction _$MessageInteractionFromJson(Map<String, dynamic> json) =>
     MessageInteraction(
       id: json['id'] as String,
       type: $enumDecode(_$InteractionTypeEnumMap, json['type']),
-      command: json['command'] as String,
+      name: json['name'] as String,
       user: User.fromJson(json['user'] as Map<String, dynamic>),
     );
 
@@ -18,7 +18,7 @@ Map<String, dynamic> _$MessageInteractionToJson(MessageInteraction instance) =>
     <String, dynamic>{
       'id': instance.id,
       'type': _$InteractionTypeEnumMap[instance.type],
-      'command': instance.command,
+      'name': instance.name,
       'user': instance.user,
     };
 
