@@ -1,3 +1,6 @@
+## 0.0.6
+- Fixed issue with select menu Interaction serialization
+
 ## 0.0.5
 - Fixed issues with Interactions API endpoints
 
