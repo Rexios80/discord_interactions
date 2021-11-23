@@ -21,12 +21,12 @@ class InteractionData {
   /// the name of the invoked command
   ///
   /// Interaction type: Application Command
-  final String name;
+  final String? name;
 
   /// the type of the invoked command
   ///
   /// Interaction type: Application Command
-  final ApplicationCommandType type;
+  final ApplicationCommandType? type;
 
   /// converted users + roles + channels
   ///
@@ -64,8 +64,8 @@ class InteractionData {
   /// Create a new InteractionData
   InteractionData({
     this.id,
-    required this.name,
-    required this.type,
+    this.name,
+    this.type,
     this.resolved,
     this.options,
     this.customId,
