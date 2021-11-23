@@ -16,7 +16,7 @@ class InteractionData {
   /// the ID of the invoked command
   ///
   /// Interaction type: Application Command
-  final String id;
+  final String? id;
 
   /// the name of the invoked command
   ///
@@ -63,7 +63,7 @@ class InteractionData {
 
   /// Create a new InteractionData
   InteractionData({
-    required this.id,
+    this.id,
     required this.name,
     required this.type,
     this.resolved,

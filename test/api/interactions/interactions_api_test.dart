@@ -10,20 +10,13 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
-import '../../test_setup.dart';
+import '../../test_utils.dart';
 
 /// See https://github.com/Rexios80/discord_interactions_test for setup information
 void main() async {
   await setup();
 
-  // Connect to the test server
-  final socket =
-      WebSocketChannel.connect(Uri.parse(credentials.interactionsRouterUrl));
-
-  // Convert socket.stream to a boradcast stream
-  final socketStreamController = StreamController.broadcast();
-  socket.stream.listen(socketStreamController.add);
-  final socketStream = socketStreamController.stream;
+  final client = InteractionsTestServerClient();
 
   test('Interaction response test', () async {
     // Create the test command
@@ -37,8 +30,7 @@ void main() async {
 
     print('Invoke /${testCommand.name} in your test server');
 
-    final json = await socketStream.first;
-    final interaction = Interaction.fromJson(jsonDecode(json));
+    final interaction = await client.waitForInteraction();
 
     expect(interaction.data?.name, testCommand.name);
 
@@ -51,8 +43,7 @@ void main() async {
 
     expect(createInteractionResponseResponse.error, isNull);
 
-    // Notify the test server the Interaction was handled
-    socket.sink.add(null);
+    client.notifyInteractionHandled();
 
     // Get the interaction response
     final getOriginalInteractionResponseResponse = await api.interactions
@@ -142,13 +133,107 @@ void main() async {
     );
   });
 
+  test('Message component test', () async {
+    // Create the test command
+    final testCommandResponse =
+        await api.applicationCommands.createGuildApplicationCommand(
+      ApplicationCommand(name: 'test', description: 'test command'),
+      guildId: credentials.guildId,
+    );
+
+    final testCommand = testCommandResponse.data!;
+
+    print('Invoke /${testCommand.name} in your test server');
+
+    final interaction = await client.waitForInteraction();
+
+    expect(interaction.data?.name, testCommand.name);
+
+    final buttonId = 'buttonId';
+
+    // Respond to the interaction
+    final createInteractionResponseResponse =
+        await api.interactions.createInteractionResponse(
+      interaction: interaction,
+      response: InteractionResponse.withData(
+        content: 'Test response',
+        components: [
+          Component(
+            type: ComponentType.actionRow,
+            components: [
+              Component(
+                customId: buttonId,
+                label: 'Click me',
+                type: ComponentType.button,
+                style: ButtonStyle.danger,
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+
+    expect(createInteractionResponseResponse.error, isNull);
+
+    client.notifyInteractionHandled();
+
+    print('Click the button');
+
+    final buttonInteraction = await client.waitForInteraction();
+
+    expect(buttonInteraction.data?.name, testCommand.name);
+
+    final buttonInteractionResponseResponse =
+        await api.interactions.createInteractionResponse(
+      interaction: buttonInteraction,
+      response: InteractionResponse.withData(
+        content: 'Button clicked',
+      ),
+    );
+
+    expect(buttonInteractionResponseResponse.error, isNull);
+
+    client.notifyInteractionHandled();
+
+    // Delete the test command
+    await api.applicationCommands.deleteGuildApplicationCommand(
+      testCommand.id!,
+      guildId: credentials.guildId,
+    );
+  });
+
   tearDownAll(() async {
-    // Close the connection to the test server so it can die
-    await socket.sink.close();
+    client.close();
   });
 }
 
-/// Helper function to avoid Dicord rate limiting
-Future<void> avoidRateLimit() async {
-  await Future.delayed(Duration(seconds: 1));
+class InteractionsTestServerClient {
+  // Connect to the test server
+  final _socket =
+      WebSocketChannel.connect(Uri.parse(credentials.interactionsRouterUrl));
+
+  late final Stream _socketStream;
+
+  InteractionsTestServerClient() {
+    // Convert socket.stream to a boradcast stream
+    final socketStreamController = StreamController.broadcast();
+    _socket.stream.listen(socketStreamController.add);
+    _socketStream = socketStreamController.stream;
+  }
+
+  /// Wait for the tester to invoke an interaction
+  Future<Interaction> waitForInteraction() async {
+    final json = await _socketStream.first;
+    return Interaction.fromJson(jsonDecode(json));
+  }
+
+  /// Notify the test server the Interaction was handled
+  void notifyInteractionHandled() {
+    _socket.sink.add(null);
+  }
+
+  /// Close the connection to the test server so it can die
+  void close() {
+    _socket.sink.close();
+  }
 }

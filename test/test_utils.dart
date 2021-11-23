@@ -40,3 +40,8 @@ Future<void> setup() async {
     botToken: credentials.botToken,
   );
 }
+
+/// Helper function to avoid Dicord rate limiting
+Future<void> avoidRateLimit() async {
+  await Future.delayed(Duration(seconds: 1));
+}

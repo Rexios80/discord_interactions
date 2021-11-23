@@ -8,7 +8,7 @@ part of 'interaction_data.dart';
 
 InteractionData _$InteractionDataFromJson(Map<String, dynamic> json) =>
     InteractionData(
-      id: json['id'] as String,
+      id: json['id'] as String?,
       name: json['name'] as String,
       type: $enumDecode(_$ApplicationCommandTypeEnumMap, json['type']),
       resolved: json['resolved'] == null

@@ -7,7 +7,7 @@ import 'package:test/test.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
-import '../test_setup.dart';
+import '../test_utils.dart';
 
 void main() async {
   await setup();
