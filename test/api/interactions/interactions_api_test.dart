@@ -180,6 +180,7 @@ void main() async {
     final buttonInteraction = await client.waitForInteraction();
 
     expect(buttonInteraction.data?.customId, 'buttonId');
+    expect(buttonInteraction.message?.interaction?.name, testCommand.name);
 
     final buttonInteractionResponseResponse =
         await api.interactions.createInteractionResponse(
