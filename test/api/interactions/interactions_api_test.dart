@@ -138,9 +138,9 @@ void main() async {
               type: ComponentType.actionRow,
               components: [
                 Component(
+                  type: ComponentType.button,
                   customId: 'buttonId',
                   label: 'Click me',
-                  type: ComponentType.button,
                   style: ButtonStyle.danger,
                 ),
               ],
@@ -163,6 +163,76 @@ void main() async {
         response: InteractionResponse.withData(
           type: InteractionCallbackType.updateMessage,
           content: 'Button clicked',
+          // Send an empty list of components to remove them
+          components: [],
+        ),
+      );
+      expect(buttonInteractionResponseResponse.error, isNull);
+
+      client.notifyInteractionHandled();
+    });
+
+    test('Select menu', () async {
+      print('Invoke /${testCommand.name} in your test server');
+      final interaction = await client.waitForInteraction();
+      expect(interaction.data?.name, testCommand.name);
+
+      final selectOptionValues = ['option1', 'option2', 'option3'];
+
+      // Respond to the interaction
+      final createInteractionResponseResponse =
+          await api.interactions.createInteractionResponse(
+        interaction: interaction,
+        response: InteractionResponse.withData(
+          content: 'Make a selection',
+          components: [
+            Component(
+              type: ComponentType.actionRow,
+              components: [
+                Component(
+                  type: ComponentType.selectMenu,
+                  customId: 'selectMenuId',
+                  minValues: 1,
+                  maxValues: 3,
+                  options: [
+                    SelectOption(
+                      label: 'Option 1',
+                      value: selectOptionValues[0],
+                    ),
+                    SelectOption(
+                      label: 'Option 2',
+                      value: selectOptionValues[1],
+                    ),
+                    SelectOption(
+                      label: 'Option 3',
+                      value: selectOptionValues[2],
+                    ),
+                  ],
+                ),
+              ],
+            )
+          ],
+        ),
+      );
+      expect(createInteractionResponseResponse.error, isNull);
+
+      client.notifyInteractionHandled();
+
+      print('Make your selection');
+      final buttonInteraction = await client.waitForInteraction();
+      final selectedValues = buttonInteraction.data?.values;
+      expect(buttonInteraction.data?.customId, 'selectMenuId');
+      expect(
+        selectedValues!.any(selectOptionValues.contains),
+        true,
+      );
+
+      final buttonInteractionResponseResponse =
+          await api.interactions.createInteractionResponse(
+        interaction: buttonInteraction,
+        response: InteractionResponse.withData(
+          type: InteractionCallbackType.updateMessage,
+          content: 'Selection made: $selectedValues',
           // Send an empty list of components to remove them
           components: [],
         ),
@@ -201,6 +271,7 @@ class InteractionsTestServerClient {
   /// Wait for the tester to invoke an interaction
   Future<Interaction> waitForInteraction() async {
     final json = await _socketStream.first;
+    print(json);
     return Interaction.fromJson(jsonDecode(json));
   }
 

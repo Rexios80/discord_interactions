@@ -21,9 +21,8 @@ InteractionData _$InteractionDataFromJson(Map<String, dynamic> json) =>
       customId: json['custom_id'] as String?,
       componentType:
           $enumDecodeNullable(_$ComponentTypeEnumMap, json['component_type']),
-      values: (json['values'] as List<dynamic>?)
-          ?.map((e) => SelectOption.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      values:
+          (json['values'] as List<dynamic>?)?.map((e) => e as String).toList(),
       targetId: json['target_id'] as String?,
     );
 

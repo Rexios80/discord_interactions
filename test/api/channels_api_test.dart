@@ -56,7 +56,14 @@ void main() async {
     });
 
     test('Create reaction', () async {
-      await createReaction(channelId: channelId, messageId: messageId);
+      final response = await api.channels.createReaction(
+        channelId,
+        messageId: messageId,
+        emojiName: credentials.emojiName,
+        emojiId: credentials.emojiId,
+      );
+      expect(response.error, isNull);
+      await avoidRateLimit();
     });
 
     test('Get reactions', () async {
@@ -84,7 +91,6 @@ void main() async {
     });
 
     test('Delete user reaction', () async {
-      await createReaction(channelId: channelId, messageId: messageId);
       final response = await api.channels.deleteUserReaction(
         channelId,
         messageId: messageId,
@@ -97,7 +103,6 @@ void main() async {
     });
 
     test('Delete all reactions for emoji', () async {
-      await createReaction(channelId: channelId, messageId: messageId);
       final response = await api.channels.deleteAllReactionsForEmoji(
         channelId,
         messageId: messageId,
@@ -109,7 +114,6 @@ void main() async {
     });
 
     test('Delete all reactions', () async {
-      await createReaction(channelId: channelId, messageId: messageId);
       final response = await api.channels.deleteAllReactions(
         channelId,
         messageId: messageId,
@@ -150,18 +154,4 @@ void main() async {
       await avoidRateLimit();
     });
   });
-}
-
-Future<void> createReaction({
-  required String channelId,
-  required String messageId,
-}) async {
-  final response = await api.channels.createReaction(
-    channelId,
-    messageId: messageId,
-    emojiName: credentials.emojiName,
-    emojiId: credentials.emojiId,
-  );
-  expect(response.error, isNull);
-  await avoidRateLimit();
 }

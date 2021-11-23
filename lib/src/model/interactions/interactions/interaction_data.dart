@@ -53,7 +53,7 @@ class InteractionData {
   /// the values the user selected
   ///
   /// Interaction type: Component (Select)
-  final List<SelectOption>? values;
+  final List<String>? values;
 
   /// id the of user or message targetted by a user or message command
   ///
