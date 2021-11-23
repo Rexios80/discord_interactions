@@ -149,8 +149,6 @@ void main() async {
 
     expect(interaction.data?.name, testCommand.name);
 
-    final buttonId = 'buttonId';
-
     // Respond to the interaction
     final createInteractionResponseResponse =
         await api.interactions.createInteractionResponse(
@@ -162,7 +160,7 @@ void main() async {
             type: ComponentType.actionRow,
             components: [
               Component(
-                customId: buttonId,
+                customId: 'buttonId',
                 label: 'Click me',
                 type: ComponentType.button,
                 style: ButtonStyle.danger,
@@ -181,12 +179,13 @@ void main() async {
 
     final buttonInteraction = await client.waitForInteraction();
 
-    expect(buttonInteraction.data?.name, testCommand.name);
+    expect(buttonInteraction.data?.customId, 'buttonId');
 
     final buttonInteractionResponseResponse =
         await api.interactions.createInteractionResponse(
       interaction: buttonInteraction,
       response: InteractionResponse.withData(
+        type: InteractionCallbackType.updateMessage,
         content: 'Button clicked',
       ),
     );

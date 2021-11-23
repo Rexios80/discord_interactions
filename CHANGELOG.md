@@ -1,3 +1,6 @@
+## 0.0.5
+- Fixed issues with Interactions API endpoints
+
 ## 0.0.4
 - Added more channel endpoints
 
