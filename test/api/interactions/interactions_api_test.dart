@@ -25,7 +25,7 @@ void main() async {
   socket.stream.listen(socketStreamController.add);
   final socketStream = socketStreamController.stream;
 
-  test('Basic response test', () async {
+  test('Interaction response test', () async {
     // Create the test command
     final testCommandResponse =
         await api.applicationCommands.createGuildApplicationCommand(
@@ -54,15 +54,11 @@ void main() async {
     // Notify the test server the Interaction was handled
     socket.sink.add(null);
 
-    // Delete the test command
-    await api.applicationCommands.deleteGuildApplicationCommand(
-      testCommand.id!,
-      guildId: credentials.guildId,
-    );
-
     // Get the interaction response
     final getOriginalInteractionResponseResponse = await api.interactions
         .getOriginalInteractionResponse(interaction.token);
+
+    await avoidRateLimit();
 
     expect(
       getOriginalInteractionResponseResponse.data?.content,
@@ -81,15 +77,78 @@ void main() async {
       'Edited response',
     );
 
+    await avoidRateLimit();
+
     // Delete the interaction response
     final deleteOriginalInteractionResponseResponse = await api.interactions
         .deleteOriginalInteractionResponse(interaction.token);
 
     expect(deleteOriginalInteractionResponseResponse.error, isNull);
+
+    await avoidRateLimit();
+
+    // Create followup message
+    final createFollowupMessageResponse =
+        await api.interactions.createFollowupMessage(
+      interactionToken: interaction.token,
+      message: Message(content: 'Test followup message'),
+    );
+
+    final followupMessage = createFollowupMessageResponse.data!;
+
+    expect(followupMessage.content, 'Test followup message');
+
+    await avoidRateLimit();
+
+    // Get followup message
+    final getFollowupMessageResponse =
+        await api.interactions.getFollowupMessage(
+      interactionToken: interaction.token,
+      messageId: followupMessage.id!,
+    );
+
+    expect(getFollowupMessageResponse.data?.content, 'Test followup message');
+
+    await avoidRateLimit();
+
+    // Edit followup message
+    final editFollowupMessageResponse =
+        await api.interactions.editFollowupMessage(
+      interactionToken: interaction.token,
+      messageId: followupMessage.id!,
+      message: Message(content: 'Edited followup message'),
+    );
+
+    expect(
+      editFollowupMessageResponse.data?.content,
+      'Edited followup message',
+    );
+
+    await avoidRateLimit();
+
+    // Delete followup message
+    final deleteFollowupMessageResponse =
+        await api.interactions.deleteFollowupMessage(
+      interactionToken: interaction.token,
+      messageId: followupMessage.id!,
+    );
+
+    expect(deleteFollowupMessageResponse.error, isNull);
+
+    // Delete the test command
+    await api.applicationCommands.deleteGuildApplicationCommand(
+      testCommand.id!,
+      guildId: credentials.guildId,
+    );
   });
 
   tearDownAll(() async {
     // Close the connection to the test server so it can die
     await socket.sink.close();
   });
+}
+
+/// Helper function to avoid Dicord rate limiting
+Future<void> avoidRateLimit() async {
+  await Future.delayed(Duration(seconds: 1));
 }

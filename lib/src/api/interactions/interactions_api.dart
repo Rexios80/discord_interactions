@@ -3,7 +3,6 @@ import 'package:dio/dio.dart';
 
 // Project imports:
 import 'package:discord_interactions/src/model/discord_model.dart';
-import 'package:discord_interactions/src/model/interactions/interactions/followup_message.dart';
 import 'package:discord_interactions/src/util/discord_api_utils.dart';
 
 /// Access to the Interactions API
@@ -96,7 +95,7 @@ class InteractionsApi {
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#create-followup-message
   Future<DiscordResponse<Message>> createFollowupMessage({
     required String interactionToken,
-    required FollowupMessage message,
+    required Message message,
     List<MultipartFile>? files,
   }) {
     return validateApiCall(
@@ -129,7 +128,7 @@ class InteractionsApi {
   Future<DiscordResponse<Message>> editFollowupMessage({
     required String interactionToken,
     required String messageId,
-    required FollowupMessage message,
+    required Message message,
     List<MultipartFile>? files,
   }) {
     return validateApiCall(
