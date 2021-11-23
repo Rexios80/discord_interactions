@@ -17,8 +17,9 @@ void main() async {
   await setup();
 
   final client = InteractionsTestServerClient();
+  late final ApplicationCommand testCommand;
 
-  test('Interaction response test', () async {
+  setUpAll(() async {
     // Create the test command
     final testCommandResponse =
         await api.applicationCommands.createGuildApplicationCommand(
@@ -26,8 +27,10 @@ void main() async {
       guildId: credentials.guildId,
     );
 
-    final testCommand = testCommandResponse.data!;
+    testCommand = testCommandResponse.data!;
+  });
 
+  test('Interaction response test', () async {
     print('Invoke /${testCommand.name} in your test server');
 
     final interaction = await client.waitForInteraction();
@@ -125,24 +128,9 @@ void main() async {
     );
 
     expect(deleteFollowupMessageResponse.error, isNull);
-
-    // Delete the test command
-    await api.applicationCommands.deleteGuildApplicationCommand(
-      testCommand.id!,
-      guildId: credentials.guildId,
-    );
   });
 
   test('Message component test', () async {
-    // Create the test command
-    final testCommandResponse =
-        await api.applicationCommands.createGuildApplicationCommand(
-      ApplicationCommand(name: 'test', description: 'test command'),
-      guildId: credentials.guildId,
-    );
-
-    final testCommand = testCommandResponse.data!;
-
     print('Invoke /${testCommand.name} in your test server');
 
     final interaction = await client.waitForInteraction();
@@ -196,16 +184,16 @@ void main() async {
     expect(buttonInteractionResponseResponse.error, isNull);
 
     client.notifyInteractionHandled();
+  });
+
+  tearDownAll(() async {
+    client.close();
 
     // Delete the test command
     await api.applicationCommands.deleteGuildApplicationCommand(
       testCommand.id!,
       guildId: credentials.guildId,
     );
-  });
-
-  tearDownAll(() async {
-    client.close();
   });
 }
 

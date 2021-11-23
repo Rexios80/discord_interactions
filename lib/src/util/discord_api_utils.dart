@@ -17,14 +17,14 @@ Future<DiscordResponse<T>> validateApiCall<T>(
 
   try {
     response = await call;
-  } on DioError catch (e) {
+  } on DioError catch (e, stacktrace) {
     if (e.response != null) {
-      return DiscordResponse.error(e.response!.data);
+      return DiscordResponse.error(e.response!.data, stacktrace);
     } else {
-      return DiscordResponse.error(e);
+      return DiscordResponse.error(e, stacktrace);
     }
-  } catch (e) {
-    return DiscordResponse.error(e);
+  } catch (e, stacktrace) {
+    return DiscordResponse.error(e, stacktrace);
   }
 
   try {
@@ -32,8 +32,8 @@ Future<DiscordResponse<T>> validateApiCall<T>(
       responseTransformer != null ? responseTransformer(response.data) : null,
       response.data,
     );
-  } catch (e) {
-    return DiscordResponse.error(e, raw: response.data);
+  } catch (e, stacktrace) {
+    return DiscordResponse.error(e, stacktrace, raw: response.data);
   }
 }
 
