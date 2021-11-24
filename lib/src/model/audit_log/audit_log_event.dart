@@ -194,9 +194,9 @@ enum AuditLogEvent {
   threadDelete,
 }
 
-/// Extension to get the value of AuditLogEvents
+/// Extension on [AuditLogEvent]
 extension AuditLogEventExtension on AuditLogEvent {
-  /// Get the value of the AutitLogEvent
+  /// Get the value of the [AuditLogEvent]
   int get value {
     switch (this) {
       case AuditLogEvent.guildUpdate:
