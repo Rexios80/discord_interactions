@@ -20,8 +20,8 @@ GuildScheduledEvent _$GuildScheduledEventFromJson(Map<String, dynamic> json) =>
       scheduledEndTime: json['scheduled_end_time'] == null
           ? null
           : DateTime.parse(json['scheduled_end_time'] as String),
-      privacyLevel: $enumDecodeNullable(
-          _$GuildScheduledEventPrivacyLevelEnumMap, json['privacy_level']),
+      privacyLevel:
+          $enumDecodeNullable(_$PrivacyLevelEnumMap, json['privacy_level']),
       status: $enumDecodeNullable(
           _$GuildScheduledEventStatusEnumMap, json['status']),
       entityType: $enumDecodeNullable(
@@ -48,8 +48,7 @@ Map<String, dynamic> _$GuildScheduledEventToJson(
       'description': instance.description,
       'scheduled_start_time': instance.scheduledStartTime?.toIso8601String(),
       'scheduled_end_time': instance.scheduledEndTime?.toIso8601String(),
-      'privacy_level':
-          _$GuildScheduledEventPrivacyLevelEnumMap[instance.privacyLevel],
+      'privacy_level': _$PrivacyLevelEnumMap[instance.privacyLevel],
       'status': _$GuildScheduledEventStatusEnumMap[instance.status],
       'entity_type':
           _$GuildScheduledEventEntityTypeEnumMap[instance.entityType],
@@ -59,8 +58,9 @@ Map<String, dynamic> _$GuildScheduledEventToJson(
       'user_count': instance.userCount,
     };
 
-const _$GuildScheduledEventPrivacyLevelEnumMap = {
-  GuildScheduledEventPrivacyLevel.guildOnly: 2,
+const _$PrivacyLevelEnumMap = {
+  PrivacyLevel.public: 1,
+  PrivacyLevel.guildOnly: 2,
 };
 
 const _$GuildScheduledEventStatusEnumMap = {

@@ -1,5 +1,6 @@
 // Package imports:
 import 'package:dio/dio.dart';
+import 'package:discord_interactions/src/api/audit_logs_api.dart';
 
 // Project imports:
 import 'package:discord_interactions/src/api/channels_api.dart';
@@ -22,11 +23,14 @@ class DiscordApi {
   /// Access to Interactions API
   late final InteractionsApi interactions;
 
-  /// Access to the Users API
-  late final UsersApi users;
+  /// Access to the Audit Logs API
+  late final AuditLogsApi auditLogs;
 
   /// Access to the Channels API
   late final ChannelsApi channels;
+
+  /// Access to the Users API
+  late final UsersApi users;
 
   /// Access to the Discord API
   DiscordApi({
@@ -51,7 +55,8 @@ class DiscordApi {
       applicationId: applicationId,
     );
     interactions = InteractionsApi(_dio, applicationId: applicationId);
-    users = UsersApi(_dio);
+    auditLogs = AuditLogsApi(_dio);
     channels = ChannelsApi(_dio);
+    users = UsersApi(_dio);
   }
 }

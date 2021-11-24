@@ -51,7 +51,7 @@ class GuildScheduledEvent {
 
   /// the privacy level of the scheduled event
   @JsonKey(name: 'privacy_level')
-  final GuildScheduledEventPrivacyLevel? privacyLevel;
+  final PrivacyLevel? privacyLevel;
 
   /// the status of the scheduled event
   final GuildScheduledEventStatus? status;

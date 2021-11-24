@@ -12,8 +12,7 @@ StageInstance _$StageInstanceFromJson(Map<String, dynamic> json) =>
       guildId: json['guild_id'] as String,
       channelId: json['channel_id'] as String,
       topic: json['topic'] as String,
-      privacyLevel: $enumDecode(
-          _$StageInstancePrivacyLevelEnumMap, json['privacy_level']),
+      privacyLevel: $enumDecode(_$PrivacyLevelEnumMap, json['privacy_level']),
       discoveryDisabled: json['discovery_disabled'] as bool,
     );
 
@@ -23,12 +22,11 @@ Map<String, dynamic> _$StageInstanceToJson(StageInstance instance) =>
       'guild_id': instance.guildId,
       'channel_id': instance.channelId,
       'topic': instance.topic,
-      'privacy_level':
-          _$StageInstancePrivacyLevelEnumMap[instance.privacyLevel],
+      'privacy_level': _$PrivacyLevelEnumMap[instance.privacyLevel],
       'discovery_disabled': instance.discoveryDisabled,
     };
 
-const _$StageInstancePrivacyLevelEnumMap = {
-  StageInstancePrivacyLevel.public: 1,
-  StageInstancePrivacyLevel.guildOnly: 2,
+const _$PrivacyLevelEnumMap = {
+  PrivacyLevel.public: 1,
+  PrivacyLevel.guildOnly: 2,
 };

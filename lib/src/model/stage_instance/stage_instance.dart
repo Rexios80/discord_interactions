@@ -27,7 +27,7 @@ class StageInstance {
 
   /// The privacy level of the Stage instance
   @JsonKey(name: 'privacy_level')
-  final StageInstancePrivacyLevel privacyLevel;
+  final PrivacyLevel privacyLevel;
 
   /// Whether or not Stage Discovery is disabled
   @JsonKey(name: 'discovery_disabled')

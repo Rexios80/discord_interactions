@@ -30,6 +30,8 @@ class Sticker {
   /// standard stickers, but this is just a convention. Incidentally the client
   /// will always use a name generated from an emoji as the value of this field
   /// when creating or modifying a guild sticker.
+  ///
+  /// TODO: Does this actually serialize properly?
   final List<String>? tags;
 
   /// type of sticker

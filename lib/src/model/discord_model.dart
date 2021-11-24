@@ -8,6 +8,14 @@ export 'api/discord_user_agent.dart';
 export 'application/application_flag.dart';
 export 'application/application.dart';
 
+// audit_log
+export 'audit_log/audit_log_change_key.dart';
+export 'audit_log/audit_log_change.dart';
+export 'audit_log/audit_log_entry.dart';
+export 'audit_log/audit_log_event.dart';
+export 'audit_log/audit_log.dart';
+export 'audit_log/optional_audit_entry_info.dart';
+
 // channel
 export 'channel/allowed_mention_type.dart';
 export 'channel/allowed_mentions.dart';
@@ -72,10 +80,16 @@ export 'guild/verification_level.dart';
 export 'guild/welcome_screen_channel.dart';
 export 'guild/welcome_screen.dart';
 
+// guild/integration
+export 'guild/integration/integration_application.dart';
+export 'guild/integration/integration_account.dart';
+export 'guild/integration/integration_expire_behavior.dart';
+export 'guild/integration/integration_type.dart';
+export 'guild/integration/integration.dart';
+
 // guild_scheduled_event
 export 'guild_scheduled_event/guild_scheduled_event_entity_metadata.dart';
 export 'guild_scheduled_event/guild_scheduled_event_entity_type.dart';
-export 'guild_scheduled_event/guild_scheduled_event_privacy_level.dart';
 export 'guild_scheduled_event/guild_scheduled_event_status.dart';
 export 'guild_scheduled_event/guild_scheduled_event.dart';
 
@@ -117,7 +131,7 @@ export 'permissions/role_tags.dart';
 export 'permissions/role.dart';
 
 // stage_instance
-export 'stage_instance/stage_instance_privacy_level.dart';
+export 'stage_instance/privacy_level.dart';
 export 'stage_instance/stage_instance.dart';
 
 // sticker
@@ -137,3 +151,7 @@ export 'user/user.dart';
 
 // voice
 export 'voice/voice_state.dart';
+
+// webhook
+export 'webhook/webhook_type.dart';
+export 'webhook/webhook.dart';
