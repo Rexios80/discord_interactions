@@ -12,7 +12,7 @@ Channel _$ChannelFromJson(Map<String, dynamic> json) => Channel(
       guildId: json['guild_id'] as String?,
       position: json['position'] as int?,
       permissionOverwrites: (json['permission_overwrites'] as List<dynamic>?)
-          ?.map((e) => Overwrite.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => PermissionOverwrite.fromJson(e as Map<String, dynamic>))
           .toList(),
       name: json['name'] as String?,
       topic: json['topic'] as String?,

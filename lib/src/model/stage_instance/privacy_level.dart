@@ -13,3 +13,18 @@ enum PrivacyLevel {
   @JsonValue(2)
   guildOnly,
 }
+
+/// Extension on [PrivacyLevel]
+extension PrivacyLevelExtension on PrivacyLevel {
+  /// Create a [PrivacyLevel] from an [int]
+  static PrivacyLevel fromValue(int value) {
+    switch (value) {
+      case 1:
+        return PrivacyLevel.public;
+      case 2:
+        return PrivacyLevel.guildOnly;
+      default:
+        throw ArgumentError('Unknown privacy level: $value');
+    }
+  }
+}

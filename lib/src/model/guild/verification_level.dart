@@ -25,3 +25,24 @@ enum VerificationLevel {
   @JsonValue(4)
   veryHigh,
 }
+
+/// Extension on [VerificationLevel]
+extension VerificationLevelExtension on VerificationLevel {
+  /// Create a [VerificationLevel] from an [int]
+  static VerificationLevel fromValue(int value) {
+    switch (value) {
+      case 0:
+        return VerificationLevel.none;
+      case 1:
+        return VerificationLevel.low;
+      case 2:
+        return VerificationLevel.medium;
+      case 3:
+        return VerificationLevel.high;
+      case 4:
+        return VerificationLevel.veryHigh;
+      default:
+        throw ArgumentError('Unknown verification level: $value');
+    }
+  }
+}

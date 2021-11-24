@@ -11,7 +11,7 @@ Sticker _$StickerFromJson(Map<String, dynamic> json) => Sticker(
       packId: json['pack_id'] as String?,
       name: json['name'] as String,
       description: json['description'] as String?,
-      tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      tags: json['tags'] as String?,
       type: $enumDecodeNullable(_$StickerTypeEnumMap, json['type']),
       formatType: $enumDecode(_$StickerFormatTypeEnumMap, json['format_type']),
       available: json['available'] as bool?,

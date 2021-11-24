@@ -23,7 +23,7 @@ export 'channel/attachment.dart';
 export 'channel/channel_mention.dart';
 export 'channel/channel_type.dart';
 export 'channel/channel.dart';
-export 'channel/overwrite.dart';
+export 'channel/permission_overwrite.dart';
 export 'channel/reaction.dart';
 export 'channel/thread_member.dart';
 export 'channel/thread_metadata.dart';

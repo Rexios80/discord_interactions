@@ -1,5 +1,7 @@
+// Package imports:
 import 'package:test/test.dart';
 
+// Project imports:
 import '../test_utils.dart';
 
 void main() async {
@@ -17,7 +19,7 @@ void main() async {
     );
     expect(response.error, isNull);
   });
-  
+
   test('Get guild audit log limited', () async {
     final response = await api.auditLogs.getGuildAuditLog(
       credentials.guildId,

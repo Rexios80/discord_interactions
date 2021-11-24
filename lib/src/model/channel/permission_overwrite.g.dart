@@ -1,19 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'overwrite.dart';
+part of 'permission_overwrite.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Overwrite _$OverwriteFromJson(Map<String, dynamic> json) => Overwrite(
+PermissionOverwrite _$PermissionOverwriteFromJson(Map<String, dynamic> json) =>
+    PermissionOverwrite(
       id: json['id'] as String,
       type: $enumDecode(_$OverwriteTypeEnumMap, json['type']),
       allow: const PermissionConverter().fromJson(json['allow'] as String),
       deny: const PermissionConverter().fromJson(json['deny'] as String),
     );
 
-Map<String, dynamic> _$OverwriteToJson(Overwrite instance) => <String, dynamic>{
+Map<String, dynamic> _$PermissionOverwriteToJson(
+        PermissionOverwrite instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'type': _$OverwriteTypeEnumMap[instance.type],
       'allow': const PermissionConverter().toJson(instance.allow),

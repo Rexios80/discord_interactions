@@ -23,3 +23,22 @@ enum GuildScheduledEventStatus {
   @JsonValue(4)
   canceled,
 }
+
+/// Extension on [GuildScheduledEventStatus]
+extension GuildScheduledEventStatusExtension on GuildScheduledEventStatus {
+  /// Create a [GuildScheduledEventStatus] from an [int]
+  static GuildScheduledEventStatus fromValue(int value) {
+    switch (value) {
+      case 1:
+        return GuildScheduledEventStatus.scheduled;
+      case 2:
+        return GuildScheduledEventStatus.active;
+      case 3:
+        return GuildScheduledEventStatus.completed;
+      case 4:
+        return GuildScheduledEventStatus.canceled;
+      default:
+        throw ArgumentError('Unknown guild scheduled event status: $value');
+    }
+  }
+}

@@ -17,3 +17,20 @@ enum StickerFormatType {
   @JsonValue(3)
   lottie,
 }
+
+/// Extension on [StickerFormatType]
+extension StickerFormatTypeExtension on StickerFormatType {
+  /// Create a [StickerFormatType] from an [int]
+  static StickerFormatType fromValue(int value) {
+    switch (value) {
+      case 1:
+        return StickerFormatType.png;
+      case 2:
+        return StickerFormatType.apng;
+      case 3:
+        return StickerFormatType.lottie;
+      default:
+        throw ArgumentError('Unknown sticker format type: $value');
+    }
+  }
+}

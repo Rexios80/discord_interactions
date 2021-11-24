@@ -5,7 +5,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:discord_interactions/discord_interactions.dart';
 import 'package:discord_interactions/src/converter/flag/permission_converter.dart';
 
-part 'overwrite.g.dart';
+part 'permission_overwrite.g.dart';
 
 /// Overwrite structure
 ///
@@ -13,7 +13,7 @@ part 'overwrite.g.dart';
 ///
 /// https://discord.com/developers/docs/resources/channel#overwrite-object-overwrite-structure
 @JsonSerializable()
-class Overwrite {
+class PermissionOverwrite {
   /// role or user id
   final String id;
 
@@ -29,7 +29,7 @@ class Overwrite {
   final List<Permission> deny;
 
   /// Constructor
-  Overwrite({
+  PermissionOverwrite({
     required this.id,
     required this.type,
     required this.allow,
@@ -37,11 +37,11 @@ class Overwrite {
   });
 
   /// From json
-  factory Overwrite.fromJson(Map<String, dynamic> json) =>
-      _$OverwriteFromJson(json);
+  factory PermissionOverwrite.fromJson(Map<String, dynamic> json) =>
+      _$PermissionOverwriteFromJson(json);
 
   /// To json
-  Map<String, dynamic> toJson() => _$OverwriteToJson(this);
+  Map<String, dynamic> toJson() => _$PermissionOverwriteToJson(this);
 }
 
 /// Overwrite type

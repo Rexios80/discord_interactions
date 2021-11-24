@@ -520,7 +520,7 @@ class ChannelsApi {
   /// https://discord.com/developers/docs/resources/channel#edit-channel-permissions
   Future<DiscordResponse<void>> editChannelPermissions(
     String channelId, {
-    required Overwrite overwrite,
+    required PermissionOverwrite overwrite,
     String? reason,
   }) async {
     return validateApiCall(

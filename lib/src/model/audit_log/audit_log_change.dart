@@ -3,6 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
+import 'package:discord_interactions/src/converter/flag/permission_converter.dart';
 
 part 'audit_log_change.g.dart';
 
@@ -33,9 +34,41 @@ class AuditLogChange {
   });
 
   /// From json
-  factory AuditLogChange.fromJson(Map<String, dynamic> json) =>
-      _$AuditLogChangeFromJson(json);
+  factory AuditLogChange.fromJson(Map<String, dynamic> json) {
+    final key = AuditLogChangeKeyExtension.fromValue(json['key']);
+    final newValue = _parseValue(key, json['new_value']);
+    final oldValue = _parseValue(key, json['old_value']);
 
-  /// To json
-  Map<String, dynamic> toJson() => _$AuditLogChangeToJson(this);
+    return AuditLogChange(
+      newValue: newValue,
+      oldValue: oldValue,
+      key: key,
+    );
+  }
+
+  static _parseValue(AuditLogChangeKey key, dynamic value) {
+    if (value == null) return null;
+
+    switch (key) {
+      case AuditLogChangeKey.formatType:
+        return StickerFormatTypeExtension.fromValue(value);
+      case AuditLogChangeKey.permissionOverwrites:
+        return (value as List)
+            .map((e) => PermissionOverwrite.fromJson(e))
+            .toList();
+      case AuditLogChangeKey.permissions:
+        return PermissionConverter().fromJson(value);
+      case AuditLogChangeKey.privacyLevel:
+        return PrivacyLevelExtension.fromValue(value);
+      case AuditLogChangeKey.status:
+        return GuildScheduledEventStatusExtension.fromValue(value);
+      case AuditLogChangeKey.verificationLevel:
+        return VerificationLevelExtension.fromValue(value);
+      case AuditLogChangeKey.add:
+      case AuditLogChangeKey.remove:
+        return (value as List).map((e) => Role.fromJson(e));
+      default:
+        return value;
+    }
+  }
 }

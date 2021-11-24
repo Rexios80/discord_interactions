@@ -30,7 +30,7 @@ class Channel {
 
   /// explicit permission overwrites for members and roles
   @JsonKey(name: 'permission_overwrites')
-  final List<Overwrite>? permissionOverwrites;
+  final List<PermissionOverwrite>? permissionOverwrites;
 
   /// the name of the channel (1-100 characters)
   final String? name;

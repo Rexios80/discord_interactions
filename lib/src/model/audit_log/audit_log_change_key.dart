@@ -428,8 +428,7 @@ enum AuditLogChangeKey {
   /// related emoji of sticker changed
   ///
   /// Object changed: sticker
-  ///
-  /// Type: Array of strings
+  /// Type: string
   tags,
 
   /// invite code is temporary/never expires
@@ -523,4 +522,82 @@ enum AuditLogChangeKey {
   /// Type: array of partial [Role] objects
   @JsonValue('\$remove')
   remove,
+}
+
+/// Extension on [AuditLogChangeKey]
+extension AuditLogChangeKeyExtension on AuditLogChangeKey {
+  static const _enumMap = {
+    'afk_channel_id': AuditLogChangeKey.afkChannelId,
+    'afk_timeout': AuditLogChangeKey.afkTimeout,
+    'allow': AuditLogChangeKey.allow,
+    'application_id': AuditLogChangeKey.applicationId,
+    'archived': AuditLogChangeKey.archived,
+    'asset': AuditLogChangeKey.asset,
+    'auto_archive_duration': AuditLogChangeKey.autoArchiveDuration,
+    'available': AuditLogChangeKey.available,
+    'avatar_hash': AuditLogChangeKey.avatarHash,
+    'banner_hash': AuditLogChangeKey.bannerHash,
+    'bitrate': AuditLogChangeKey.bitrate,
+    'channel_id': AuditLogChangeKey.channelId,
+    'code': AuditLogChangeKey.code,
+    'color': AuditLogChangeKey.color,
+    'deaf': AuditLogChangeKey.deaf,
+    'default_auto_archive_duration':
+        AuditLogChangeKey.defaultAutoArchiveDuration,
+    'default_message_notifications':
+        AuditLogChangeKey.defaultMessageNotifications,
+    'deny': AuditLogChangeKey.deny,
+    'description': AuditLogChangeKey.description,
+    'discovery_splash_hash': AuditLogChangeKey.discoverySplashHash,
+    'enable_emoticons': AuditLogChangeKey.enableEmoticons,
+    'entity_type': AuditLogChangeKey.entityType,
+    'expire_behavior': AuditLogChangeKey.expireBehavior,
+    'expire_grace_period': AuditLogChangeKey.expireGracePeriod,
+    'explicit_content_filter': AuditLogChangeKey.explicitContentFilter,
+    'format_type': AuditLogChangeKey.formatType,
+    'guild_id': AuditLogChangeKey.guildId,
+    'hoist': AuditLogChangeKey.hoist,
+    'icon_hash': AuditLogChangeKey.iconHash,
+    'id': AuditLogChangeKey.id,
+    'inviter_id': AuditLogChangeKey.inviterId,
+    'location': AuditLogChangeKey.location,
+    'locked': AuditLogChangeKey.locked,
+    'max_age': AuditLogChangeKey.maxAge,
+    'max_uses': AuditLogChangeKey.maxUses,
+    'mentionable': AuditLogChangeKey.mentionable,
+    'mfa_level': AuditLogChangeKey.mfaLevel,
+    'mute': AuditLogChangeKey.mute,
+    'name': AuditLogChangeKey.name,
+    'nick': AuditLogChangeKey.nick,
+    'nsfw': AuditLogChangeKey.nsfw,
+    'owner_id': AuditLogChangeKey.ownerId,
+    'permission_overwrites': AuditLogChangeKey.permissionOverwrites,
+    'permissions': AuditLogChangeKey.permissions,
+    'position': AuditLogChangeKey.position,
+    'preferred_locale': AuditLogChangeKey.preferredLocale,
+    'privacy_level': AuditLogChangeKey.privacyLevel,
+    'prune_delete_days': AuditLogChangeKey.pruneDeleteDays,
+    'public_updates_channel_id': AuditLogChangeKey.publicUpdatesChannelId,
+    'rate_limit_per_user': AuditLogChangeKey.rateLimitPerUser,
+    'region': AuditLogChangeKey.region,
+    'rules_channel_id': AuditLogChangeKey.rulesChannelId,
+    'splash_hash': AuditLogChangeKey.splashHash,
+    'status': AuditLogChangeKey.status,
+    'system_channel_id': AuditLogChangeKey.tags,
+    'temporary': AuditLogChangeKey.temporary,
+    'topic': AuditLogChangeKey.topic,
+    'type': AuditLogChangeKey.type,
+    'unicode_emoji': AuditLogChangeKey.unicodeEmoji,
+    'user_limit': AuditLogChangeKey.userLimit,
+    'uses': AuditLogChangeKey.uses,
+    'vanity_url_code': AuditLogChangeKey.vanityUrlCode,
+    'verification_level': AuditLogChangeKey.verificationLevel,
+    'widget_channel_id': AuditLogChangeKey.widgetChannelId,
+    'widget_enabled': AuditLogChangeKey.widgetEnabled,
+    r'$add': AuditLogChangeKey.add,
+    r'$remove': AuditLogChangeKey.remove,
+  };
+
+  /// Converts a string to an [AuditLogChangeKey]
+  static AuditLogChangeKey fromValue(String value) => _enumMap[value]!;
 }
