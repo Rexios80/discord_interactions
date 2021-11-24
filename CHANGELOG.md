@@ -1,3 +1,6 @@
+## 0.0.7
+- Added Audit Logs API
+
 ## 0.0.6
 - Fixed issue with select menu Interaction serialization
 
