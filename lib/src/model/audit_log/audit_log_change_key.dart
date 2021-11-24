@@ -429,7 +429,6 @@ enum AuditLogChangeKey {
   ///
   /// Object changed: sticker
   ///
-  /// TODO: Make that happen
   /// Type: Array of strings
   tags,
 

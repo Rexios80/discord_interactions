@@ -12,8 +12,6 @@ part 'audit_log_change.g.dart';
 /// means the property that was changed has been reset, or set to null
 ///
 /// https://discord.com/developers/docs/resources/audit-log#audit-log-change-object-audit-log-change-structure
-///
-/// TODO: Convert [newValue] and [oldValue] to proper types based on [key]
 @JsonSerializable()
 class AuditLogChange {
   /// new value of the key
@@ -35,13 +33,9 @@ class AuditLogChange {
   });
 
   /// From json
-  ///
-  /// TODO: Customize this
   factory AuditLogChange.fromJson(Map<String, dynamic> json) =>
       _$AuditLogChangeFromJson(json);
 
   /// To json
-  ///
-  /// TODO: Customize this?
   Map<String, dynamic> toJson() => _$AuditLogChangeToJson(this);
 }
