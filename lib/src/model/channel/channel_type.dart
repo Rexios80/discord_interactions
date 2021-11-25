@@ -53,7 +53,7 @@ enum ChannelType {
 
 /// Extension on [ChannelType]
 extension ChannelTypeExtension on ChannelType {
-  static const _valueMap = <ChannelType, int>{
+  static const _enumMap = <ChannelType, int>{
     ChannelType.guildText: 0,
     ChannelType.dm: 1,
     ChannelType.guildVoice: 2,
@@ -68,9 +68,9 @@ extension ChannelTypeExtension on ChannelType {
   };
 
   /// Get the value of the enum
-  int get value => _valueMap[this]!;
+  int get value => _enumMap[this]!;
 
   /// Create a [ChannelType] from a value
   static ChannelType fromValue(int value) =>
-      _valueMap.entries.singleWhere((e) => e.value == value).key;
+      _enumMap.entries.singleWhere((e) => e.value == value).key;
 }
