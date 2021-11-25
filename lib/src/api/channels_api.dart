@@ -540,6 +540,15 @@ class ChannelsApi {
   /// Only usable for guild channels. Requires the MANAGE_CHANNELS permission.
   ///
   /// https://discord.com/developers/docs/resources/channel#get-channel-invites
+  Future<DiscordResponse<List<Invite>>> getChannelInvites(
+    String channelId,
+  ) async {
+    return validateApiCall(
+      _dio.get('$_basePath/$channelId/invites'),
+      responseTransformer: (data) =>
+          (data as List).map((invite) => Invite.fromJson(invite)).toList(),
+    );
+  }
 
   // TODO: Other endpoints
 }
