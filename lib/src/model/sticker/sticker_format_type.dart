@@ -20,17 +20,16 @@ enum StickerFormatType {
 
 /// Extension on [StickerFormatType]
 extension StickerFormatTypeExtension on StickerFormatType {
+  static const _enumMap = <StickerFormatType, int>{
+    StickerFormatType.png: 1,
+    StickerFormatType.apng: 2,
+    StickerFormatType.lottie: 3,
+  };
+
+  /// Get the int value of the enum
+  int get value => _enumMap[this]!;
+
   /// Create a [StickerFormatType] from an [int]
-  static StickerFormatType fromValue(int value) {
-    switch (value) {
-      case 1:
-        return StickerFormatType.png;
-      case 2:
-        return StickerFormatType.apng;
-      case 3:
-        return StickerFormatType.lottie;
-      default:
-        throw ArgumentError('Unknown sticker format type: $value');
-    }
-  }
+  static StickerFormatType fromValue(int value) =>
+      _enumMap.entries.singleWhere((e) => e.value == value).key;
 }

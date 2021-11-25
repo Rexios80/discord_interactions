@@ -35,17 +35,15 @@ class AuditLogsApi {
     /// how many entries are returned (default 50, minimum 1, maximum 100)
     int? limit,
   }) {
-    final queryParameters = <String, dynamic>{
-      if (userId != null) 'user_id': userId,
-      if (actionType != null) 'action_type': actionType.value,
-      if (before != null) 'before': before,
-      if (limit != null) 'limit': limit,
-    };
-
     return validateApiCall(
       _dio.get(
         '$_basePath/$guildId/audit-logs',
-        queryParameters: queryParameters,
+        queryParameters: {
+          if (userId != null) 'user_id': userId,
+          if (actionType != null) 'action_type': actionType.value,
+          if (before != null) 'before': before,
+          if (limit != null) 'limit': limit,
+        },
       ),
       responseTransformer: (data) => AuditLog.fromJson(data),
     );

@@ -50,6 +50,11 @@ class AuditLogChange {
     if (value == null) return null;
 
     switch (key) {
+      case AuditLogChangeKey.autoArchiveDuration:
+      case AuditLogChangeKey.defaultAutoArchiveDuration:
+        return ThreadAutoArchiveDurationExtension.fromValue(value);
+      case AuditLogChangeKey.defaultMessageNotifications:
+        return DefaultMessageNotificationLevelExtension.fromValue(value);
       case AuditLogChangeKey.formatType:
         return StickerFormatTypeExtension.fromValue(value);
       case AuditLogChangeKey.permissionOverwrites:

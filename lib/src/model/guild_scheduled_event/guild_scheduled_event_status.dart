@@ -26,19 +26,17 @@ enum GuildScheduledEventStatus {
 
 /// Extension on [GuildScheduledEventStatus]
 extension GuildScheduledEventStatusExtension on GuildScheduledEventStatus {
+  static const _enumMap = <GuildScheduledEventStatus, int>{
+    GuildScheduledEventStatus.scheduled: 1,
+    GuildScheduledEventStatus.active: 2,
+    GuildScheduledEventStatus.completed: 3,
+    GuildScheduledEventStatus.canceled: 4,
+  };
+
+  /// Get the int value of the enum
+  int get value => _enumMap[this]!;
+
   /// Create a [GuildScheduledEventStatus] from an [int]
-  static GuildScheduledEventStatus fromValue(int value) {
-    switch (value) {
-      case 1:
-        return GuildScheduledEventStatus.scheduled;
-      case 2:
-        return GuildScheduledEventStatus.active;
-      case 3:
-        return GuildScheduledEventStatus.completed;
-      case 4:
-        return GuildScheduledEventStatus.canceled;
-      default:
-        throw ArgumentError('Unknown guild scheduled event status: $value');
-    }
-  }
+  static GuildScheduledEventStatus fromValue(int value) =>
+      _enumMap.entries.singleWhere((e) => e.value == value).key;
 }

@@ -23,10 +23,9 @@ export 'channel/attachment.dart';
 export 'channel/channel_mention.dart';
 export 'channel/channel_type.dart';
 export 'channel/channel.dart';
+export 'channel/followed_channel.dart';
 export 'channel/permission_overwrite.dart';
 export 'channel/reaction.dart';
-export 'channel/thread_member.dart';
-export 'channel/thread_metadata.dart';
 export 'channel/video_quality_mode.dart';
 
 // channel/embed
@@ -47,6 +46,12 @@ export 'channel/message/message_flag.dart';
 export 'channel/message/message_reference.dart';
 export 'channel/message/message_type.dart';
 export 'channel/message/message.dart';
+
+// channel/thread
+export 'channel/thread/list_threads_response.dart';
+export 'channel/thread/thread_auto_archive_duration.dart';
+export 'channel/thread/thread_member.dart';
+export 'channel/thread/thread_metadata.dart';
 
 // emoji
 export 'emoji/emoji.dart';

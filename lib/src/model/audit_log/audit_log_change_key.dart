@@ -54,7 +54,7 @@ enum AuditLogChangeKey {
   ///
   /// Object changed: thread
   ///
-  /// Type: integer
+  /// Type: [ThreadAutoArchiveDuration]
   @JsonValue('auto_archive_duration')
   autoArchiveDuration,
 
@@ -121,7 +121,7 @@ enum AuditLogChangeKey {
   ///
   /// Object changed: channel
   ///
-  /// Type: integer
+  /// Type: [ThreadAutoArchiveDuration]
   @JsonValue('default_auto_archive_duration')
   defaultAutoArchiveDuration,
 
@@ -129,7 +129,7 @@ enum AuditLogChangeKey {
   ///
   /// Object changed: guild
   ///
-  /// Type: integer
+  /// Type: [DefaultMessageNotificationLevel]
   @JsonValue('default_message_notifications')
   defaultMessageNotifications,
 

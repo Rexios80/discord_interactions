@@ -72,13 +72,13 @@ class ChannelsApi {
   ///
   /// https://discord.com/developers/docs/resources/channel#modify-channel
   Future<DiscordResponse<Channel>> modifyThread(
-    String threadId, {
+    String channelId, {
     required ThreadMetadata metadata,
     String? reason,
   }) async {
     return validateApiCall(
       _dio.patch(
-        '$_basePath/$threadId',
+        '$_basePath/$channelId',
         data: metadata,
         options: Options(
           headers: {
@@ -151,17 +151,15 @@ class ChannelsApi {
     /// Default: 50
     int? limit,
   }) async {
-    final queryParameters = <String, dynamic>{
-      if (around != null) 'around': around,
-      if (before != null) 'before': before,
-      if (after != null) 'after': after,
-      if (limit != null) 'limit': limit,
-    };
-
     return validateApiCall(
       _dio.get(
         '$_basePath/$channelId/messages',
-        queryParameters: queryParameters,
+        queryParameters: {
+          if (around != null) 'around': around,
+          if (before != null) 'before': before,
+          if (after != null) 'after': after,
+          if (limit != null) 'limit': limit,
+        },
       ),
       responseTransformer: (data) =>
           (data as List).map((message) => Message.fromJson(message)).toList(),
@@ -550,5 +548,527 @@ class ChannelsApi {
     );
   }
 
-  // TODO: Other endpoints
+  /// Create a new invite object for the channel. Only usable for guild
+  /// channels. Requires the CREATE_INSTANT_INVITE permission. All JSON
+  /// parameters for this route are optional, however the request body is not.
+  /// If you are not sending any fields, you still have to send an empty JSON
+  /// object ({}). Returns an invite object. Fires an Invite Create Gateway
+  /// event.
+  ///
+  /// This endpoint supports the X-Audit-Log-Reason header.
+  ///
+  /// https://discord.com/developers/docs/resources/channel#create-channel-invite
+  Future<DiscordResponse<Invite>> createChannelInvite(
+    String channelId, {
+
+    /// duration of invite in seconds before expiry, or 0 for never. between 0
+    /// and 604800 (7 days)
+    ///
+    /// default: 86400 (24 hours)
+    int? maxAge,
+
+    /// max number of uses or 0 for unlimited. between 0 and 100
+    ///
+    /// default: 0
+    int? maxUses,
+
+    /// whether this invite only grants temporary membership
+    ///
+    /// default: false
+    bool? temporary,
+
+    /// if true, don't try to reuse a similar invite (useful for creating many
+    /// unique one time use invites)
+    ///
+    /// default: false
+    bool? unique,
+
+    /// the type of target for this voice channel invite
+    InviteTargetType? targetType,
+
+    /// the id of the user whose stream to display for this invite, required if
+    /// target_type is 1, the user must be streaming in the channel
+    String? targetUserId,
+
+    /// the id of the embedded application to open for this invite, required if
+    /// target_type is 2, the application must have the EMBEDDED flag
+    String? targetApplicationId,
+    String? reason,
+  }) async {
+    return validateApiCall(
+      _dio.post(
+        '$_basePath/$channelId/invites',
+        data: {
+          if (maxAge != null) 'max_age': maxAge,
+          if (maxUses != null) 'max_uses': maxUses,
+          if (temporary != null) 'temporary': temporary,
+          if (unique != null) 'unique': unique,
+          if (targetType != null) 'target_type': targetType.value,
+          if (targetUserId != null) 'target_user_id': targetUserId,
+          if (targetApplicationId != null)
+            'target_application_id': targetApplicationId,
+        },
+        options: Options(
+          headers: {
+            if (reason != null) DiscordHeader.auditLogReason: reason,
+          },
+        ),
+      ),
+      responseTransformer: (data) => Invite.fromJson(data),
+    );
+  }
+
+  /// Delete a channel permission overwrite for a user or role in a channel.
+  /// Only usable for guild channels. Requires the MANAGE_ROLES permission.
+  /// Returns a 204 empty response on success. For more information about
+  /// permissions, see permissions
+  ///
+  /// This endpoint supports the X-Audit-Log-Reason header.
+  ///
+  /// https://discord.com/developers/docs/resources/channel#delete-channel-permission
+  Future<DiscordResponse<void>> deleteChannelPermission(
+    String channelId, {
+    required String overwriteId,
+    String? reason,
+  }) async {
+    return validateApiCall(
+      _dio.delete(
+        '$_basePath/$channelId/permissions/$overwriteId',
+        options: Options(
+          headers: {
+            if (reason != null) DiscordHeader.auditLogReason: reason,
+          },
+        ),
+      ),
+    );
+  }
+
+  /// Follow a News Channel to send messages to a target channel. Requires the
+  /// MANAGE_WEBHOOKS permission in the target channel. Returns a followed
+  /// channel object.
+  ///
+  /// https://discord.com/developers/docs/resources/channel#follow-news-channel
+  Future<DiscordResponse<FollowedChannel>> followNewsChannel(
+    String channelId, {
+
+    /// id of target channel
+    required String webhookChannelId,
+  }) async {
+    return validateApiCall(
+      _dio.post(
+        '$_basePath/$channelId/followers',
+        data: {
+          'webhook_channel_id': webhookChannelId,
+        },
+      ),
+      responseTransformer: (data) => FollowedChannel.fromJson(data),
+    );
+  }
+
+  /// Post a typing indicator for the specified channel. Generally bots should
+  /// not implement this route. However, if a bot is responding to a command
+  /// and expects the computation to take a few seconds, this endpoint may be
+  /// called to let the user know that the bot is processing their message.
+  /// Returns a 204 empty response on success. Fires a Typing Start Gateway
+  /// event.
+  ///
+  /// https://discord.com/developers/docs/resources/channel#trigger-typing-indicator
+  Future<DiscordResponse<void>> triggerTypingIndicator(String channelId) async {
+    return validateApiCall(_dio.post('$_basePath/$channelId/typing'));
+  }
+
+  /// Returns all pinned messages in the channel as an array of message objects.
+  ///
+  /// https://discord.com/developers/docs/resources/channel#get-pinned-messages
+  Future<DiscordResponse<List<Message>>> getPinnedMessages(
+    String channelId,
+  ) async {
+    return validateApiCall(
+      _dio.get('$_basePath/$channelId/pins'),
+      responseTransformer: (data) =>
+          (data as List).map((message) => Message.fromJson(message)).toList(),
+    );
+  }
+
+  /// Pin a message in a channel. Requires the MANAGE_MESSAGES permission.
+  /// Returns a 204 empty response on success.
+  ///
+  /// The max pinned messages is 50.
+  ///
+  /// This endpoint supports the X-Audit-Log-Reason header.
+  ///
+  /// https://discord.com/developers/docs/resources/channel#pin-message
+  Future<DiscordResponse<void>> pinMessage(
+    String channelId, {
+    required String messageId,
+    String? reason,
+  }) async {
+    return validateApiCall(
+      _dio.put(
+        '$_basePath/$channelId/pins/$messageId',
+        options: Options(
+          headers: {
+            if (reason != null) DiscordHeader.auditLogReason: reason,
+          },
+        ),
+      ),
+    );
+  }
+
+  /// Unpin a message in a channel. Requires the MANAGE_MESSAGES permission.
+  /// Returns a 204 empty response on success.
+  ///
+  /// This endpoint supports the X-Audit-Log-Reason header.
+  ///
+  /// https://discord.com/developers/docs/resources/channel#unpin-message
+  Future<DiscordResponse<void>> unpinMessage(
+    String channelId, {
+    required String messageId,
+    String? reason,
+  }) async {
+    return validateApiCall(
+      _dio.delete(
+        '$_basePath/$channelId/pins/$messageId',
+        options: Options(
+          headers: {
+            if (reason != null) DiscordHeader.auditLogReason: reason,
+          },
+        ),
+      ),
+    );
+  }
+
+  /// Adds a recipient to a Group DM using their access token.
+  ///
+  /// https://discord.com/developers/docs/resources/channel#group-dm-add-recipient
+  @Deprecated('Pretty sure this is deprecated')
+  Future<DiscordResponse<void>> groupDmAddRecipient(
+    String channelId, {
+    required String userId,
+
+    /// access token of a user that has granted your app the gdm.join scope
+    required String accessToken,
+
+    /// nickname of the user being added
+    required String nick,
+  }) async {
+    return validateApiCall(
+      _dio.put(
+        '$_basePath/$channelId/recipients/$userId',
+        data: {
+          'access_token': accessToken,
+          'nick': nick,
+        },
+      ),
+    );
+  }
+
+  /// Removes a recipient from a Group DM.
+  ///
+  /// https://discord.com/developers/docs/resources/channel#group-dm-remove-recipient
+  @Deprecated('Pretty sure this is deprecated')
+  Future<DiscordResponse<void>> groupDmRemoveRecipient(
+    String channelId, {
+    required String userId,
+  }) async {
+    return validateApiCall(
+      _dio.delete('$_basePath/$channelId/recipients/$userId'),
+    );
+  }
+
+  /// Creates a new thread from an existing message. Returns a channel on
+  /// success, and a 400 BAD REQUEST on invalid parameters. Fires a Thread
+  /// Create Gateway event.
+  ///
+  /// When called on a GUILD_TEXT channel, creates a GUILD_PUBLIC_THREAD. When
+  /// called on a GUILD_NEWS channel, creates a GUILD_NEWS_THREAD. The id of the
+  /// created thread will be the same as the id of the message, and as such a
+  /// message can only have a single thread created from it.
+  ///
+  /// This endpoint supports the X-Audit-Log-Reason header.
+  ///
+  /// https://discord.com/developers/docs/resources/channel#start-thread-with-message
+  Future<DiscordResponse<Channel>> startThreadWithMessage(
+    String channelId, {
+    required String messageId,
+
+    /// 1-100 character channel name
+    required String name,
+
+    /// duration in minutes to automatically archive the thread after recent
+    /// activity, can be set to: 60, 1440, 4320, 10080
+    ///
+    /// The 3 day and 7 day archive durations require the server to be boosted.
+    /// The guild features will indicate if a server is able to use those
+    /// settings.
+    ThreadAutoArchiveDuration? autoArchiveDuration,
+
+    /// amount of seconds a user has to wait before sending another message
+    /// (0-21600)
+    int? rateLimitPerUser,
+    String? reason,
+  }) async {
+    return validateApiCall(
+      _dio.post(
+        '$_basePath/$channelId/messages/$messageId/threads',
+        data: {
+          'name': name,
+          if (autoArchiveDuration != null)
+            'auto_archive_duration': autoArchiveDuration.value,
+          if (rateLimitPerUser != null) 'rate_limit_per_user': rateLimitPerUser,
+        },
+        options: Options(
+          headers: {
+            if (reason != null) DiscordHeader.auditLogReason: reason,
+          },
+        ),
+      ),
+      responseTransformer: (data) => Channel.fromJson(data),
+    );
+  }
+
+  /// Creates a new thread that is not connected to an existing message. The
+  /// created thread defaults to a GUILD_PRIVATE_THREAD. Returns a channel on
+  /// success, and a 400 BAD REQUEST on invalid parameters. Fires a Thread
+  /// Create Gateway event.
+  ///
+  /// This endpoint supports the X-Audit-Log-Reason header.
+  ///
+  /// https://discord.com/developers/docs/resources/channel#start-thread-without-message
+  Future<DiscordResponse<Channel>> startThreadWithoutMessage(
+    String channelId, {
+
+    /// 1-100 character channel name
+    required String name,
+
+    /// duration in minutes to automatically archive the thread after recent
+    /// activity, can be set to: 60, 1440, 4320, 10080
+    ///
+    /// The 3 day and 7 day archive durations require the server to be boosted.
+    /// The guild features will indicate if a server is able to use those
+    /// settings.
+    ThreadAutoArchiveDuration? autoArchiveDuration,
+
+    /// the type of thread to create
+    ///
+    /// Creating a private thread requires the server to be boosted. The guild
+    /// features will indicate if that is possible for the guild.
+    ///
+    /// In API v9, type defaults to PRIVATE_THREAD in order to match the
+    /// behavior when thread documentation was first published. In API v10 this
+    /// will be changed to be a required field, with no default.
+    required ChannelType type,
+
+    /// whether non-moderators can add other non-moderators to a thread; only
+    /// available when creating a private thread
+    bool? invitable,
+
+    /// amount of seconds a user has to wait before sending another message
+    /// (0-21600)
+    int? rateLimitPerUser,
+    String? reason,
+  }) async {
+    return validateApiCall(
+      _dio.post(
+        '$_basePath/$channelId/threads',
+        data: {
+          'name': name,
+          if (autoArchiveDuration != null)
+            'auto_archive_duration': autoArchiveDuration.value,
+          if (rateLimitPerUser != null) 'rate_limit_per_user': rateLimitPerUser,
+          'type': type.value,
+          if (invitable != null) 'invitable': invitable,
+          if (rateLimitPerUser != null) 'rate_limit_per_user': rateLimitPerUser,
+        },
+        options: Options(
+          headers: {
+            if (reason != null) DiscordHeader.auditLogReason: reason,
+          },
+        ),
+      ),
+      responseTransformer: (data) => Channel.fromJson(data),
+    );
+  }
+
+  /// Adds the current user to a thread. Also requires the thread is not
+  /// archived. Returns a 204 empty response on success. Fires a Thread Members
+  /// Update Gateway event.
+  ///
+  /// https://discord.com/developers/docs/resources/channel#join-thread
+  Future<DiscordResponse<void>> joinThread(String channelId) async {
+    return validateApiCall(
+      _dio.put('$_basePath/$channelId/thread-members/@me'),
+    );
+  }
+
+  /// Adds another member to a thread. Requires the ability to send messages in
+  /// the thread. Also requires the thread is not archived. Returns a 204 empty
+  /// response if the member is successfully added or was already a member of
+  /// the thread. Fires a Thread Members Update Gateway event.
+  ///
+  /// https://discord.com/developers/docs/resources/channel#add-thread-member
+  Future<DiscordResponse<void>> addThreadMember(
+    String channelId, {
+    required String userId,
+  }) async {
+    return validateApiCall(
+      _dio.put('$_basePath/$channelId/thread-members/$userId'),
+    );
+  }
+
+  /// Removes the current user from a thread. Also requires the thread is not
+  /// archived. Returns a 204 empty response on success. Fires a Thread Members
+  /// Update Gateway event.
+  ///
+  /// https://discord.com/developers/docs/resources/channel#leave-thread
+  Future<DiscordResponse<void>> leaveThread(String channelId) async {
+    return validateApiCall(
+      _dio.delete('$_basePath/$channelId/thread-members/@me'),
+    );
+  }
+
+  /// Removes another member from a thread. Requires the MANAGE_THREADS
+  /// permission, or the creator of the thread if it is a GUILD_PRIVATE_THREAD.
+  /// Also requires the thread is not archived. Returns a 204 empty response on
+  /// success. Fires a Thread Members Update Gateway event.
+  ///
+  /// https://discord.com/developers/docs/resources/channel#remove-thread-member
+  Future<DiscordResponse<void>> removeThreadMember(
+    String channelId, {
+    required String userId,
+  }) async {
+    return validateApiCall(
+      _dio.delete('$_basePath/$channelId/thread-members/$userId'),
+    );
+  }
+
+  /// Returns a thread member object for the specified user if they are a
+  /// member of the thread, returns a 404 response otherwise.
+  ///
+  /// https://discord.com/developers/docs/resources/channel#get-thread-member
+  Future<DiscordResponse<ThreadMember>> getThreadMember(
+    String channelId, {
+    required String userId,
+  }) async {
+    return validateApiCall(
+      _dio.get('$_basePath/$channelId/thread-members/$userId'),
+      responseTransformer: (data) => ThreadMember.fromJson(data),
+    );
+  }
+
+  /// Returns array of thread members objects that are members of the thread.
+  ///
+  /// This endpoint is restricted according to whether the GUILD_MEMBERS
+  /// Privileged Intent is enabled for your application.
+  ///
+  /// https://discord.com/developers/docs/resources/channel#list-thread-members
+  Future<DiscordResponse<List<ThreadMember>>> listThreadMembers(
+    String channelId,
+  ) async {
+    return validateApiCall(
+      _dio.get('$_basePath/$channelId/thread-members'),
+      responseTransformer: (data) => (data as List)
+          .map<ThreadMember>((e) => ThreadMember.fromJson(e))
+          .toList(),
+    );
+  }
+
+  /// Returns all active threads in the channel, including public and private
+  /// threads. Threads are ordered by their id, in descending order.
+  ///
+  /// https://discord.com/developers/docs/resources/channel#list-active-threads
+  @Deprecated(
+    'This route is deprecated and will be removed in v10.'
+    ' It is replaced by List Active Guild Threads.',
+  )
+  Future<DiscordResponse<ListThreadsResponse>> listActiveThreads(
+    String channelId,
+  ) async {
+    return validateApiCall(
+      _dio.get('$_basePath/$channelId/threads/active'),
+      responseTransformer: (data) => ListThreadsResponse.fromJson(data),
+    );
+  }
+
+  /// Returns archived threads in the channel that are public. When called on a
+  /// GUILD_TEXT channel, returns threads of type GUILD_PUBLIC_THREAD. When
+  /// called on a GUILD_NEWS channel returns threads of type GUILD_NEWS_THREAD.
+  /// Threads are ordered by archive_timestamp, in descending order. Requires
+  /// the READ_MESSAGE_HISTORY permission.
+  ///
+  /// https://discord.com/developers/docs/resources/channel#list-public-archived-threads
+  Future<DiscordResponse<ListThreadsResponse>> listPublicArchivedThreads(
+    String channelId, {
+
+    /// returns threads before this timestamp
+    DateTime? before,
+
+    /// optional maximum number of threads to return
+    int? limit,
+  }) async {
+    return validateApiCall(
+      _dio.get(
+        '$_basePath/$channelId/threads/archived/public',
+        queryParameters: {
+          if (before != null) 'before': before.toIso8601String(),
+          if (limit != null) 'limit': limit,
+        },
+      ),
+      responseTransformer: (data) => ListThreadsResponse.fromJson(data),
+    );
+  }
+
+  /// Returns archived threads in the channel that are of type
+  /// GUILD_PRIVATE_THREAD. Threads are ordered by archive_timestamp, in
+  /// descending order. Requires both the READ_MESSAGE_HISTORY and
+  /// MANAGE_THREADS permissions.
+  ///
+  /// https://discord.com/developers/docs/resources/channel#list-private-archived-threads
+  Future<DiscordResponse<ListThreadsResponse>> listPrivateArchivedThreads(
+    String channelId, {
+
+    /// returns threads before this timestamp
+    DateTime? before,
+
+    /// optional maximum number of threads to return
+    int? limit,
+  }) async {
+    return validateApiCall(
+      _dio.get(
+        '$_basePath/$channelId/threads/archived/private',
+        queryParameters: {
+          if (before != null) 'before': before.toIso8601String(),
+          if (limit != null) 'limit': limit,
+        },
+      ),
+      responseTransformer: (data) => ListThreadsResponse.fromJson(data),
+    );
+  }
+
+  /// Returns archived threads in the channel that are of type
+  /// GUILD_PRIVATE_THREAD, and the user has joined. Threads are ordered by
+  /// their id, in descending order. Requires the READ_MESSAGE_HISTORY
+  /// permission.
+  ///
+  /// https://discord.com/developers/docs/resources/channel#list-joined-private-archived-threads
+  Future<DiscordResponse<ListThreadsResponse>> listJoinedPrivateArchivedThreads(
+    String channelId, {
+
+    /// returns threads before this id
+    String? before,
+
+    /// optional maximum number of threads to return
+    int? limit,
+  }) async {
+    return validateApiCall(
+      _dio.get(
+        '$_basePath/$channelId/users/@me/threads/archived/private',
+        queryParameters: {
+          if (before != null) 'before': before,
+          if (limit != null) 'limit': limit,
+        },
+      ),
+      responseTransformer: (data) => ListThreadsResponse.fromJson(data),
+    );
+  }
 }

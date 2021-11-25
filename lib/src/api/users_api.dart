@@ -81,16 +81,19 @@ class UsersApi {
     String? after,
 
     /// max number of guilds to return (1-200)
+    ///
+    /// default: 200
     int? limit,
   }) async {
-    final queryParameters = {
-      if (before != null) 'before': before,
-      if (after != null) 'after': after,
-      if (limit != null) 'limit': limit,
-    };
-
     return validateApiCall(
-      _dio.get('$_basePath/@me/guilds', queryParameters: queryParameters),
+      _dio.get(
+        '$_basePath/@me/guilds',
+        queryParameters: {
+          if (before != null) 'before': before,
+          if (after != null) 'after': after,
+          if (limit != null) 'limit': limit,
+        },
+      ),
       responseTransformer: (data) =>
           (data as List).map((guild) => Guild.fromJson(guild)).toList(),
     );
@@ -98,13 +101,12 @@ class UsersApi {
 
   /// Leave a guild. Returns a 204 empty response on success.
   ///
-  /// https://discord.com/developers/docs/resources/user#leave-guild
-  ///
   /// * It seems like a bot can't do this
   ///
-  // Future<DiscordResponse<void>> leaveGuild(String guildId) {
-  //   return validateApiCall(_dio.delete('$_basePath/@me/guilds/$guildId'));
-  // }
+  /// https://discord.com/developers/docs/resources/user#leave-guild
+  Future<DiscordResponse<void>> leaveGuild(String guildId) {
+    return validateApiCall(_dio.delete('$_basePath/@me/guilds/$guildId'));
+  }
 
   /// Create a new DM channel with a user. Returns a DM channel object.
   ///
@@ -127,18 +129,25 @@ class UsersApi {
   /// Discord client
   ///
   /// https://discord.com/developers/docs/resources/user#create-group-dm
-  // Future<DiscordResponse<Channel>> createGroupDm() {}
+  @Deprecated(
+    'This endpoint was intended to be used with the now-deprecated GameBridge'
+    ' SDK. DMs created with this endpoint will not be shown in the Discord'
+    ' client',
+  )
+  Future<DiscordResponse<dynamic>> createGroupDm() async {
+    throw UnimplementedError();
+  }
 
   /// Returns a list of connection objects. Requires the connections OAuth2
   /// scope.
-  /// 
+  ///
   /// * Pretty sure bots can't have connections
   ///
   /// https://discord.com/developers/docs/resources/user#get-user-connections
-  // Future<DiscordResponse<dynamic>> getUserConnections() {
-  //   return validateApiCall(
-  //     _dio.get('$_basePath/@me/connections'),
-  //     responseTransformer: (data) => data,
-  //   );
-  // }
+  Future<DiscordResponse<dynamic>> getUserConnections() {
+    return validateApiCall(
+      _dio.get('$_basePath/@me/connections'),
+      responseTransformer: (data) => data,
+    );
+  }
 }

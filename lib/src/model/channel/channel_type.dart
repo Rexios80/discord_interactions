@@ -50,3 +50,27 @@ enum ChannelType {
   @JsonValue(13)
   guildStageVoice,
 }
+
+/// Extension on [ChannelType]
+extension ChannelTypeExtension on ChannelType {
+  static const _valueMap = <ChannelType, int>{
+    ChannelType.guildText: 0,
+    ChannelType.dm: 1,
+    ChannelType.guildVoice: 2,
+    ChannelType.groupDm: 3,
+    ChannelType.guildCategory: 4,
+    ChannelType.guildNews: 5,
+    ChannelType.guildStore: 6,
+    ChannelType.guildNewsThread: 10,
+    ChannelType.guildPublicThread: 11,
+    ChannelType.guildPrivateThread: 12,
+    ChannelType.guildStageVoice: 13,
+  };
+
+  /// Get the value of the enum
+  int get value => _valueMap[this]!;
+
+  /// Create a [ChannelType] from a value
+  static ChannelType fromValue(int value) =>
+      _valueMap.entries.singleWhere((e) => e.value == value).key;
+}

@@ -1,6 +1,9 @@
 // Package imports:
 import 'package:json_annotation/json_annotation.dart';
 
+// Project imports:
+import 'package:discord_interactions/discord_interactions.dart';
+
 part 'thread_metadata.g.dart';
 
 /// Thread Metadata structure
@@ -17,7 +20,7 @@ class ThreadMetadata {
   /// duration in minutes to automatically archive the thread after recent
   /// activity, can be set to: 60, 1440, 4320, 10080
   @JsonKey(name: 'auto_archive_duration')
-  final int? autoArchiveDuration;
+  final ThreadAutoArchiveDuration? autoArchiveDuration;
 
   /// timestamp when the thread's archive status was last changed, used for
   /// calculating recent activity
@@ -32,6 +35,12 @@ class ThreadMetadata {
   /// available on private threads
   final bool? invitable;
 
+  /// amount of seconds a user has to wait before sending another message
+  /// (0-21600); bots, as well as users with the permission manage_messages,
+  /// manage_thread, or manage_channel, are unaffected
+  @JsonKey(name: 'rate_limit_per_user')
+  final int? rateLimitPerUser;
+
   /// Constructor
   ThreadMetadata({
     this.archived,
@@ -39,6 +48,7 @@ class ThreadMetadata {
     this.archiveTimestamp,
     this.locked,
     this.invitable,
+    this.rateLimitPerUser,
   });
 
   /// From json

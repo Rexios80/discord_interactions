@@ -43,7 +43,9 @@ Channel _$ChannelFromJson(Map<String, dynamic> json) => Channel(
       threadMember: json['threadMember'] == null
           ? null
           : ThreadMember.fromJson(json['threadMember'] as Map<String, dynamic>),
-      defaultAutoArchiveDuration: json['default_auto_archive_duration'] as int?,
+      defaultAutoArchiveDuration: $enumDecodeNullable(
+          _$ThreadAutoArchiveDurationEnumMap,
+          json['default_auto_archive_duration']),
       permissions: const PermissionConverterNullable()
           .fromJson(json['permissions'] as String?),
     );
@@ -74,7 +76,8 @@ Map<String, dynamic> _$ChannelToJson(Channel instance) => <String, dynamic>{
       'member_count': instance.memberCount,
       'thread_metadata': instance.threadMetadata,
       'threadMember': instance.threadMember,
-      'default_auto_archive_duration': instance.defaultAutoArchiveDuration,
+      'default_auto_archive_duration': _$ThreadAutoArchiveDurationEnumMap[
+          instance.defaultAutoArchiveDuration],
       'permissions':
           const PermissionConverterNullable().toJson(instance.permissions),
     };
@@ -96,4 +99,11 @@ const _$ChannelTypeEnumMap = {
 const _$VideoQualityModeEnumMap = {
   VideoQualityMode.auto: 1,
   VideoQualityMode.full: 2,
+};
+
+const _$ThreadAutoArchiveDurationEnumMap = {
+  ThreadAutoArchiveDuration.oneHour: 60,
+  ThreadAutoArchiveDuration.oneDay: 1440,
+  ThreadAutoArchiveDuration.threeDays: 4320,
+  ThreadAutoArchiveDuration.sevenDays: 10080,
 };

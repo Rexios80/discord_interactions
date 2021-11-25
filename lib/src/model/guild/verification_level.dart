@@ -28,21 +28,18 @@ enum VerificationLevel {
 
 /// Extension on [VerificationLevel]
 extension VerificationLevelExtension on VerificationLevel {
+  static const _enumMap = <VerificationLevel, int>{
+    VerificationLevel.none: 0,
+    VerificationLevel.low: 1,
+    VerificationLevel.medium: 2,
+    VerificationLevel.high: 3,
+    VerificationLevel.veryHigh: 4,
+  };
+
+  /// Get the int value
+  int get value => _enumMap[this]!;
+
   /// Create a [VerificationLevel] from an [int]
-  static VerificationLevel fromValue(int value) {
-    switch (value) {
-      case 0:
-        return VerificationLevel.none;
-      case 1:
-        return VerificationLevel.low;
-      case 2:
-        return VerificationLevel.medium;
-      case 3:
-        return VerificationLevel.high;
-      case 4:
-        return VerificationLevel.veryHigh;
-      default:
-        throw ArgumentError('Unknown verification level: $value');
-    }
-  }
+  static VerificationLevel fromValue(int value) =>
+      _enumMap.entries.singleWhere((e) => e.value == value).key;
 }

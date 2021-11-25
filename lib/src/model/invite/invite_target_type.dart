@@ -13,3 +13,16 @@ enum InviteTargetType {
   @JsonValue(2)
   embeddedApplication,
 }
+
+/// Extension on [InviteTargetType]
+extension InviteTargetTypeExtension on InviteTargetType {
+  /// Get the int value of the enum
+  int get value {
+    switch (this) {
+      case InviteTargetType.stream:
+        return 1;
+      case InviteTargetType.embeddedApplication:
+        return 2;
+    }
+  }
+}

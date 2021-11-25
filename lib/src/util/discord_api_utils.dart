@@ -27,13 +27,18 @@ Future<DiscordResponse<T>> validateApiCall<T>(
     return DiscordResponse.error(e, stacktrace);
   }
 
+  final responseData = response.data;
+
   try {
+    final data = responseTransformer != null
+        ? responseTransformer(responseData)
+        : responseData;
     return DiscordResponse.success(
-      responseTransformer != null ? responseTransformer(response.data) : null,
-      response.data,
+      data,
+      responseData,
     );
   } catch (e, stacktrace) {
-    return DiscordResponse.error(e, stacktrace, raw: response.data);
+    return DiscordResponse.error(e, stacktrace, raw: responseData);
   }
 }
 

@@ -113,7 +113,7 @@ class Channel {
   /// threads, in minutes, to automatically archive the thread after recent
   /// activity, can be set to: 60, 1440, 4320, 10080
   @JsonKey(name: 'default_auto_archive_duration')
-  final int? defaultAutoArchiveDuration;
+  final ThreadAutoArchiveDuration? defaultAutoArchiveDuration;
 
   /// computed permissions for the invoking user in the channel, including
   /// overwrites, only included when part of the resolved data received on a

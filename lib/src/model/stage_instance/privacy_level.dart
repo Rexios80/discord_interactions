@@ -16,15 +16,15 @@ enum PrivacyLevel {
 
 /// Extension on [PrivacyLevel]
 extension PrivacyLevelExtension on PrivacyLevel {
+  static const _enumMap = <PrivacyLevel, int>{
+    PrivacyLevel.public: 1,
+    PrivacyLevel.guildOnly: 2,
+  };
+
+  /// Get the enum value
+  int get value => _enumMap[this]!;
+
   /// Create a [PrivacyLevel] from an [int]
-  static PrivacyLevel fromValue(int value) {
-    switch (value) {
-      case 1:
-        return PrivacyLevel.public;
-      case 2:
-        return PrivacyLevel.guildOnly;
-      default:
-        throw ArgumentError('Unknown privacy level: $value');
-    }
-  }
+  static PrivacyLevel fromValue(int value) =>
+      _enumMap.entries.singleWhere((e) => e.value == value).key;
 }
