@@ -122,7 +122,7 @@ void main() async {
   });
 
   group('Message components:', () {
-    test('Button component', () async {
+    test('Button', () async {
       print('Invoke /${testCommand.name} in your test server');
       final interaction = await client.waitForInteraction();
       expect(interaction.data?.name, testCommand.name);
@@ -168,6 +168,37 @@ void main() async {
         ),
       );
       expect(buttonInteractionResponseResponse.error, isNull);
+
+      client.notifyInteractionHandled();
+    });
+
+    test('URL button', () async {
+      print('Invoke /${testCommand.name} in your test server');
+      final interaction = await client.waitForInteraction();
+      expect(interaction.data?.name, testCommand.name);
+
+      // Respond to the interaction
+      final createInteractionResponseResponse =
+          await api.interactions.createInteractionResponse(
+        interaction: interaction,
+        response: InteractionResponse.withData(
+          content: 'Test response',
+          components: [
+            Component(
+              type: ComponentType.actionRow,
+              components: [
+                Component(
+                  type: ComponentType.button,
+                  url: 'https://discord.com',
+                  label: 'Click me',
+                  style: ButtonStyle.link,
+                ),
+              ],
+            )
+          ],
+        ),
+      );
+      expect(createInteractionResponseResponse.error, isNull);
 
       client.notifyInteractionHandled();
     });
