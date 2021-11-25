@@ -49,7 +49,7 @@ class Guild {
   /// total permissions for the user in the guild (excludes overwrites)
   ///
   /// **
-  @PermissionConverter()
+  @PermissionConverterNullable()
   final List<Permission>? permissions;
 
   /// id of afk channel
