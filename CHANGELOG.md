@@ -1,3 +1,6 @@
+## 0.0.9
+- Added Guilds API
+
 ## 0.0.8
 - Finished Users API
 - Finished Channels API
