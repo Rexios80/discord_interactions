@@ -1,5 +1,8 @@
 /// A response from Discord
 class DiscordResponse<T> {
+  /// The response status code
+  final int? statusCode;
+
   /// The response data
   final T? data;
 
@@ -12,11 +15,15 @@ class DiscordResponse<T> {
   final DiscordError? error;
 
   /// Create a [DiscordResponse] with [data]
-  DiscordResponse.success(this.data, this.raw) : error = null;
+  DiscordResponse.success(this.statusCode, this.data, this.raw) : error = null;
 
   /// Create a [DiscordResponse] with [error]
-  DiscordResponse.error(Object error, StackTrace stacktrace, {this.raw})
-      : error = DiscordError(error, stacktrace),
+  DiscordResponse.error(
+    Object error,
+    StackTrace stacktrace, {
+    this.statusCode,
+    this.raw,
+  })  : error = DiscordError(error, stacktrace),
         data = null;
 }
 

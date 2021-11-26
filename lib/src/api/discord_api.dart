@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:discord_interactions/src/api/src/audit_logs_api.dart';
 import 'package:discord_interactions/src/api/src/channels_api.dart';
 import 'package:discord_interactions/src/api/src/emojis_api.dart';
+import 'package:discord_interactions/src/api/src/guilds_api.dart';
 import 'package:discord_interactions/src/api/src/interactions/application_commands_api.dart';
 import 'package:discord_interactions/src/api/src/interactions/interactions_api.dart';
 import 'package:discord_interactions/src/api/src/invites_api.dart';
@@ -36,6 +37,9 @@ class DiscordApi {
 
   /// Access to the Emojis API
   late final EmojisApi emojis;
+
+  /// Access to the Guilds API
+  late final GuildsApi guilds;
 
   /// Access to the Invites API
   late final InvitesApi invites;
@@ -78,6 +82,7 @@ class DiscordApi {
     auditLogs = AuditLogsApi(_dio);
     channels = ChannelsApi(_dio);
     emojis = EmojisApi(_dio);
+    guilds = GuildsApi(_dio);
     invites = InvitesApi(_dio);
     stageInstances = StageInstancesApi(_dio);
     stickers = StickersApi(_dio);

@@ -4,6 +4,13 @@ library discord_model;
 export 'api/discord_response.dart';
 export 'api/discord_user_agent.dart';
 
+// api/channels_api
+export 'api/channels_api/list_threads_response.dart';
+
+// api/guilds_api
+export 'api/guilds_api/modify_guild_channel_positions_params.dart';
+export 'api/guilds_api/modify_guild_role_positions_params.dart';
+
 // application
 export 'application/application_flag.dart';
 export 'application/application.dart';
@@ -48,7 +55,6 @@ export 'channel/message/message_type.dart';
 export 'channel/message/message.dart';
 
 // channel/thread
-export 'channel/thread/list_threads_response.dart';
 export 'channel/thread/thread_auto_archive_duration.dart';
 export 'channel/thread/thread_member.dart';
 export 'channel/thread/thread_metadata.dart';
@@ -72,11 +78,13 @@ export 'gateway/presence/activity/activity_type.dart';
 export 'gateway/presence/activity/activity.dart';
 
 // guild
+export 'guild/ban.dart';
 export 'guild/default_message_notification_level.dart';
 export 'guild/explicit_content_filter_level.dart';
 export 'guild/guild_feature.dart';
 export 'guild/guild_member.dart';
 export 'guild/guild_nsfw_level.dart';
+export 'guild/guild_preview.dart';
 export 'guild/guild.dart';
 export 'guild/mfa_level.dart';
 export 'guild/premium_tier.dart';

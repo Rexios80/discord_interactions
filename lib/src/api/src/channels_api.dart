@@ -984,23 +984,6 @@ class ChannelsApi {
     );
   }
 
-  /// Returns all active threads in the channel, including public and private
-  /// threads. Threads are ordered by their id, in descending order.
-  ///
-  /// https://discord.com/developers/docs/resources/channel#list-active-threads
-  @Deprecated(
-    'This route is deprecated and will be removed in v10.'
-    ' It is replaced by List Active Guild Threads.',
-  )
-  Future<DiscordResponse<ListThreadsResponse>> listActiveThreads(
-    String channelId,
-  ) async {
-    return validateApiCall(
-      _dio.get('$_basePath/$channelId/threads/active'),
-      responseTransformer: (data) => ListThreadsResponse.fromJson(data),
-    );
-  }
-
   /// Returns archived threads in the channel that are public. When called on a
   /// GUILD_TEXT channel, returns threads of type GUILD_PUBLIC_THREAD. When
   /// called on a GUILD_NEWS channel returns threads of type GUILD_NEWS_THREAD.
