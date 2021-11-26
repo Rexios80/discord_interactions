@@ -8,6 +8,7 @@ import 'package:discord_interactions/src/api/src/emojis_api.dart';
 import 'package:discord_interactions/src/api/src/interactions/application_commands_api.dart';
 import 'package:discord_interactions/src/api/src/interactions/interactions_api.dart';
 import 'package:discord_interactions/src/api/src/invites_api.dart';
+import 'package:discord_interactions/src/api/src/stage_instances_api.dart';
 import 'package:discord_interactions/src/api/src/users_api.dart';
 import 'package:discord_interactions/src/model/discord_model.dart';
 
@@ -36,6 +37,9 @@ class DiscordApi {
 
   /// Access to the Invites API
   late final InvitesApi invites;
+
+  /// Access to the Stage Instances API
+  late final StageInstancesApi stageInstances;
 
   /// Access to the Users API
   late final UsersApi users;
@@ -67,6 +71,7 @@ class DiscordApi {
     channels = ChannelsApi(_dio);
     emojis = EmojisApi(_dio);
     invites = InvitesApi(_dio);
+    stageInstances = StageInstancesApi(_dio);
     users = UsersApi(_dio);
   }
 }
