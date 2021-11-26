@@ -11,6 +11,7 @@ import 'package:discord_interactions/src/api/src/invites_api.dart';
 import 'package:discord_interactions/src/api/src/stage_instances_api.dart';
 import 'package:discord_interactions/src/api/src/stickers_api.dart';
 import 'package:discord_interactions/src/api/src/users_api.dart';
+import 'package:discord_interactions/src/api/src/voice_api.dart';
 import 'package:discord_interactions/src/model/discord_model.dart';
 
 /// Base class for accessing the Discord API
@@ -48,6 +49,9 @@ class DiscordApi {
   /// Access to the Users API
   late final UsersApi users;
 
+  /// Access to the Voice API
+  late final VoiceApi voice;
+
   /// Access to the Discord API
   DiscordApi({
     required String applicationId,
@@ -78,5 +82,6 @@ class DiscordApi {
     stageInstances = StageInstancesApi(_dio);
     stickers = StickersApi(_dio);
     users = UsersApi(_dio);
+    voice = VoiceApi(_dio);
   }
 }

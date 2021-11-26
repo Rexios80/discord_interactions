@@ -156,6 +156,7 @@ export 'user/user_flag.dart';
 export 'user/user.dart';
 
 // voice
+export 'voice/voice_region.dart';
 export 'voice/voice_state.dart';
 
 // webhook
