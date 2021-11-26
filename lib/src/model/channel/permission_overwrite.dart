@@ -18,7 +18,7 @@ class PermissionOverwrite {
   final String id;
 
   /// either role or member
-  final OverwriteType type;
+  final PermissionOverwriteType type;
 
   /// permission bit set
   @PermissionConverter()
@@ -45,7 +45,7 @@ class PermissionOverwrite {
 }
 
 /// Overwrite type
-enum OverwriteType {
+enum PermissionOverwriteType {
   /// role
   @JsonValue(0)
   role,

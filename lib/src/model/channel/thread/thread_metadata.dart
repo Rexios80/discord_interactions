@@ -35,12 +35,6 @@ class ThreadMetadata {
   /// available on private threads
   final bool? invitable;
 
-  /// amount of seconds a user has to wait before sending another message
-  /// (0-21600); bots, as well as users with the permission manage_messages,
-  /// manage_thread, or manage_channel, are unaffected
-  @JsonKey(name: 'rate_limit_per_user')
-  final int? rateLimitPerUser;
-
   /// Constructor
   ThreadMetadata({
     this.archived,
@@ -48,7 +42,6 @@ class ThreadMetadata {
     this.archiveTimestamp,
     this.locked,
     this.invitable,
-    this.rateLimitPerUser,
   });
 
   /// From json

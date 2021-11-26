@@ -16,7 +16,6 @@ ThreadMetadata _$ThreadMetadataFromJson(Map<String, dynamic> json) =>
           : DateTime.parse(json['archive_timestamp'] as String),
       locked: json['locked'] as bool?,
       invitable: json['invitable'] as bool?,
-      rateLimitPerUser: json['rate_limit_per_user'] as int?,
     );
 
 Map<String, dynamic> _$ThreadMetadataToJson(ThreadMetadata instance) =>
@@ -27,7 +26,6 @@ Map<String, dynamic> _$ThreadMetadataToJson(ThreadMetadata instance) =>
       'archive_timestamp': instance.archiveTimestamp?.toIso8601String(),
       'locked': instance.locked,
       'invitable': instance.invitable,
-      'rate_limit_per_user': instance.rateLimitPerUser,
     };
 
 const _$ThreadAutoArchiveDurationEnumMap = {

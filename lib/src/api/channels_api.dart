@@ -73,13 +73,24 @@ class ChannelsApi {
   /// https://discord.com/developers/docs/resources/channel#modify-channel
   Future<DiscordResponse<Channel>> modifyThread(
     String channelId, {
-    required ThreadMetadata metadata,
+
+    /// 1-100 character channel name
+    String? name,
+    ThreadMetadata? metadata,
+
+    /// amount of seconds a user has to wait before sending another message
+    /// (0-21600)
+    int? rateLimitPerUser,
     String? reason,
   }) async {
     return validateApiCall(
       _dio.patch(
         '$_basePath/$channelId',
-        data: metadata,
+        data: {
+          if (name != null) 'name': name,
+          if (metadata != null) ...metadata.toJson(),
+          if (rateLimitPerUser != null) 'rate_limit_per_user': rateLimitPerUser,
+        },
         options: Options(
           headers: {
             if (reason != null) DiscordHeader.auditLogReason: reason,
@@ -492,7 +503,7 @@ class ChannelsApi {
     String? reason,
   }) async {
     return validateApiCall(
-      _dio.delete(
+      _dio.post(
         '$_basePath/$channelId/messages/bulk-delete',
         data: {
           'messages': messageIds,
@@ -523,7 +534,7 @@ class ChannelsApi {
   }) async {
     return validateApiCall(
       _dio.put(
-        '$_basePath/$channelId/permissions/${overwrite.id}}',
+        '$_basePath/$channelId/permissions/${overwrite.id}',
         data: overwrite,
         options: Options(
           headers: {
