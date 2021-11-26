@@ -31,7 +31,7 @@ class StickersApi {
   /// https://discord.com/developers/docs/resources/sticker#list-nitro-sticker-packs
   Future<DiscordResponse<List<StickerPack>>> getNitroStickerPacks() async {
     return validateApiCall(
-      _dio.get('/stickers-packs'),
+      _dio.get('/sticker-packs'),
       responseTransformer: (data) => (data['sticker_packs'] as List)
           .map((e) => StickerPack.fromJson(e))
           .toList(),
