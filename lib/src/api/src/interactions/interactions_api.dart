@@ -12,16 +12,14 @@ import 'package:discord_interactions/src/util/discord_api_utils.dart';
 ///
 /// https://discord.com/developers/docs/interactions/receiving-and-responding
 class InteractionsApi {
-  static const _basePath = '/webhooks';
-
+  final String _basePath;
   final Dio _dio;
-  final String _path;
 
   /// Constructor
   InteractionsApi(
     this._dio, {
     required String applicationId,
-  }) : _path = '$_basePath/$applicationId';
+  }) : _basePath = '/webhooks/$applicationId';
 
   /// Create a response to an [Interaction] from the gateway. Takes an
   /// [InteractionResponse]. This endpoint also supports file attachments
@@ -50,7 +48,7 @@ class InteractionsApi {
     String interactionToken,
   ) {
     return validateApiCall(
-      _dio.get('$_path/$interactionToken/messages/@original'),
+      _dio.get('$_basePath/$interactionToken/messages/@original'),
       responseTransformer: (data) => Message.fromJson(data),
     );
   }
@@ -65,7 +63,7 @@ class InteractionsApi {
   }) {
     return validateApiCall(
       _dio.patch(
-        '$_path/$interactionToken/messages/@original',
+        '$_basePath/$interactionToken/messages/@original',
         data: createFormData(message, files),
       ),
       responseTransformer: (data) => Message.fromJson(data),
@@ -79,7 +77,7 @@ class InteractionsApi {
     String interactionToken,
   ) {
     return validateApiCall(
-      _dio.delete('$_path/$interactionToken/messages/@original'),
+      _dio.delete('$_basePath/$interactionToken/messages/@original'),
     );
   }
 
@@ -100,7 +98,7 @@ class InteractionsApi {
   }) {
     return validateApiCall(
       _dio.post(
-        '$_path/$interactionToken',
+        '$_basePath/$interactionToken',
         data: createFormData(message, files),
       ),
       responseTransformer: (data) => Message.fromJson(data),
@@ -116,7 +114,7 @@ class InteractionsApi {
     required String messageId,
   }) {
     return validateApiCall(
-      _dio.get('$_path/$interactionToken/messages/$messageId'),
+      _dio.get('$_basePath/$interactionToken/messages/$messageId'),
       responseTransformer: (data) => Message.fromJson(data),
     );
   }
@@ -133,7 +131,7 @@ class InteractionsApi {
   }) {
     return validateApiCall(
       _dio.patch(
-        '$_path/$interactionToken/messages/$messageId',
+        '$_basePath/$interactionToken/messages/$messageId',
         data: createFormData(message, files),
       ),
       responseTransformer: (data) => Message.fromJson(data),
@@ -149,7 +147,7 @@ class InteractionsApi {
     required String messageId,
   }) {
     return validateApiCall(
-      _dio.delete('$_path/$interactionToken/messages/$messageId'),
+      _dio.delete('$_basePath/$interactionToken/messages/$messageId'),
     );
   }
 }

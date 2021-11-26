@@ -181,6 +181,7 @@ void main() async {
   // These tests must be run in the written order to pass
   group('Channel operations:', () {
     late final String channelId;
+    late final String inviteCode;
     late final String messageId;
 
     group('Channel:', () {
@@ -240,7 +241,9 @@ void main() async {
 
       test('Create channel invite', () async {
         final response = await api.channels.createChannelInvite(channelId);
-        expect(response.data, isNotNull);
+        final invite = response.data!;
+        inviteCode = invite.code;
+        expect(invite, isNotNull);
         await avoidRateLimit();
       });
 
@@ -248,6 +251,22 @@ void main() async {
         final response = await api.channels.getChannelInvites(channelId);
         expect(response.data!.length, greaterThan(0));
         await avoidRateLimit();
+      });
+
+      // It's kind of dumb that these are in the channels testing,
+      // but that's how the API works I guess
+      group('Invites:', () {
+        test('Get invite', () async {
+          final response = await api.invites.getInvite(inviteCode);
+          expect(response.data!.code, inviteCode);
+          await avoidRateLimit();
+        });
+
+        test('Delete invite', () async {
+          final response = await api.invites.deleteInvite(inviteCode);
+          expect(response.error, isNull);
+          await avoidRateLimit();
+        });
       });
 
       test('Trigger typing indicator', () async {

@@ -9,16 +9,14 @@ import 'package:discord_interactions/src/util/discord_api_utils.dart';
 ///
 /// https://discord.com/developers/docs/interactions/application-commands
 class ApplicationCommandsApi {
-  static const _basePath = '/applications';
-
+  final String _basePath;
   final Dio _dio;
-  final String _path;
 
   /// Constructor
   ApplicationCommandsApi(
     this._dio, {
     required String applicationId,
-  }) : _path = '$_basePath/$applicationId';
+  }) : _basePath = '/applications/$applicationId';
 
   /// Fetch all of the global commands for your application. Returns an array of [ApplicationCommand] objects.
   ///
@@ -26,7 +24,7 @@ class ApplicationCommandsApi {
   Future<DiscordResponse<List<ApplicationCommand>>>
       getGlobalApplicationCommands() {
     return validateApiCall(
-      _dio.get('$_path/commands'),
+      _dio.get('$_basePath/commands'),
       responseTransformer: (data) =>
           (data as List).map((e) => ApplicationCommand.fromJson(e)).toList(),
     );
@@ -42,7 +40,7 @@ class ApplicationCommandsApi {
     ApplicationCommand command,
   ) {
     return validateApiCall(
-      _dio.post('/$_path/commands', data: command),
+      _dio.post('/$_basePath/commands', data: command),
       responseTransformer: (data) => ApplicationCommand.fromJson(data),
     );
   }
@@ -54,7 +52,7 @@ class ApplicationCommandsApi {
     String commandId,
   ) {
     return validateApiCall(
-      _dio.get('$_path/commands/$commandId'),
+      _dio.get('$_basePath/commands/$commandId'),
       responseTransformer: (data) => ApplicationCommand.fromJson(data),
     );
   }
@@ -67,7 +65,7 @@ class ApplicationCommandsApi {
     ApplicationCommand command,
   ) {
     return validateApiCall(
-      _dio.patch('$_path/commands/${command.id}', data: command),
+      _dio.patch('$_basePath/commands/${command.id}', data: command),
       responseTransformer: (data) => ApplicationCommand.fromJson(data),
     );
   }
@@ -78,7 +76,7 @@ class ApplicationCommandsApi {
   Future<DiscordResponse<void>> deleteGlobalApplicationCommand(
     String commandId,
   ) {
-    return validateApiCall(_dio.delete('$_path/commands/$commandId'));
+    return validateApiCall(_dio.delete('$_basePath/commands/$commandId'));
   }
 
   /// Takes a list of [ApplicationCommand]s, overwriting the existing global command list for this application.
@@ -93,7 +91,7 @@ class ApplicationCommandsApi {
     List<ApplicationCommand> commands,
   ) {
     return validateApiCall(
-      _dio.put('$_path/commands', data: commands),
+      _dio.put('$_basePath/commands', data: commands),
       responseTransformer: (data) =>
           (data as List).map((e) => ApplicationCommand.fromJson(e)).toList(),
     );
@@ -107,7 +105,7 @@ class ApplicationCommandsApi {
     String guildId,
   ) {
     return validateApiCall(
-      _dio.get('$_path/guilds/$guildId/commands'),
+      _dio.get('$_basePath/guilds/$guildId/commands'),
       responseTransformer: (data) =>
           (data as List).map((e) => ApplicationCommand.fromJson(e)).toList(),
     );
@@ -125,7 +123,7 @@ class ApplicationCommandsApi {
     required ApplicationCommand command,
   }) {
     return validateApiCall(
-      _dio.post('$_path/guilds/$guildId/commands', data: command),
+      _dio.post('$_basePath/guilds/$guildId/commands', data: command),
       responseTransformer: (data) => ApplicationCommand.fromJson(data),
     );
   }
@@ -138,7 +136,7 @@ class ApplicationCommandsApi {
     required String commandId,
   }) {
     return validateApiCall(
-      _dio.get('$_path/guilds/$guildId/commands/$commandId'),
+      _dio.get('$_basePath/guilds/$guildId/commands/$commandId'),
       responseTransformer: (data) => ApplicationCommand.fromJson(data),
     );
   }
@@ -153,7 +151,7 @@ class ApplicationCommandsApi {
   }) {
     return validateApiCall(
       _dio.patch(
-        '$_path/guilds/$guildId/commands/${command.id}',
+        '$_basePath/guilds/$guildId/commands/${command.id}',
         data: command,
       ),
       responseTransformer: (data) => ApplicationCommand.fromJson(data),
@@ -168,7 +166,7 @@ class ApplicationCommandsApi {
     required String commandId,
   }) {
     return validateApiCall(
-      _dio.delete('$_path/guilds/$guildId/commands/$commandId'),
+      _dio.delete('$_basePath/guilds/$guildId/commands/$commandId'),
     );
   }
 
@@ -184,7 +182,7 @@ class ApplicationCommandsApi {
     required List<ApplicationCommand> commands,
   }) {
     return validateApiCall(
-      _dio.put('$_path/guilds/$guildId/commands', data: commands),
+      _dio.put('$_basePath/guilds/$guildId/commands', data: commands),
       responseTransformer: (data) =>
           (data as List).map((e) => ApplicationCommand.fromJson(e)).toList(),
     );
@@ -197,7 +195,7 @@ class ApplicationCommandsApi {
   Future<DiscordResponse<List<GuildApplicationCommandPermissions>>>
       getGuildApplicationCommandPermissions(String guildId) {
     return validateApiCall(
-      _dio.get('$_path/guilds/$guildId/commands/permissions'),
+      _dio.get('$_basePath/guilds/$guildId/commands/permissions'),
       responseTransformer: (data) => (data as List)
           .map((e) => GuildApplicationCommandPermissions.fromJson(e))
           .toList(),
@@ -214,7 +212,7 @@ class ApplicationCommandsApi {
     required String commandId,
   }) {
     return validateApiCall(
-      _dio.get('$_path/guilds/$guildId/commands/$commandId/permissions'),
+      _dio.get('$_basePath/guilds/$guildId/commands/$commandId/permissions'),
       responseTransformer: (data) =>
           GuildApplicationCommandPermissions.fromJson(data),
     );
@@ -237,7 +235,7 @@ class ApplicationCommandsApi {
   }) {
     return validateApiCall(
       _dio.put(
-        '$_path/guilds/$guildId/commands/$commandId/permissions',
+        '$_basePath/guilds/$guildId/commands/$commandId/permissions',
         data: {'permissions': permissions},
       ),
       responseTransformer: (data) =>
@@ -261,7 +259,7 @@ class ApplicationCommandsApi {
   }) {
     return validateApiCall(
       _dio.put(
-        '$_path/guilds/$guildId/commands/permissions',
+        '$_basePath/guilds/$guildId/commands/permissions',
         data: permissions,
       ),
       responseTransformer: (data) => (data as List)

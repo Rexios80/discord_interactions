@@ -17,7 +17,7 @@ Create a serverless Discord bot in pure dart using Discord Interactions webhooks
 | Guilds                 | Soon                       |
 | Guild Scheduled Events | Not yet                    |
 | Guild Templates        | Not yet                    |
-| Invites                | Not yet                    |
+| Invites                | Full support (unit-tested) |
 | Stage Instances        | Not yet                    |
 | Stickers               | Not yet                    |
 | Users                  | Full support (unit-tested) |
