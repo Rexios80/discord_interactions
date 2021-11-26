@@ -23,8 +23,8 @@ void main() async {
     // Create the test command
     final response =
         await api.applicationCommands.createGuildApplicationCommand(
-      ApplicationCommand(name: 'test', description: 'test command'),
-      guildId: credentials.guildId,
+      credentials.guildId,
+      command: ApplicationCommand(name: 'test', description: 'test command'),
     );
 
     testCommand = response.data!;
@@ -40,7 +40,7 @@ void main() async {
       expect(interaction.data?.name, testCommand.name);
 
       final response = await api.interactions.createInteractionResponse(
-        interaction: interaction,
+        interaction,
         response: InteractionResponse.withData(content: 'Test response'),
       );
       expect(response.error, isNull);
@@ -60,7 +60,7 @@ void main() async {
 
     test('Edit original interaction response', () async {
       final response = await api.interactions.editOriginalInteractionResponse(
-        interactionToken: interaction.token,
+        interaction.token,
         message: Message(content: 'Edited response'),
       );
       expect(
@@ -81,7 +81,7 @@ void main() async {
 
     test('Create followup message', () async {
       final response = await api.interactions.createFollowupMessage(
-        interactionToken: interaction.token,
+        interaction.token,
         message: Message(content: 'Test followup message'),
       );
 
@@ -92,7 +92,7 @@ void main() async {
 
     test('Get followup message', () async {
       final response = await api.interactions.getFollowupMessage(
-        interactionToken: interaction.token,
+        interaction.token,
         messageId: followupMessage.id!,
       );
       expect(response.data?.content, 'Test followup message');
@@ -101,7 +101,7 @@ void main() async {
 
     test('Edit followup message', () async {
       final response = await api.interactions.editFollowupMessage(
-        interactionToken: interaction.token,
+        interaction.token,
         messageId: followupMessage.id!,
         message: Message(content: 'Edited followup message'),
       );
@@ -114,7 +114,7 @@ void main() async {
 
     test('Delete followup message', () async {
       final response = await api.interactions.deleteFollowupMessage(
-        interactionToken: interaction.token,
+        interaction.token,
         messageId: followupMessage.id!,
       );
       expect(response.error, isNull);
@@ -130,7 +130,7 @@ void main() async {
       // Respond to the interaction
       final createInteractionResponseResponse =
           await api.interactions.createInteractionResponse(
-        interaction: interaction,
+        interaction,
         response: InteractionResponse.withData(
           content: 'Test response',
           components: [
@@ -159,7 +159,7 @@ void main() async {
 
       final buttonInteractionResponseResponse =
           await api.interactions.createInteractionResponse(
-        interaction: buttonInteraction,
+        buttonInteraction,
         response: InteractionResponse.withData(
           type: InteractionCallbackType.updateMessage,
           content: 'Button clicked',
@@ -180,7 +180,7 @@ void main() async {
       // Respond to the interaction
       final createInteractionResponseResponse =
           await api.interactions.createInteractionResponse(
-        interaction: interaction,
+        interaction,
         response: InteractionResponse.withData(
           content: 'Test response',
           components: [
@@ -213,7 +213,7 @@ void main() async {
       // Respond to the interaction
       final createInteractionResponseResponse =
           await api.interactions.createInteractionResponse(
-        interaction: interaction,
+        interaction,
         response: InteractionResponse.withData(
           content: 'Make a selection',
           components: [
@@ -260,7 +260,7 @@ void main() async {
 
       final buttonInteractionResponseResponse =
           await api.interactions.createInteractionResponse(
-        interaction: buttonInteraction,
+        buttonInteraction,
         response: InteractionResponse.withData(
           type: InteractionCallbackType.updateMessage,
           content: 'Selection made: $selectedValues',
@@ -279,8 +279,8 @@ void main() async {
 
     // Delete the test command
     await api.applicationCommands.deleteGuildApplicationCommand(
-      testCommand.id!,
-      guildId: credentials.guildId,
+      credentials.guildId,
+      commandId: testCommand.id!,
     );
   });
 }

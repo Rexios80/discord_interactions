@@ -37,7 +37,7 @@ Future<Response> function(Request request) async {
   }
 
   await api.interactions.createInteractionResponse(
-    interaction: interaction,
+    interaction,
     response:
         InteractionResponse.withData(content: 'Hello, Discord Interactions!'),
   );

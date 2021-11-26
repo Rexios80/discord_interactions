@@ -29,8 +29,8 @@ class InteractionsApi {
   /// uploading files and multipart/form-data requests.
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#create-interaction-response
-  Future<DiscordResponse<void>> createInteractionResponse({
-    required Interaction interaction,
+  Future<DiscordResponse<void>> createInteractionResponse(
+    Interaction interaction, {
     required InteractionResponse response,
     List<MultipartFile>? files,
   }) {
@@ -58,8 +58,8 @@ class InteractionsApi {
   /// Edits the initial [InteractionResponse]. Functions the same as Edit Webhook Message.
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#edit-original-interaction-response
-  Future<DiscordResponse<Message>> editOriginalInteractionResponse({
-    required String interactionToken,
+  Future<DiscordResponse<Message>> editOriginalInteractionResponse(
+    String interactionToken, {
     required Message message,
     List<MultipartFile>? files,
   }) {
@@ -93,8 +93,8 @@ class InteractionsApi {
   /// one of [content], [embeds], or [file].
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#create-followup-message
-  Future<DiscordResponse<Message>> createFollowupMessage({
-    required String interactionToken,
+  Future<DiscordResponse<Message>> createFollowupMessage(
+    String interactionToken, {
     required Message message,
     List<MultipartFile>? files,
   }) {
@@ -111,8 +111,8 @@ class InteractionsApi {
   /// Webhook Message. Does not support ephemeral followups.
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#get-followup-message
-  Future<DiscordResponse<Message>> getFollowupMessage({
-    required String interactionToken,
+  Future<DiscordResponse<Message>> getFollowupMessage(
+    String interactionToken, {
     required String messageId,
   }) {
     return validateApiCall(
@@ -125,8 +125,8 @@ class InteractionsApi {
   /// Webhook Message. Does not support ephemeral followups.
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#edit-followup-message
-  Future<DiscordResponse<Message>> editFollowupMessage({
-    required String interactionToken,
+  Future<DiscordResponse<Message>> editFollowupMessage(
+    String interactionToken, {
     required String messageId,
     required Message message,
     List<MultipartFile>? files,
@@ -144,8 +144,8 @@ class InteractionsApi {
   /// Does not support ephemeral followups.
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#delete-followup-message
-  Future<DiscordResponse<void>> deleteFollowupMessage({
-    required String interactionToken,
+  Future<DiscordResponse<void>> deleteFollowupMessage(
+    String interactionToken, {
     required String messageId,
   }) {
     return validateApiCall(

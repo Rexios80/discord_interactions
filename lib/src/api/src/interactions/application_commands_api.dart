@@ -103,10 +103,9 @@ class ApplicationCommandsApi {
   /// Returns an array of [ApplicationCommand] objects.
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#get-guild-application-commands
-  Future<DiscordResponse<List<ApplicationCommand>>>
-      getGuildApplicationCommands({
-    required String guildId,
-  }) {
+  Future<DiscordResponse<List<ApplicationCommand>>> getGuildApplicationCommands(
+    String guildId,
+  ) {
     return validateApiCall(
       _dio.get('$_path/guilds/$guildId/commands'),
       responseTransformer: (data) =>
@@ -122,8 +121,8 @@ class ApplicationCommandsApi {
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#create-guild-application-command
   Future<DiscordResponse<ApplicationCommand>> createGuildApplicationCommand(
-    ApplicationCommand command, {
-    required String guildId,
+    String guildId, {
+    required ApplicationCommand command,
   }) {
     return validateApiCall(
       _dio.post('$_path/guilds/$guildId/commands', data: command),
@@ -135,8 +134,8 @@ class ApplicationCommandsApi {
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#get-guild-application-command
   Future<DiscordResponse<ApplicationCommand>> getGuildApplicationCommand(
-    String commandId, {
-    required String guildId,
+    String guildId, {
+    required String commandId,
   }) {
     return validateApiCall(
       _dio.get('$_path/guilds/$guildId/commands/$commandId'),
@@ -149,8 +148,8 @@ class ApplicationCommandsApi {
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#edit-guild-application-command
   Future<DiscordResponse<ApplicationCommand>> editGuildApplicationCommand(
-    ApplicationCommand command, {
-    required String guildId,
+    String guildId, {
+    required ApplicationCommand command,
   }) {
     return validateApiCall(
       _dio.patch(
@@ -165,8 +164,8 @@ class ApplicationCommandsApi {
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#delete-guild-application-command
   Future<DiscordResponse<void>> deleteGuildApplicationCommand(
-    String commandId, {
-    required String guildId,
+    String guildId, {
+    required String commandId,
   }) {
     return validateApiCall(
       _dio.delete('$_path/guilds/$guildId/commands/$commandId'),
@@ -181,8 +180,8 @@ class ApplicationCommandsApi {
   /// https://discord.com/developers/docs/interactions/application-commands#bulk-overwrite-guild-application-commands
   Future<DiscordResponse<List<ApplicationCommand>>>
       bulkOverwriteGuildApplicationCommands(
-    List<ApplicationCommand> commands, {
-    required String guildId,
+    String guildId, {
+    required List<ApplicationCommand> commands,
   }) {
     return validateApiCall(
       _dio.put('$_path/guilds/$guildId/commands', data: commands),
@@ -196,9 +195,7 @@ class ApplicationCommandsApi {
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#get-guild-application-command-permissions
   Future<DiscordResponse<List<GuildApplicationCommandPermissions>>>
-      getGuildApplicationCommandPermissions({
-    required String guildId,
-  }) {
+      getGuildApplicationCommandPermissions(String guildId) {
     return validateApiCall(
       _dio.get('$_path/guilds/$guildId/commands/permissions'),
       responseTransformer: (data) => (data as List)
@@ -213,8 +210,8 @@ class ApplicationCommandsApi {
   /// https://discord.com/developers/docs/interactions/application-commands#get-application-command-permissions
   Future<DiscordResponse<GuildApplicationCommandPermissions>>
       getApplicationCommandPermissions(
-    String commandId, {
-    required String guildId,
+    String guildId, {
+    required String commandId,
   }) {
     return validateApiCall(
       _dio.get('$_path/guilds/$guildId/commands/$commandId/permissions'),
@@ -234,8 +231,8 @@ class ApplicationCommandsApi {
   /// https://discord.com/developers/docs/interactions/application-commands#edit-application-command-permissions
   Future<DiscordResponse<GuildApplicationCommandPermissions>>
       editApplicationCommandPermissions(
-    String commandId, {
-    required String guildId,
+    String guildId, {
+    required String commandId,
     required List<ApplicationCommandPermissions> permissions,
   }) {
     return validateApiCall(
@@ -259,8 +256,8 @@ class ApplicationCommandsApi {
   /// https://discord.com/developers/docs/interactions/application-commands#batch-edit-application-command-permissions
   Future<DiscordResponse<List<GuildApplicationCommandPermissions>>>
       batchEditApplicationCommandPermissions(
-    List<GuildApplicationCommandPermissions> permissions, {
-    required String guildId,
+    String guildId, {
+    required List<GuildApplicationCommandPermissions> permissions,
   }) {
     return validateApiCall(
       _dio.put(

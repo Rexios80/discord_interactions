@@ -84,11 +84,11 @@ void main() async {
     test('Create guild application command', () async {
       final response =
           await api.applicationCommands.createGuildApplicationCommand(
-        ApplicationCommand(
+        guildId,
+        command: ApplicationCommand(
           name: 'test_name',
           description: 'test description',
         ),
-        guildId: guildId,
       );
       command = response.data!;
       expect(command.name, 'test_name');
@@ -97,8 +97,8 @@ void main() async {
 
     test('Get guild appliction command', () async {
       final response = await api.applicationCommands.getGuildApplicationCommand(
-        command.id!,
-        guildId: guildId,
+        guildId,
+        commandId: command.id!,
       );
       final fetchedCommand = response.data!;
       expect(fetchedCommand.name, 'test_name');
@@ -107,8 +107,8 @@ void main() async {
     late final List<ApplicationCommand> commands;
 
     test('Get guild application commands', () async {
-      final response = await api.applicationCommands
-          .getGuildApplicationCommands(guildId: guildId);
+      final response =
+          await api.applicationCommands.getGuildApplicationCommands(guildId);
       commands = response.data!;
       expect(commands.length, greaterThan(0));
       expect(commands.map((e) => e.name), contains('test_name'));
@@ -117,8 +117,8 @@ void main() async {
     test('Edit guild application command', () async {
       final response =
           await api.applicationCommands.editGuildApplicationCommand(
-        ApplicationCommand(id: command.id, name: 'edited_name'),
-        guildId: guildId,
+        guildId,
+        command: ApplicationCommand(id: command.id, name: 'edited_name'),
       );
       final editedCommand = response.data!;
       expect(editedCommand.name, 'edited_name');
@@ -126,7 +126,7 @@ void main() async {
 
     test('Bulk overwrite guild application commands', () async {
       final response = await api.applicationCommands
-          .bulkOverwriteGuildApplicationCommands(commands, guildId: guildId);
+          .bulkOverwriteGuildApplicationCommands(guildId, commands: commands);
       final newCommands = response.data!;
       expect(newCommands.map((e) => e.name), contains('test_name'));
     });
@@ -134,8 +134,8 @@ void main() async {
     test('Delete guild application command', () async {
       final response =
           await api.applicationCommands.deleteGuildApplicationCommand(
-        command.id!,
-        guildId: guildId,
+        guildId,
+        commandId: command.id!,
       );
       expect(response.error, isNull);
     });
@@ -145,8 +145,10 @@ void main() async {
       () async {
         final guildId = credentials.guildId;
 
-        await api.applicationCommands
-            .bulkOverwriteGuildApplicationCommands([], guildId: guildId);
+        await api.applicationCommands.bulkOverwriteGuildApplicationCommands(
+          guildId,
+          commands: [],
+        );
       },
       skip: 'This test only runs manually',
     );
@@ -160,11 +162,11 @@ void main() async {
     setUpAll(() async {
       final response =
           await api.applicationCommands.createGuildApplicationCommand(
-        ApplicationCommand(
+        guildId,
+        command: ApplicationCommand(
           name: 'test_name',
           description: 'test description',
         ),
-        guildId: guildId,
       );
       command = response.data!;
     });
@@ -172,8 +174,8 @@ void main() async {
     test('Edit application command permissions', () async {
       final response =
           await api.applicationCommands.editApplicationCommandPermissions(
-        command.id!,
-        guildId: guildId,
+        guildId,
+        commandId: command.id!,
         permissions: [
           ApplicationCommandPermissions(
             id: roleId,
@@ -189,7 +191,7 @@ void main() async {
     test('Get guild application command permissions', () async {
       final response =
           await api.applicationCommands.getGuildApplicationCommandPermissions(
-        guildId: guildId,
+        guildId,
       );
       final guildPermissions = response.data!;
       expect(guildPermissions.length, 1);
@@ -198,8 +200,8 @@ void main() async {
     test('Get application command permissions', () async {
       final response =
           await api.applicationCommands.getApplicationCommandPermissions(
-        command.id!,
-        guildId: guildId,
+        guildId,
+        commandId: command.id!,
       );
       final fetchedPermissions = response.data!;
       expect(fetchedPermissions.permissions.length, 1);
@@ -208,8 +210,8 @@ void main() async {
     test('Batch edit application command permissions', () async {
       final response =
           await api.applicationCommands.batchEditApplicationCommandPermissions(
-        [],
-        guildId: guildId,
+        guildId,
+        permissions: [],
       );
       final batchPermissions = response.data!;
       expect(batchPermissions.length, 0);
@@ -217,8 +219,8 @@ void main() async {
 
     tearDownAll(() async {
       await api.applicationCommands.deleteGuildApplicationCommand(
-        command.id!,
-        guildId: guildId,
+        guildId,
+        commandId: command.id!,
       );
     });
   });

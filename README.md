@@ -9,21 +9,20 @@ Create a serverless Discord bot in pure dart using Discord Interactions webhooks
 | File uploads                | Full support (unit-tested) |
 
 ## Supported APIs
-| API                   | Status                               |
-| --------------------- | ------------------------------------ |
-| Application           | Not yet                              |
-| Audit Log             | Full support (unit-tested)           |
-| Channel               | Full support (partially unit-tested) |
-| Emoji                 | Not yet                              |
-| Guild                 | Soon                                 |
-| Guild Scheduled Event | Not yet                              |
-| Guild Template        | Not yet                              |
-| Invite                | Not yet                              |
-| Stage Instance        | Not yet                              |
-| Sticker               | Not yet                              |
-| User                  | Full support (unit-tested)           |
-| Voice                 | Not yet                              |
-| Webhook               | Not yet                              |
+| API                    | Status                     |
+| ---------------------- | -------------------------- |
+| Audit Logs             | Full support (unit-tested) |
+| Channels               | Full support (unit-tested) |
+| Emojis                 | Full support (unit-tested) |
+| Guilds                 | Soon                       |
+| Guild Scheduled Events | Not yet                    |
+| Guild Templates        | Not yet                    |
+| Invites                | Not yet                    |
+| Stage Instances        | Not yet                    |
+| Stickers               | Not yet                    |
+| Users                  | Full support (unit-tested) |
+| Voice                  | Not yet                    |
+| Webhooks               | Not yet                    |
 
 Full support for all Discord API endpoints is planned
 
@@ -73,7 +72,7 @@ final api = DiscordApi(
 );
 
 await api.interactions.createInteractionResponse(
-    interaction: interaction,
+    interaction,
     response:
         InteractionResponse.withData(content: 'Hello, Discord Interactions!'),
 );
