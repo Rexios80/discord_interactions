@@ -9,7 +9,7 @@ part 'team.g.dart';
 /// Team object
 ///
 /// https://discord.com/developers/docs/topics/teams#data-models-team-object
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class Team {
   /// a hash of the image of the team's icon
   final String? icon;

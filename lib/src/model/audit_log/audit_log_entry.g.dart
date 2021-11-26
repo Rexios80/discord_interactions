@@ -22,16 +22,24 @@ AuditLogEntry _$AuditLogEntryFromJson(Map<String, dynamic> json) =>
       reason: json['reason'] as String?,
     );
 
-Map<String, dynamic> _$AuditLogEntryToJson(AuditLogEntry instance) =>
-    <String, dynamic>{
-      'target_id': instance.targetId,
-      'changes': instance.changes,
-      'user_id': instance.userId,
-      'id': instance.id,
-      'action_type': _$AuditLogEventEnumMap[instance.actionType],
-      'options': instance.options,
-      'reason': instance.reason,
-    };
+Map<String, dynamic> _$AuditLogEntryToJson(AuditLogEntry instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('target_id', instance.targetId);
+  writeNotNull('changes', instance.changes);
+  writeNotNull('user_id', instance.userId);
+  val['id'] = instance.id;
+  val['action_type'] = _$AuditLogEventEnumMap[instance.actionType];
+  writeNotNull('options', instance.options);
+  writeNotNull('reason', instance.reason);
+  return val;
+}
 
 const _$AuditLogEventEnumMap = {
   AuditLogEvent.guildUpdate: 1,

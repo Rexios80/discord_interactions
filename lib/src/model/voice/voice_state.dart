@@ -9,7 +9,7 @@ part 'voice_state.g.dart';
 /// Voice State structure
 ///
 /// https://discord.com/developers/docs/resources/voice#voice-state-object-voice-state-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class VoiceState {
   /// the guild id this voice state is for
   @JsonKey(name: 'guild_id')

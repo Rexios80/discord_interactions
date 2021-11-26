@@ -14,7 +14,7 @@ part 'activity.g.dart';
 /// Bots are only able to send name, type, and optionally url.
 ///
 /// https://discord.com/developers/docs/topics/gateway#activity-object-activity-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class Activity {
   /// the activity's name
   final String name;

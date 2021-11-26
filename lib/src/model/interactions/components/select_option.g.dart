@@ -16,11 +16,20 @@ SelectOption _$SelectOptionFromJson(Map<String, dynamic> json) => SelectOption(
       defaultSelected: json['default'] as bool?,
     );
 
-Map<String, dynamic> _$SelectOptionToJson(SelectOption instance) =>
-    <String, dynamic>{
-      'label': instance.label,
-      'value': instance.value,
-      'description': instance.description,
-      'emoji': instance.emoji,
-      'default': instance.defaultSelected,
-    };
+Map<String, dynamic> _$SelectOptionToJson(SelectOption instance) {
+  final val = <String, dynamic>{
+    'label': instance.label,
+    'value': instance.value,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('description', instance.description);
+  writeNotNull('emoji', instance.emoji);
+  writeNotNull('default', instance.defaultSelected);
+  return val;
+}

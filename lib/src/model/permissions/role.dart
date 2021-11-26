@@ -16,7 +16,7 @@ part 'role.g.dart';
 /// context. The @everyone role has the same ID as the guild it belongs to.
 ///
 /// https://discord.com/developers/docs/topics/permissions#role-object-role-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class Role {
   /// role id
   final String id;

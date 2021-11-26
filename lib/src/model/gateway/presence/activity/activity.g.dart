@@ -35,23 +35,35 @@ Activity _$ActivityFromJson(Map<String, dynamic> json) => Activity(
       buttons: const ActivityButtonListConverter().fromJson(json['buttons']),
     );
 
-Map<String, dynamic> _$ActivityToJson(Activity instance) => <String, dynamic>{
-      'name': instance.name,
-      'type': _$ActivityTypeEnumMap[instance.type],
-      'url': instance.url,
-      'created_at': const UnixTimeConverter().toJson(instance.createdAt),
-      'timestamps': instance.timestamps,
-      'application_id': instance.applicationId,
-      'details': instance.details,
-      'state': instance.state,
-      'emoji': instance.emoji,
-      'party': instance.party,
-      'assets': instance.assets,
-      'secrets': instance.secrets,
-      'instance': instance.instance,
-      'flags': const ActivityFlagConverter().toJson(instance.flags),
-      'buttons': const ActivityButtonListConverter().toJson(instance.buttons),
-    };
+Map<String, dynamic> _$ActivityToJson(Activity instance) {
+  final val = <String, dynamic>{
+    'name': instance.name,
+    'type': _$ActivityTypeEnumMap[instance.type],
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('url', instance.url);
+  writeNotNull(
+      'created_at', const UnixTimeConverter().toJson(instance.createdAt));
+  writeNotNull('timestamps', instance.timestamps);
+  writeNotNull('application_id', instance.applicationId);
+  writeNotNull('details', instance.details);
+  writeNotNull('state', instance.state);
+  writeNotNull('emoji', instance.emoji);
+  writeNotNull('party', instance.party);
+  writeNotNull('assets', instance.assets);
+  writeNotNull('secrets', instance.secrets);
+  writeNotNull('instance', instance.instance);
+  writeNotNull('flags', const ActivityFlagConverter().toJson(instance.flags));
+  writeNotNull(
+      'buttons', const ActivityButtonListConverter().toJson(instance.buttons));
+  return val;
+}
 
 const _$ActivityTypeEnumMap = {
   ActivityType.game: 0,

@@ -14,8 +14,17 @@ ApplicationCommandOptionChoice _$ApplicationCommandOptionChoiceFromJson(
     );
 
 Map<String, dynamic> _$ApplicationCommandOptionChoiceToJson(
-        ApplicationCommandOptionChoice instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'value': instance.value,
-    };
+    ApplicationCommandOptionChoice instance) {
+  final val = <String, dynamic>{
+    'name': instance.name,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('value', instance.value);
+  return val;
+}

@@ -6,7 +6,7 @@ part 'followed_channel.g.dart';
 /// Followed Channel structure
 ///
 /// https://discord.com/developers/docs/resources/channel#followed-channel-object-followed-channel-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class FollowedChannel {
   /// source channel id
   @JsonKey(name: 'channel_id')

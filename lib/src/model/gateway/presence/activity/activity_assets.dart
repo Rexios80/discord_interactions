@@ -6,7 +6,7 @@ part 'activity_assets.g.dart';
 /// Activity Assets structure
 ///
 /// https://discord.com/developers/docs/topics/gateway#activity-object-activity-assets
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class ActivityAssets {
   /// the id for a large asset of the activity, usually a snowflake
   @JsonKey(name: 'large_image')

@@ -9,7 +9,7 @@ part 'application_command_permissions.g.dart';
 /// Application Command Permissions structure
 ///
 /// https://discord.com/developers/docs/interactions/application-commands#application-command-permissions-object-guild-application-command-permissions-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class ApplicationCommandPermissions {
   /// the id of the role or user
   final String id;

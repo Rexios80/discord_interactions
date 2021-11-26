@@ -29,24 +29,35 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
           : GuildMember.fromJson(json['member'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
-      'id': instance.id,
-      'username': instance.username,
-      'discriminator': instance.discriminator,
-      'avatar': instance.avatar,
-      'bot': instance.bot,
-      'system': instance.system,
-      'mfa_enabled': instance.mfaEnabled,
-      'banner': instance.banner,
-      'accent_color': instance.accentColor,
-      'locale': instance.locale,
-      'verified': instance.verified,
-      'email': instance.email,
-      'flags': const UserFlagConverter().toJson(instance.flags),
-      'premium_type': _$PremiumTypeEnumMap[instance.premiumType],
-      'public_flags': const UserFlagConverter().toJson(instance.publicFlags),
-      'member': instance.member,
-    };
+Map<String, dynamic> _$UserToJson(User instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('username', instance.username);
+  writeNotNull('discriminator', instance.discriminator);
+  writeNotNull('avatar', instance.avatar);
+  writeNotNull('bot', instance.bot);
+  writeNotNull('system', instance.system);
+  writeNotNull('mfa_enabled', instance.mfaEnabled);
+  writeNotNull('banner', instance.banner);
+  writeNotNull('accent_color', instance.accentColor);
+  writeNotNull('locale', instance.locale);
+  writeNotNull('verified', instance.verified);
+  writeNotNull('email', instance.email);
+  writeNotNull('flags', const UserFlagConverter().toJson(instance.flags));
+  writeNotNull('premium_type', _$PremiumTypeEnumMap[instance.premiumType]);
+  writeNotNull(
+      'public_flags', const UserFlagConverter().toJson(instance.publicFlags));
+  writeNotNull('member', instance.member);
+  return val;
+}
 
 const _$PremiumTypeEnumMap = {
   PremiumType.none: 0,

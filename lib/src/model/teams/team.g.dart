@@ -16,10 +16,19 @@ Team _$TeamFromJson(Map<String, dynamic> json) => Team(
       ownerUserId: json['owner_user_id'] as String,
     );
 
-Map<String, dynamic> _$TeamToJson(Team instance) => <String, dynamic>{
-      'icon': instance.icon,
-      'id': instance.id,
-      'members': instance.members,
-      'name': instance.name,
-      'owner_user_id': instance.ownerUserId,
-    };
+Map<String, dynamic> _$TeamToJson(Team instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('icon', instance.icon);
+  val['id'] = instance.id;
+  val['members'] = instance.members;
+  val['name'] = instance.name;
+  val['owner_user_id'] = instance.ownerUserId;
+  return val;
+}

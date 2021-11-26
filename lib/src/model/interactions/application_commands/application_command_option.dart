@@ -9,7 +9,7 @@ part 'application_command_option.g.dart';
 /// Application Command Option structure
 ///
 /// https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class ApplicationCommandOption {
   /// the type of option
   final ApplicationCommandOptionType type;

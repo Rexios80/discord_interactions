@@ -27,20 +27,30 @@ Component _$ComponentFromJson(Map<String, dynamic> json) => Component(
           .toList(),
     );
 
-Map<String, dynamic> _$ComponentToJson(Component instance) => <String, dynamic>{
-      'type': _$ComponentTypeEnumMap[instance.type],
-      'custom_id': instance.customId,
-      'disabled': instance.disabled,
-      'style': _$ButtonStyleEnumMap[instance.style],
-      'label': instance.label,
-      'emoji': instance.emoji,
-      'url': instance.url,
-      'options': instance.options,
-      'placeholder': instance.placeholder,
-      'min_values': instance.minValues,
-      'max_values': instance.maxValues,
-      'components': instance.components,
-    };
+Map<String, dynamic> _$ComponentToJson(Component instance) {
+  final val = <String, dynamic>{
+    'type': _$ComponentTypeEnumMap[instance.type],
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('custom_id', instance.customId);
+  writeNotNull('disabled', instance.disabled);
+  writeNotNull('style', _$ButtonStyleEnumMap[instance.style]);
+  writeNotNull('label', instance.label);
+  writeNotNull('emoji', instance.emoji);
+  writeNotNull('url', instance.url);
+  writeNotNull('options', instance.options);
+  writeNotNull('placeholder', instance.placeholder);
+  writeNotNull('min_values', instance.minValues);
+  writeNotNull('max_values', instance.maxValues);
+  writeNotNull('components', instance.components);
+  return val;
+}
 
 const _$ComponentTypeEnumMap = {
   ComponentType.actionRow: 1,

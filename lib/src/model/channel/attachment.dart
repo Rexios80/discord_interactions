@@ -8,7 +8,7 @@ part 'attachment.g.dart';
 /// For the attachments array in Message Create/Edit requests, only the id is required.
 ///
 /// https://discord.com/developers/docs/resources/channel#attachment-object-attachment-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class Attachment {
   /// attachment id
   final String id;

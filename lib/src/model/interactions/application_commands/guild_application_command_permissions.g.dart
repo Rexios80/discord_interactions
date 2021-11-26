@@ -19,10 +19,19 @@ GuildApplicationCommandPermissions _$GuildApplicationCommandPermissionsFromJson(
     );
 
 Map<String, dynamic> _$GuildApplicationCommandPermissionsToJson(
-        GuildApplicationCommandPermissions instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'application_id': instance.appplicationId,
-      'guild_id': instance.guildId,
-      'permissions': instance.permissions,
-    };
+    GuildApplicationCommandPermissions instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('application_id', instance.appplicationId);
+  writeNotNull('guild_id', instance.guildId);
+  val['permissions'] = instance.permissions;
+  return val;
+}

@@ -9,7 +9,7 @@ part 'webhook.g.dart';
 /// Webhook structure
 ///
 /// https://discord.com/developers/docs/resources/webhook#webhook-object-webhook-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class Webhook {
   /// the id of the webhook
   final String id;

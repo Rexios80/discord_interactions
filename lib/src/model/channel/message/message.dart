@@ -12,7 +12,7 @@ part 'message.g.dart';
 /// content, embeds, attachments, and components will require a privileged intent in 2022. Learn more here.
 ///
 /// https://discord.com/developers/docs/resources/channel#message-object-message-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class Message {
   /// id of the message
   final String? id;

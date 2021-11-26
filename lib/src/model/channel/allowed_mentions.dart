@@ -15,7 +15,7 @@ part 'allowed_mentions.g.dart';
 /// user/bot permissions.
 ///
 /// https://discord.com/developers/docs/resources/channel#allowed-mentions-object-allowed-mentions-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class AllowedMentions {
   /// An array of allowed mention types to parse from the content.
   final List<AllowedMentionType> parse;

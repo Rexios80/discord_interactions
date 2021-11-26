@@ -20,12 +20,21 @@ IntegrationApplication _$IntegrationApplicationFromJson(
     );
 
 Map<String, dynamic> _$IntegrationApplicationToJson(
-        IntegrationApplication instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'icon': instance.icon,
-      'description': instance.description,
-      'summary': instance.summary,
-      'bot': instance.bot,
-    };
+    IntegrationApplication instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'name': instance.name,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('icon', instance.icon);
+  val['description'] = instance.description;
+  val['summary'] = instance.summary;
+  writeNotNull('bot', instance.bot);
+  return val;
+}

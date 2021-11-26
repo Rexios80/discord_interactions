@@ -9,7 +9,7 @@ part 'welcome_screen.g.dart';
 /// Welcome Screen structure
 ///
 /// https://discord.com/developers/docs/resources/guild#welcome-screen-object-welcome-screen-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class WelcomeScreen {
   /// the server description shown in the welcome screen
   final String? description;

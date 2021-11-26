@@ -11,7 +11,7 @@ part 'interaction_data.g.dart';
 /// the command data payload
 ///
 /// https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-interaction-data-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class InteractionData {
   /// the ID of the invoked command
   ///

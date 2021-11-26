@@ -13,7 +13,7 @@ part 'audit_log_change.g.dart';
 /// means the property that was changed has been reset, or set to null
 ///
 /// https://discord.com/developers/docs/resources/audit-log#audit-log-change-object-audit-log-change-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class AuditLogChange {
   /// new value of the key
   @JsonKey(name: 'new_value')

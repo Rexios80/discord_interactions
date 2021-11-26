@@ -24,17 +24,25 @@ GuildMember _$GuildMemberFromJson(Map<String, dynamic> json) => GuildMember(
           .fromJson(json['permissions'] as String?),
     );
 
-Map<String, dynamic> _$GuildMemberToJson(GuildMember instance) =>
-    <String, dynamic>{
-      'user': instance.user,
-      'nick': instance.nick,
-      'avatar': instance.avatar,
-      'roles': instance.roles,
-      'joined_at': instance.joinedAt.toIso8601String(),
-      'premium_since': instance.premiumSince?.toIso8601String(),
-      'deaf': instance.deaf,
-      'mute': instance.mute,
-      'pending': instance.pending,
-      'permissions':
-          const PermissionConverterNullable().toJson(instance.permissions),
-    };
+Map<String, dynamic> _$GuildMemberToJson(GuildMember instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('user', instance.user);
+  writeNotNull('nick', instance.nick);
+  writeNotNull('avatar', instance.avatar);
+  val['roles'] = instance.roles;
+  val['joined_at'] = instance.joinedAt.toIso8601String();
+  writeNotNull('premium_since', instance.premiumSince?.toIso8601String());
+  writeNotNull('deaf', instance.deaf);
+  writeNotNull('mute', instance.mute);
+  writeNotNull('pending', instance.pending);
+  writeNotNull('permissions',
+      const PermissionConverterNullable().toJson(instance.permissions));
+  return val;
+}

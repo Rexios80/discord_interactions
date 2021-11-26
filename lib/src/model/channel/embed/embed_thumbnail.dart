@@ -6,7 +6,7 @@ part 'embed_thumbnail.g.dart';
 /// Embed Thumbnail structure
 ///
 /// https://discord.com/developers/docs/resources/channel#embed-object-embed-thumbnail-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class EmbedThumbnail {
   /// source url of thumbnail (only supports http(s) and attachments)
   final String url;

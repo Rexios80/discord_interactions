@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'test_credentials.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class TestCredentials {
   final String applicationId;
   final String botToken;

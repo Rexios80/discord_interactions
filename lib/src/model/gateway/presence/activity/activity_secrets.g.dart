@@ -13,9 +13,17 @@ ActivitySecrets _$ActivitySecretsFromJson(Map<String, dynamic> json) =>
       match: json['match'] as String?,
     );
 
-Map<String, dynamic> _$ActivitySecretsToJson(ActivitySecrets instance) =>
-    <String, dynamic>{
-      'join': instance.join,
-      'spectate': instance.spectate,
-      'match': instance.match,
-    };
+Map<String, dynamic> _$ActivitySecretsToJson(ActivitySecrets instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('join', instance.join);
+  writeNotNull('spectate', instance.spectate);
+  writeNotNull('match', instance.match);
+  return val;
+}

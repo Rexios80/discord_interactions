@@ -6,7 +6,7 @@ import 'package:discord_interactions/src/model/discord_model.dart';
 
 part 'interaction.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 
 /// Inteaction structure
 ///

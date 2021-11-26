@@ -17,7 +17,7 @@ enum ThreadAutoArchiveDuration {
 
   /// 10080 minutes
   @JsonValue(10080)
-  sevenDays,
+  oneWeek,
 }
 
 /// Extension on [ThreadAutoArchiveDuration]
@@ -26,7 +26,7 @@ extension ThreadAutoArchiveDurationExtension on ThreadAutoArchiveDuration {
     ThreadAutoArchiveDuration.oneHour: 60,
     ThreadAutoArchiveDuration.oneDay: 1440,
     ThreadAutoArchiveDuration.threeDays: 4320,
-    ThreadAutoArchiveDuration.sevenDays: 10080,
+    ThreadAutoArchiveDuration.oneWeek: 10080,
   };
 
   /// Get the int value of the duration

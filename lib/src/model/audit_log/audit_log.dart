@@ -9,7 +9,7 @@ part 'audit_log.g.dart';
 /// Audit Log structure
 ///
 /// https://discord.com/developers/docs/resources/audit-log#audit-log-object-audit-log-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class AuditLog {
   /// list of audit log entries
   @JsonKey(name: 'audit_log_entries')

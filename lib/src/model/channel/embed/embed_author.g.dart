@@ -13,10 +13,19 @@ EmbedAuthor _$EmbedAuthorFromJson(Map<String, dynamic> json) => EmbedAuthor(
       proxyIconUrl: json['proxy_icon_url'] as String?,
     );
 
-Map<String, dynamic> _$EmbedAuthorToJson(EmbedAuthor instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'url': instance.url,
-      'icon_url': instance.iconUrl,
-      'proxy_icon_url': instance.proxyIconUrl,
-    };
+Map<String, dynamic> _$EmbedAuthorToJson(EmbedAuthor instance) {
+  final val = <String, dynamic>{
+    'name': instance.name,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('url', instance.url);
+  writeNotNull('icon_url', instance.iconUrl);
+  writeNotNull('proxy_icon_url', instance.proxyIconUrl);
+  return val;
+}

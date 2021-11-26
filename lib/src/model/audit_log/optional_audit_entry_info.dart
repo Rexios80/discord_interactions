@@ -6,7 +6,7 @@ part 'optional_audit_entry_info.g.dart';
 /// Optional Audit Entry Info structure
 ///
 /// https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-optional-audit-entry-info
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class OptionalAuditEntryInfo {
   /// channel in which the entities were targeted
   ///

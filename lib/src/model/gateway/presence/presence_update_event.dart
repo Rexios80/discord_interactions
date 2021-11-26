@@ -18,7 +18,7 @@ part 'presence_update_event.g.dart';
 /// within this event.
 ///
 /// https://discord.com/developers/docs/topics/gateway#presence-update-presence-update-event-fields
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class PresenceUpdateEvent {
   /// the user presence is being updated for
   final User? user;

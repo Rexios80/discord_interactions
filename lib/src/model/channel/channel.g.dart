@@ -50,37 +50,47 @@ Channel _$ChannelFromJson(Map<String, dynamic> json) => Channel(
           .fromJson(json['permissions'] as String?),
     );
 
-Map<String, dynamic> _$ChannelToJson(Channel instance) => <String, dynamic>{
-      'id': instance.id,
-      'type': _$ChannelTypeEnumMap[instance.type],
-      'guild_id': instance.guildId,
-      'position': instance.position,
-      'permission_overwrites': instance.permissionOverwrites,
-      'name': instance.name,
-      'topic': instance.topic,
-      'nsfw': instance.nsfw,
-      'last_message_id': instance.lastMessageId,
-      'bitrate': instance.bitrate,
-      'user_limit': instance.userLimit,
-      'rate_limit_per_user': instance.rateLimitPerUser,
-      'recipients': instance.recipients,
-      'icon': instance.icon,
-      'ownerId': instance.ownerId,
-      'application_id': instance.applicationId,
-      'parent_id': instance.parentId,
-      'last_pin_timestamp': instance.lastPinTimestamp?.toIso8601String(),
-      'rtc_region': instance.rtcRegion,
-      'video_quality_mode':
-          _$VideoQualityModeEnumMap[instance.videoQualityMode],
-      'message_count': instance.messageCount,
-      'member_count': instance.memberCount,
-      'thread_metadata': instance.threadMetadata,
-      'threadMember': instance.threadMember,
-      'default_auto_archive_duration': _$ThreadAutoArchiveDurationEnumMap[
-          instance.defaultAutoArchiveDuration],
-      'permissions':
-          const PermissionConverterNullable().toJson(instance.permissions),
-    };
+Map<String, dynamic> _$ChannelToJson(Channel instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('id', instance.id);
+  writeNotNull('type', _$ChannelTypeEnumMap[instance.type]);
+  writeNotNull('guild_id', instance.guildId);
+  writeNotNull('position', instance.position);
+  writeNotNull('permission_overwrites', instance.permissionOverwrites);
+  writeNotNull('name', instance.name);
+  writeNotNull('topic', instance.topic);
+  writeNotNull('nsfw', instance.nsfw);
+  writeNotNull('last_message_id', instance.lastMessageId);
+  writeNotNull('bitrate', instance.bitrate);
+  writeNotNull('user_limit', instance.userLimit);
+  writeNotNull('rate_limit_per_user', instance.rateLimitPerUser);
+  writeNotNull('recipients', instance.recipients);
+  writeNotNull('icon', instance.icon);
+  writeNotNull('ownerId', instance.ownerId);
+  writeNotNull('application_id', instance.applicationId);
+  writeNotNull('parent_id', instance.parentId);
+  writeNotNull(
+      'last_pin_timestamp', instance.lastPinTimestamp?.toIso8601String());
+  writeNotNull('rtc_region', instance.rtcRegion);
+  writeNotNull('video_quality_mode',
+      _$VideoQualityModeEnumMap[instance.videoQualityMode]);
+  writeNotNull('message_count', instance.messageCount);
+  writeNotNull('member_count', instance.memberCount);
+  writeNotNull('thread_metadata', instance.threadMetadata);
+  writeNotNull('threadMember', instance.threadMember);
+  writeNotNull('default_auto_archive_duration',
+      _$ThreadAutoArchiveDurationEnumMap[instance.defaultAutoArchiveDuration]);
+  writeNotNull('permissions',
+      const PermissionConverterNullable().toJson(instance.permissions));
+  return val;
+}
 
 const _$ChannelTypeEnumMap = {
   ChannelType.guildText: 0,
@@ -105,5 +115,5 @@ const _$ThreadAutoArchiveDurationEnumMap = {
   ThreadAutoArchiveDuration.oneHour: 60,
   ThreadAutoArchiveDuration.oneDay: 1440,
   ThreadAutoArchiveDuration.threeDays: 4320,
-  ThreadAutoArchiveDuration.sevenDays: 10080,
+  ThreadAutoArchiveDuration.oneWeek: 10080,
 };

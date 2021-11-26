@@ -13,7 +13,15 @@ GuildScheduledEventEntityMetadata _$GuildScheduledEventEntityMetadataFromJson(
     );
 
 Map<String, dynamic> _$GuildScheduledEventEntityMetadataToJson(
-        GuildScheduledEventEntityMetadata instance) =>
-    <String, dynamic>{
-      'location': instance.location,
-    };
+    GuildScheduledEventEntityMetadata instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('location', instance.location);
+  return val;
+}

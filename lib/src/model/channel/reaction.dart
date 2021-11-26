@@ -9,7 +9,7 @@ part 'reaction.g.dart';
 /// Reaction structure
 ///
 /// https://discord.com/developers/docs/resources/channel#reaction-object-reaction-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class Reaction {
   /// times this emoji has been used to react
   final int count;

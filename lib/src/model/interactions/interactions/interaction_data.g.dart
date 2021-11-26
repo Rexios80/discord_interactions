@@ -26,18 +26,27 @@ InteractionData _$InteractionDataFromJson(Map<String, dynamic> json) =>
       targetId: json['target_id'] as String?,
     );
 
-Map<String, dynamic> _$InteractionDataToJson(InteractionData instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'type': _$ApplicationCommandTypeEnumMap[instance.type],
-      'resolved': instance.resolved,
-      'options': instance.options,
-      'custom_id': instance.customId,
-      'component_type': _$ComponentTypeEnumMap[instance.componentType],
-      'values': instance.values,
-      'target_id': instance.targetId,
-    };
+Map<String, dynamic> _$InteractionDataToJson(InteractionData instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('id', instance.id);
+  writeNotNull('name', instance.name);
+  writeNotNull('type', _$ApplicationCommandTypeEnumMap[instance.type]);
+  writeNotNull('resolved', instance.resolved);
+  writeNotNull('options', instance.options);
+  writeNotNull('custom_id', instance.customId);
+  writeNotNull(
+      'component_type', _$ComponentTypeEnumMap[instance.componentType]);
+  writeNotNull('values', instance.values);
+  writeNotNull('target_id', instance.targetId);
+  return val;
+}
 
 const _$ApplicationCommandTypeEnumMap = {
   ApplicationCommandType.chatInput: 1,

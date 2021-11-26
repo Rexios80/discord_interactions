@@ -8,7 +8,7 @@ part 'thread_member.g.dart';
 /// A thread member is used to indicate whether a user has joined a thread or not.
 ///
 /// https://discord.com/developers/docs/resources/channel#thread-member-object-thread-member-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class ThreadMember {
   /// the id of the thread
   ///

@@ -9,7 +9,7 @@ part 'component.g.dart';
 /// Component structure
 ///
 /// https://discord.com/developers/docs/interactions/message-components#component-object-component-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class Component {
   /// component type
   ///

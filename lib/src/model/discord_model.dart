@@ -141,6 +141,7 @@ export 'stage_instance/stage_instance.dart';
 
 // sticker
 export 'sticker/sticker_format_type.dart';
+export 'sticker/sticker_pack.dart';
 export 'sticker/sticker_type.dart';
 export 'sticker/sticker.dart';
 

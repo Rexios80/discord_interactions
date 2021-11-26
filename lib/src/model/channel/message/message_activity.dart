@@ -9,7 +9,7 @@ part 'message_activity.g.dart';
 /// Message Activity structure
 ///
 /// https://discord.com/developers/docs/resources/channel#message-object-message-activity-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class MessageActivity {
   /// type of message activity
   final MessageActivityType type;

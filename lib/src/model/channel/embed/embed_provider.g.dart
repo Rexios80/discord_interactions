@@ -12,8 +12,16 @@ EmbedProvider _$EmbedProviderFromJson(Map<String, dynamic> json) =>
       url: json['url'] as String?,
     );
 
-Map<String, dynamic> _$EmbedProviderToJson(EmbedProvider instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'url': instance.url,
-    };
+Map<String, dynamic> _$EmbedProviderToJson(EmbedProvider instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('name', instance.name);
+  writeNotNull('url', instance.url);
+  return val;
+}

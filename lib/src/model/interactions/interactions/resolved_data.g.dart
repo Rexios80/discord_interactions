@@ -24,11 +24,19 @@ ResolvedData _$ResolvedDataFromJson(Map<String, dynamic> json) => ResolvedData(
       ),
     );
 
-Map<String, dynamic> _$ResolvedDataToJson(ResolvedData instance) =>
-    <String, dynamic>{
-      'users': instance.users,
-      'members': instance.members,
-      'roles': instance.roles,
-      'channels': instance.channels,
-      'messages': instance.messages,
-    };
+Map<String, dynamic> _$ResolvedDataToJson(ResolvedData instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('users', instance.users);
+  writeNotNull('members', instance.members);
+  writeNotNull('roles', instance.roles);
+  writeNotNull('channels', instance.channels);
+  writeNotNull('messages', instance.messages);
+  return val;
+}

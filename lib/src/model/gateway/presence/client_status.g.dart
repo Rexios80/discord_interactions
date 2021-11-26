@@ -12,12 +12,20 @@ ClientStatus _$ClientStatusFromJson(Map<String, dynamic> json) => ClientStatus(
       web: $enumDecodeNullable(_$PresenceStatusEnumMap, json['web']),
     );
 
-Map<String, dynamic> _$ClientStatusToJson(ClientStatus instance) =>
-    <String, dynamic>{
-      'desktop': _$PresenceStatusEnumMap[instance.desktop],
-      'mobile': _$PresenceStatusEnumMap[instance.mobile],
-      'web': _$PresenceStatusEnumMap[instance.web],
-    };
+Map<String, dynamic> _$ClientStatusToJson(ClientStatus instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('desktop', _$PresenceStatusEnumMap[instance.desktop]);
+  writeNotNull('mobile', _$PresenceStatusEnumMap[instance.mobile]);
+  writeNotNull('web', _$PresenceStatusEnumMap[instance.web]);
+  return val;
+}
 
 const _$PresenceStatusEnumMap = {
   PresenceStatus.idle: 'idle',

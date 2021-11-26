@@ -12,7 +12,7 @@ part 'guild_application_command_permissions.g.dart';
 /// specific users or roles within a guild.
 ///
 /// https://discord.com/developers/docs/interactions/application-commands#application-command-permissions-object-guild-application-command-permissions-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class GuildApplicationCommandPermissions {
   /// the id of the command
   final String id;

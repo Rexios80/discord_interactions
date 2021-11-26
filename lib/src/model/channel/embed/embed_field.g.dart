@@ -12,9 +12,18 @@ EmbedField _$EmbedFieldFromJson(Map<String, dynamic> json) => EmbedField(
       inline: json['inline'] as bool?,
     );
 
-Map<String, dynamic> _$EmbedFieldToJson(EmbedField instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'value': instance.value,
-      'inline': instance.inline,
-    };
+Map<String, dynamic> _$EmbedFieldToJson(EmbedField instance) {
+  final val = <String, dynamic>{
+    'name': instance.name,
+    'value': instance.value,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('inline', instance.inline);
+  return val;
+}

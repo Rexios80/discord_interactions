@@ -9,7 +9,7 @@ part 'interaction_response.g.dart';
 /// Interaction Response structure
 ///
 /// https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-response-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class InteractionResponse {
   /// the type of response
   final InteractionCallbackType type;

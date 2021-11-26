@@ -9,7 +9,7 @@ part 'audit_log_entry.g.dart';
 /// Audit Log Entry structure
 ///
 /// https://discord.com/developers/docs/resources/audit-log#audit-log-entry-object-audit-log-entry-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class AuditLogEntry {
   /// id of the affected entity (webhook, user, role, etc.)
   @JsonKey(name: 'target_id')

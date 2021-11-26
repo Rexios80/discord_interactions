@@ -9,7 +9,7 @@ part 'embed.g.dart';
 /// Embed structure
 ///
 /// https://discord.com/developers/docs/resources/channel#embed-object-embed-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class Embed {
   /// title of embed
   final String? title;

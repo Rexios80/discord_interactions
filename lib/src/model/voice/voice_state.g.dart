@@ -26,20 +26,28 @@ VoiceState _$VoiceStateFromJson(Map<String, dynamic> json) => VoiceState(
           : DateTime.parse(json['request_to_speak_timestamp'] as String),
     );
 
-Map<String, dynamic> _$VoiceStateToJson(VoiceState instance) =>
-    <String, dynamic>{
-      'guild_id': instance.guildId,
-      'channel_id': instance.channelId,
-      'user_id': instance.userId,
-      'member': instance.member,
-      'session_id': instance.sessionId,
-      'deaf': instance.deaf,
-      'mute': instance.mute,
-      'self_deaf': instance.selfDeaf,
-      'self_mute': instance.selfMute,
-      'self_stream': instance.selfStream,
-      'self_video': instance.selfVideo,
-      'suppress': instance.suppress,
-      'request_to_speak_timestamp':
-          instance.requestToSpeakTimestamp?.toIso8601String(),
-    };
+Map<String, dynamic> _$VoiceStateToJson(VoiceState instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('guild_id', instance.guildId);
+  writeNotNull('channel_id', instance.channelId);
+  val['user_id'] = instance.userId;
+  writeNotNull('member', instance.member);
+  val['session_id'] = instance.sessionId;
+  val['deaf'] = instance.deaf;
+  val['mute'] = instance.mute;
+  val['self_deaf'] = instance.selfDeaf;
+  val['self_mute'] = instance.selfMute;
+  writeNotNull('self_stream', instance.selfStream);
+  val['self_video'] = instance.selfVideo;
+  val['suppress'] = instance.suppress;
+  writeNotNull('request_to_speak_timestamp',
+      instance.requestToSpeakTimestamp?.toIso8601String());
+  return val;
+}

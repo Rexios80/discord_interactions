@@ -15,12 +15,20 @@ InteractionResponse _$InteractionResponseFromJson(Map<String, dynamic> json) =>
               json['data'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$InteractionResponseToJson(
-        InteractionResponse instance) =>
-    <String, dynamic>{
-      'type': _$InteractionCallbackTypeEnumMap[instance.type],
-      'data': instance.data,
-    };
+Map<String, dynamic> _$InteractionResponseToJson(InteractionResponse instance) {
+  final val = <String, dynamic>{
+    'type': _$InteractionCallbackTypeEnumMap[instance.type],
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('data', instance.data);
+  return val;
+}
 
 const _$InteractionCallbackTypeEnumMap = {
   InteractionCallbackType.pong: 1,

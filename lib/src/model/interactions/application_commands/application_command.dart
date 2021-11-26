@@ -11,7 +11,7 @@ part 'application_command.g.dart';
 /// Application commands are commands that an application can register to Discord
 ///
 /// https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class ApplicationCommand {
   /// unique id of the command
   final String? id;

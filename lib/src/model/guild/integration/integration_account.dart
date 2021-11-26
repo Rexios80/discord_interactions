@@ -6,7 +6,7 @@ part 'integration_account.g.dart';
 /// Integration Account structure
 ///
 /// https://discord.com/developers/docs/resources/guild#integration-account-object-integration-account-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class IntegrationAccount {
   /// id of the account
   final String id;

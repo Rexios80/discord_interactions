@@ -9,7 +9,7 @@ part 'select_option.g.dart';
 /// Select Option structure
 ///
 /// https://discord.com/developers/docs/interactions/message-components#select-menu-object-select-option-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class SelectOption {
   /// the user-facing name of the option, max 100 characters
   final String label;

@@ -28,13 +28,21 @@ InteractionCallbackData _$InteractionCallbackDataFromJson(
     );
 
 Map<String, dynamic> _$InteractionCallbackDataToJson(
-        InteractionCallbackData instance) =>
-    <String, dynamic>{
-      'tts': instance.tts,
-      'content': instance.content,
-      'embeds': instance.embeds,
-      'allowed_mentions': instance.allowedMentions,
-      'flags': const MessageFlagConverter().toJson(instance.flags),
-      'components': instance.components,
-      'attachments': instance.attachments,
-    };
+    InteractionCallbackData instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('tts', instance.tts);
+  writeNotNull('content', instance.content);
+  writeNotNull('embeds', instance.embeds);
+  writeNotNull('allowed_mentions', instance.allowedMentions);
+  writeNotNull('flags', const MessageFlagConverter().toJson(instance.flags));
+  writeNotNull('components', instance.components);
+  writeNotNull('attachments', instance.attachments);
+  return val;
+}

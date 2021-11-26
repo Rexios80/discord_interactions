@@ -11,7 +11,7 @@ part 'integration.g.dart';
 /// * These fields are not provided for discord bot integrations.
 ///
 /// https://discord.com/developers/docs/resources/guild#integration-object-integration-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class Integration {
   /// integration id
   final String id;

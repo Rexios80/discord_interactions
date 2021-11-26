@@ -10,7 +10,7 @@ part 'team_member.g.dart';
 /// Team Member object
 ///
 /// https://discord.com/developers/docs/topics/teams#data-models-team-member-object
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class TeamMember {
   /// the user's membership state on the team
   @JsonKey(name: 'membership_state')

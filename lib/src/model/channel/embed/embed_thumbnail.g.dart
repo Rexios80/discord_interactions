@@ -14,10 +14,19 @@ EmbedThumbnail _$EmbedThumbnailFromJson(Map<String, dynamic> json) =>
       width: json['width'] as int?,
     );
 
-Map<String, dynamic> _$EmbedThumbnailToJson(EmbedThumbnail instance) =>
-    <String, dynamic>{
-      'url': instance.url,
-      'proxy_url': instance.proxyUrl,
-      'height': instance.height,
-      'width': instance.width,
-    };
+Map<String, dynamic> _$EmbedThumbnailToJson(EmbedThumbnail instance) {
+  final val = <String, dynamic>{
+    'url': instance.url,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('proxy_url', instance.proxyUrl);
+  writeNotNull('height', instance.height);
+  writeNotNull('width', instance.width);
+  return val;
+}

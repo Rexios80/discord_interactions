@@ -10,7 +10,7 @@ part 'guild_member.g.dart';
 /// Guild Member structure
 ///
 /// https://discord.com/developers/docs/resources/guild#guild-member-object-guild-member-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class GuildMember {
   /// the user this guild member represents
   ///

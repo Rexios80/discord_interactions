@@ -15,7 +15,7 @@ part 'guild.g.dart';
 /// ** These fields are only sent when using the GET Current User Guilds endpoint and are relative to the requested user
 ///
 /// https://discord.com/developers/docs/resources/guild#guild-object-guild-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class Guild {
   /// guild id
   final String? id;

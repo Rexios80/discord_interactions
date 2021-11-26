@@ -20,14 +20,22 @@ OptionalAuditEntryInfo _$OptionalAuditEntryInfoFromJson(
     );
 
 Map<String, dynamic> _$OptionalAuditEntryInfoToJson(
-        OptionalAuditEntryInfo instance) =>
-    <String, dynamic>{
-      'channel_id': instance.channelId,
-      'count': instance.count,
-      'delete_member_days': instance.deleteMemberDays,
-      'id': instance.id,
-      'members_removed': instance.membersRemoved,
-      'message_id': instance.messageId,
-      'role_name': instance.roleName,
-      'type': instance.type,
-    };
+    OptionalAuditEntryInfo instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('channel_id', instance.channelId);
+  writeNotNull('count', instance.count);
+  writeNotNull('delete_member_days', instance.deleteMemberDays);
+  writeNotNull('id', instance.id);
+  writeNotNull('members_removed', instance.membersRemoved);
+  writeNotNull('message_id', instance.messageId);
+  writeNotNull('role_name', instance.roleName);
+  writeNotNull('type', instance.type);
+  return val;
+}

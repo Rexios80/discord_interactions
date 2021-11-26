@@ -13,7 +13,7 @@ part 'guild_scheduled_event.g.dart';
 /// and [scheduledEndTime]
 ///
 /// https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-object-guild-scheduled-event-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class GuildScheduledEvent {
   /// the id of the scheduled event
   final String? id;

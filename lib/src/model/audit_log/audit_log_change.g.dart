@@ -13,12 +13,20 @@ AuditLogChange _$AuditLogChangeFromJson(Map<String, dynamic> json) =>
       key: $enumDecode(_$AuditLogChangeKeyEnumMap, json['key']),
     );
 
-Map<String, dynamic> _$AuditLogChangeToJson(AuditLogChange instance) =>
-    <String, dynamic>{
-      'new_value': instance.newValue,
-      'old_value': instance.oldValue,
-      'key': _$AuditLogChangeKeyEnumMap[instance.key],
-    };
+Map<String, dynamic> _$AuditLogChangeToJson(AuditLogChange instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('new_value', instance.newValue);
+  writeNotNull('old_value', instance.oldValue);
+  val['key'] = _$AuditLogChangeKeyEnumMap[instance.key];
+  return val;
+}
 
 const _$AuditLogChangeKeyEnumMap = {
   AuditLogChangeKey.afkChannelId: 'afk_channel_id',

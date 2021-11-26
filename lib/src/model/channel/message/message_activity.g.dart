@@ -12,11 +12,20 @@ MessageActivity _$MessageActivityFromJson(Map<String, dynamic> json) =>
       partyId: json['party_id'] as String?,
     );
 
-Map<String, dynamic> _$MessageActivityToJson(MessageActivity instance) =>
-    <String, dynamic>{
-      'type': _$MessageActivityTypeEnumMap[instance.type],
-      'party_id': instance.partyId,
-    };
+Map<String, dynamic> _$MessageActivityToJson(MessageActivity instance) {
+  final val = <String, dynamic>{
+    'type': _$MessageActivityTypeEnumMap[instance.type],
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('party_id', instance.partyId);
+  return val;
+}
 
 const _$MessageActivityTypeEnumMap = {
   MessageActivityType.join: 1,

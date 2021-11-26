@@ -12,9 +12,18 @@ EmbedFooter _$EmbedFooterFromJson(Map<String, dynamic> json) => EmbedFooter(
       proxyIconUrl: json['proxy_icon_url'] as String?,
     );
 
-Map<String, dynamic> _$EmbedFooterToJson(EmbedFooter instance) =>
-    <String, dynamic>{
-      'text': instance.text,
-      'icon_url': instance.iconUrl,
-      'proxy_icon_url': instance.proxyIconUrl,
-    };
+Map<String, dynamic> _$EmbedFooterToJson(EmbedFooter instance) {
+  final val = <String, dynamic>{
+    'text': instance.text,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('icon_url', instance.iconUrl);
+  writeNotNull('proxy_icon_url', instance.proxyIconUrl);
+  return val;
+}

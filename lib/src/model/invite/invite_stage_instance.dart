@@ -9,7 +9,7 @@ part 'invite_stage_instance.g.dart';
 /// Invite Stage Instance structure
 ///
 /// https://discord.com/developers/docs/resources/invite#invite-stage-instance-object-invite-stage-instance-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class InviteStageInstance {
   /// the members speaking in the Stage
   final List<GuildMember> members;

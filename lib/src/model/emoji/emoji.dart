@@ -13,7 +13,7 @@ part 'emoji.g.dart';
 /// This means that the quota returned by our APIs may be inaccurate, and you may encounter 429s.
 ///
 /// https://discord.com/developers/docs/resources/emoji#emoji-object-emoji-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class Emoji {
   /// emoji id
   final String? id;

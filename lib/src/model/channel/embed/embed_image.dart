@@ -6,7 +6,7 @@ part 'embed_image.g.dart';
 /// Embed Image structure
 ///
 /// https://discord.com/developers/docs/resources/channel#embed-object-embed-image-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class EmbedImage {
   /// source url of image (only supports http(s) and attachments)
   final String url;

@@ -12,7 +12,7 @@ part 'thread_metadata.g.dart';
 /// fields that are not needed by other channel types.
 ///
 /// https://discord.com/developers/docs/resources/channel#thread-metadata-object-thread-metadata-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class ThreadMetadata {
   /// whether the thread is archived
   final bool? archived;

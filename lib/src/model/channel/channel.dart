@@ -12,7 +12,7 @@ part 'channel.g.dart';
 /// Represents a guild or DM channel within Discord.
 ///
 /// https://discord.com/developers/docs/resources/channel#channel-object-channel-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class Channel {
   /// the id of this channel
   final String? id;

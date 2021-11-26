@@ -9,7 +9,7 @@ part 'sticker.g.dart';
 /// Sticker structure
 ///
 /// https://discord.com/developers/docs/resources/sticker#sticker-object-sticker-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class Sticker {
   /// id of the sticker
   final String id;

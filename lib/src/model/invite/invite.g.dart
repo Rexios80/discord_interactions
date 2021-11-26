@@ -39,20 +39,30 @@ Invite _$InviteFromJson(Map<String, dynamic> json) => Invite(
               json['guild_scheduled_event'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$InviteToJson(Invite instance) => <String, dynamic>{
-      'code': instance.code,
-      'guild': instance.guild,
-      'channel': instance.channel,
-      'inviter': instance.inviter,
-      'target_type': _$InviteTargetTypeEnumMap[instance.targetType],
-      'target_user': instance.targetUser,
-      'target_application': instance.targetApplication,
-      'approximate_presence_count': instance.approximatePresenceCount,
-      'approximate_member_count': instance.approximateMemberCount,
-      'expires_at': instance.expiresAt?.toIso8601String(),
-      'stage_instance': instance.stageInstance,
-      'guild_scheduled_event': instance.guildScheduledEvent,
-    };
+Map<String, dynamic> _$InviteToJson(Invite instance) {
+  final val = <String, dynamic>{
+    'code': instance.code,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('guild', instance.guild);
+  val['channel'] = instance.channel;
+  writeNotNull('inviter', instance.inviter);
+  writeNotNull('target_type', _$InviteTargetTypeEnumMap[instance.targetType]);
+  writeNotNull('target_user', instance.targetUser);
+  writeNotNull('target_application', instance.targetApplication);
+  writeNotNull('approximate_presence_count', instance.approximatePresenceCount);
+  writeNotNull('approximate_member_count', instance.approximateMemberCount);
+  writeNotNull('expires_at', instance.expiresAt?.toIso8601String());
+  writeNotNull('stage_instance', instance.stageInstance);
+  writeNotNull('guild_scheduled_event', instance.guildScheduledEvent);
+  return val;
+}
 
 const _$InviteTargetTypeEnumMap = {
   InviteTargetType.stream: 1,

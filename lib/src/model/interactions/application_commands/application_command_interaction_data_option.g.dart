@@ -22,14 +22,23 @@ ApplicationCommandInteractionDataOption
         );
 
 Map<String, dynamic> _$ApplicationCommandInteractionDataOptionToJson(
-        ApplicationCommandInteractionDataOption instance) =>
-    <String, dynamic>{
-      'name': instance.name,
-      'type': _$ApplicationCommandOptionTypeEnumMap[instance.type],
-      'value': instance.value,
-      'options': instance.options,
-      'focused': instance.focused,
-    };
+    ApplicationCommandInteractionDataOption instance) {
+  final val = <String, dynamic>{
+    'name': instance.name,
+    'type': _$ApplicationCommandOptionTypeEnumMap[instance.type],
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('value', instance.value);
+  writeNotNull('options', instance.options);
+  writeNotNull('focused', instance.focused);
+  return val;
+}
 
 const _$ApplicationCommandOptionTypeEnumMap = {
   ApplicationCommandOptionType.subCommand: 1,

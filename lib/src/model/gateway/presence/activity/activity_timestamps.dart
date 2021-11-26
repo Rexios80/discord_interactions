@@ -9,7 +9,7 @@ part 'activity_timestamps.g.dart';
 /// Activity Timestamps structure
 ///
 /// https://discord.com/developers/docs/topics/gateway#activity-object-activity-timestamps
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class ActivityTimestamps {
   /// unix time (in milliseconds) of when the activity started
   @UnixTimeConverterNullable()

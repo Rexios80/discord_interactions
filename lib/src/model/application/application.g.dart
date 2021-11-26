@@ -33,24 +33,34 @@ Application _$ApplicationFromJson(Map<String, dynamic> json) => Application(
       flags: const ApplicationFlagConverter().fromJson(json['flags'] as int?),
     );
 
-Map<String, dynamic> _$ApplicationToJson(Application instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'icon': instance.icon,
-      'description': instance.description,
-      'rpc_origins': instance.rpcOrigins,
-      'bot_public': instance.botPublic,
-      'bot_require_code_grant': instance.botRequireCodeGrant,
-      'terms_of_service_url': instance.termsOfServiceUrl,
-      'privacy_policy_url': instance.privacyPolicyUrl,
-      'owner': instance.owner,
-      'summary': instance.summary,
-      'verify_key': instance.verifyKey,
-      'team': instance.team,
-      'guild_id': instance.guildId,
-      'primary_sku_id': instance.primarySkuId,
-      'slug': instance.slug,
-      'cover_image': instance.coverImage,
-      'flags': const ApplicationFlagConverter().toJson(instance.flags),
-    };
+Map<String, dynamic> _$ApplicationToJson(Application instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'name': instance.name,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('icon', instance.icon);
+  val['description'] = instance.description;
+  writeNotNull('rpc_origins', instance.rpcOrigins);
+  val['bot_public'] = instance.botPublic;
+  val['bot_require_code_grant'] = instance.botRequireCodeGrant;
+  writeNotNull('terms_of_service_url', instance.termsOfServiceUrl);
+  writeNotNull('privacy_policy_url', instance.privacyPolicyUrl);
+  writeNotNull('owner', instance.owner);
+  val['summary'] = instance.summary;
+  val['verify_key'] = instance.verifyKey;
+  writeNotNull('team', instance.team);
+  writeNotNull('guild_id', instance.guildId);
+  writeNotNull('primary_sku_id', instance.primarySkuId);
+  writeNotNull('slug', instance.slug);
+  writeNotNull('cover_image', instance.coverImage);
+  writeNotNull(
+      'flags', const ApplicationFlagConverter().toJson(instance.flags));
+  return val;
+}

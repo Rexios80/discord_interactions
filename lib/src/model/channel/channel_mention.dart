@@ -9,7 +9,7 @@ part 'channel_mention.g.dart';
 /// Channel mention structure
 ///
 /// https://discord.com/developers/docs/resources/channel#channel-mention-object-channel-mention-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class ChannelMention {
   /// id of the channel
   final String id;

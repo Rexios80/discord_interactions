@@ -9,7 +9,7 @@ part 'stage_instance.g.dart';
 /// Stage Instance structure
 ///
 /// https://discord.com/developers/docs/resources/stage-instance#stage-instance-object-stage-instance-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class StageInstance {
   /// The id of this Stage instance
   final String id;

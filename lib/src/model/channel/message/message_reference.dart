@@ -6,7 +6,7 @@ part 'message_reference.g.dart';
 /// Message Reference structure
 ///
 /// https://discord.com/developers/docs/resources/channel#message-reference-object-message-reference-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class MessageReference {
   /// id of the originating message
   @JsonKey(name: 'message_id')

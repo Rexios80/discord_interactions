@@ -12,7 +12,7 @@ part 'interaction_callback_data.g.dart';
 /// Not all message fields are currently supported.
 ///
 /// https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-response-object-interaction-callback-data-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class InteractionCallbackData {
   /// is the response TTS
   final bool? tts;

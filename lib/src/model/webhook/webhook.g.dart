@@ -27,20 +27,30 @@ Webhook _$WebhookFromJson(Map<String, dynamic> json) => Webhook(
       url: json['url'] as String?,
     );
 
-Map<String, dynamic> _$WebhookToJson(Webhook instance) => <String, dynamic>{
-      'id': instance.id,
-      'type': _$WebhookTypeEnumMap[instance.type],
-      'guild_id': instance.guildId,
-      'channel_id': instance.channelId,
-      'user': instance.user,
-      'name': instance.name,
-      'avatar': instance.avatar,
-      'token': instance.token,
-      'application_id': instance.applicationId,
-      'source_guild': instance.sourceGuild,
-      'source_channel': instance.sourceChannel,
-      'url': instance.url,
-    };
+Map<String, dynamic> _$WebhookToJson(Webhook instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'type': _$WebhookTypeEnumMap[instance.type],
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('guild_id', instance.guildId);
+  writeNotNull('channel_id', instance.channelId);
+  writeNotNull('user', instance.user);
+  writeNotNull('name', instance.name);
+  writeNotNull('avatar', instance.avatar);
+  writeNotNull('token', instance.token);
+  val['application_id'] = instance.applicationId;
+  writeNotNull('source_guild', instance.sourceGuild);
+  writeNotNull('source_channel', instance.sourceChannel);
+  writeNotNull('url', instance.url);
+  return val;
+}
 
 const _$WebhookTypeEnumMap = {
   WebhookType.incoming: 1,

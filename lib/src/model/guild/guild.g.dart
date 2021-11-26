@@ -91,63 +91,74 @@ Guild _$GuildFromJson(Map<String, dynamic> json) => Guild(
           .toList(),
     );
 
-Map<String, dynamic> _$GuildToJson(Guild instance) => <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'icon': instance.icon,
-      'icon_hash': instance.iconHash,
-      'splash': instance.splash,
-      'discovery_splash': instance.discoverySplash,
-      'owner': instance.owner,
-      'ownerId': instance.ownerId,
-      'permissions':
-          const PermissionConverterNullable().toJson(instance.permissions),
-      'afk_channel_id': instance.afkChannelId,
-      'afk_timeout': instance.afkTimeout,
-      'widget_enabled': instance.widgetEnabled,
-      'widget_channel_id': instance.widgetChannelId,
-      'verification_level':
-          _$VerificationLevelEnumMap[instance.verificationLevel],
-      'default_message_notifications': _$DefaultMessageNotificationLevelEnumMap[
-          instance.defaultMessageNotifications],
-      'explicit_content_filter':
-          _$ExplicitContentFilterLevelEnumMap[instance.explicitContentFilter],
-      'roles': instance.roles,
-      'emojis': instance.emojis,
-      'features':
-          instance.features?.map((e) => _$GuildFeatureEnumMap[e]).toList(),
-      'mfa_level': _$MfaLevelEnumMap[instance.mfaLevel],
-      'application_id': instance.applicationId,
-      'system_channel_id': instance.systemChannelId,
-      'system_channel_flags': const SystemChannelFlagConverter()
-          .toJson(instance.systemChannelFlags),
-      'rules_channel_id': instance.rulesChannelId,
-      'joined_at': instance.joinedAt?.toIso8601String(),
-      'large': instance.large,
-      'unavailable': instance.unavailable,
-      'member_count': instance.memberCount,
-      'voice_states': instance.voiceStates,
-      'members': instance.members,
-      'channels': instance.channels,
-      'threads': instance.threads,
-      'presences': instance.presences,
-      'max_presences': instance.maxPresences,
-      'max_members': instance.maxMembers,
-      'vanity_url_code': instance.vanityUrlCode,
-      'description': instance.description,
-      'banner': instance.banner,
-      'premium_tier': _$PremiumTierEnumMap[instance.premiumTier],
-      'premium_subscription_count': instance.premiumSubscriptionCount,
-      'preferred_locale': instance.preferredLocale,
-      'public_updates_channel_id': instance.publicUpdatesChannelId,
-      'max_video_channel_users': instance.maxVideoChannelUsers,
-      'approximate_member_count': instance.approximateMemberCount,
-      'approximate_presence_count': instance.approximatePresenceCount,
-      'welcome_screen': instance.welcomeScreen,
-      'nsfw_level': _$GuildNsfwLevelEnumMap[instance.nsfwLevel],
-      'stage_instances': instance.stageInstances,
-      'stickers': instance.stickers,
-    };
+Map<String, dynamic> _$GuildToJson(Guild instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('id', instance.id);
+  writeNotNull('name', instance.name);
+  writeNotNull('icon', instance.icon);
+  writeNotNull('icon_hash', instance.iconHash);
+  writeNotNull('splash', instance.splash);
+  writeNotNull('discovery_splash', instance.discoverySplash);
+  writeNotNull('owner', instance.owner);
+  writeNotNull('ownerId', instance.ownerId);
+  writeNotNull('permissions',
+      const PermissionConverterNullable().toJson(instance.permissions));
+  writeNotNull('afk_channel_id', instance.afkChannelId);
+  writeNotNull('afk_timeout', instance.afkTimeout);
+  writeNotNull('widget_enabled', instance.widgetEnabled);
+  writeNotNull('widget_channel_id', instance.widgetChannelId);
+  writeNotNull('verification_level',
+      _$VerificationLevelEnumMap[instance.verificationLevel]);
+  writeNotNull(
+      'default_message_notifications',
+      _$DefaultMessageNotificationLevelEnumMap[
+          instance.defaultMessageNotifications]);
+  writeNotNull('explicit_content_filter',
+      _$ExplicitContentFilterLevelEnumMap[instance.explicitContentFilter]);
+  writeNotNull('roles', instance.roles);
+  writeNotNull('emojis', instance.emojis);
+  writeNotNull('features',
+      instance.features?.map((e) => _$GuildFeatureEnumMap[e]).toList());
+  writeNotNull('mfa_level', _$MfaLevelEnumMap[instance.mfaLevel]);
+  writeNotNull('application_id', instance.applicationId);
+  writeNotNull('system_channel_id', instance.systemChannelId);
+  writeNotNull('system_channel_flags',
+      const SystemChannelFlagConverter().toJson(instance.systemChannelFlags));
+  writeNotNull('rules_channel_id', instance.rulesChannelId);
+  writeNotNull('joined_at', instance.joinedAt?.toIso8601String());
+  writeNotNull('large', instance.large);
+  writeNotNull('unavailable', instance.unavailable);
+  writeNotNull('member_count', instance.memberCount);
+  writeNotNull('voice_states', instance.voiceStates);
+  writeNotNull('members', instance.members);
+  writeNotNull('channels', instance.channels);
+  writeNotNull('threads', instance.threads);
+  writeNotNull('presences', instance.presences);
+  writeNotNull('max_presences', instance.maxPresences);
+  writeNotNull('max_members', instance.maxMembers);
+  writeNotNull('vanity_url_code', instance.vanityUrlCode);
+  writeNotNull('description', instance.description);
+  writeNotNull('banner', instance.banner);
+  writeNotNull('premium_tier', _$PremiumTierEnumMap[instance.premiumTier]);
+  writeNotNull('premium_subscription_count', instance.premiumSubscriptionCount);
+  writeNotNull('preferred_locale', instance.preferredLocale);
+  writeNotNull('public_updates_channel_id', instance.publicUpdatesChannelId);
+  writeNotNull('max_video_channel_users', instance.maxVideoChannelUsers);
+  writeNotNull('approximate_member_count', instance.approximateMemberCount);
+  writeNotNull('approximate_presence_count', instance.approximatePresenceCount);
+  writeNotNull('welcome_screen', instance.welcomeScreen);
+  writeNotNull('nsfw_level', _$GuildNsfwLevelEnumMap[instance.nsfwLevel]);
+  writeNotNull('stage_instances', instance.stageInstances);
+  writeNotNull('stickers', instance.stickers);
+  return val;
+}
 
 const _$VerificationLevelEnumMap = {
   VerificationLevel.none: 0,

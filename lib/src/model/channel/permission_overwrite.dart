@@ -12,7 +12,7 @@ part 'permission_overwrite.g.dart';
 /// See permissions for more information about the allow and deny fields.
 ///
 /// https://discord.com/developers/docs/resources/channel#overwrite-object-overwrite-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class PermissionOverwrite {
   /// role or user id
   final String id;

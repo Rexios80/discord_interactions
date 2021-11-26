@@ -33,25 +33,34 @@ Integration _$IntegrationFromJson(Map<String, dynamic> json) => Integration(
               json['application'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$IntegrationToJson(Integration instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'type': _$IntegrationTypeEnumMap[instance.type],
-      'enabled': instance.enabled,
-      'syncing': instance.syncing,
-      'role_id': instance.roleId,
-      'enable_emoticons': instance.enableEmoticons,
-      'expireBehavior':
-          _$IntegrationExpireBehaviorEnumMap[instance.expireBehavior],
-      'expire_grace_period': instance.expireGracePeriod,
-      'user': instance.user,
-      'account': instance.account,
-      'synced_at': instance.syncedAt?.toIso8601String(),
-      'subscriber_count': instance.subscriberCount,
-      'revoked': instance.revoked,
-      'application': instance.application,
-    };
+Map<String, dynamic> _$IntegrationToJson(Integration instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'name': instance.name,
+    'type': _$IntegrationTypeEnumMap[instance.type],
+    'enabled': instance.enabled,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('syncing', instance.syncing);
+  writeNotNull('role_id', instance.roleId);
+  writeNotNull('enable_emoticons', instance.enableEmoticons);
+  writeNotNull('expireBehavior',
+      _$IntegrationExpireBehaviorEnumMap[instance.expireBehavior]);
+  writeNotNull('expire_grace_period', instance.expireGracePeriod);
+  writeNotNull('user', instance.user);
+  val['account'] = instance.account;
+  writeNotNull('synced_at', instance.syncedAt?.toIso8601String());
+  writeNotNull('subscriber_count', instance.subscriberCount);
+  writeNotNull('revoked', instance.revoked);
+  writeNotNull('application', instance.application);
+  return val;
+}
 
 const _$IntegrationTypeEnumMap = {
   IntegrationType.twitch: 'twitch',

@@ -16,10 +16,19 @@ WelcomeScreenChannel _$WelcomeScreenChannelFromJson(
     );
 
 Map<String, dynamic> _$WelcomeScreenChannelToJson(
-        WelcomeScreenChannel instance) =>
-    <String, dynamic>{
-      'channel_id': instance.channelId,
-      'description': instance.description,
-      'emoji_id': instance.emojiId,
-      'emoji_name': instance.emojiName,
-    };
+    WelcomeScreenChannel instance) {
+  final val = <String, dynamic>{
+    'channel_id': instance.channelId,
+    'description': instance.description,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('emoji_id', instance.emojiId);
+  writeNotNull('emoji_name', instance.emojiName);
+  return val;
+}

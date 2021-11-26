@@ -10,7 +10,7 @@ part 'application.g.dart';
 /// Application structure
 ///
 /// https://discord.com/developers/docs/resources/application#application-object-application-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class Application {
   /// the id of the app
   final String id;

@@ -23,16 +23,27 @@ Role _$RoleFromJson(Map<String, dynamic> json) => Role(
           : RoleTags.fromJson(json['tags'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$RoleToJson(Role instance) => <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'color': instance.color,
-      'hoist': instance.hoist,
-      'icon': instance.icon,
-      'unicode_emoji': instance.unicodeEmoji,
-      'position': instance.position,
-      'permissions': const PermissionConverter().toJson(instance.permissions),
-      'managed': instance.managed,
-      'mentionable': instance.mentionable,
-      'tags': instance.tags,
-    };
+Map<String, dynamic> _$RoleToJson(Role instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'name': instance.name,
+    'color': instance.color,
+    'hoist': instance.hoist,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('icon', instance.icon);
+  writeNotNull('unicode_emoji', instance.unicodeEmoji);
+  val['position'] = instance.position;
+  writeNotNull(
+      'permissions', const PermissionConverter().toJson(instance.permissions));
+  val['managed'] = instance.managed;
+  val['mentionable'] = instance.mentionable;
+  writeNotNull('tags', instance.tags);
+  return val;
+}

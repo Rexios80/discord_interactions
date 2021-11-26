@@ -9,7 +9,7 @@ part 'integration_application.g.dart';
 /// Integration Application structure
 ///
 /// https://discord.com/developers/docs/resources/guild#integration-application-object-integration-application-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class IntegrationApplication {
   /// the id of the app
   final String id;

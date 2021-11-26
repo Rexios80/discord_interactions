@@ -6,7 +6,7 @@ part 'embed_author.g.dart';
 /// Embed Author structure
 ///
 /// https://discord.com/developers/docs/resources/channel#embed-object-embed-author-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class EmbedAuthor {
   /// name of author
   final String name;

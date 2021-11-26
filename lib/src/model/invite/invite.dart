@@ -9,7 +9,7 @@ part 'invite.g.dart';
 /// Invite structure
 ///
 /// https://discord.com/developers/docs/resources/invite#invite-object-invite-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class Invite {
   /// the invite code (unique ID)
   final String code;

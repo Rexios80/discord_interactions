@@ -14,10 +14,18 @@ ActivityAssets _$ActivityAssetsFromJson(Map<String, dynamic> json) =>
       smallText: json['small_text'] as String?,
     );
 
-Map<String, dynamic> _$ActivityAssetsToJson(ActivityAssets instance) =>
-    <String, dynamic>{
-      'large_image': instance.largeImage,
-      'large_text': instance.largeText,
-      'small_image': instance.smallImage,
-      'small_text': instance.smallText,
-    };
+Map<String, dynamic> _$ActivityAssetsToJson(ActivityAssets instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('large_image', instance.largeImage);
+  writeNotNull('large_text', instance.largeText);
+  writeNotNull('small_image', instance.smallImage);
+  writeNotNull('small_text', instance.smallText);
+  return val;
+}

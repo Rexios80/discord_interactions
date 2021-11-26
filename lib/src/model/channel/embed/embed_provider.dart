@@ -6,7 +6,7 @@ part 'embed_provider.g.dart';
 /// Embed Provider structure
 ///
 /// https://discord.com/developers/docs/resources/channel#embed-object-embed-provider-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class EmbedProvider {
   /// name of provider
   final String? name;

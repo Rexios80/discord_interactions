@@ -13,7 +13,7 @@ part 'client_status.g.dart';
 /// present.
 ///
 /// https://discord.com/developers/docs/topics/gateway#client-status-object
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class ClientStatus {
   /// the user's status set for an active desktop (Windows, Linux, Mac) application session
   final PresenceStatus? desktop;

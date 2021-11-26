@@ -22,18 +22,26 @@ ApplicationCommand _$ApplicationCommandFromJson(Map<String, dynamic> json) =>
       version: json['version'] as String?,
     );
 
-Map<String, dynamic> _$ApplicationCommandToJson(ApplicationCommand instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'type': _$ApplicationCommandTypeEnumMap[instance.type],
-      'application_id': instance.applicationId,
-      'guild_id': instance.guildId,
-      'name': instance.name,
-      'description': instance.description,
-      'options': instance.options,
-      'default_permission': instance.defaultPermission,
-      'version': instance.version,
-    };
+Map<String, dynamic> _$ApplicationCommandToJson(ApplicationCommand instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('id', instance.id);
+  writeNotNull('type', _$ApplicationCommandTypeEnumMap[instance.type]);
+  writeNotNull('application_id', instance.applicationId);
+  writeNotNull('guild_id', instance.guildId);
+  writeNotNull('name', instance.name);
+  writeNotNull('description', instance.description);
+  writeNotNull('options', instance.options);
+  writeNotNull('default_permission', instance.defaultPermission);
+  writeNotNull('version', instance.version);
+  return val;
+}
 
 const _$ApplicationCommandTypeEnumMap = {
   ApplicationCommandType.chatInput: 1,

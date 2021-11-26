@@ -37,26 +37,35 @@ GuildScheduledEvent _$GuildScheduledEventFromJson(Map<String, dynamic> json) =>
       userCount: json['user_count'] as int?,
     );
 
-Map<String, dynamic> _$GuildScheduledEventToJson(
-        GuildScheduledEvent instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'guild_id': instance.guildId,
-      'channel_id': instance.channelId,
-      'creator_id': instance.creatorId,
-      'name': instance.name,
-      'description': instance.description,
-      'scheduled_start_time': instance.scheduledStartTime?.toIso8601String(),
-      'scheduled_end_time': instance.scheduledEndTime?.toIso8601String(),
-      'privacy_level': _$PrivacyLevelEnumMap[instance.privacyLevel],
-      'status': _$GuildScheduledEventStatusEnumMap[instance.status],
-      'entity_type':
-          _$GuildScheduledEventEntityTypeEnumMap[instance.entityType],
-      'entity_id': instance.entityId,
-      'entity_metadata': instance.entityMetadata,
-      'creator': instance.creator,
-      'user_count': instance.userCount,
-    };
+Map<String, dynamic> _$GuildScheduledEventToJson(GuildScheduledEvent instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('id', instance.id);
+  writeNotNull('guild_id', instance.guildId);
+  writeNotNull('channel_id', instance.channelId);
+  writeNotNull('creator_id', instance.creatorId);
+  writeNotNull('name', instance.name);
+  writeNotNull('description', instance.description);
+  writeNotNull(
+      'scheduled_start_time', instance.scheduledStartTime?.toIso8601String());
+  writeNotNull(
+      'scheduled_end_time', instance.scheduledEndTime?.toIso8601String());
+  writeNotNull('privacy_level', _$PrivacyLevelEnumMap[instance.privacyLevel]);
+  writeNotNull('status', _$GuildScheduledEventStatusEnumMap[instance.status]);
+  writeNotNull('entity_type',
+      _$GuildScheduledEventEntityTypeEnumMap[instance.entityType]);
+  writeNotNull('entity_id', instance.entityId);
+  writeNotNull('entity_metadata', instance.entityMetadata);
+  writeNotNull('creator', instance.creator);
+  writeNotNull('user_count', instance.userCount);
+  return val;
+}
 
 const _$PrivacyLevelEnumMap = {
   PrivacyLevel.public: 1,

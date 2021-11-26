@@ -10,7 +10,7 @@ part 'user.g.dart';
 /// User structure
 ///
 /// https://discord.com/developers/docs/resources/user#user-object-user-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class User {
   /// the user's id
   ///

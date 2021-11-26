@@ -13,10 +13,18 @@ ThreadMember _$ThreadMemberFromJson(Map<String, dynamic> json) => ThreadMember(
       flags: json['flags'] as int,
     );
 
-Map<String, dynamic> _$ThreadMemberToJson(ThreadMember instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'user_id': instance.userId,
-      'join_timestamp': instance.joinTimestamp.toIso8601String(),
-      'flags': instance.flags,
-    };
+Map<String, dynamic> _$ThreadMemberToJson(ThreadMember instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('id', instance.id);
+  writeNotNull('user_id', instance.userId);
+  val['join_timestamp'] = instance.joinTimestamp.toIso8601String();
+  val['flags'] = instance.flags;
+  return val;
+}

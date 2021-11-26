@@ -14,10 +14,18 @@ MessageReference _$MessageReferenceFromJson(Map<String, dynamic> json) =>
       failIfNotExists: json['fail_if_not_exists'] as bool?,
     );
 
-Map<String, dynamic> _$MessageReferenceToJson(MessageReference instance) =>
-    <String, dynamic>{
-      'message_id': instance.messageId,
-      'channel_id': instance.channelId,
-      'guild_id': instance.guildId,
-      'fail_if_not_exists': instance.failIfNotExists,
-    };
+Map<String, dynamic> _$MessageReferenceToJson(MessageReference instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('message_id', instance.messageId);
+  writeNotNull('channel_id', instance.channelId);
+  writeNotNull('guild_id', instance.guildId);
+  writeNotNull('fail_if_not_exists', instance.failIfNotExists);
+  return val;
+}

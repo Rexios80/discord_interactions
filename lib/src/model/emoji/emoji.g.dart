@@ -20,13 +20,22 @@ Emoji _$EmojiFromJson(Map<String, dynamic> json) => Emoji(
       available: json['available'] as bool?,
     );
 
-Map<String, dynamic> _$EmojiToJson(Emoji instance) => <String, dynamic>{
-      'id': instance.id,
-      'name': instance.name,
-      'roles': instance.roles,
-      'user': instance.user,
-      'require_colons': instance.requireColons,
-      'managed': instance.managed,
-      'animated': instance.animated,
-      'available': instance.available,
-    };
+Map<String, dynamic> _$EmojiToJson(Emoji instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('id', instance.id);
+  writeNotNull('name', instance.name);
+  writeNotNull('roles', instance.roles);
+  writeNotNull('user', instance.user);
+  writeNotNull('require_colons', instance.requireColons);
+  writeNotNull('managed', instance.managed);
+  writeNotNull('animated', instance.animated);
+  writeNotNull('available', instance.available);
+  return val;
+}

@@ -78,38 +78,47 @@ Message _$MessageFromJson(Map<String, dynamic> json) => Message(
           .toList(),
     );
 
-Map<String, dynamic> _$MessageToJson(Message instance) => <String, dynamic>{
-      'id': instance.id,
-      'channel_id': instance.channelId,
-      'guild_id': instance.guildId,
-      'author': instance.author,
-      'member': instance.member,
-      'content': instance.content,
-      'timestamp': instance.timestamp?.toIso8601String(),
-      'edited_timestamp': instance.editedTimestamp?.toIso8601String(),
-      'tts': instance.tts,
-      'mention_everyone': instance.mentionEveryone,
-      'mentions': instance.mentions,
-      'mention_roles': instance.mentionRoles,
-      'mention_channels': instance.mentionChannels,
-      'attachments': instance.attachments,
-      'embeds': instance.embeds,
-      'reactions': instance.reactions,
-      'nonce': instance.nonce,
-      'pinned': instance.pinned,
-      'webhook_id': instance.webhookId,
-      'type': _$MessageTypeEnumMap[instance.type],
-      'activity': instance.activity,
-      'application': instance.application,
-      'application_id': instance.applicationId,
-      'message_reference': instance.messageReference,
-      'flags': const MessageFlagConverter().toJson(instance.flags),
-      'referenced_message': instance.referencedMessage,
-      'interaction': instance.interaction,
-      'thread': instance.thread,
-      'components': instance.components,
-      'sitcker_items': instance.stickerItems,
-    };
+Map<String, dynamic> _$MessageToJson(Message instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('id', instance.id);
+  writeNotNull('channel_id', instance.channelId);
+  writeNotNull('guild_id', instance.guildId);
+  writeNotNull('author', instance.author);
+  writeNotNull('member', instance.member);
+  writeNotNull('content', instance.content);
+  writeNotNull('timestamp', instance.timestamp?.toIso8601String());
+  writeNotNull('edited_timestamp', instance.editedTimestamp?.toIso8601String());
+  writeNotNull('tts', instance.tts);
+  writeNotNull('mention_everyone', instance.mentionEveryone);
+  writeNotNull('mentions', instance.mentions);
+  writeNotNull('mention_roles', instance.mentionRoles);
+  writeNotNull('mention_channels', instance.mentionChannels);
+  writeNotNull('attachments', instance.attachments);
+  writeNotNull('embeds', instance.embeds);
+  writeNotNull('reactions', instance.reactions);
+  writeNotNull('nonce', instance.nonce);
+  writeNotNull('pinned', instance.pinned);
+  writeNotNull('webhook_id', instance.webhookId);
+  writeNotNull('type', _$MessageTypeEnumMap[instance.type]);
+  writeNotNull('activity', instance.activity);
+  writeNotNull('application', instance.application);
+  writeNotNull('application_id', instance.applicationId);
+  writeNotNull('message_reference', instance.messageReference);
+  writeNotNull('flags', const MessageFlagConverter().toJson(instance.flags));
+  writeNotNull('referenced_message', instance.referencedMessage);
+  writeNotNull('interaction', instance.interaction);
+  writeNotNull('thread', instance.thread);
+  writeNotNull('components', instance.components);
+  writeNotNull('sitcker_items', instance.stickerItems);
+  return val;
+}
 
 const _$MessageTypeEnumMap = {
   MessageType.defaultType: 0,

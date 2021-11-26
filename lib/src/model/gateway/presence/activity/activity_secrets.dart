@@ -6,7 +6,7 @@ part 'activity_secrets.g.dart';
 /// Activity Secrets structure
 ///
 /// https://discord.com/developers/docs/topics/gateway#activity-object-activity-secrets
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class ActivitySecrets {
   /// the secret for joining a party
   final String? join;

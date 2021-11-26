@@ -9,7 +9,7 @@ part 'list_threads_response.g.dart';
 /// List Threads Response structure
 ///
 /// https://discord.com/developers/docs/resources/channel#list-public-archived-threads-response-body
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class ListThreadsResponse {
   /// the threads
   final List<Channel> threads;

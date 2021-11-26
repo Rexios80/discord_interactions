@@ -22,19 +22,29 @@ Sticker _$StickerFromJson(Map<String, dynamic> json) => Sticker(
       sortValue: json['sort_value'] as int?,
     );
 
-Map<String, dynamic> _$StickerToJson(Sticker instance) => <String, dynamic>{
-      'id': instance.id,
-      'pack_id': instance.packId,
-      'name': instance.name,
-      'description': instance.description,
-      'tags': instance.tags,
-      'type': _$StickerTypeEnumMap[instance.type],
-      'format_type': _$StickerFormatTypeEnumMap[instance.formatType],
-      'available': instance.available,
-      'guild_id': instance.guildId,
-      'user': instance.user,
-      'sort_value': instance.sortValue,
-    };
+Map<String, dynamic> _$StickerToJson(Sticker instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('pack_id', instance.packId);
+  val['name'] = instance.name;
+  writeNotNull('description', instance.description);
+  writeNotNull('tags', instance.tags);
+  writeNotNull('type', _$StickerTypeEnumMap[instance.type]);
+  val['format_type'] = _$StickerFormatTypeEnumMap[instance.formatType];
+  writeNotNull('available', instance.available);
+  writeNotNull('guild_id', instance.guildId);
+  writeNotNull('user', instance.user);
+  writeNotNull('sort_value', instance.sortValue);
+  return val;
+}
 
 const _$StickerTypeEnumMap = {
   StickerType.standard: 1,

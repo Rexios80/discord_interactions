@@ -30,20 +30,29 @@ ApplicationCommandOption _$ApplicationCommandOptionFromJson(
     );
 
 Map<String, dynamic> _$ApplicationCommandOptionToJson(
-        ApplicationCommandOption instance) =>
-    <String, dynamic>{
-      'type': _$ApplicationCommandOptionTypeEnumMap[instance.type],
-      'name': instance.name,
-      'description': instance.description,
-      'required': instance.required,
-      'choices': instance.choices,
-      'options': instance.options,
-      'channel_types':
-          instance.channelTypes?.map((e) => _$ChannelTypeEnumMap[e]).toList(),
-      'min_value': instance.minValue,
-      'max_value': instance.maxValue,
-      'autocomplete': instance.autocomplete,
-    };
+    ApplicationCommandOption instance) {
+  final val = <String, dynamic>{
+    'type': _$ApplicationCommandOptionTypeEnumMap[instance.type],
+    'name': instance.name,
+    'description': instance.description,
+    'required': instance.required,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('choices', instance.choices);
+  writeNotNull('options', instance.options);
+  writeNotNull('channel_types',
+      instance.channelTypes?.map((e) => _$ChannelTypeEnumMap[e]).toList());
+  writeNotNull('min_value', instance.minValue);
+  writeNotNull('max_value', instance.maxValue);
+  writeNotNull('autocomplete', instance.autocomplete);
+  return val;
+}
 
 const _$ApplicationCommandOptionTypeEnumMap = {
   ApplicationCommandOptionType.subCommand: 1,

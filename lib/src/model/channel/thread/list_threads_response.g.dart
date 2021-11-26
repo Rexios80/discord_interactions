@@ -17,10 +17,18 @@ ListThreadsResponse _$ListThreadsResponseFromJson(Map<String, dynamic> json) =>
       hasMore: json['has_more'] as bool?,
     );
 
-Map<String, dynamic> _$ListThreadsResponseToJson(
-        ListThreadsResponse instance) =>
-    <String, dynamic>{
-      'threads': instance.threads,
-      'members': instance.members,
-      'has_more': instance.hasMore,
-    };
+Map<String, dynamic> _$ListThreadsResponseToJson(ListThreadsResponse instance) {
+  final val = <String, dynamic>{
+    'threads': instance.threads,
+    'members': instance.members,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('has_more', instance.hasMore);
+  return val;
+}

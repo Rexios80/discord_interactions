@@ -22,15 +22,22 @@ PresenceUpdateEvent _$PresenceUpdateEventFromJson(Map<String, dynamic> json) =>
               json['client_status'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$PresenceUpdateEventToJson(
-        PresenceUpdateEvent instance) =>
-    <String, dynamic>{
-      'user': instance.user,
-      'guild_id': instance.guildId,
-      'status': _$PresenceStatusEnumMap[instance.status],
-      'activities': instance.activities,
-      'client_status': instance.clientStatus,
-    };
+Map<String, dynamic> _$PresenceUpdateEventToJson(PresenceUpdateEvent instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('user', instance.user);
+  writeNotNull('guild_id', instance.guildId);
+  writeNotNull('status', _$PresenceStatusEnumMap[instance.status]);
+  writeNotNull('activities', instance.activities);
+  writeNotNull('client_status', instance.clientStatus);
+  return val;
+}
 
 const _$PresenceStatusEnumMap = {
   PresenceStatus.idle: 'idle',

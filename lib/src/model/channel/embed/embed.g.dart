@@ -38,21 +38,30 @@ Embed _$EmbedFromJson(Map<String, dynamic> json) => Embed(
           .toList(),
     );
 
-Map<String, dynamic> _$EmbedToJson(Embed instance) => <String, dynamic>{
-      'title': instance.title,
-      'type': _$EmbedTypeEnumMap[instance.type],
-      'description': instance.description,
-      'url': instance.url,
-      'timestamp': instance.timestamp?.toIso8601String(),
-      'color': instance.color,
-      'footer': instance.footer,
-      'image': instance.image,
-      'thumbnail': instance.thumbnail,
-      'video': instance.video,
-      'provider': instance.provider,
-      'author': instance.author,
-      'fields': instance.fields,
-    };
+Map<String, dynamic> _$EmbedToJson(Embed instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('title', instance.title);
+  writeNotNull('type', _$EmbedTypeEnumMap[instance.type]);
+  writeNotNull('description', instance.description);
+  writeNotNull('url', instance.url);
+  writeNotNull('timestamp', instance.timestamp?.toIso8601String());
+  writeNotNull('color', instance.color);
+  writeNotNull('footer', instance.footer);
+  writeNotNull('image', instance.image);
+  writeNotNull('thumbnail', instance.thumbnail);
+  writeNotNull('video', instance.video);
+  writeNotNull('provider', instance.provider);
+  writeNotNull('author', instance.author);
+  writeNotNull('fields', instance.fields);
+  return val;
+}
 
 const _$EmbedTypeEnumMap = {
   EmbedType.rich: 'rich',

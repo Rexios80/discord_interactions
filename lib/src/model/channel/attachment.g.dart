@@ -19,16 +19,25 @@ Attachment _$AttachmentFromJson(Map<String, dynamic> json) => Attachment(
       ephemeral: json['ephemeral'] as bool?,
     );
 
-Map<String, dynamic> _$AttachmentToJson(Attachment instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'filename': instance.filename,
-      'description': instance.description,
-      'content_type': instance.contentType,
-      'size': instance.size,
-      'url': instance.url,
-      'proxy_url': instance.proxyUrl,
-      'height': instance.height,
-      'width': instance.width,
-      'ephemeral': instance.ephemeral,
-    };
+Map<String, dynamic> _$AttachmentToJson(Attachment instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'filename': instance.filename,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('description', instance.description);
+  writeNotNull('content_type', instance.contentType);
+  writeNotNull('size', instance.size);
+  writeNotNull('url', instance.url);
+  writeNotNull('proxy_url', instance.proxyUrl);
+  writeNotNull('height', instance.height);
+  writeNotNull('width', instance.width);
+  writeNotNull('ephemeral', instance.ephemeral);
+  return val;
+}

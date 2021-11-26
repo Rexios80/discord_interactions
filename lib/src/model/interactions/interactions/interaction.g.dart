@@ -28,20 +28,29 @@ Interaction _$InteractionFromJson(Map<String, dynamic> json) => Interaction(
           : Message.fromJson(json['message'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$InteractionToJson(Interaction instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'application_id': instance.applicationId,
-      'type': _$InteractionTypeEnumMap[instance.type],
-      'data': instance.data,
-      'guild_id': instance.guildId,
-      'channel_id': instance.channelId,
-      'member': instance.member,
-      'user': instance.user,
-      'token': instance.token,
-      'version': instance.version,
-      'message': instance.message,
-    };
+Map<String, dynamic> _$InteractionToJson(Interaction instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'application_id': instance.applicationId,
+    'type': _$InteractionTypeEnumMap[instance.type],
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('data', instance.data);
+  writeNotNull('guild_id', instance.guildId);
+  writeNotNull('channel_id', instance.channelId);
+  writeNotNull('member', instance.member);
+  writeNotNull('user', instance.user);
+  val['token'] = instance.token;
+  val['version'] = instance.version;
+  writeNotNull('message', instance.message);
+  return val;
+}
 
 const _$InteractionTypeEnumMap = {
   InteractionType.ping: 1,

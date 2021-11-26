@@ -14,14 +14,22 @@ PermissionOverwrite _$PermissionOverwriteFromJson(Map<String, dynamic> json) =>
       deny: const PermissionConverter().fromJson(json['deny'] as String),
     );
 
-Map<String, dynamic> _$PermissionOverwriteToJson(
-        PermissionOverwrite instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'type': _$PermissionOverwriteTypeEnumMap[instance.type],
-      'allow': const PermissionConverter().toJson(instance.allow),
-      'deny': const PermissionConverter().toJson(instance.deny),
-    };
+Map<String, dynamic> _$PermissionOverwriteToJson(PermissionOverwrite instance) {
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'type': _$PermissionOverwriteTypeEnumMap[instance.type],
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('allow', const PermissionConverter().toJson(instance.allow));
+  writeNotNull('deny', const PermissionConverter().toJson(instance.deny));
+  return val;
+}
 
 const _$PermissionOverwriteTypeEnumMap = {
   PermissionOverwriteType.role: 0,

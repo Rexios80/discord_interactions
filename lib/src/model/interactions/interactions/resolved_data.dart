@@ -11,7 +11,7 @@ part 'resolved_data.g.dart';
 /// If data for a Member is included, data for its corresponding User will also be included.
 ///
 /// https://discord.com/developers/docs/interactions/receiving-and-responding#interaction-object-resolved-data-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class ResolvedData {
   /// the ids and User objects
   final Map<String, User>? users;

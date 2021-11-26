@@ -15,7 +15,7 @@ part 'application_command_interaction_data_option.g.dart';
 /// [value] and [options] are mutually exclusive.
 ///
 /// https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-interaction-data-option-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class ApplicationCommandInteractionDataOption {
   /// the name of the parameter
   final String name;

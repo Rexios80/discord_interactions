@@ -16,7 +16,7 @@ part 'message_interaction.g.dart';
 /// preexisting messages.
 ///
 /// https://discord.com/developers/docs/interactions/receiving-and-responding#message-interaction-object-message-interaction-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class MessageInteraction {
   /// the id of the interaction
   final String id;

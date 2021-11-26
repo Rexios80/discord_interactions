@@ -6,7 +6,7 @@ part 'welcome_screen_channel.g.dart';
 /// Welcome Screen Channel structure
 ///
 /// https://discord.com/developers/docs/resources/guild#welcome-screen-object-welcome-screen-channel-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class WelcomeScreenChannel {
   /// the channel's id
   @JsonKey(name: 'channel_id')

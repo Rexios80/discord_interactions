@@ -8,7 +8,7 @@ part 'application_command_option_choice.g.dart';
 /// If you specify choices for an option, they are the only valid values for a user to pick
 ///
 /// https://discord.com/developers/docs/interactions/application-commands#application-command-object-application-command-option-choice-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class ApplicationCommandOptionChoice {
   /// 1-100 character choice name
   final String name;
