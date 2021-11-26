@@ -19,7 +19,7 @@ class EmojisApi {
   /// Returns a list of [Emoji] objects for the given guild.
   ///
   /// https://discord.com/developers/docs/resources/emoji#list-guild-emojis
-  Future<DiscordResponse<List<Emoji>>> listGuildEmojis(String guildId) async {
+  Future<DiscordResponse<List<Emoji>>> listGuildEmojis(String guildId) {
     return validateApiCall(
       _dio.get('$_basePath/$guildId/emojis'),
       responseTransformer: (data) =>
@@ -33,7 +33,7 @@ class EmojisApi {
   Future<DiscordResponse<Emoji>> getGuildEmoji(
     String guildId, {
     required String emojiId,
-  }) async {
+  }) {
     return validateApiCall(
       _dio.get('$_basePath/$guildId/emojis/$emojiId'),
       responseTransformer: (data) => Emoji.fromJson(data),
@@ -65,7 +65,7 @@ class EmojisApi {
     /// roles allowed to use this emoji
     List<String>? roles,
     String? reason,
-  }) async {
+  }) {
     return validateApiCall(
       _dio.post(
         '$_basePath/$guildId/emojis',
@@ -101,7 +101,7 @@ class EmojisApi {
     /// roles allowed to use this emoji
     List<String>? roles,
     String? reason,
-  }) async {
+  }) {
     return validateApiCall(
       _dio.patch(
         '$_basePath/$guildId/emojis/$emojiId',
@@ -130,7 +130,7 @@ class EmojisApi {
     String guildId, {
     required String emojiId,
     String? reason,
-  }) async {
+  }) {
     return validateApiCall(
       _dio.delete(
         '$_basePath/$guildId/emojis/$emojiId',

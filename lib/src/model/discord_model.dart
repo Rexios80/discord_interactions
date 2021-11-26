@@ -85,6 +85,7 @@ export 'guild/guild_feature.dart';
 export 'guild/guild_member.dart';
 export 'guild/guild_nsfw_level.dart';
 export 'guild/guild_preview.dart';
+export 'guild/guild_widget.dart';
 export 'guild/guild.dart';
 export 'guild/mfa_level.dart';
 export 'guild/premium_tier.dart';
@@ -92,6 +93,7 @@ export 'guild/system_channel_flag.dart';
 export 'guild/verification_level.dart';
 export 'guild/welcome_screen_channel.dart';
 export 'guild/welcome_screen.dart';
+export 'guild/guild_widget_style.dart';
 
 // guild/integration
 export 'guild/integration/integration_application.dart';

@@ -33,7 +33,7 @@ class StageInstancesApi {
     /// The privacy level of the Stage instance (default GUILD_ONLY)
     PrivacyLevel? privacyLevel,
     String? reason,
-  }) async {
+  }) {
     return validateApiCall(
       _dio.post(
         _basePath,
@@ -57,7 +57,7 @@ class StageInstancesApi {
   /// https://discord.com/developers/docs/resources/stage-instance#get-stage-instance
   Future<DiscordResponse<StageInstance>> getStageInstance(
     String channelId,
-  ) async {
+  ) {
     return validateApiCall(
       _dio.get('$_basePath/$channelId'),
       responseTransformer: (data) => StageInstance.fromJson(data),
@@ -80,7 +80,7 @@ class StageInstancesApi {
     /// The privacy level of the Stage instance
     PrivacyLevel? privacyLevel,
     String? reason,
-  }) async {
+  }) {
     return validateApiCall(
       _dio.patch(
         '$_basePath/$channelId',
@@ -108,7 +108,7 @@ class StageInstancesApi {
   Future<DiscordResponse<void>> deleteStageInstance(
     String channelId, {
     String? reason,
-  }) async {
+  }) {
     return validateApiCall(
       _dio.delete(
         '$_basePath/$channelId',

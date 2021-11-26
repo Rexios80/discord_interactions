@@ -27,6 +27,30 @@ class ChannelsApi {
     );
   }
 
+  /// Update a group dm's settings. Returns a channel on success, and a 400 BAD
+  /// REQUEST on invalid parameters. All JSON parameters are optional.
+  ///
+  /// https://discord.com/developers/docs/resources/channel#modify-channel
+  Future<DiscordResponse<Channel>> modifyGroupDm(
+    String channelId, {
+
+    /// 1-100 character channel name
+    required String? name,
+
+    /// base64 encoded icon
+    required String? iconBase64,
+  }) async {
+    return validateApiCall(
+      _dio.patch(
+        '$_basePath/$channelId',
+        data: {
+          if (name != null) 'name': name,
+          if (iconBase64 != null) 'icon': iconBase64,
+        },
+      ),
+    );
+  }
+
   /// Update a channel's settings. Returns a channel on success, and a 400 BAD
   /// REQUEST on invalid parameters. All JSON parameters are optional.
   ///

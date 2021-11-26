@@ -18,7 +18,7 @@ class Invite {
   final Guild? guild;
 
   /// the channel this invite is for
-  final Channel channel;
+  final Channel? channel;
 
   /// the user who created the invite
   final User? inviter;
@@ -61,11 +61,33 @@ class Invite {
   @JsonKey(name: 'guild_scheduled_event')
   final GuildScheduledEvent? guildScheduledEvent;
 
+  /// The rest of these fields are from the Invite Metadata structure
+  ///
+  /// https://discord.com/developers/docs/resources/invite#invite-metadata-object-invite-metadata-structure
+
+  /// number of times this invite has been used
+  final int? uses;
+
+  /// max number of times this invite can be used
+  @JsonKey(name: 'max_uses')
+  final int? maxUses;
+
+  /// duration (in seconds) after which the invite expires
+  @JsonKey(name: 'max_age')
+  final int? maxAge;
+
+  /// whether this invite only grants temporary membership
+  final bool? temporary;
+
+  /// when this invite was created
+  @JsonKey(name: 'created_at')
+  final DateTime? createdAt;
+
   /// Constructor
   Invite({
     required this.code,
     this.guild,
-    required this.channel,
+    this.channel,
     this.inviter,
     this.targetType,
     this.targetUser,
@@ -75,6 +97,11 @@ class Invite {
     this.expiresAt,
     this.stageInstance,
     this.guildScheduledEvent,
+    this.uses,
+    this.maxUses,
+    this.maxAge,
+    this.temporary,
+    this.createdAt,
   });
 
   /// From json

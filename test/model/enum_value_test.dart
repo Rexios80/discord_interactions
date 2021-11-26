@@ -69,4 +69,12 @@ void main() {
       expect(fromValue, enumValue);
     }
   });
+
+  test('ExplicitContentFilterLevel value', () {
+    for (final enumValue in ExplicitContentFilterLevel.values) {
+      final value = enumValue.value;
+      final fromValue = ExplicitContentFilterLevelExtension.fromValue(value);
+      expect(fromValue, enumValue);
+    }
+  });
 }

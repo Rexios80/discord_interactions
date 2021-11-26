@@ -22,7 +22,7 @@ class UsersApi {
   /// email.
   ///
   /// https://discord.com/developers/docs/resources/user#get-current-user
-  Future<DiscordResponse<User>> getCurrentUser() async {
+  Future<DiscordResponse<User>> getCurrentUser() {
     return validateApiCall(
       _dio.get('$_basePath/@me'),
       responseTransformer: (data) => User.fromJson(data),
@@ -52,7 +52,7 @@ class UsersApi {
     ///
     /// Use [ImageData.fromBase64] to create this string
     String? avatarImageData,
-  }) async {
+  }) {
     return validateApiCall(
       _dio.patch(
         '$_basePath/@me',
@@ -84,7 +84,7 @@ class UsersApi {
     ///
     /// default: 200
     int? limit,
-  }) async {
+  }) {
     return validateApiCall(
       _dio.get(
         '$_basePath/@me/guilds',
@@ -134,7 +134,7 @@ class UsersApi {
     ' SDK. DMs created with this endpoint will not be shown in the Discord'
     ' client',
   )
-  Future<DiscordResponse<dynamic>> createGroupDm() async {
+  Future<DiscordResponse<dynamic>> createGroupDm() {
     throw UnimplementedError();
   }
 

@@ -11,7 +11,9 @@ Invite _$InviteFromJson(Map<String, dynamic> json) => Invite(
       guild: json['guild'] == null
           ? null
           : Guild.fromJson(json['guild'] as Map<String, dynamic>),
-      channel: Channel.fromJson(json['channel'] as Map<String, dynamic>),
+      channel: json['channel'] == null
+          ? null
+          : Channel.fromJson(json['channel'] as Map<String, dynamic>),
       inviter: json['inviter'] == null
           ? null
           : User.fromJson(json['inviter'] as Map<String, dynamic>),
@@ -37,6 +39,13 @@ Invite _$InviteFromJson(Map<String, dynamic> json) => Invite(
           ? null
           : GuildScheduledEvent.fromJson(
               json['guild_scheduled_event'] as Map<String, dynamic>),
+      uses: json['uses'] as int?,
+      maxUses: json['max_uses'] as int?,
+      maxAge: json['max_age'] as int?,
+      temporary: json['temporary'] as bool?,
+      createdAt: json['created_at'] == null
+          ? null
+          : DateTime.parse(json['created_at'] as String),
     );
 
 Map<String, dynamic> _$InviteToJson(Invite instance) {
@@ -51,7 +60,7 @@ Map<String, dynamic> _$InviteToJson(Invite instance) {
   }
 
   writeNotNull('guild', instance.guild);
-  val['channel'] = instance.channel;
+  writeNotNull('channel', instance.channel);
   writeNotNull('inviter', instance.inviter);
   writeNotNull('target_type', _$InviteTargetTypeEnumMap[instance.targetType]);
   writeNotNull('target_user', instance.targetUser);
@@ -61,6 +70,11 @@ Map<String, dynamic> _$InviteToJson(Invite instance) {
   writeNotNull('expires_at', instance.expiresAt?.toIso8601String());
   writeNotNull('stage_instance', instance.stageInstance);
   writeNotNull('guild_scheduled_event', instance.guildScheduledEvent);
+  writeNotNull('uses', instance.uses);
+  writeNotNull('max_uses', instance.maxUses);
+  writeNotNull('max_age', instance.maxAge);
+  writeNotNull('temporary', instance.temporary);
+  writeNotNull('created_at', instance.createdAt?.toIso8601String());
   return val;
 }
 

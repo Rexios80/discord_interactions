@@ -30,7 +30,7 @@ class InvitesApi {
 
     /// the guild scheduled event to include with the invite
     String? guildScheduledEventId,
-  }) async {
+  }) {
     return validateApiCall(
       _dio.get(
         '$_basePath/$inviteCode',
@@ -56,7 +56,7 @@ class InvitesApi {
   Future<DiscordResponse<Invite>> deleteInvite(
     String inviteCode, {
     String? reason,
-  }) async {
+  }) {
     return validateApiCall(
       _dio.delete(
         '$_basePath/$inviteCode',

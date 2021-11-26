@@ -1,9 +1,12 @@
 // Package imports:
+
+// Package imports:
 import 'package:dio/dio.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
 import 'package:discord_interactions/src/converter/flag/permission_converter.dart';
+import 'package:discord_interactions/src/converter/flag/system_channel_flag_converter.dart';
 import 'package:discord_interactions/src/util/discord_api_utils.dart';
 
 /// Access to the Guilds API
@@ -41,9 +44,62 @@ class GuildsApi {
   /// Category channels must be listed before any children.
   ///
   /// https://discord.com/developers/docs/resources/guild#create-guild
-  Future<DiscordResponse<Guild>> createGuild(Guild guild) async {
+  Future<DiscordResponse<Guild>> createGuild({
+    /// name of the guild (2-100 characters)
+    required String name,
+
+    /// base64 128x128 image for the guild icon
+    ///
+    /// Use [ImageData.fromBase64] to create this string
+    String? iconImageData,
+
+    /// verification level
+    VerificationLevel? verificationLevel,
+
+    /// default message notification level
+    DefaultMessageNotificationLevel? defaultMessageNotifications,
+
+    /// explicit content filter level
+    ExplicitContentFilterLevel? explicitContentFilter,
+
+    /// new guild roles
+    List<Role>? roles,
+
+    /// new guild's channels
+    List<Channel>? channels,
+
+    /// id for afk channel
+    String? afkChannelId,
+
+    /// afk timeout in seconds
+    int? afkTimeout,
+
+    /// the id of the channel where guild notices such as welcome messages and
+    /// boost events are posted
+    String? systemChannelId,
+
+    /// system channel flags
+    List<SystemChannelFlag>? systemChannelFlags,
+  }) {
     return validateApiCall(
-      _dio.post(_basePath, data: guild),
+      _dio.post(_basePath, data: {
+        'name': name,
+        if (iconImageData != null) 'icon': iconImageData,
+        if (verificationLevel != null)
+          'verification_level': verificationLevel.value,
+        if (defaultMessageNotifications != null)
+          'default_message_notifications': defaultMessageNotifications.value,
+        if (explicitContentFilter != null)
+          'explicit_content_filter': explicitContentFilter.value,
+        if (roles != null) 'roles': roles,
+        if (channels != null) 'channels': channels,
+        if (afkChannelId != null) 'afk_channel_id': afkChannelId,
+        if (afkTimeout != null) 'afk_timeout': afkTimeout,
+        if (systemChannelId != null) 'system_channel_id': systemChannelId,
+        if (systemChannelFlags != null)
+          'system_channel_flags':
+              const SystemChannelFlagConverter().toJson(systemChannelFlags),
+      }),
       responseTransformer: (data) => Guild.fromJson(data),
     );
   }
@@ -59,7 +115,7 @@ class GuildsApi {
     /// when true, will return approximate member and presence counts for the
     /// guild
     bool? withCounts,
-  }) async {
+  }) {
     return validateApiCall(
       _dio.get(
         '$_basePath/$guildId',
@@ -76,7 +132,7 @@ class GuildsApi {
   /// have a live public stage).
   ///
   /// https://discord.com/developers/docs/resources/guild#get-guild-preview
-  Future<DiscordResponse<GuildPreview>> getGuildPreview(String guildId) async {
+  Future<DiscordResponse<GuildPreview>> getGuildPreview(String guildId) {
     return validateApiCall(
       _dio.get('$_basePath/$guildId/preview'),
       responseTransformer: (data) => GuildPreview.fromJson(data),
@@ -86,18 +142,115 @@ class GuildsApi {
   /// Modify a guild's settings. Requires the MANAGE_GUILD permission. Returns
   /// the updated guild object on success. Fires a Guild Update Gateway event.
   ///
+  /// All parameters to this endpoint are optional
+  ///
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/guild#modify-guild
   Future<DiscordResponse<Guild>> modifyGuild(
     String guildId, {
-    required Guild guild,
+
+    /// guild name
+    String? name,
+
+    /// verification level
+    VerificationLevel? verificationLevel,
+
+    /// default message notification level
+    DefaultMessageNotificationLevel? defaultMessageNotifications,
+
+    /// explicit content filter level
+    ExplicitContentFilterLevel? explicitContentFilter,
+
+    /// id for afk channel
+    String? afkChannelId,
+
+    /// afk timeout in seconds
+    int? afkTimeout,
+
+    /// base64 1024x1024 png/jpeg/gif image for the guild icon (can be animated
+    /// gif when the server has the ANIMATED_ICON feature)
+    ///
+    /// Use [ImageData.fromBase64] to create this string
+    String? iconImageData,
+
+    /// user id to transfer guild ownership to (must be owner)
+    String? ownerId,
+
+    /// base64 16:9 png/jpeg image for the guild splash (when the server has the
+    /// INVITE_SPLASH feature)
+    ///
+    /// Use [ImageData.fromBase64] to create this string
+    String? splashImageData,
+
+    /// base64 16:9 png/jpeg image for the guild discovery splash (when the
+    /// server has the DISCOVERABLE feature)
+    ///
+    /// Use [ImageData.fromBase64] to create this string
+    String? discoverySplashImageData,
+
+    /// base64 16:9 png/jpeg image for the guild banner (when the server has
+    /// the BANNER feature)
+    ///
+    /// Use [ImageData.fromBase64] to create this string
+    String? bannerImageData,
+
+    /// the id of the channel where guild notices such as welcome messages and
+    /// boost events are posted
+    String? systemChannelId,
+
+    /// system channel flags
+    List<SystemChannelFlag>? systemChannelFlags,
+
+    /// the id of the channel where Community guilds display rules and/or
+    /// guidelines
+    String? rulesChannelId,
+
+    /// the id of the channel where admins and moderators of Community guilds
+    /// receive notices from Discord
+    String? publicUpdatesChannelId,
+
+    /// the preferred locale of a Community guild used in server discovery and
+    /// notices from Discord; defaults to "en-US"
+    String? preferredLocale,
+
+    /// enabled guild features
+    List<GuildFeature>? features,
+
+    /// the description for the guild, if the guild is discoverable
+    String? description,
     String? reason,
-  }) async {
+  }) {
     return validateApiCall(
       _dio.patch(
         '$_basePath/$guildId',
-        data: guild,
+        data: {
+          if (name != null) 'name': name,
+          if (verificationLevel != null)
+            'verification_level': verificationLevel.value,
+          if (defaultMessageNotifications != null)
+            'default_message_notifications': defaultMessageNotifications.value,
+          if (explicitContentFilter != null)
+            'explicit_content_filter': explicitContentFilter.value,
+          if (afkChannelId != null) 'afk_channel_id': afkChannelId,
+          if (afkTimeout != null) 'afk_timeout': afkTimeout,
+          if (iconImageData != null) 'icon': iconImageData,
+          if (ownerId != null) 'owner_id': ownerId,
+          if (splashImageData != null) 'splash': splashImageData,
+          if (discoverySplashImageData != null)
+            'discovery_splash': discoverySplashImageData,
+          if (bannerImageData != null) 'banner': bannerImageData,
+          if (systemChannelId != null) 'system_channel_id': systemChannelId,
+          if (systemChannelFlags != null)
+            'system_channel_flags':
+                const SystemChannelFlagConverter().toJson(systemChannelFlags),
+          if (rulesChannelId != null) 'rules_channel_id': rulesChannelId,
+          if (publicUpdatesChannelId != null)
+            'public_updates_channel_id': publicUpdatesChannelId,
+          if (preferredLocale != null) 'preferred_locale': preferredLocale,
+          if (features != null) 'features': features,
+          if (description != null) 'description': description,
+        },
         options: Options(
           headers: {
             if (reason != null) DiscordHeader.auditLogReason: reason,
@@ -112,7 +265,7 @@ class GuildsApi {
   /// success. Fires a Guild Delete Gateway event.
   ///
   /// https://discord.com/developers/docs/resources/guild#delete-guild
-  Future<DiscordResponse<void>> deleteGuild(String guildId) async {
+  Future<DiscordResponse<void>> deleteGuild(String guildId) {
     return validateApiCall(_dio.delete('$_basePath/$guildId'));
   }
 
@@ -121,7 +274,7 @@ class GuildsApi {
   /// https://discord.com/developers/docs/resources/guild#get-guild-channels
   Future<DiscordResponse<List<Channel>>> getGuildChannels(
     String guildId,
-  ) async {
+  ) {
     return validateApiCall(
       _dio.get('$_basePath/$guildId/channels'),
       responseTransformer: (data) =>
@@ -142,13 +295,34 @@ class GuildsApi {
   /// https://discord.com/developers/docs/resources/guild#create-guild-channel
   Future<DiscordResponse<Channel>> createGuildChannel(
     String guildId, {
-    required Channel channel,
+    required String name,
+    ChannelType? type,
+    String? topic,
+    int? bitrate,
+    int? userLimit,
+    int? rateLimitPerUser,
+    int? position,
+    List<PermissionOverwrite>? permissionOverwrites,
+    String? parentId,
+    bool? nsfw,
     String? reason,
-  }) async {
+  }) {
     return validateApiCall(
       _dio.post(
         '$_basePath/$guildId/channels',
-        data: channel,
+        data: {
+          'name': name,
+          if (type != null) 'type': type.value,
+          if (topic != null) 'topic': topic,
+          if (bitrate != null) 'bitrate': bitrate,
+          if (userLimit != null) 'user_limit': userLimit,
+          if (rateLimitPerUser != null) 'rate_limit_per_user': rateLimitPerUser,
+          if (position != null) 'position': position,
+          if (permissionOverwrites != null)
+            'permission_overwrites': permissionOverwrites,
+          if (parentId != null) 'parent_id': parentId,
+          if (nsfw != null) 'nsfw': nsfw,
+        },
         options: Options(
           headers: {
             if (reason != null) DiscordHeader.auditLogReason: reason,
@@ -172,7 +346,7 @@ class GuildsApi {
     String guildId, {
     required List<ModifyGuildChannelPositionsParams> params,
     String? reason,
-  }) async {
+  }) {
     return validateApiCall(
       _dio.patch(
         '$_basePath/$guildId/channels',
@@ -192,7 +366,7 @@ class GuildsApi {
   /// https://discord.com/developers/docs/resources/guild#list-active-threads
   Future<DiscordResponse<ListThreadsResponse>> listActiveThreads(
     String guildId,
-  ) async {
+  ) {
     return validateApiCall(
       _dio.get('$_basePath/$guildId/threads/active'),
       responseTransformer: (data) => ListThreadsResponse.fromJson(data),
@@ -205,7 +379,7 @@ class GuildsApi {
   Future<DiscordResponse<GuildMember>> getGuildMember(
     String guildId, {
     required String userId,
-  }) async {
+  }) {
     return validateApiCall(
       _dio.get('$_basePath/$guildId/members/$userId'),
       responseTransformer: (data) => GuildMember.fromJson(data),
@@ -216,6 +390,8 @@ class GuildsApi {
   ///
   /// This endpoint is restricted according to whether the GUILD_MEMBERS
   /// Privileged Intent is enabled for your application.
+  ///
+  /// All parameters to this endpoint are optional
   ///
   /// https://discord.com/developers/docs/resources/guild#list-guild-members
   Future<DiscordResponse<List<GuildMember>>> listGuildMembers(
@@ -230,7 +406,7 @@ class GuildsApi {
     ///
     /// default: 0
     String? after,
-  }) async {
+  }) {
     return validateApiCall(
       _dio.get(
         '$_basePath/$guildId/members',
@@ -247,6 +423,8 @@ class GuildsApi {
   /// Returns a list of guild member objects whose username or nickname starts
   /// with a provided string.
   ///
+  /// All parameters to this endpoint except for query are optional
+  ///
   /// https://discord.com/developers/docs/resources/guild#search-guild-members
   Future<DiscordResponse<List<GuildMember>>> searchGuildMembers(
     String guildId, {
@@ -258,7 +436,7 @@ class GuildsApi {
     ///
     /// default: 1
     int? limit,
-  }) async {
+  }) {
     return validateApiCall(
       _dio.get(
         '$_basePath/$guildId/members/search',
@@ -281,6 +459,8 @@ class GuildsApi {
   /// to adding new members as pending in the guild member object. Members that
   /// are pending will have to complete membership screening before they become
   /// full members that can talk.
+  ///
+  /// All parameters to this endpoint except for access_token are optional.
   ///
   /// The Authorization header must be a Bot token (belonging to the same
   /// application used for authorization), and the bot must be a member of the
@@ -322,7 +502,7 @@ class GuildsApi {
     ///
     /// Permission: DEAFEN_MEMBERS
     bool? deaf,
-  }) async {
+  }) {
     return validateApiCall(
       _dio.put(
         '$_basePath/$guildId/members/$userId',
@@ -382,7 +562,7 @@ class GuildsApi {
     /// Permission: MOVE_MEMBERS
     String? channelId,
     String? reason,
-  }) async {
+  }) {
     return validateApiCall(
       _dio.patch(
         '$_basePath/$guildId/members/$userId',
@@ -413,7 +593,7 @@ class GuildsApi {
     String guildId, {
     String? nick,
     String? reason,
-  }) async {
+  }) {
     return validateApiCall(
       _dio.patch(
         '$_basePath/$guildId/members/@me',
@@ -442,7 +622,7 @@ class GuildsApi {
     required String userId,
     required String roleId,
     String? reason,
-  }) async {
+  }) {
     return validateApiCall(
       _dio.put(
         '$_basePath/$guildId/members/$userId/roles/$roleId',
@@ -467,7 +647,7 @@ class GuildsApi {
     required String userId,
     required String roleId,
     String? reason,
-  }) async {
+  }) {
     return validateApiCall(
       _dio.delete(
         '$_basePath/$guildId/members/$userId/roles/$roleId',
@@ -490,7 +670,7 @@ class GuildsApi {
     String guildId, {
     required String userId,
     String? reason,
-  }) async {
+  }) {
     return validateApiCall(
       _dio.delete(
         '$_basePath/$guildId/members/$userId',
@@ -507,7 +687,7 @@ class GuildsApi {
   /// Requires the BAN_MEMBERS permission.
   ///
   /// https://discord.com/developers/docs/resources/guild#get-guild-bans
-  Future<DiscordResponse<List<Ban>>> getGuildBans(String guildId) async {
+  Future<DiscordResponse<List<Ban>>> getGuildBans(String guildId) {
     return validateApiCall(
       _dio.get('$_basePath/$guildId/bans'),
       responseTransformer: (data) =>
@@ -522,7 +702,7 @@ class GuildsApi {
   Future<DiscordResponse<Ban>> getGuildBan(
     String guildId, {
     required String userId,
-  }) async {
+  }) {
     return validateApiCall(
       _dio.get('$_basePath/$guildId/bans/$userId'),
       responseTransformer: (data) => Ban.fromJson(data),
@@ -543,7 +723,7 @@ class GuildsApi {
     /// number of days to delete messages for (0-7)
     int? deleteMessageDays,
     String? reason,
-  }) async {
+  }) {
     return validateApiCall(
       _dio.put(
         '$_basePath/$guildId/bans/$userId',
@@ -569,7 +749,7 @@ class GuildsApi {
     String guildId, {
     required String userId,
     String? reason,
-  }) async {
+  }) {
     return validateApiCall(
       _dio.delete(
         '$_basePath/$guildId/bans/$userId',
@@ -585,7 +765,7 @@ class GuildsApi {
   /// Returns a list of [Role] objects for the guild.
   ///
   /// https://discord.com/developers/docs/resources/guild#get-guild-roles
-  Future<DiscordResponse<List<Role>>> getGuildRoles(String guildId) async {
+  Future<DiscordResponse<List<Role>>> getGuildRoles(String guildId) {
     return validateApiCall(
       _dio.get('$_basePath/$guildId/roles'),
       responseTransformer: (data) =>
@@ -641,7 +821,7 @@ class GuildsApi {
     /// default: false
     bool? mentionable,
     String? reason,
-  }) async {
+  }) {
     return validateApiCall(
       _dio.post(
         '$_basePath/$guildId/roles',
@@ -669,14 +849,16 @@ class GuildsApi {
   /// MANAGE_ROLES permission. Returns a list of all of the guild's role
   /// objects on success. Fires multiple Guild Role Update Gateway events.
   ///
+  /// All parameters to this endpoint are optional and nullable.
+  ///
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/guild#modify-guild-role-positions
   Future<DiscordResponse<List<Role>>> modifyGuildRolePositions(
     String guildId, {
-    required ModifyGuildRolePositionsParams params,
+    required List<ModifyGuildRolePositionsParams> params,
     String? reason,
-  }) async {
+  }) {
     return validateApiCall(
       _dio.patch(
         '$_basePath/$guildId/roles',
@@ -692,5 +874,468 @@ class GuildsApi {
     );
   }
 
-  // TODO: The rest of them
+  /// Modify a guild role. Requires the MANAGE_ROLES permission. Returns the
+  /// updated role on success. Fires a Guild Role Update Gateway event.
+  ///
+  /// This endpoint supports the X-Audit-Log-Reason header.
+  ///
+  /// https://discord.com/developers/docs/resources/guild#modify-guild-role
+  Future<DiscordResponse<Role>> modifyGuildRole(
+    String guildId, {
+    required String roleId,
+
+    /// name of the role
+    String? name,
+
+    /// bitwise value of the enabled/disabled permissions
+    List<Permission>? permissions,
+
+    /// RGB color value
+    int? color,
+
+    /// whether the role should be displayed separately in the sidebar
+    bool? hoist,
+
+    /// the role's icon image (if the guild has the ROLE_ICONS feature)
+    ///
+    /// Use [ImageData.fromBase64] to create this string
+    String? iconImageData,
+
+    /// the role's unicode emoji as a standard emoji (if the guild has the
+    /// ROLE_ICONS feature)
+    String? unicodeEmoji,
+
+    /// whether the role should be mentionable
+    bool? mentionable,
+    String? reason,
+  }) {
+    return validateApiCall(
+      _dio.patch(
+        '$_basePath/$guildId/roles/$roleId',
+        data: {
+          if (name != null) 'name': name,
+          if (permissions != null)
+            'permissions': const PermissionConverter().toJson(permissions),
+          if (color != null) 'color': color,
+          if (hoist != null) 'hoist': hoist,
+          if (iconImageData != null) 'icon': iconImageData,
+          if (unicodeEmoji != null) 'unicode_emoji': unicodeEmoji,
+          if (mentionable != null) 'mentionable': mentionable,
+        },
+        options: Options(
+          headers: {
+            if (reason != null) DiscordHeader.auditLogReason: reason,
+          },
+        ),
+      ),
+      responseTransformer: (data) => Role.fromJson(data),
+    );
+  }
+
+  /// Delete a guild role. Requires the MANAGE_ROLES permission. Returns a 204
+  /// empty response on success. Fires a Guild Role Delete Gateway event.
+  ///
+  /// This endpoint supports the X-Audit-Log-Reason header.
+  ///
+  /// https://discord.com/developers/docs/resources/guild#delete-guild-role
+  Future<DiscordResponse<void>> deleteGuildRole(
+    String guildId, {
+    required String roleId,
+    String? reason,
+  }) {
+    return validateApiCall(
+      _dio.delete(
+        '$_basePath/$guildId/roles/$roleId',
+        options: Options(
+          headers: {
+            if (reason != null) DiscordHeader.auditLogReason: reason,
+          },
+        ),
+      ),
+    );
+  }
+
+  /// Returns an object with one 'pruned' key indicating the number of members
+  /// that would be removed in a prune operation. Requires the KICK_MEMBERS
+  /// permission.
+  ///
+  /// By default, prune will not remove users with roles. You can optionally
+  /// include specific roles in your prune by providing the include_roles
+  /// parameter. Any inactive user that has a subset of the provided role(s)
+  /// will be counted in the prune and users with additional roles will not.
+  ///
+  /// https://discord.com/developers/docs/resources/guild#get-guild-prune-count
+  Future<DiscordResponse<int>> getGuildPruneCount(
+    String guildId, {
+
+    /// number of days to count prune for (1-30)
+    ///
+    /// default: 7
+    int? days,
+
+    /// role(s) to include
+    ///
+    /// default: none
+    List<String>? includeRoleIds,
+  }) {
+    return validateApiCall(
+      _dio.get(
+        '$_basePath/$guildId/prune',
+        queryParameters: {
+          if (days != null) 'days': days,
+          if (includeRoleIds != null) 'include_roles': includeRoleIds.join(','),
+        },
+      ),
+      responseTransformer: (data) => data['pruned'] as int,
+    );
+  }
+
+  /// Begin a prune operation. Requires the KICK_MEMBERS permission. Returns an
+  /// object with one 'pruned' key indicating the number of members that were
+  /// removed in the prune operation. For large guilds it's recommended to set
+  /// the compute_prune_count option to false, forcing 'pruned' to null. Fires
+  /// multiple Guild Member Remove Gateway events.
+  ///
+  /// By default, prune will not remove users with roles. You can optionally
+  /// include specific roles in your prune by providing the include_roles
+  /// parameter. Any inactive user that has a subset of the provided role(s)
+  /// will be included in the prune and users with additional roles will not.
+  ///
+  /// This endpoint supports the X-Audit-Log-Reason header.
+  ///
+  /// https://discord.com/developers/docs/resources/guild#begin-guild-prune
+  Future<DiscordResponse<int?>> beginGuildPrune(
+    String guildId, {
+
+    /// number of days to prune (1-30)
+    ///
+    /// default: 7
+    int? days,
+
+    /// whether 'pruned' is returned, discouraged for large guilds
+    ///
+    /// default: true
+    bool? computePruneCount,
+
+    /// role(s) to include
+    ///
+    /// default: none
+    List<String>? includeRoleIds,
+    String? reason,
+  }) {
+    return validateApiCall(
+      _dio.post(
+        '$_basePath/$guildId/prune',
+        data: {
+          if (days != null) 'days': days,
+          if (computePruneCount != null)
+            'compute_prune_count': computePruneCount,
+          if (includeRoleIds != null) 'include_roles': includeRoleIds.join(','),
+        },
+        options: Options(
+          headers: {
+            if (reason != null) DiscordHeader.auditLogReason: reason,
+          },
+        ),
+      ),
+      responseTransformer: (data) => data['pruned'] as int?,
+    );
+  }
+
+  /// Returns a list of voice region objects for the guild. Unlike the similar
+  /// /voice route, this returns VIP servers when the guild is VIP-enabled.
+  ///
+  /// https://discord.com/developers/docs/resources/guild#get-guild-voice-regions
+  Future<DiscordResponse<List<VoiceRegion>>> getGuildVoiceRegions(
+    String guildId,
+  ) {
+    return validateApiCall(
+      _dio.get('$_basePath/$guildId/regions'),
+      responseTransformer: (data) =>
+          (data as List).map((region) => VoiceRegion.fromJson(region)).toList(),
+    );
+  }
+
+  /// Returns a list of invite objects (with invite metadata) for the guild.
+  /// Requires the MANAGE_GUILD permission.
+  ///
+  /// https://discord.com/developers/docs/resources/guild#get-guild-invites
+  Future<DiscordResponse<List<Invite>>> getGuildInvites(
+    String guildId,
+  ) {
+    return validateApiCall(
+      _dio.get('$_basePath/$guildId/invites'),
+      responseTransformer: (data) =>
+          (data as List).map((invite) => Invite.fromJson(invite)).toList(),
+    );
+  }
+
+  /// Returns a list of integration objects for the guild. Requires the
+  /// MANAGE_GUILD permission.
+  ///
+  /// https://discord.com/developers/docs/resources/guild#get-guild-integrations
+  Future<DiscordResponse<List<Integration>>> getGuildIntegrations(
+    String guildId,
+  ) {
+    return validateApiCall(
+      _dio.get('$_basePath/$guildId/integrations'),
+      responseTransformer: (data) => (data as List)
+          .map((integration) => Integration.fromJson(integration))
+          .toList(),
+    );
+  }
+
+  /// Delete the attached integration object for the guild. Deletes any
+  /// associated webhooks and kicks the associated bot if there is one.
+  /// Requires the MANAGE_GUILD permission. Returns a 204 empty response on
+  /// success. Fires a Guild Integrations Update Gateway event.
+  ///
+  /// This endpoint supports the X-Audit-Log-Reason header.
+  ///
+  /// https://discord.com/developers/docs/resources/guild#delete-guild-integration
+  Future<DiscordResponse<void>> deleteGuildIntegration(
+    String guildId, {
+    required String integrationId,
+    String? reason,
+  }) {
+    return validateApiCall(
+      _dio.delete(
+        '$_basePath/$guildId/integrations/$integrationId',
+        options: Options(
+          headers: {
+            if (reason != null) DiscordHeader.auditLogReason: reason,
+          },
+        ),
+      ),
+    );
+  }
+
+  /// Returns a guild widget object. Requires the MANAGE_GUILD permission.
+  ///
+  /// https://discord.com/developers/docs/resources/guild#get-guild-widget-settings
+  Future<DiscordResponse<GuildWidget>> getGuildWidgetSettings(
+    String guildId,
+  ) {
+    return validateApiCall(
+      _dio.get('$_basePath/$guildId/widget'),
+      responseTransformer: (data) => GuildWidget.fromJson(data),
+    );
+  }
+
+  /// Modify a guild widget object for the guild. All attributes may be passed
+  /// in with JSON and modified. Requires the MANAGE_GUILD permission. Returns
+  /// the updated guild widget object.
+  ///
+  /// This endpoint supports the X-Audit-Log-Reason header.
+  ///
+  /// https://discord.com/developers/docs/resources/guild#modify-guild-widget
+  Future<DiscordResponse<GuildWidget>> modifyGuildWidgetSettings(
+    String guildId, {
+    bool? enabled,
+    String? channelId,
+    String? reason,
+  }) {
+    return validateApiCall(
+      _dio.patch(
+        '$_basePath/$guildId/widget',
+        data: {
+          if (enabled != null) 'enabled': enabled,
+          if (channelId != null) 'channel_id': channelId,
+        },
+        options: Options(
+          headers: {
+            if (reason != null) DiscordHeader.auditLogReason: reason,
+          },
+        ),
+      ),
+      responseTransformer: (data) => GuildWidget.fromJson(data),
+    );
+  }
+
+  /// Returns the widget for the guild.
+  ///
+  /// https://discord.com/developers/docs/resources/guild#get-guild-widget
+  Future<DiscordResponse<Map<String, dynamic>>> getGuildWidget(
+    String guildId,
+  ) {
+    return validateApiCall(_dio.get('$_basePath/$guildId/widget.json'));
+  }
+
+  /// Returns a partial invite object for guilds with that feature enabled.
+  /// Requires the MANAGE_GUILD permission. code will be null if a vanity url
+  /// for the guild is not set.
+  ///
+  /// https://discord.com/developers/docs/resources/guild#get-guild-vanity-url
+  Future<DiscordResponse<Invite>> getGuildVanityUrl(String guildId) {
+    return validateApiCall(
+      _dio.get('$_basePath/$guildId/vanity-url'),
+      responseTransformer: (data) => Invite.fromJson(data),
+    );
+  }
+
+  /// Returns a PNG image widget for the guild. Requires no permissions or
+  /// authentication.
+  ///
+  /// All parameters to this endpoint are optional.
+  ///
+  /// https://discord.com/developers/docs/resources/guild#get-guild-widget-image
+  Future<DiscordResponse<List<int>>> getGuildWidgetImage(
+    String guildId, {
+
+    /// style of the widget image returned
+    ///
+    /// default: [GuildWidgetStyle.shield]
+    GuildWidgetStyle? style,
+  }) {
+    return validateApiCall(
+      _dio.get(
+        '$_basePath/$guildId/widget.png',
+        queryParameters: {
+          if (style != null) 'style': style.value,
+        },
+        options: Options(
+          responseType: ResponseType.bytes,
+        ),
+      ),
+      responseTransformer: (data) => data,
+    );
+  }
+
+  /// Returns the Welcome Screen object for the guild.
+  ///
+  /// https://discord.com/developers/docs/resources/guild#get-guild-welcome-screen
+  Future<DiscordResponse<WelcomeScreen>> getGuildWelcomeScreen(
+    String guildId,
+  ) {
+    return validateApiCall(
+      _dio.get('$_basePath/$guildId/welcome-screen'),
+      responseTransformer: (data) => WelcomeScreen.fromJson(data),
+    );
+  }
+
+  /// Modify the guild's Welcome Screen. Requires the MANAGE_GUILD permission.
+  /// Returns the updated Welcome Screen object.
+  ///
+  /// All parameters to this endpoint are optional and nullable
+  ///
+  /// This endpoint supports the X-Audit-Log-Reason header.
+  ///
+  /// https://discord.com/developers/docs/resources/guild#modify-guild-welcome-screen
+  Future<DiscordResponse<WelcomeScreen>> modifyGuildWelcomeScreen(
+    String guildId, {
+
+    /// whether the welcome screen is enabled
+    bool? enabled,
+
+    /// channels linked in the welcome screen and their display options
+    List<WelcomeScreenChannel>? welcomeChannels,
+
+    /// the server description to show in the welcome screen
+    String? description,
+    String? reason,
+  }) {
+    return validateApiCall(
+      _dio.patch(
+        '$_basePath/$guildId/welcome-screen',
+        data: {
+          if (enabled != null) 'enabled': enabled,
+          if (welcomeChannels != null) 'welcome_channels': welcomeChannels,
+          if (description != null) 'description': description,
+        },
+        options: Options(
+          headers: {
+            if (reason != null) DiscordHeader.auditLogReason: reason,
+          },
+        ),
+      ),
+      responseTransformer: (data) => WelcomeScreen.fromJson(data),
+    );
+  }
+
+  /// Updates the current user's voice state.
+  ///
+  /// Caveats
+  ///
+  /// There are currently several caveats for this endpoint:
+  ///
+  /// channel_id must currently point to a stage channel.
+  ///
+  /// current user must already have joined channel_id.
+  ///
+  /// You must have the MUTE_MEMBERS permission to unsuppress yourself. You
+  /// can always suppress yourself.
+  ///
+  /// You must have the REQUEST_TO_SPEAK permission to request to speak. You
+  /// can always clear your own request to speak.
+  ///
+  /// You are able to set request_to_speak_timestamp to any present or future
+  /// time.
+  ///
+  /// https://discord.com/developers/docs/resources/guild#modify-current-user-voice-state
+  Future<DiscordResponse<void>> modifyCurrentUserVoiceState(
+    String guildId, {
+
+    /// the id of the channel the user is currently in
+    required String channelId,
+
+    /// toggles the user's suppress state
+    bool? suppress,
+
+    /// sets the user's request to speak
+    DateTime? requestToSpeakTimestamp,
+  }) {
+    return validateApiCall(
+      _dio.patch(
+        '$_basePath/$guildId/voice-states/@me',
+        data: {
+          'channel_id': channelId,
+          if (suppress != null) 'suppress': suppress,
+          if (requestToSpeakTimestamp != null)
+            'request_to_speak_timestamp':
+                requestToSpeakTimestamp.toIso8601String(),
+        },
+      ),
+    );
+  }
+
+  /// Updates another user's voice state.
+  ///
+  /// Caveats
+  ///
+  /// There are currently several caveats for this endpoint:
+  ///
+  /// channel_id must currently point to a stage channel.
+  ///
+  /// current user must already have joined channel_id.
+  ///
+  /// You must have the MUTE_MEMBERS permission to unsuppress yourself. You
+  /// can always suppress yourself.
+  ///
+  /// You must have the REQUEST_TO_SPEAK permission to request to speak. You
+  /// can always clear your own request to speak.
+  ///
+  /// You are able to set request_to_speak_timestamp to any present or future
+  /// time.
+  ///
+  /// https://discord.com/developers/docs/resources/guild#modify-user-voice-state
+  Future<DiscordResponse<void>> modifyUserVoiceState(
+    String guildId, {
+    required String userId,
+
+    /// the id of the channel the user is currently in
+    required String channelId,
+
+    /// toggles the user's suppress state
+    bool? suppress,
+  }) {
+    return validateApiCall(
+      _dio.patch(
+        '$_basePath/$guildId/voice-states/$userId',
+        data: {
+          'channel_id': channelId,
+          if (suppress != null) 'suppress': suppress,
+        },
+      ),
+    );
+  }
 }

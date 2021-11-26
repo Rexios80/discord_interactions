@@ -17,3 +17,19 @@ enum ExplicitContentFilterLevel {
   @JsonValue(2)
   allMembers,
 }
+
+/// Extension on [ExplicitContentFilterLevel]
+extension ExplicitContentFilterLevelExtension on ExplicitContentFilterLevel {
+  static const _enumMap = <ExplicitContentFilterLevel, int>{
+    ExplicitContentFilterLevel.disabled: 0,
+    ExplicitContentFilterLevel.membersWithoutRoles: 1,
+    ExplicitContentFilterLevel.allMembers: 2,
+  };
+
+  /// Returns the [int] value of the enum
+  int get value => _enumMap[this]!;
+
+  /// Returns the enum from the [int] value
+  static ExplicitContentFilterLevel fromValue(int value) =>
+      _enumMap.entries.singleWhere((e) => e.value == value).key;
+}

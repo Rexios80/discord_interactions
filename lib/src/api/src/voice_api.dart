@@ -20,7 +20,7 @@ class VoiceApi {
   /// voice or stage channel's rtc_region.
   ///
   /// https://discord.com/developers/docs/resources/voice#list-voice-regions
-  Future<DiscordResponse<List<VoiceRegion>>> listVoiceRegions() async {
+  Future<DiscordResponse<List<VoiceRegion>>> listVoiceRegions() {
     return validateApiCall(
       _dio.get('$_basePath/regions'),
       responseTransformer: (data) =>

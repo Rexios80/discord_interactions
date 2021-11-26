@@ -19,7 +19,7 @@ class StickersApi {
   /// Returns a sticker object for the given sticker ID.
   ///
   /// https://discord.com/developers/docs/resources/sticker#get-sticker
-  Future<DiscordResponse<Sticker>> getSticker(String stickerId) async {
+  Future<DiscordResponse<Sticker>> getSticker(String stickerId) {
     return validateApiCall(
       _dio.get('/stickers/$stickerId'),
       responseTransformer: (data) => Sticker.fromJson(data),
@@ -29,7 +29,7 @@ class StickersApi {
   /// Returns the list of sticker packs available to Nitro subscribers.
   ///
   /// https://discord.com/developers/docs/resources/sticker#list-nitro-sticker-packs
-  Future<DiscordResponse<List<StickerPack>>> getNitroStickerPacks() async {
+  Future<DiscordResponse<List<StickerPack>>> getNitroStickerPacks() {
     return validateApiCall(
       _dio.get('/sticker-packs'),
       responseTransformer: (data) => (data['sticker_packs'] as List)
@@ -44,7 +44,7 @@ class StickersApi {
   /// https://discord.com/developers/docs/resources/sticker#list-guild-stickers
   Future<DiscordResponse<List<Sticker>>> getGuildStickers(
     String guildId,
-  ) async {
+  ) {
     return validateApiCall(
       _dio.get('$_basePath/$guildId/stickers'),
       responseTransformer: (data) =>
@@ -59,7 +59,7 @@ class StickersApi {
   Future<DiscordResponse<Sticker>> getGuildSticker(
     String guildId, {
     required String stickerId,
-  }) async {
+  }) {
     return validateApiCall(
       _dio.get('$_basePath/$guildId/stickers/$stickerId'),
       responseTransformer: (data) => Sticker.fromJson(data),
