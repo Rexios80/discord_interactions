@@ -1,3 +1,12 @@
+## 0.0.8
+- Finished Users API
+- Finished Channels API
+- Added Emojis API
+- Added Invites API
+- Added Stage Instances API
+- Added Stickers API
+- Added Voice API
+
 ## 0.0.7
 - Added Audit Logs API
 
