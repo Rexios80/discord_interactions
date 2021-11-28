@@ -61,7 +61,7 @@ class Interaction {
   final Message? message;
 
   /// Convenience method to get the id of the invoking user
-  String? get invokerId => member?.user?.id ?? user?.id;
+  String get invokerId => member?.user?.id ?? user!.id;
 
   /// Constructor
   Interaction({
