@@ -19,6 +19,8 @@ class Interaction {
   final String id;
 
   /// id of the application this interaction is for
+  /// 
+  /// This is equivalent to the bot's user id
   @JsonKey(name: 'application_id')
   final String applicationId;
 
@@ -57,6 +59,9 @@ class Interaction {
 
   /// for components, the message they were attached to
   final Message? message;
+
+  /// Convenience method to get the id of the invoking user
+  String? get invokerId => member?.user?.id ?? user?.id;
 
   /// Constructor
   Interaction({

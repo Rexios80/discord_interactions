@@ -74,68 +74,68 @@ class ChannelsApi {
 
     /// the type of channel; only conversion between text and news is supported
     /// and only in guilds with the "NEWS" feature
-    /// 
+    ///
     /// Channel type: Text, News
     ChannelType? type,
 
     /// the position of the channel in the left-hand listing
-    /// 
+    ///
     /// Channel type: All
     int? position,
 
     /// 0-1024 character channel topic
-    /// 
+    ///
     /// Channel type: Text, News
     String? topic,
 
     /// whether the channel is nsfw
-    /// 
+    ///
     /// Channel type: Text, News, Store
     bool? nsfw,
 
     /// amount of seconds a user has to wait before sending another message
     /// (0-21600); bots, as well as users with the permission manage_messages
     /// or manage_channel, are unaffected
-    /// 
+    ///
     /// Channel type: Text
     int? rateLimitPerUser,
 
     /// the bitrate (in bits) of the voice channel; 8000 to 96000 (128000 for
     /// VIP servers)
-    /// 
+    ///
     /// Channel type: Voice
     int? bitrate,
 
     /// the user limit of the voice channel; 0 refers to no limit, 1 to 99
     /// refers to a user limit
-    /// 
+    ///
     /// Channel type: Voice
     int? userLimit,
 
     /// channel or category-specific permissions
-    /// 
+    ///
     /// Channel type: All
     List<PermissionOverwrite>? permissionOverwrites,
 
     /// id of the new parent category for a channel
-    /// 
+    ///
     /// Channel type: Text, News, Store, Voice
     String? parentId,
 
     /// channel voice region id, automatic when set to null
-    /// 
+    ///
     /// Channel type: Voice
     String? rtcRegion,
 
     /// the camera video quality mode of the voice channel
-    /// 
+    ///
     /// Channel type: Voice
     VideoQualityMode? videoQualityMode,
 
     /// the default duration that the clients use (not the API) for newly
     /// created threads in the channel, in minutes, to automatically archive
     /// the thread after recent activity
-    /// 
+    ///
     /// Channel type: Text, News
     ThreadAutoArchiveDuration? defaultAutoArchiveDuration,
     String? reason,
