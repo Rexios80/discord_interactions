@@ -201,11 +201,9 @@ void main() async {
 
       test('Modify channel', () async {
         final response = await api.channels.modifyChannel(
-          Channel(
-            id: channelId,
-            name: 'test_channel_modified',
-            type: ChannelType.guildText,
-          ),
+          channelId,
+          name: 'test_channel_modified',
+          type: ChannelType.guildText,
           reason: 'Testing reasons',
         );
         final responseChannel = response.data!;
@@ -406,7 +404,7 @@ void main() async {
         final response =
             await api.channels.listPublicArchivedThreads(channelId);
         final responseThreads = response.data!;
-        expect(responseThreads.threads.length, 1);
+        expect(responseThreads.threads.length, greaterThan(0));
         await avoidRateLimit();
       });
 
