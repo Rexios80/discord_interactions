@@ -15,3 +15,7 @@ coverage
 
 # macOS garbage
 .DS_Store
+
+# Example credentials
+# This needs to be here or else pub will try to include it in the package
+example/lib/credentials.dart

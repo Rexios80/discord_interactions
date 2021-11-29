@@ -1,6 +1,6 @@
 name: discord_interactions
 description: A webhook-based Discord Interactions client. Made with serverless deployment in mind.
-version: 0.0.9
+version: 0.0.10
 homepage: https://github.com/Rexios80/discord_interactions
 
 environment:

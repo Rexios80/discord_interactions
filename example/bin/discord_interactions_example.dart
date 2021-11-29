@@ -2,7 +2,7 @@ import 'package:functions_framework/serve.dart';
 import 'package:discord_interactions_example/functions.dart' as functions;
 
 /// Boiler plate code for the functions framework
-/// 
+///
 /// You could probably do some fancy things here, but this is just a simple example
 Future<void> main(List<String> args) async {
   await serve(args, _nameToFunctionTarget);

@@ -1,3 +1,8 @@
+## 0.0.10
+- Updated the Channels API
+- Added a convenience property to get the invoking user of an Interaction
+- Added a fully working example
+
 ## 0.0.9
 - Added Guilds API
 

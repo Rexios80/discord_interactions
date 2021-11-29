@@ -57,7 +57,7 @@ class DiscordApi {
   late final VoiceApi voice;
 
   /// Access to the Discord API
-  /// 
+  ///
   /// One of [botToken], [credentialsToken] is required
   DiscordApi({
     required String applicationId,
