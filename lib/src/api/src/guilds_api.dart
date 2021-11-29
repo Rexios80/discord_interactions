@@ -82,24 +82,27 @@ class GuildsApi {
     List<SystemChannelFlag>? systemChannelFlags,
   }) {
     return validateApiCall(
-      _dio.post(_basePath, data: {
-        'name': name,
-        if (iconImageData != null) 'icon': iconImageData,
-        if (verificationLevel != null)
-          'verification_level': verificationLevel.value,
-        if (defaultMessageNotifications != null)
-          'default_message_notifications': defaultMessageNotifications.value,
-        if (explicitContentFilter != null)
-          'explicit_content_filter': explicitContentFilter.value,
-        if (roles != null) 'roles': roles,
-        if (channels != null) 'channels': channels,
-        if (afkChannelId != null) 'afk_channel_id': afkChannelId,
-        if (afkTimeout != null) 'afk_timeout': afkTimeout,
-        if (systemChannelId != null) 'system_channel_id': systemChannelId,
-        if (systemChannelFlags != null)
-          'system_channel_flags':
-              const SystemChannelFlagConverter().toJson(systemChannelFlags),
-      }),
+      _dio.post(
+        _basePath,
+        data: {
+          'name': name,
+          if (iconImageData != null) 'icon': iconImageData,
+          if (verificationLevel != null)
+            'verification_level': verificationLevel.value,
+          if (defaultMessageNotifications != null)
+            'default_message_notifications': defaultMessageNotifications.value,
+          if (explicitContentFilter != null)
+            'explicit_content_filter': explicitContentFilter.value,
+          if (roles != null) 'roles': roles,
+          if (channels != null) 'channels': channels,
+          if (afkChannelId != null) 'afk_channel_id': afkChannelId,
+          if (afkTimeout != null) 'afk_timeout': afkTimeout,
+          if (systemChannelId != null) 'system_channel_id': systemChannelId,
+          if (systemChannelFlags != null)
+            'system_channel_flags':
+                const SystemChannelFlagConverter().toJson(systemChannelFlags),
+        },
+      ),
       responseTransformer: (data) => Guild.fromJson(data),
     );
   }

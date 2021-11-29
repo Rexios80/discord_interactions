@@ -32,7 +32,8 @@ class ModifyGuildChannelPositionsParams {
 
   /// From json
   static ModifyGuildChannelPositionsParams fromJson(
-          Map<String, dynamic> json) =>
+    Map<String, dynamic> json,
+  ) =>
       _$ModifyGuildChannelPositionsParamsFromJson(json);
 
   /// To json

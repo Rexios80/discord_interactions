@@ -19,7 +19,7 @@ class Interaction {
   final String id;
 
   /// id of the application this interaction is for
-  /// 
+  ///
   /// This is equivalent to the bot's user id
   @JsonKey(name: 'application_id')
   final String applicationId;

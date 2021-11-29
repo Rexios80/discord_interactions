@@ -1,12 +1,1 @@
-include: package:lints/recommended.yaml
-
-linter:
-  rules:
-    - prefer_single_quotes
-    - unawaited_futures
-    - public_member_api_docs
-    - require_trailing_commas
-    - always_use_package_imports
-
-analyzer:
-  exclude: ['**/*.g.dart']
+include: package:rexios_lints/dart/package.yaml
