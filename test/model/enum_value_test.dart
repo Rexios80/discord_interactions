@@ -77,4 +77,12 @@ void main() {
       expect(fromValue, enumValue);
     }
   });
+
+  test('VideoQualityMode value', () {
+    for (final enumValue in VideoQualityMode.values) {
+      final value = enumValue.value;
+      final fromValue = VideoQualityModeExtension.fromValue(value);
+      expect(fromValue, enumValue);
+    }
+  });
 }
