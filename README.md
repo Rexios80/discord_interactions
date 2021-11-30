@@ -49,9 +49,7 @@ Second, you must respond to ping Interactions with a pong Response
 final interaction = Interaction.fromJson(jsonDecode(body));
 
 if (interaction.type == InteractionType.ping) {
-    return Response.ok(
-        jsonEncode(InteractionResponse.pong()),
-    );
+    return Response.ok(jsonEncode(InteractionResponse.pong()));
 }
 ```
 
