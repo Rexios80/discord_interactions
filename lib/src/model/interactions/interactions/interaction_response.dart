@@ -23,6 +23,11 @@ class InteractionResponse {
     this.data,
   });
 
+  /// Convenience constructor to create a pong resopnse
+  InteractionResponse.pong()
+      : type = InteractionCallbackType.pong,
+        data = null;
+
   /// Convenience method to create an [InteractionResponse] with message data
   InteractionResponse.withData({
     this.type = InteractionCallbackType.channelMessageWithSource,

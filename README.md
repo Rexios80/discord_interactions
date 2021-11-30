@@ -50,7 +50,7 @@ final interaction = Interaction.fromJson(jsonDecode(body));
 
 if (interaction.type == InteractionType.ping) {
     return Response.ok(
-        jsonEncode(InteractionResponse(type: InteractionCallbackType.pong)),
+        jsonEncode(InteractionResponse.pong()),
     );
 }
 ```
