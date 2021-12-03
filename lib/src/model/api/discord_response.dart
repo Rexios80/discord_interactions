@@ -34,10 +34,10 @@ class DiscordResponse<T> {
 /// Class to hold an [error] and [stacktrace]
 class DiscordError {
   /// The response error
-  final Object? error;
+  final Object error;
 
   /// The error's stack trace
-  final StackTrace? stacktrace;
+  final StackTrace stacktrace;
 
   /// Create a [DiscordError] with an [error] and [stacktrace]
   DiscordError(this.error, this.stacktrace);
