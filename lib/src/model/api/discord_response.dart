@@ -15,7 +15,11 @@ class DiscordResponse<T> {
   final DiscordError? error;
 
   /// Create a [DiscordResponse] with [data]
-  DiscordResponse.success(this.statusCode, this.data, this.raw) : error = null;
+  DiscordResponse.success(
+    this.data, {
+    required this.statusCode,
+    required this.raw,
+  }) : error = null;
 
   /// Create a [DiscordResponse] with [error]
   DiscordResponse.error(
