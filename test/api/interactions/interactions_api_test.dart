@@ -281,7 +281,7 @@ void main() async {
     // Delete the test command
     await api.applicationCommands.deleteGuildApplicationCommand(
       credentials.guildId,
-      commandId: testCommand.id,
+      commandId: testCommand.id!,
     );
   });
 }

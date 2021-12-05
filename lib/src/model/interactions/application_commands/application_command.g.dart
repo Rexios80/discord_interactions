@@ -8,9 +8,9 @@ part of 'application_command.dart';
 
 ApplicationCommand _$ApplicationCommandFromJson(Map<String, dynamic> json) =>
     ApplicationCommand(
-      id: json['id'] as String? ?? '',
+      id: json['id'] as String?,
       type: $enumDecodeNullable(_$ApplicationCommandTypeEnumMap, json['type']),
-      applicationId: json['application_id'] as String? ?? '',
+      applicationId: json['application_id'] as String?,
       guildId: json['guild_id'] as String?,
       name: json['name'] as String,
       description: json['description'] as String,
@@ -19,13 +19,11 @@ ApplicationCommand _$ApplicationCommandFromJson(Map<String, dynamic> json) =>
               ApplicationCommandOption.fromJson(e as Map<String, dynamic>))
           .toList(),
       defaultPermission: json['default_permission'] as bool?,
-      version: json['version'] as String? ?? '',
+      version: json['version'] as String?,
     );
 
 Map<String, dynamic> _$ApplicationCommandToJson(ApplicationCommand instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-  };
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -33,14 +31,15 @@ Map<String, dynamic> _$ApplicationCommandToJson(ApplicationCommand instance) {
     }
   }
 
+  writeNotNull('id', instance.id);
   writeNotNull('type', _$ApplicationCommandTypeEnumMap[instance.type]);
-  val['application_id'] = instance.applicationId;
+  writeNotNull('application_id', instance.applicationId);
   writeNotNull('guild_id', instance.guildId);
   val['name'] = instance.name;
   val['description'] = instance.description;
   writeNotNull('options', instance.options);
   writeNotNull('default_permission', instance.defaultPermission);
-  val['version'] = instance.version;
+  writeNotNull('version', instance.version);
   return val;
 }
 
