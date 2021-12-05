@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
+import 'package:discord_interactions/src/converter/flag/message_flag_converter.dart';
 import 'package:discord_interactions/src/util/discord_api_utils.dart';
 
 /// Access to the Channels API
@@ -347,13 +348,58 @@ class ChannelsApi {
   /// https://discord.com/developers/docs/resources/channel#create-message
   Future<DiscordResponse<Message>> createMessage(
     String channelId, {
-    required Message message,
+
+    /// the message contents (up to 2000 characters)
+    ///
+    /// Required: one of [content], [files], [embeds], [sticker_ids]
+    String? content,
+
+    /// true if this is a TTS message
+    bool? tts,
+
+    /// embedded rich content (up to 6000 characters)
+    ///
+    /// Required: one of [content], [files], [embeds], [stickerIds]
+    List<Embed>? embeds,
+
+    /// allowed mentions for the message
+    AllowedMentions? allowedMentions,
+
+    /// include to make your message a reply
+    MessageReference? messageReference,
+
+    /// the components to include with the message
+    List<Component>? components,
+
+    /// IDs of up to 3 stickers in the server to send in the message
+    ///
+    /// Required: one of [content], [files], [embeds], [stickerIds]
+    List<String>? stickerIds,
+
+    /// attachment objects with filename and description
+    List<Attachment>? attachments,
+
+    /// the contents of the file being sent
+    ///
+    /// Required: one of [content], [files], [embeds], [stickerIds]
     List<MultipartFile>? files,
   }) {
     return validateApiCall(
       _dio.post(
         '$_basePath/$channelId/messages',
-        data: createFormData(message, files),
+        data: createFormData(
+          {
+            if (content != null) 'content': content,
+            if (tts != null) 'tts': tts,
+            if (embeds != null) 'embeds': embeds,
+            if (allowedMentions != null) 'allowed_mentions': allowedMentions,
+            if (messageReference != null) 'message_reference': messageReference,
+            if (components != null) 'components': components,
+            if (stickerIds != null) 'sticker_ids': stickerIds,
+            if (attachments != null) 'attachments': attachments,
+          },
+          files,
+        ),
       ),
       responseTransformer: (data) => Message.fromJson(data),
     );
@@ -556,13 +602,43 @@ class ChannelsApi {
   Future<DiscordResponse<Message>> editMessage(
     String channelId, {
     required String messageId,
-    required Message message,
+
+    /// the message contents (up to 2000 characters)
+    String? content,
+
+    /// embedded rich content (up to 6000 characters)
+    List<Embed>? embeds,
+
+    /// edit the flags of a message (only SUPPRESS_EMBEDS can currently be
+    /// set/unset)
+    List<MessageFlag>? flags,
+
+    /// allowed mentions for the message
+    AllowedMentions? allowedMentions,
+
+    /// the components to include with the message
+    List<Component>? components,
+
+    /// attached files to keep and possible descriptions for new files
+    List<Attachment>? attachments,
+
+    /// the contents of the file being sent/edited
     List<MultipartFile>? files,
   }) async {
     return validateApiCall(
       _dio.patch(
         '$_basePath/$channelId/messages/$messageId',
-        data: createFormData(message, files),
+        data: createFormData(
+          {
+            if (content != null) 'content': content,
+            if (embeds != null) 'embed': embeds,
+            if (flags != null) 'flags': MessageFlagConverter().toJson(flags),
+            if (allowedMentions != null) 'allowed_mentions': allowedMentions,
+            if (components != null) 'components': components,
+            if (attachments != null) 'attachments': attachments,
+          },
+          files,
+        ),
       ),
       responseTransformer: (data) => Message.fromJson(data),
     );

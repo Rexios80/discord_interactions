@@ -19,16 +19,14 @@ void main() async {
     late final String fileUploadMessageId;
 
     test('Create message', () async {
-      final message = Message(content: 'This is a test');
-
       final response = await api.channels.createMessage(
         credentials.channelId,
-        message: message,
+        content: 'This is a test',
       );
       final responseMessage = response.data!;
       messageId = responseMessage.id!;
 
-      expect(responseMessage.content, message.content);
+      expect(responseMessage.content, 'This is a test');
       await avoidRateLimit();
     });
 
@@ -52,7 +50,7 @@ void main() async {
       final response = await api.channels.editMessage(
         credentials.channelId,
         messageId: messageId,
-        message: Message(content: 'This is an edited test'),
+        content: 'This is an edited test',
       );
       final responseMessage = response.data!;
       expect(responseMessage.content, 'This is an edited test');
@@ -150,7 +148,7 @@ void main() async {
 
       final response = await api.channels.createMessage(
         credentials.channelId,
-        message: Message(attachments: [attachment]),
+        attachments: [attachment],
         files: [multipartFile],
       );
       fileUploadMessageId = response.data!.id!;
@@ -162,7 +160,7 @@ void main() async {
     test('Bulk delete messages', () async {
       final newMessageResponse = await api.channels.createMessage(
         credentials.channelId,
-        message: Message(content: 'Delete me'),
+        content: 'Delete me',
       );
       final newMessageId = newMessageResponse.data!.id!;
 
@@ -276,7 +274,7 @@ void main() async {
       test('Pin message', () async {
         final createMessageResponse = await api.channels.createMessage(
           channelId,
-          message: Message(content: 'Test message'),
+          content: 'Test message',
         );
         messageId = createMessageResponse.data!.id!;
         await avoidRateLimit();
