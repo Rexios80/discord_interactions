@@ -50,9 +50,8 @@ class InteractionResponse {
 
   /// Convenience method to create an [InteractionResponse] with autocomplete
   /// choices
-  InteractionResponse.choices({
-    required List<ApplicationCommandOptionChoice> choices,
-  })  : type = InteractionCallbackType.applicationCommandAutocompleteResult,
+  InteractionResponse.autocomplete(List<ApplicationCommandOptionChoice> choices)
+      : type = InteractionCallbackType.applicationCommandAutocompleteResult,
         data = InteractionCallbackData(choices: choices);
 
   /// From json

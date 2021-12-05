@@ -327,11 +327,9 @@ void main() async {
 
       final response = await api.interactions.createInteractionResponse(
         autocompleteInteraction,
-        response: InteractionResponse.choices(
-          choices: [
-            ApplicationCommandOptionChoice(name: 'test', value: 'test'),
-          ],
-        ),
+        response: InteractionResponse.autocomplete([
+          ApplicationCommandOptionChoice(name: 'test', value: 'test'),
+        ]),
       );
       expect(response.error, isNull);
 
