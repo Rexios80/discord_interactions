@@ -13,7 +13,7 @@ dependencies:
   discord_interactions:
     git:
       url: https://github.com/Rexios80/discord_interactions
-      ref: b6b247943d18897bdea27a4d36470a938295ba6c
+      ref: 1a4e2d7e91441cd827192d9ed5d3097e52721a03
 
 dev_dependencies:
   rexios_lints: ^1.0.0
