@@ -70,8 +70,9 @@ void main() async {
     test(
       'Delete all global commands',
       () async {
-        await api.applicationCommands
+        final response = await api.applicationCommands
             .bulkOverwriteGlobalApplicationCommands([]);
+        expect(response.error, isNull);
       },
       skip: 'This test only runs manually',
     );
@@ -145,10 +146,12 @@ void main() async {
       () async {
         final guildId = credentials.guildId;
 
-        await api.applicationCommands.bulkOverwriteGuildApplicationCommands(
+        final response = await api.applicationCommands.bulkOverwriteGuildApplicationCommands(
           guildId,
           commands: [],
         );
+
+        expect(response.error, isNull);
       },
       skip: 'This test only runs manually',
     );
