@@ -37,7 +37,7 @@ Future<Response> function(Request request) async {
   // Respond to pings
   if (interaction.type == InteractionType.ping) {
     return Response.ok(
-      jsonEncode(InteractionResponse(type: InteractionCallbackType.pong)),
+      jsonEncode(InteractionResponse.pong()),
     );
   }
 
@@ -57,7 +57,7 @@ Future<Response> function(Request request) async {
 
 Future<void> respond(Interaction interaction) async {
   // Avoid using null check operators in production code
-  final commandName = interaction.data!.name!;
+  final commandName = interaction.data!.name;
 
   // Parse the command into the enum
   final command = EnumToString.fromString(Command.values, commandName)!;
@@ -65,12 +65,12 @@ Future<void> respond(Interaction interaction) async {
   final InteractionResponse response;
   switch (command) {
     case Command.hello:
-      response = InteractionResponse.withData(content: 'Hello!');
+      response = InteractionResponse.message(content: 'Hello!');
       break;
     case Command.echo:
       // Get the echo string from the interaction data
       final echoString = interaction.data!.options![0].value;
-      response = InteractionResponse.withData(content: echoString);
+      response = InteractionResponse.message(content: echoString);
       break;
   }
 

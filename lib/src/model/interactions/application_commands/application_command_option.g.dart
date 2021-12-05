@@ -12,7 +12,7 @@ ApplicationCommandOption _$ApplicationCommandOptionFromJson(
       type: $enumDecode(_$ApplicationCommandOptionTypeEnumMap, json['type']),
       name: json['name'] as String,
       description: json['description'] as String,
-      required: json['required'] as bool? ?? false,
+      required: json['required'] as bool?,
       choices: (json['choices'] as List<dynamic>?)
           ?.map((e) => ApplicationCommandOptionChoice.fromJson(
               e as Map<String, dynamic>))
@@ -35,7 +35,6 @@ Map<String, dynamic> _$ApplicationCommandOptionToJson(
     'type': _$ApplicationCommandOptionTypeEnumMap[instance.type],
     'name': instance.name,
     'description': instance.description,
-    'required': instance.required,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -44,6 +43,7 @@ Map<String, dynamic> _$ApplicationCommandOptionToJson(
     }
   }
 
+  writeNotNull('required', instance.required);
   writeNotNull('choices', instance.choices);
   writeNotNull('options', instance.options);
   writeNotNull('channel_types',

@@ -23,7 +23,7 @@ class ApplicationCommandOption {
   /// if the parameter is required or optional
   ///
   /// default false
-  final bool required;
+  final bool? required;
 
   /// choices for STRING, INTEGER, and NUMBER types for the user to pick from, max 25
   final List<ApplicationCommandOptionChoice>? choices;
@@ -59,7 +59,7 @@ class ApplicationCommandOption {
     required this.type,
     required this.name,
     required this.description,
-    this.required = false,
+    this.required,
     this.choices,
     this.options,
     this.channelTypes,

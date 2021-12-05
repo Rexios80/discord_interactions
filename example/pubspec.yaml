@@ -10,7 +10,10 @@ environment:
 dependencies:
   functions_framework: ^0.4.1
   enum_to_string: ^2.0.1
-  discord_interactions: ^0.0.9
+  discord_interactions:
+    git:
+      url: https://github.com/Rexios80/discord_interactions
+      ref: 7f979d70d40ea7c544163a50eeee681dee8792cf
 
 dev_dependencies:
   rexios_lints: ^1.0.0

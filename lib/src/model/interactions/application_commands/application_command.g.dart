@@ -8,9 +8,9 @@ part of 'application_command.dart';
 
 ApplicationCommand _$ApplicationCommandFromJson(Map<String, dynamic> json) =>
     ApplicationCommand(
-      id: json['id'] as String,
+      id: json['id'] as String? ?? '',
       type: $enumDecodeNullable(_$ApplicationCommandTypeEnumMap, json['type']),
-      applicationId: json['application_id'] as String,
+      applicationId: json['application_id'] as String? ?? '',
       guildId: json['guild_id'] as String?,
       name: json['name'] as String,
       description: json['description'] as String,
@@ -19,7 +19,7 @@ ApplicationCommand _$ApplicationCommandFromJson(Map<String, dynamic> json) =>
               ApplicationCommandOption.fromJson(e as Map<String, dynamic>))
           .toList(),
       defaultPermission: json['default_permission'] as bool?,
-      version: json['version'] as String,
+      version: json['version'] as String? ?? '',
     );
 
 Map<String, dynamic> _$ApplicationCommandToJson(ApplicationCommand instance) {

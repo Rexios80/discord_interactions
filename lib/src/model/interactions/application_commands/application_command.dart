@@ -48,16 +48,18 @@ class ApplicationCommand {
   final String version;
 
   /// Constructor
+  // Set empty values for [id], [applicationId], and [version] so
+  // [ApplicationCommand] objects can be created by the developer
   ApplicationCommand({
-    required this.id,
+    this.id = '',
     this.type,
-    required this.applicationId,
+    this.applicationId = '',
     this.guildId,
     required this.name,
     required this.description,
     this.options,
     this.defaultPermission,
-    required this.version,
+    this.version = '',
   });
 
   /// From json
