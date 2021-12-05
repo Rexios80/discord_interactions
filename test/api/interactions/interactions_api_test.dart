@@ -1,4 +1,4 @@
-// @Skip('Requires test server and user input')
+@Skip('Requires test server and user input')
 
 // Dart imports:
 import 'dart:async';
@@ -18,6 +18,9 @@ void main() async {
 
   final client = InteractionsTestServerClient();
   late final ApplicationCommand testCommand;
+  late final ApplicationCommand autocompleteCommand;
+  late final ApplicationCommand messageCommand;
+  late final ApplicationCommand userCommand;
 
   setUpAll(() async {
     // Create the test command
@@ -29,6 +32,42 @@ void main() async {
     );
 
     testCommand = response.data!;
+
+    final response2 =
+        await api.applicationCommands.createGuildApplicationCommand(
+      credentials.guildId,
+      name: 'autocomplete',
+      description: 'test autocomplete',
+      options: [
+        ApplicationCommandOption(
+          type: ApplicationCommandOptionType.string,
+          name: 'string',
+          description: 'string option',
+          required: true,
+          autocomplete: true,
+        ),
+      ],
+    );
+
+    autocompleteCommand = response2.data!;
+
+    final response3 =
+        await api.applicationCommands.createGuildApplicationCommand(
+      credentials.guildId,
+      type: ApplicationCommandType.message,
+      name: 'test message command',
+    );
+
+    messageCommand = response3.data!;
+
+    final response4 =
+        await api.applicationCommands.createGuildApplicationCommand(
+      credentials.guildId,
+      type: ApplicationCommandType.user,
+      name: 'test user command',
+    );
+
+    userCommand = response4.data!;
   });
 
   // These tests must be run in the written order to pass
@@ -275,13 +314,86 @@ void main() async {
     });
   });
 
+  test(
+    'Autocomplete',
+    () async {
+      print('Invoke /${autocompleteCommand.name} in your test server');
+      final autocompleteInteraction = await client.waitForInteraction();
+      expect(autocompleteInteraction.data?.name, autocompleteCommand.name);
+      expect(
+        autocompleteInteraction.type,
+        InteractionType.applicationCommandAutocomplete,
+      );
+
+      final response = await api.interactions.createInteractionResponse(
+        autocompleteInteraction,
+        response: InteractionResponse.choices(
+          choices: [
+            ApplicationCommandOptionChoice(name: 'test', value: 'test'),
+          ],
+        ),
+      );
+      expect(response.error, isNull);
+
+      client.notifyInteractionHandled();
+
+      final interaction = await client.waitForInteraction();
+      expect(interaction.data?.options!.first.value, 'test');
+
+      final response2 = await api.interactions.createInteractionResponse(
+        interaction,
+        response: InteractionResponse.message(content: 'It worked'),
+      );
+      expect(response2.error, isNull);
+
+      client.notifyInteractionHandled();
+    },
+    skip: 'Discord is sending two autocomplete interactions for some reason',
+  );
+
+  test('Message command', () async {
+    print('Invoke "${messageCommand.name}" in your test server');
+    final interaction = await client.waitForInteraction();
+    expect(interaction.data?.name, messageCommand.name);
+
+    final messageId = interaction.data!.targetId!;
+
+    final response = await api.interactions.createInteractionResponse(
+      interaction,
+      response: InteractionResponse.message(
+        content: 'Message id: $messageId',
+      ),
+    );
+    expect(response.error, isNull);
+
+    client.notifyInteractionHandled();
+  });
+
+  test('User command', () async {
+    print('Invoke "${userCommand.name}" in your test server');
+    final interaction = await client.waitForInteraction();
+    expect(interaction.data?.name, userCommand.name);
+
+    final userId = interaction.data!.targetId!;
+
+    final response = await api.interactions.createInteractionResponse(
+      interaction,
+      response: InteractionResponse.message(
+        content: 'User id: $userId',
+      ),
+    );
+    expect(response.error, isNull);
+
+    client.notifyInteractionHandled();
+  });
+
   tearDownAll(() async {
     client.close();
 
-    // Delete the test command
-    await api.applicationCommands.deleteGuildApplicationCommand(
+    // Delete the test commands
+    await api.applicationCommands.bulkOverwriteGuildApplicationCommands(
       credentials.guildId,
-      commandId: testCommand.id!,
+      commands: [],
     );
   });
 }
@@ -303,7 +415,6 @@ class InteractionsTestServerClient {
   /// Wait for the tester to invoke an interaction
   Future<Interaction> waitForInteraction() async {
     final json = await _socketStream.first;
-    print(json);
     return Interaction.fromJson(jsonDecode(json));
   }
 

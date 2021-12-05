@@ -13,7 +13,7 @@ ApplicationCommand _$ApplicationCommandFromJson(Map<String, dynamic> json) =>
       applicationId: json['application_id'] as String?,
       guildId: json['guild_id'] as String?,
       name: json['name'] as String,
-      description: json['description'] as String,
+      description: json['description'] as String?,
       options: (json['options'] as List<dynamic>?)
           ?.map((e) =>
               ApplicationCommandOption.fromJson(e as Map<String, dynamic>))
@@ -36,7 +36,7 @@ Map<String, dynamic> _$ApplicationCommandToJson(ApplicationCommand instance) {
   writeNotNull('application_id', instance.applicationId);
   writeNotNull('guild_id', instance.guildId);
   val['name'] = instance.name;
-  val['description'] = instance.description;
+  writeNotNull('description', instance.description);
   writeNotNull('options', instance.options);
   writeNotNull('default_permission', instance.defaultPermission);
   writeNotNull('version', instance.version);

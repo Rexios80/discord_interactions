@@ -61,8 +61,8 @@ class GuildMember {
     required this.roles,
     required this.joinedAt,
     this.premiumSince,
-    required this.deaf,
-    required this.mute,
+    this.deaf,
+    this.mute,
     this.pending,
     this.permissions,
   });

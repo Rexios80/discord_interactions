@@ -43,7 +43,7 @@ class ApplicationCommandsApi {
     required String name,
 
     /// 1-100 character description
-    required String description,
+    String? description,
 
     /// the parameters for the command
     List<ApplicationCommandOption>? options,
@@ -62,7 +62,7 @@ class ApplicationCommandsApi {
         '/$_basePath/commands',
         data: {
           'name': name,
-          'description': description,
+          if (description != null) 'description': description,
           if (options != null) 'options': options,
           if (defaultPermission != null)
             'default_permission': defaultPermission,
@@ -178,7 +178,7 @@ class ApplicationCommandsApi {
     required String name,
 
     /// 1-100 character description
-    required String description,
+    String? description,
 
     /// the parameters for the command
     List<ApplicationCommandOption>? options,
@@ -197,7 +197,7 @@ class ApplicationCommandsApi {
         '$_basePath/guilds/$guildId/commands',
         data: {
           'name': name,
-          'description': description,
+          if (description != null) 'description': description,
           if (options != null) 'options': options,
           if (defaultPermission != null)
             'default_permission': defaultPermission,

@@ -31,7 +31,7 @@ class ApplicationCommand {
   final String name;
 
   /// 1-100 character description for CHAT_INPUT commands, empty string for USER and MESSAGE commands
-  final String description;
+  final String? description;
 
   /// the parameters for the command, max 25
   ///
@@ -48,15 +48,13 @@ class ApplicationCommand {
   final String? version;
 
   /// Constructor
-  // Set empty values for [id], [applicationId], and [version] so
-  // [ApplicationCommand] objects can be created by the developer
   ApplicationCommand({
     this.id,
     this.type,
     this.applicationId,
     this.guildId,
     required this.name,
-    required this.description,
+    this.description,
     this.options,
     this.defaultPermission,
     this.version,
