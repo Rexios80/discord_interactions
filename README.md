@@ -74,7 +74,7 @@ final api = DiscordApi(
 await api.interactions.createInteractionResponse(
     interaction,
     response:
-        InteractionResponse.withData(content: 'Hello, Discord Interactions!'),
+        InteractionResponse.message(content: 'Hello, Discord Interactions!'),
 );
 ```
 
