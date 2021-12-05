@@ -14,24 +14,24 @@ part 'application_command.g.dart';
 @JsonSerializable(includeIfNull: false)
 class ApplicationCommand {
   /// unique id of the command
-  final String? id;
+  final String id;
 
   /// the type of command, defaults [ApplicationCommandType.chatInput] if not set
   final ApplicationCommandType? type;
 
   /// unique id of the parent application
   @JsonKey(name: 'application_id')
-  final String? applicationId;
+  final String applicationId;
 
   /// guild id of the command, if not global
   @JsonKey(name: 'guild_id')
   final String? guildId;
 
   /// 1-32 character name
-  final String? name;
+  final String name;
 
   /// 1-100 character description for CHAT_INPUT commands, empty string for USER and MESSAGE commands
-  final String? description;
+  final String description;
 
   /// the parameters for the command, max 25
   ///
@@ -45,19 +45,19 @@ class ApplicationCommand {
   final bool? defaultPermission;
 
   /// autoincrementing version identifier updated during substantial record changes
-  final String? version;
+  final String version;
 
   /// Constructor
   ApplicationCommand({
-    this.id,
+    required this.id,
     this.type,
-    this.applicationId,
+    required this.applicationId,
     this.guildId,
-    this.name,
-    this.description,
+    required this.name,
+    required this.description,
     this.options,
     this.defaultPermission,
-    this.version,
+    required this.version,
   });
 
   /// From json

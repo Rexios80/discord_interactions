@@ -8,9 +8,9 @@ part of 'interaction_data.dart';
 
 InteractionData _$InteractionDataFromJson(Map<String, dynamic> json) =>
     InteractionData(
-      id: json['id'] as String?,
-      name: json['name'] as String?,
-      type: $enumDecodeNullable(_$ApplicationCommandTypeEnumMap, json['type']),
+      id: json['id'] as String,
+      name: json['name'] as String,
+      type: $enumDecode(_$ApplicationCommandTypeEnumMap, json['type']),
       resolved: json['resolved'] == null
           ? null
           : ResolvedData.fromJson(json['resolved'] as Map<String, dynamic>),
@@ -27,7 +27,11 @@ InteractionData _$InteractionDataFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$InteractionDataToJson(InteractionData instance) {
-  final val = <String, dynamic>{};
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'name': instance.name,
+    'type': _$ApplicationCommandTypeEnumMap[instance.type],
+  };
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -35,9 +39,6 @@ Map<String, dynamic> _$InteractionDataToJson(InteractionData instance) {
     }
   }
 
-  writeNotNull('id', instance.id);
-  writeNotNull('name', instance.name);
-  writeNotNull('type', _$ApplicationCommandTypeEnumMap[instance.type]);
   writeNotNull('resolved', instance.resolved);
   writeNotNull('options', instance.options);
   writeNotNull('custom_id', instance.customId);

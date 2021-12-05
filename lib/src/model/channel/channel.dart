@@ -15,10 +15,10 @@ part 'channel.g.dart';
 @JsonSerializable(includeIfNull: false)
 class Channel {
   /// the id of this channel
-  final String? id;
+  final String id;
 
   /// the type of channel
-  final ChannelType? type;
+  final ChannelType type;
 
   /// the id of the guild (may be missing for some channel objects received
   /// over gateway guild dispatches)
@@ -123,8 +123,8 @@ class Channel {
 
   /// Constructor
   Channel({
-    this.id,
-    this.type,
+    required this.id,
+    required this.type,
     this.guildId,
     this.position,
     this.permissionOverwrites,

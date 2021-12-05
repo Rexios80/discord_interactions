@@ -85,4 +85,12 @@ void main() {
       expect(fromValue, enumValue);
     }
   });
+
+  test('ApplicationCommandType value', () {
+    for (final enumValue in ApplicationCommandType.values) {
+      final value = enumValue.value;
+      final fromValue = ApplicationCommandTypeExtension.fromValue(value);
+      expect(fromValue, enumValue);
+    }
+  });
 }

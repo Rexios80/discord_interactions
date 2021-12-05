@@ -29,7 +29,7 @@ class InteractionResponse {
         data = null;
 
   /// Convenience method to create an [InteractionResponse] with message data
-  InteractionResponse.withData({
+  InteractionResponse.message({
     this.type = InteractionCallbackType.channelMessageWithSource,
     bool? tts,
     String? content,
@@ -47,6 +47,13 @@ class InteractionResponse {
           components: components,
           attachments: attachments,
         );
+
+  /// Convenience method to create an [InteractionResponse] with autocomplete
+  /// choices
+  InteractionResponse.choices({
+    required List<ApplicationCommandOptionChoice> choices,
+  })  : type = InteractionCallbackType.applicationCommandAutocompleteResult,
+        data = InteractionCallbackData(choices: choices);
 
   /// From json
   factory InteractionResponse.fromJson(Map<String, dynamic> json) =>

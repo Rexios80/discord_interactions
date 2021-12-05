@@ -7,46 +7,42 @@ part of 'message.dart';
 // **************************************************************************
 
 Message _$MessageFromJson(Map<String, dynamic> json) => Message(
-      id: json['id'] as String?,
-      channelId: json['channel_id'] as String?,
+      id: json['id'] as String,
+      channelId: json['channel_id'] as String,
       guildId: json['guild_id'] as String?,
-      author: json['author'] == null
-          ? null
-          : User.fromJson(json['author'] as Map<String, dynamic>),
+      author: User.fromJson(json['author'] as Map<String, dynamic>),
       member: json['member'] == null
           ? null
           : GuildMember.fromJson(json['member'] as Map<String, dynamic>),
-      content: json['content'] as String?,
-      timestamp: json['timestamp'] == null
-          ? null
-          : DateTime.parse(json['timestamp'] as String),
+      content: json['content'] as String,
+      timestamp: DateTime.parse(json['timestamp'] as String),
       editedTimestamp: json['edited_timestamp'] == null
           ? null
           : DateTime.parse(json['edited_timestamp'] as String),
-      tts: json['tts'] as bool?,
-      mentionEveryone: json['mention_everyone'] as bool?,
-      mentions: (json['mentions'] as List<dynamic>?)
-          ?.map((e) => User.fromJson(e as Map<String, dynamic>))
+      tts: json['tts'] as bool,
+      mentionEveryone: json['mention_everyone'] as bool,
+      mentions: (json['mentions'] as List<dynamic>)
+          .map((e) => User.fromJson(e as Map<String, dynamic>))
           .toList(),
-      mentionRoles: (json['mention_roles'] as List<dynamic>?)
-          ?.map((e) => e as String)
+      mentionRoles: (json['mention_roles'] as List<dynamic>)
+          .map((e) => e as String)
           .toList(),
       mentionChannels: (json['mention_channels'] as List<dynamic>?)
           ?.map((e) => ChannelMention.fromJson(e as Map<String, dynamic>))
           .toList(),
-      attachments: (json['attachments'] as List<dynamic>?)
-          ?.map((e) => Attachment.fromJson(e as Map<String, dynamic>))
+      attachments: (json['attachments'] as List<dynamic>)
+          .map((e) => Attachment.fromJson(e as Map<String, dynamic>))
           .toList(),
-      embeds: (json['embeds'] as List<dynamic>?)
-          ?.map((e) => Embed.fromJson(e as Map<String, dynamic>))
+      embeds: (json['embeds'] as List<dynamic>)
+          .map((e) => Embed.fromJson(e as Map<String, dynamic>))
           .toList(),
       reactions: (json['reactions'] as List<dynamic>?)
           ?.map((e) => Reaction.fromJson(e as Map<String, dynamic>))
           .toList(),
       nonce: json['nonce'],
-      pinned: json['pinned'] as bool?,
+      pinned: json['pinned'] as bool,
       webhookId: json['webhook_id'] as String?,
-      type: $enumDecodeNullable(_$MessageTypeEnumMap, json['type']),
+      type: $enumDecode(_$MessageTypeEnumMap, json['type']),
       activity: json['activity'] == null
           ? null
           : MessageActivity.fromJson(json['activity'] as Map<String, dynamic>),
@@ -79,7 +75,10 @@ Message _$MessageFromJson(Map<String, dynamic> json) => Message(
     );
 
 Map<String, dynamic> _$MessageToJson(Message instance) {
-  final val = <String, dynamic>{};
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'channel_id': instance.channelId,
+  };
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -87,26 +86,24 @@ Map<String, dynamic> _$MessageToJson(Message instance) {
     }
   }
 
-  writeNotNull('id', instance.id);
-  writeNotNull('channel_id', instance.channelId);
   writeNotNull('guild_id', instance.guildId);
-  writeNotNull('author', instance.author);
+  val['author'] = instance.author;
   writeNotNull('member', instance.member);
-  writeNotNull('content', instance.content);
-  writeNotNull('timestamp', instance.timestamp?.toIso8601String());
+  val['content'] = instance.content;
+  val['timestamp'] = instance.timestamp.toIso8601String();
   writeNotNull('edited_timestamp', instance.editedTimestamp?.toIso8601String());
-  writeNotNull('tts', instance.tts);
-  writeNotNull('mention_everyone', instance.mentionEveryone);
-  writeNotNull('mentions', instance.mentions);
-  writeNotNull('mention_roles', instance.mentionRoles);
+  val['tts'] = instance.tts;
+  val['mention_everyone'] = instance.mentionEveryone;
+  val['mentions'] = instance.mentions;
+  val['mention_roles'] = instance.mentionRoles;
   writeNotNull('mention_channels', instance.mentionChannels);
-  writeNotNull('attachments', instance.attachments);
-  writeNotNull('embeds', instance.embeds);
+  val['attachments'] = instance.attachments;
+  val['embeds'] = instance.embeds;
   writeNotNull('reactions', instance.reactions);
   writeNotNull('nonce', instance.nonce);
-  writeNotNull('pinned', instance.pinned);
+  val['pinned'] = instance.pinned;
   writeNotNull('webhook_id', instance.webhookId);
-  writeNotNull('type', _$MessageTypeEnumMap[instance.type]);
+  val['type'] = _$MessageTypeEnumMap[instance.type];
   writeNotNull('activity', instance.activity);
   writeNotNull('application', instance.application);
   writeNotNull('application_id', instance.applicationId);

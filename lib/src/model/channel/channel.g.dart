@@ -7,8 +7,8 @@ part of 'channel.dart';
 // **************************************************************************
 
 Channel _$ChannelFromJson(Map<String, dynamic> json) => Channel(
-      id: json['id'] as String?,
-      type: $enumDecodeNullable(_$ChannelTypeEnumMap, json['type']),
+      id: json['id'] as String,
+      type: $enumDecode(_$ChannelTypeEnumMap, json['type']),
       guildId: json['guild_id'] as String?,
       position: json['position'] as int?,
       permissionOverwrites: (json['permission_overwrites'] as List<dynamic>?)
@@ -51,7 +51,10 @@ Channel _$ChannelFromJson(Map<String, dynamic> json) => Channel(
     );
 
 Map<String, dynamic> _$ChannelToJson(Channel instance) {
-  final val = <String, dynamic>{};
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'type': _$ChannelTypeEnumMap[instance.type],
+  };
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -59,8 +62,6 @@ Map<String, dynamic> _$ChannelToJson(Channel instance) {
     }
   }
 
-  writeNotNull('id', instance.id);
-  writeNotNull('type', _$ChannelTypeEnumMap[instance.type]);
   writeNotNull('guild_id', instance.guildId);
   writeNotNull('position', instance.position);
   writeNotNull('permission_overwrites', instance.permissionOverwrites);

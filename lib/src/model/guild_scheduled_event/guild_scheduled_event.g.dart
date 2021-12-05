@@ -8,23 +8,20 @@ part of 'guild_scheduled_event.dart';
 
 GuildScheduledEvent _$GuildScheduledEventFromJson(Map<String, dynamic> json) =>
     GuildScheduledEvent(
-      id: json['id'] as String?,
-      guildId: json['guild_id'] as String?,
+      id: json['id'] as String,
+      guildId: json['guild_id'] as String,
       channelId: json['channel_id'] as String?,
       creatorId: json['creator_id'] as String?,
-      name: json['name'] as String?,
+      name: json['name'] as String,
       description: json['description'] as String?,
-      scheduledStartTime: json['scheduled_start_time'] == null
-          ? null
-          : DateTime.parse(json['scheduled_start_time'] as String),
+      scheduledStartTime:
+          DateTime.parse(json['scheduled_start_time'] as String),
       scheduledEndTime: json['scheduled_end_time'] == null
           ? null
           : DateTime.parse(json['scheduled_end_time'] as String),
-      privacyLevel:
-          $enumDecodeNullable(_$PrivacyLevelEnumMap, json['privacy_level']),
-      status: $enumDecodeNullable(
-          _$GuildScheduledEventStatusEnumMap, json['status']),
-      entityType: $enumDecodeNullable(
+      privacyLevel: $enumDecode(_$PrivacyLevelEnumMap, json['privacy_level']),
+      status: $enumDecode(_$GuildScheduledEventStatusEnumMap, json['status']),
+      entityType: $enumDecode(
           _$GuildScheduledEventEntityTypeEnumMap, json['entity_type']),
       entityId: json['entity_id'] as String?,
       entityMetadata: json['entity_metadata'] == null
@@ -38,7 +35,10 @@ GuildScheduledEvent _$GuildScheduledEventFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$GuildScheduledEventToJson(GuildScheduledEvent instance) {
-  final val = <String, dynamic>{};
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'guild_id': instance.guildId,
+  };
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -46,20 +46,17 @@ Map<String, dynamic> _$GuildScheduledEventToJson(GuildScheduledEvent instance) {
     }
   }
 
-  writeNotNull('id', instance.id);
-  writeNotNull('guild_id', instance.guildId);
   writeNotNull('channel_id', instance.channelId);
   writeNotNull('creator_id', instance.creatorId);
-  writeNotNull('name', instance.name);
+  val['name'] = instance.name;
   writeNotNull('description', instance.description);
-  writeNotNull(
-      'scheduled_start_time', instance.scheduledStartTime?.toIso8601String());
+  val['scheduled_start_time'] = instance.scheduledStartTime.toIso8601String();
   writeNotNull(
       'scheduled_end_time', instance.scheduledEndTime?.toIso8601String());
-  writeNotNull('privacy_level', _$PrivacyLevelEnumMap[instance.privacyLevel]);
-  writeNotNull('status', _$GuildScheduledEventStatusEnumMap[instance.status]);
-  writeNotNull('entity_type',
-      _$GuildScheduledEventEntityTypeEnumMap[instance.entityType]);
+  val['privacy_level'] = _$PrivacyLevelEnumMap[instance.privacyLevel];
+  val['status'] = _$GuildScheduledEventStatusEnumMap[instance.status];
+  val['entity_type'] =
+      _$GuildScheduledEventEntityTypeEnumMap[instance.entityType];
   writeNotNull('entity_id', instance.entityId);
   writeNotNull('entity_metadata', instance.entityMetadata);
   writeNotNull('creator', instance.creator);

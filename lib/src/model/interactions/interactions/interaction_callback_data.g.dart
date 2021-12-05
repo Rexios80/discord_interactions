@@ -25,6 +25,10 @@ InteractionCallbackData _$InteractionCallbackDataFromJson(
       attachments: (json['attachments'] as List<dynamic>?)
           ?.map((e) => Attachment.fromJson(e as Map<String, dynamic>))
           .toList(),
+      choices: (json['choices'] as List<dynamic>?)
+          ?.map((e) => ApplicationCommandOptionChoice.fromJson(
+              e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$InteractionCallbackDataToJson(
@@ -44,5 +48,6 @@ Map<String, dynamic> _$InteractionCallbackDataToJson(
   writeNotNull('flags', const MessageFlagConverter().toJson(instance.flags));
   writeNotNull('components', instance.components);
   writeNotNull('attachments', instance.attachments);
+  writeNotNull('choices', instance.choices);
   return val;
 }

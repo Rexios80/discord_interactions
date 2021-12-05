@@ -7,8 +7,8 @@ part of 'guild.dart';
 // **************************************************************************
 
 Guild _$GuildFromJson(Map<String, dynamic> json) => Guild(
-      id: json['id'] as String?,
-      name: json['name'] as String?,
+      id: json['id'] as String,
+      name: json['name'] as String,
       icon: json['icon'] as String?,
       iconHash: json['icon_hash'] as String?,
       splash: json['splash'] as String?,
@@ -89,10 +89,17 @@ Guild _$GuildFromJson(Map<String, dynamic> json) => Guild(
       stickers: (json['stickers'] as List<dynamic>?)
           ?.map((e) => Sticker.fromJson(e as Map<String, dynamic>))
           .toList(),
+      guildScheduledEvents: (json['guild_scheduled_events'] as List<dynamic>?)
+          ?.map((e) => GuildScheduledEvent.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      premiumProgressBarEnabled: json['premium_progress_bar_enabled'] as bool?,
     );
 
 Map<String, dynamic> _$GuildToJson(Guild instance) {
-  final val = <String, dynamic>{};
+  final val = <String, dynamic>{
+    'id': instance.id,
+    'name': instance.name,
+  };
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -100,8 +107,6 @@ Map<String, dynamic> _$GuildToJson(Guild instance) {
     }
   }
 
-  writeNotNull('id', instance.id);
-  writeNotNull('name', instance.name);
   writeNotNull('icon', instance.icon);
   writeNotNull('icon_hash', instance.iconHash);
   writeNotNull('splash', instance.splash);
@@ -157,6 +162,9 @@ Map<String, dynamic> _$GuildToJson(Guild instance) {
   writeNotNull('nsfw_level', _$GuildNsfwLevelEnumMap[instance.nsfwLevel]);
   writeNotNull('stage_instances', instance.stageInstances);
   writeNotNull('stickers', instance.stickers);
+  writeNotNull('guild_scheduled_events', instance.guildScheduledEvents);
+  writeNotNull(
+      'premium_progress_bar_enabled', instance.premiumProgressBarEnabled);
   return val;
 }
 

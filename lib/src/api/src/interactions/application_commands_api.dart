@@ -18,7 +18,8 @@ class ApplicationCommandsApi {
     required String applicationId,
   }) : _basePath = '/applications/$applicationId';
 
-  /// Fetch all of the global commands for your application. Returns an array of [ApplicationCommand] objects.
+  /// Fetch all of the global commands for your application. Returns an array
+  /// of [ApplicationCommand] objects.
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#get-global-application-commands
   Future<DiscordResponse<List<ApplicationCommand>>>
@@ -30,22 +31,50 @@ class ApplicationCommandsApi {
     );
   }
 
-  /// Create a new global command. New global commands will be available in all guilds after 1 hour.
-  /// Returns 201 and an [ApplicationCommand] object.
+  /// Create a new global command. New global commands will be available in all
+  /// guilds after 1 hour. Returns 201 and an [ApplicationCommand] object.
   ///
-  /// Creating a command with the same name as an existing command for your application will overwrite the old command.
+  /// Creating a command with the same name as an existing command for your
+  /// application will overwrite the old command.
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#create-global-application-command
-  Future<DiscordResponse<ApplicationCommand>> createGlobalApplicationCommand(
-    ApplicationCommand command,
-  ) {
+  Future<DiscordResponse<ApplicationCommand>> createGlobalApplicationCommand({
+    /// 1-32 character name
+    required String name,
+
+    /// 1-100 character description
+    required String description,
+
+    /// the parameters for the command
+    List<ApplicationCommandOption>? options,
+
+    /// whether the command is enabled by default when the app is added to a
+    /// guild
+    ///
+    /// Default: true
+    bool? defaultPermission,
+
+    /// the type of command, defaults 1 if not set
+    ApplicationCommandType? type,
+  }) {
     return validateApiCall(
-      _dio.post('/$_basePath/commands', data: command),
+      _dio.post(
+        '/$_basePath/commands',
+        data: {
+          'name': name,
+          'description': description,
+          if (options != null) 'options': options,
+          if (defaultPermission != null)
+            'default_permission': defaultPermission,
+          if (type != null) 'type': type.value,
+        },
+      ),
       responseTransformer: (data) => ApplicationCommand.fromJson(data),
     );
   }
 
-  /// Fetch a global command for your application. Returns an [ApplicationCommand] object.
+  /// Fetch a global command for your application. Returns an
+  /// [ApplicationCommand] object.
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#get-global-application-command
   Future<DiscordResponse<ApplicationCommand>> getGlobalApplicationCommand(
@@ -62,10 +91,34 @@ class ApplicationCommandsApi {
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#edit-global-application-command
   Future<DiscordResponse<ApplicationCommand>> editGlobalApplicationCommand(
-    ApplicationCommand command,
-  ) {
+    String commandId, {
+
+    /// 1-32 character name
+    String? name,
+
+    /// 1-100 character description
+    String? description,
+
+    /// the parameters for the command
+    List<ApplicationCommandOption>? options,
+
+    /// whether the command is enabled by default when the app is added to a
+    /// guild
+    ///
+    /// Default: true
+    bool? defaultPermission,
+  }) {
     return validateApiCall(
-      _dio.patch('$_basePath/commands/${command.id}', data: command),
+      _dio.patch(
+        '$_basePath/commands/$commandId',
+        data: {
+          if (name != null) 'name': name,
+          if (description != null) 'description': description,
+          if (options != null) 'options': options,
+          if (defaultPermission != null)
+            'default_permission': defaultPermission,
+        },
+      ),
       responseTransformer: (data) => ApplicationCommand.fromJson(data),
     );
   }
@@ -120,10 +173,37 @@ class ApplicationCommandsApi {
   /// https://discord.com/developers/docs/interactions/application-commands#create-guild-application-command
   Future<DiscordResponse<ApplicationCommand>> createGuildApplicationCommand(
     String guildId, {
-    required ApplicationCommand command,
+
+    /// 1-32 character name
+    required String name,
+
+    /// 1-100 character description
+    required String description,
+
+    /// the parameters for the command
+    List<ApplicationCommandOption>? options,
+
+    /// whether the command is enabled by default when the app is added to a
+    /// guild
+    ///
+    /// Default: true
+    bool? defaultPermission,
+
+    /// the type of command, defaults 1 if not set
+    ApplicationCommandType? type,
   }) {
     return validateApiCall(
-      _dio.post('$_basePath/guilds/$guildId/commands', data: command),
+      _dio.post(
+        '$_basePath/guilds/$guildId/commands',
+        data: {
+          'name': name,
+          'description': description,
+          if (options != null) 'options': options,
+          if (defaultPermission != null)
+            'default_permission': defaultPermission,
+          if (type != null) 'type': type.value,
+        },
+      ),
       responseTransformer: (data) => ApplicationCommand.fromJson(data),
     );
   }
@@ -147,12 +227,33 @@ class ApplicationCommandsApi {
   /// https://discord.com/developers/docs/interactions/application-commands#edit-guild-application-command
   Future<DiscordResponse<ApplicationCommand>> editGuildApplicationCommand(
     String guildId, {
-    required ApplicationCommand command,
+    required String commandId,
+
+    /// 1-32 character name
+    String? name,
+
+    /// 1-100 character description
+    String? description,
+
+    /// the parameters for the command
+    List<ApplicationCommandOption>? options,
+
+    /// whether the command is enabled by default when the app is added to a
+    /// guild
+    ///
+    /// Default: true
+    bool? defaultPermission,
   }) {
     return validateApiCall(
       _dio.patch(
-        '$_basePath/guilds/$guildId/commands/${command.id}',
-        data: command,
+        '$_basePath/guilds/$guildId/commands/$commandId',
+        data: {
+          if (name != null) 'name': name,
+          if (description != null) 'description': description,
+          if (options != null) 'options': options,
+          if (defaultPermission != null)
+            'default_permission': defaultPermission,
+        },
       ),
       responseTransformer: (data) => ApplicationCommand.fromJson(data),
     );

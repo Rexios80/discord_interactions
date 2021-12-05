@@ -18,10 +18,10 @@ part 'guild.g.dart';
 @JsonSerializable(includeIfNull: false)
 class Guild {
   /// guild id
-  final String? id;
+  final String id;
 
   /// guild name (2-100 characters, excluding trailing and leading whitespace)
-  final String? name;
+  final String name;
 
   /// icon hash
   final String? icon;
@@ -231,10 +231,18 @@ class Guild {
   /// custom guild stickers
   final List<Sticker>? stickers;
 
+  /// The scheduled events in the guild
+  @JsonKey(name: 'guild_scheduled_events')
+  final List<GuildScheduledEvent>? guildScheduledEvents;
+
+  /// whether the guild has the boost progress bar enabled
+  @JsonKey(name: 'premium_progress_bar_enabled')
+  final bool? premiumProgressBarEnabled;
+
   /// Constructor
   Guild({
-    this.id,
-    this.name,
+    required this.id,
+    required this.name,
     this.icon,
     this.iconHash,
     this.splash,
@@ -282,6 +290,8 @@ class Guild {
     this.nsfwLevel,
     this.stageInstances,
     this.stickers,
+    this.guildScheduledEvents,
+    this.premiumProgressBarEnabled,
   });
 
   /// From json

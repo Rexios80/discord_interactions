@@ -24,7 +24,7 @@ void main() async {
         content: 'This is a test',
       );
       final responseMessage = response.data!;
-      messageId = responseMessage.id!;
+      messageId = responseMessage.id;
 
       expect(responseMessage.content, 'This is a test');
       await avoidRateLimit();
@@ -151,9 +151,9 @@ void main() async {
         attachments: [attachment],
         files: [multipartFile],
       );
-      fileUploadMessageId = response.data!.id!;
+      fileUploadMessageId = response.data!.id;
 
-      expect(response.data!.attachments!.length, 1);
+      expect(response.data!.attachments.length, 1);
       await avoidRateLimit();
     });
 
@@ -162,7 +162,7 @@ void main() async {
         credentials.channelId,
         content: 'Delete me',
       );
-      final newMessageId = newMessageResponse.data!.id!;
+      final newMessageId = newMessageResponse.data!.id;
 
       await avoidRateLimit();
 
@@ -276,7 +276,7 @@ void main() async {
           channelId,
           content: 'Test message',
         );
-        messageId = createMessageResponse.data!.id!;
+        messageId = createMessageResponse.data!.id;
         await avoidRateLimit();
 
         final response = await api.channels.pinMessage(
@@ -318,7 +318,7 @@ void main() async {
           messageId: messageId,
           name: 'test_thread',
         );
-        threadId = response.data!.id!;
+        threadId = response.data!.id;
         expect(response.data!.name, 'test_thread');
         await avoidRateLimit();
       });
@@ -330,7 +330,7 @@ void main() async {
           name: 'test_thread_2',
           type: ChannelType.guildPublicThread,
         );
-        threadId2 = startThreadResponse.data!.id!;
+        threadId2 = startThreadResponse.data!.id;
         expect(startThreadResponse.data!.name, 'test_thread_2');
         await avoidRateLimit();
       });
@@ -389,7 +389,7 @@ void main() async {
         final response = await api.channels.modifyThread(
           threadId,
           name: 'test_thread_modified',
-          metadata: ThreadMetadata(archived: true),
+          archived: true,
           reason: 'Testing reasons',
         );
         final responseThread = response.data!;

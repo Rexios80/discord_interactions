@@ -190,7 +190,25 @@ class ChannelsApi {
 
     /// 1-100 character channel name
     String? name,
-    ThreadMetadata? metadata,
+
+    /// whether the thread is archived
+    bool? archived,
+
+    /// duration in minutes to automatically archive the thread after recent
+    /// activity, can be set to: 60, 1440, 4320, 10080
+    ///
+    /// The 3 day and 7 day archive durations require the server to be boosted.
+    /// The guild features will indicate if a server is able to use those
+    /// settings.
+    ThreadAutoArchiveDuration? autoArchiveDuration,
+
+    /// whether the thread is locked; when a thread is locked, only users with
+    /// MANAGE_THREADS can unarchive it
+    bool? locked,
+
+    /// whether non-moderators can add other non-moderators to a thread; only
+    /// available on private threads
+    bool? invitable,
 
     /// amount of seconds a user has to wait before sending another message
     /// (0-21600)
@@ -202,7 +220,11 @@ class ChannelsApi {
         '$_basePath/$channelId',
         data: {
           if (name != null) 'name': name,
-          if (metadata != null) ...metadata.toJson(),
+          if (archived != null) 'archived': archived,
+          if (autoArchiveDuration != null)
+            'auto_archive_duration': autoArchiveDuration.value,
+          if (locked != null) 'locked': locked,
+          if (invitable != null) 'invitable': invitable,
           if (rateLimitPerUser != null) 'rate_limit_per_user': rateLimitPerUser,
         },
         options: Options(

@@ -39,6 +39,9 @@ class InteractionCallbackData {
   /// See Uploading Files for details.
   final List<Attachment>? attachments;
 
+  /// autocomplete choices (max of 25 choices)
+  final List<ApplicationCommandOptionChoice>? choices;
+
   /// Constructor
   InteractionCallbackData({
     this.tts,
@@ -48,6 +51,7 @@ class InteractionCallbackData {
     this.flags,
     this.components,
     this.attachments,
+    this.choices,
   });
 
   /// From json

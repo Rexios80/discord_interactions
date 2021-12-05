@@ -15,10 +15,8 @@ void main() async {
     test('Create global appliction command', () async {
       final response =
           await api.applicationCommands.createGlobalApplicationCommand(
-        ApplicationCommand(
-          name: 'test_name',
-          description: 'test description',
-        ),
+        name: 'test_name',
+        description: 'test description',
       );
       command = response.data!;
       expect(command.name, 'test_name');
@@ -26,8 +24,8 @@ void main() async {
     });
 
     test('Get global appliction command', () async {
-      final response = await api.applicationCommands
-          .getGlobalApplicationCommand(command.id!);
+      final response =
+          await api.applicationCommands.getGlobalApplicationCommand(command.id);
       final fetchedCommand = response.data!;
       expect(fetchedCommand.name, 'test_name');
     });
@@ -45,7 +43,8 @@ void main() async {
     test('Edit global application command', () async {
       final response =
           await api.applicationCommands.editGlobalApplicationCommand(
-        ApplicationCommand(id: command.id, name: 'edited_name'),
+        command.id,
+        name: 'edited_name',
       );
       final editedCommand = response.data!;
       expect(editedCommand.name, 'edited_name');
@@ -61,7 +60,7 @@ void main() async {
     test('Delete global application command', () async {
       final response =
           await api.applicationCommands.deleteGlobalApplicationCommand(
-        command.id!,
+        command.id,
       );
 
       expect(response.error, isNull);
@@ -86,10 +85,8 @@ void main() async {
       final response =
           await api.applicationCommands.createGuildApplicationCommand(
         guildId,
-        command: ApplicationCommand(
-          name: 'test_name',
-          description: 'test description',
-        ),
+        name: 'test_name',
+        description: 'test description',
       );
       command = response.data!;
       expect(command.name, 'test_name');
@@ -99,7 +96,7 @@ void main() async {
     test('Get guild appliction command', () async {
       final response = await api.applicationCommands.getGuildApplicationCommand(
         guildId,
-        commandId: command.id!,
+        commandId: command.id,
       );
       final fetchedCommand = response.data!;
       expect(fetchedCommand.name, 'test_name');
@@ -119,7 +116,8 @@ void main() async {
       final response =
           await api.applicationCommands.editGuildApplicationCommand(
         guildId,
-        command: ApplicationCommand(id: command.id, name: 'edited_name'),
+        commandId: command.id,
+        name: 'edited_name',
       );
       final editedCommand = response.data!;
       expect(editedCommand.name, 'edited_name');
@@ -136,7 +134,7 @@ void main() async {
       final response =
           await api.applicationCommands.deleteGuildApplicationCommand(
         guildId,
-        commandId: command.id!,
+        commandId: command.id,
       );
       expect(response.error, isNull);
     });
@@ -146,7 +144,8 @@ void main() async {
       () async {
         final guildId = credentials.guildId;
 
-        final response = await api.applicationCommands.bulkOverwriteGuildApplicationCommands(
+        final response =
+            await api.applicationCommands.bulkOverwriteGuildApplicationCommands(
           guildId,
           commands: [],
         );
@@ -166,10 +165,8 @@ void main() async {
       final response =
           await api.applicationCommands.createGuildApplicationCommand(
         guildId,
-        command: ApplicationCommand(
-          name: 'test_name',
-          description: 'test description',
-        ),
+        name: 'test_name',
+        description: 'test description',
       );
       command = response.data!;
     });
@@ -178,7 +175,7 @@ void main() async {
       final response =
           await api.applicationCommands.editApplicationCommandPermissions(
         guildId,
-        commandId: command.id!,
+        commandId: command.id,
         permissions: [
           ApplicationCommandPermissions(
             id: roleId,
@@ -204,7 +201,7 @@ void main() async {
       final response =
           await api.applicationCommands.getApplicationCommandPermissions(
         guildId,
-        commandId: command.id!,
+        commandId: command.id,
       );
       final fetchedPermissions = response.data!;
       expect(fetchedPermissions.permissions.length, 1);
@@ -223,7 +220,7 @@ void main() async {
     tearDownAll(() async {
       await api.applicationCommands.deleteGuildApplicationCommand(
         guildId,
-        commandId: command.id!,
+        commandId: command.id,
       );
     });
   });

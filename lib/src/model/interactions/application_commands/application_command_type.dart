@@ -17,3 +17,19 @@ enum ApplicationCommandType {
   @JsonValue(3)
   message,
 }
+
+/// Extension on [ApplicationCommandType]
+extension ApplicationCommandTypeExtension on ApplicationCommandType {
+  static const _enumMap = <ApplicationCommandType, int>{
+    ApplicationCommandType.chatInput: 1,
+    ApplicationCommandType.user: 2,
+    ApplicationCommandType.message: 3,
+  };
+
+  /// Get the value of the enum
+  int get value => _enumMap[this]!;
+
+  /// Create a [ChannelType] from a value
+  static ApplicationCommandType fromValue(int value) =>
+      _enumMap.entries.singleWhere((e) => e.value == value).key;
+}

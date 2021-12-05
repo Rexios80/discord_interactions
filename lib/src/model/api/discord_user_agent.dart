@@ -1,4 +1,5 @@
-/// Clients using the HTTP API must provide a valid User Agent which specifies information about the client library and version
+/// Clients using the HTTP API must provide a valid User Agent which specifies
+/// information about the client library and version
 class DiscordUserAgent {
   /// A url containing information about your bot
   final String url;
@@ -9,7 +10,8 @@ class DiscordUserAgent {
   /// Extra information you would like to provide
   final String? extra;
 
-  /// Creates a new [DiscordUserAgent] with the given [url], [versionNumber], and optional [extra] information.
+  /// Creates a new [DiscordUserAgent] with the given [url], [versionNumber],
+  /// and optional [extra] information
   const DiscordUserAgent({
     required this.url,
     required this.versionNumber,

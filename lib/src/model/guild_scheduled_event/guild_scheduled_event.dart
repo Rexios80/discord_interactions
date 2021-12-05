@@ -16,11 +16,11 @@ part 'guild_scheduled_event.g.dart';
 @JsonSerializable(includeIfNull: false)
 class GuildScheduledEvent {
   /// the id of the scheduled event
-  final String? id;
+  final String id;
 
   /// the guild id which the scheduled event belongs to
   @JsonKey(name: 'guild_id')
-  final String? guildId;
+  final String guildId;
 
   /// the channel id in which the scheduled event will be hosted, or null if
   /// scheduled entity type is EXTERNAL
@@ -36,14 +36,14 @@ class GuildScheduledEvent {
   final String? creatorId;
 
   /// the name of the scheduled event (1-100 characters)
-  final String? name;
+  final String name;
 
   /// the description of the scheduled event (1-1000 characters)
   final String? description;
 
   /// the time the scheduled event will start
   @JsonKey(name: 'scheduled_start_time')
-  final DateTime? scheduledStartTime;
+  final DateTime scheduledStartTime;
 
   /// the time the scheduled event will end, required if entity_type is EXTERNAL
   @JsonKey(name: 'scheduled_end_time')
@@ -51,14 +51,14 @@ class GuildScheduledEvent {
 
   /// the privacy level of the scheduled event
   @JsonKey(name: 'privacy_level')
-  final PrivacyLevel? privacyLevel;
+  final PrivacyLevel privacyLevel;
 
   /// the status of the scheduled event
-  final GuildScheduledEventStatus? status;
+  final GuildScheduledEventStatus status;
 
   /// the type of the scheduled event
   @JsonKey(name: 'entity_type')
-  final GuildScheduledEventEntityType? entityType;
+  final GuildScheduledEventEntityType entityType;
 
   /// the id of an entity associated with a guild scheduled event
   @JsonKey(name: 'entity_id')
@@ -77,17 +77,17 @@ class GuildScheduledEvent {
 
   /// Constructor
   GuildScheduledEvent({
-    this.id,
-    this.guildId,
+    required this.id,
+    required this.guildId,
     this.channelId,
     this.creatorId,
-    this.name,
+    required this.name,
     this.description,
-    this.scheduledStartTime,
+    required this.scheduledStartTime,
     this.scheduledEndTime,
-    this.privacyLevel,
-    this.status,
-    this.entityType,
+    required this.privacyLevel,
+    required this.status,
+    required this.entityType,
     this.entityId,
     this.entityMetadata,
     this.creator,

@@ -53,18 +53,58 @@ class InteractionsApi {
     );
   }
 
-  /// Edits the initial [InteractionResponse]. Functions the same as Edit Webhook Message.
+  /// Edits the initial [InteractionResponse]. Functions the same as Edit
+  /// Webhook Message.
+  ///
+  /// When the [content] field is edited, the mentions array in the message object
+  /// will be reconstructed from scratch based on the new content. The
+  /// [allowedMentions] field of the edit request controls how this happens. If
+  /// there is no explicit [allowedMentions] in the edit request, the content
+  /// will be parsed with default allowances, that is, without regard to whether
+  /// or not an [allowedMentions] was present in the request that originally
+  /// created the message.
+  ///
+  /// Starting with API v10, the [attachments] array must contain all
+  /// attachments that should be present after edit, including retained and new
+  /// attachments provided in the request body.
+  ///
+  /// All parameters to this endpoint are optional and nullable.
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#edit-original-interaction-response
   Future<DiscordResponse<Message>> editOriginalInteractionResponse(
     String interactionToken, {
-    required Message message,
+
+    /// the message contents (up to 2000 characters)
+    String? content,
+
+    /// embedded rich content
+    ///
+    /// array of up to 10 embed objects
+    List<Embed>? embeds,
+
+    /// allowed mentions for the message
+    AllowedMentions? allowedMentions,
+
+    /// the components to include with the message
+    List<Component>? components,
+
+    /// attached files to keep and possible descriptions for new files
+    List<Attachment>? attachments,
     List<MultipartFile>? files,
   }) {
     return validateApiCall(
       _dio.patch(
         '$_basePath/$interactionToken/messages/@original',
-        data: createFormData(message, files),
+        data: createFormData(
+          {
+            if (content != null) 'content': content,
+            if (embeds != null) 'embeds': embeds,
+            if (allowedMentions != null) 'allowed_mentions': allowedMentions,
+            if (components != null) 'components': components,
+            if (attachments != null) 'attachments': attachments,
+          },
+          files,
+        ),
       ),
       responseTransformer: (data) => Message.fromJson(data),
     );
@@ -90,16 +130,47 @@ class InteractionsApi {
   /// Note that when sending a message, you must provide a value for at least
   /// one of [content], [embeds], or [file].
   ///
+  /// For the webhook embed objects, you can set every field except type (it
+  /// will be rich regardless of if you try to set it), provider, video, and
+  /// any height, width, or proxy_url values for images.
+  ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#create-followup-message
   Future<DiscordResponse<Message>> createFollowupMessage(
     String interactionToken, {
-    required Message message,
+
+    /// the message contents (up to 2000 characters)
+    String? content,
+
+    /// true if this is a TTS message
+    bool? tts,
+
+    /// embedded rich content
+    List<Embed>? embeds,
+
+    /// allowed mentions for the message
+    AllowedMentions? allowedMentions,
+
+    /// the components to include with the message
+    List<Component>? components,
+
+    /// attachment objects with filename and description
+    List<Attachment>? attachments,
     List<MultipartFile>? files,
   }) {
     return validateApiCall(
       _dio.post(
         '$_basePath/$interactionToken',
-        data: createFormData(message, files),
+        data: createFormData(
+          {
+            if (content != null) 'content': content,
+            if (tts != null) 'tts': tts,
+            if (embeds != null) 'embeds': embeds,
+            if (allowedMentions != null) 'allowed_mentions': allowedMentions,
+            if (components != null) 'components': components,
+            if (attachments != null) 'attachments': attachments,
+          },
+          files,
+        ),
       ),
       responseTransformer: (data) => Message.fromJson(data),
     );
@@ -122,17 +193,56 @@ class InteractionsApi {
   /// Edits a followup message for an Interaction. Functions the same as Edit
   /// Webhook Message. Does not support ephemeral followups.
   ///
+  /// When the [content] field is edited, the mentions array in the message object
+  /// will be reconstructed from scratch based on the new content. The
+  /// [allowedMentions] field of the edit request controls how this happens. If
+  /// there is no explicit [allowedMentions] in the edit request, the content
+  /// will be parsed with default allowances, that is, without regard to whether
+  /// or not an [allowedMentions] was present in the request that originally
+  /// created the message.
+  ///
+  /// Starting with API v10, the [attachments] array must contain all
+  /// attachments that should be present after edit, including retained and new
+  /// attachments provided in the request body.
+  ///
+  /// All parameters to this endpoint are optional and nullable.
+  ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#edit-followup-message
   Future<DiscordResponse<Message>> editFollowupMessage(
     String interactionToken, {
     required String messageId,
-    required Message message,
+
+    /// the message contents (up to 2000 characters)
+    String? content,
+
+    /// embedded rich content
+    ///
+    /// array of up to 10 embed objects
+    List<Embed>? embeds,
+
+    /// allowed mentions for the message
+    AllowedMentions? allowedMentions,
+
+    /// the components to include with the message
+    List<Component>? components,
+
+    /// attached files to keep and possible descriptions for new files
+    List<Attachment>? attachments,
     List<MultipartFile>? files,
   }) {
     return validateApiCall(
       _dio.patch(
         '$_basePath/$interactionToken/messages/$messageId',
-        data: createFormData(message, files),
+        data: createFormData(
+          {
+            if (content != null) 'content': content,
+            if (embeds != null) 'embeds': embeds,
+            if (allowedMentions != null) 'allowed_mentions': allowedMentions,
+            if (components != null) 'components': components,
+            if (attachments != null) 'attachments': attachments,
+          },
+          files,
+        ),
       ),
       responseTransformer: (data) => Message.fromJson(data),
     );

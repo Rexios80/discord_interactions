@@ -8,8 +8,8 @@ part of 'user.dart';
 
 User _$UserFromJson(Map<String, dynamic> json) => User(
       id: json['id'] as String,
-      username: json['username'] as String?,
-      discriminator: json['discriminator'] as String?,
+      username: json['username'] as String,
+      discriminator: json['discriminator'] as String,
       avatar: json['avatar'] as String?,
       bot: json['bot'] as bool?,
       system: json['system'] as bool?,
@@ -32,6 +32,8 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
 Map<String, dynamic> _$UserToJson(User instance) {
   final val = <String, dynamic>{
     'id': instance.id,
+    'username': instance.username,
+    'discriminator': instance.discriminator,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -40,8 +42,6 @@ Map<String, dynamic> _$UserToJson(User instance) {
     }
   }
 
-  writeNotNull('username', instance.username);
-  writeNotNull('discriminator', instance.discriminator);
   writeNotNull('avatar', instance.avatar);
   writeNotNull('bot', instance.bot);
   writeNotNull('system', instance.system);

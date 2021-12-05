@@ -8,18 +8,22 @@ part of 'thread_metadata.dart';
 
 ThreadMetadata _$ThreadMetadataFromJson(Map<String, dynamic> json) =>
     ThreadMetadata(
-      archived: json['archived'] as bool?,
-      autoArchiveDuration: $enumDecodeNullable(
+      archived: json['archived'] as bool,
+      autoArchiveDuration: $enumDecode(
           _$ThreadAutoArchiveDurationEnumMap, json['auto_archive_duration']),
-      archiveTimestamp: json['archive_timestamp'] == null
-          ? null
-          : DateTime.parse(json['archive_timestamp'] as String),
-      locked: json['locked'] as bool?,
+      archiveTimestamp: DateTime.parse(json['archive_timestamp'] as String),
+      locked: json['locked'] as bool,
       invitable: json['invitable'] as bool?,
     );
 
 Map<String, dynamic> _$ThreadMetadataToJson(ThreadMetadata instance) {
-  final val = <String, dynamic>{};
+  final val = <String, dynamic>{
+    'archived': instance.archived,
+    'auto_archive_duration':
+        _$ThreadAutoArchiveDurationEnumMap[instance.autoArchiveDuration],
+    'archive_timestamp': instance.archiveTimestamp.toIso8601String(),
+    'locked': instance.locked,
+  };
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -27,12 +31,6 @@ Map<String, dynamic> _$ThreadMetadataToJson(ThreadMetadata instance) {
     }
   }
 
-  writeNotNull('archived', instance.archived);
-  writeNotNull('auto_archive_duration',
-      _$ThreadAutoArchiveDurationEnumMap[instance.autoArchiveDuration]);
-  writeNotNull(
-      'archive_timestamp', instance.archiveTimestamp?.toIso8601String());
-  writeNotNull('locked', instance.locked);
   writeNotNull('invitable', instance.invitable);
   return val;
 }
