@@ -13,6 +13,7 @@ import 'package:discord_interactions/src/api/src/stage_instances_api.dart';
 import 'package:discord_interactions/src/api/src/stickers_api.dart';
 import 'package:discord_interactions/src/api/src/users_api.dart';
 import 'package:discord_interactions/src/api/src/voice_api.dart';
+import 'package:discord_interactions/src/api/src/webhooks_api.dart';
 import 'package:discord_interactions/src/model/discord_model.dart';
 
 /// Base class for accessing the Discord API
@@ -56,6 +57,9 @@ class DiscordApi {
   /// Access to the Voice API
   late final VoiceApi voice;
 
+  /// Access to the Webhooks API
+  late final WebhooksApi webhooks;
+
   /// Access to the Discord API
   ///
   /// One of [botToken], [credentialsToken] is required
@@ -90,5 +94,6 @@ class DiscordApi {
     stickers = StickersApi(_dio);
     users = UsersApi(_dio);
     voice = VoiceApi(_dio);
+    webhooks = WebhooksApi(_dio);
   }
 }

@@ -28,13 +28,14 @@ class InteractionsApi {
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#create-interaction-response
   Future<DiscordResponse<void>> createInteractionResponse(
-    Interaction interaction, {
+    String interactionId, {
+    required String interactionToken,
     required InteractionResponse response,
     List<MultipartFile>? files,
   }) {
     return validateApiCall(
       _dio.post(
-        '/interactions/${interaction.id}/${interaction.token}/callback',
+        '/interactions/$interactionId/$interactionToken/callback',
         data: createFormData(response, files),
       ),
     );
@@ -128,7 +129,7 @@ class InteractionsApi {
   /// interaction followups.
   ///
   /// Note that when sending a message, you must provide a value for at least
-  /// one of [content], [embeds], or [file].
+  /// one of [content], [embeds], or [files].
   ///
   /// For the webhook embed objects, you can set every field except type (it
   /// will be rich regardless of if you try to set it), provider, video, and

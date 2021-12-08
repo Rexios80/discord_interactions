@@ -1202,7 +1202,6 @@ class GuildsApi {
           responseType: ResponseType.bytes,
         ),
       ),
-      responseTransformer: (data) => data,
     );
   }
 

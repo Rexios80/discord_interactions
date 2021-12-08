@@ -145,9 +145,6 @@ class UsersApi {
   ///
   /// https://discord.com/developers/docs/resources/user#get-user-connections
   Future<DiscordResponse<dynamic>> getUserConnections() {
-    return validateApiCall(
-      _dio.get('$_basePath/@me/connections'),
-      responseTransformer: (data) => data,
-    );
+    return validateApiCall(_dio.get('$_basePath/@me/connections'));
   }
 }
