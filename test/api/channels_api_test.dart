@@ -57,71 +57,73 @@ void main() async {
       await avoidRateLimit();
     });
 
-    test('Create reaction', () async {
-      final response = await api.channels.createReaction(
-        credentials.channelId,
-        messageId: messageId,
-        emojiName: credentials.emojiName,
-        emojiId: credentials.emojiId,
-      );
-      expect(response.error, isNull);
-      await avoidRateLimit();
-    });
+    group('Reactions: ', () {
+      test('Create reaction', () async {
+        final response = await api.channels.createReaction(
+          credentials.channelId,
+          messageId: messageId,
+          emojiName: credentials.emojiName,
+          emojiId: credentials.emojiId,
+        );
+        expect(response.error, isNull);
+        await avoidRateLimit();
+      });
 
-    test('Get reactions', () async {
-      final response = await api.channels.getReactions(
-        credentials.channelId,
-        messageId: messageId,
-        emojiName: credentials.emojiName,
-        emojiId: credentials.emojiId,
-      );
-      final responseReactions = response.data!;
+      test('Get reactions', () async {
+        final response = await api.channels.getReactions(
+          credentials.channelId,
+          messageId: messageId,
+          emojiName: credentials.emojiName,
+          emojiId: credentials.emojiId,
+        );
+        final responseReactions = response.data!;
 
-      expect(responseReactions.length, 1);
-      await avoidRateLimit();
-    });
+        expect(responseReactions.length, 1);
+        await avoidRateLimit();
+      });
 
-    test('Delete own reaction', () async {
-      final response = await api.channels.deleteOwnReaction(
-        credentials.channelId,
-        messageId: messageId,
-        emojiName: credentials.emojiName,
-        emojiId: credentials.emojiId,
-      );
-      expect(response.error, isNull);
-      await avoidRateLimit();
-    });
+      test('Delete own reaction', () async {
+        final response = await api.channels.deleteOwnReaction(
+          credentials.channelId,
+          messageId: messageId,
+          emojiName: credentials.emojiName,
+          emojiId: credentials.emojiId,
+        );
+        expect(response.error, isNull);
+        await avoidRateLimit();
+      });
 
-    test('Delete user reaction', () async {
-      final response = await api.channels.deleteUserReaction(
-        credentials.channelId,
-        messageId: messageId,
-        emojiName: credentials.emojiName,
-        emojiId: credentials.emojiId,
-        userId: credentials.userId,
-      );
-      expect(response.error, isNull);
-      await avoidRateLimit();
-    });
+      test('Delete user reaction', () async {
+        final response = await api.channels.deleteUserReaction(
+          credentials.channelId,
+          messageId: messageId,
+          emojiName: credentials.emojiName,
+          emojiId: credentials.emojiId,
+          userId: credentials.userId,
+        );
+        expect(response.error, isNull);
+        await avoidRateLimit();
+      });
 
-    test('Delete all reactions for emoji', () async {
-      final response = await api.channels.deleteAllReactionsForEmoji(
-        credentials.channelId,
-        messageId: messageId,
-        emojiName: credentials.emojiName,
-        emojiId: credentials.emojiId,
-      );
-      expect(response.error, isNull);
-      await avoidRateLimit();
-    });
+      test('Delete all reactions for emoji', () async {
+        final response = await api.channels.deleteAllReactionsForEmoji(
+          credentials.channelId,
+          messageId: messageId,
+          emojiName: credentials.emojiName,
+          emojiId: credentials.emojiId,
+        );
+        expect(response.error, isNull);
+        await avoidRateLimit();
+      });
 
-    test('Delete all reactions', () async {
-      final response = await api.channels.deleteAllReactions(
-        credentials.channelId,
-        messageId: messageId,
-      );
-      expect(response.error, isNull);
-      await avoidRateLimit();
+      test('Delete all reactions', () async {
+        final response = await api.channels.deleteAllReactions(
+          credentials.channelId,
+          messageId: messageId,
+        );
+        expect(response.error, isNull);
+        await avoidRateLimit();
+      });
     });
 
     test('Delete message', () async {
@@ -178,14 +180,15 @@ void main() async {
 
   // These tests must be run in the written order to pass
   group('Channel operations:', () {
-    late final String channelId;
-    late final String inviteCode;
-    late final String messageId;
-
     group('Channel:', () {
+      late final String channelId;
+      late final String inviteCode;
+
       test('Create channel', () async {
-        // TODO: Need the Guilds API for this
-        channelId = credentials.channelId;
+        final response = await api.guilds
+            .createGuildChannel(credentials.guildId, name: 'test_channel');
+        expect(response.error, isNull);
+        channelId = response.data!.id;
         await avoidRateLimit();
       });
 
@@ -235,23 +238,21 @@ void main() async {
         await avoidRateLimit();
       });
 
-      test('Create channel invite', () async {
-        final response = await api.channels.createChannelInvite(channelId);
-        final invite = response.data!;
-        inviteCode = invite.code;
-        expect(invite, isNotNull);
-        await avoidRateLimit();
-      });
-
-      test('Get channel invites', () async {
-        final response = await api.channels.getChannelInvites(channelId);
-        expect(response.data!.length, greaterThan(0));
-        await avoidRateLimit();
-      });
-
-      // It's kind of dumb that these are in the channels testing,
-      // but that's how the API works I guess
       group('Invites:', () {
+        test('Create channel invite', () async {
+          final response = await api.channels.createChannelInvite(channelId);
+          final invite = response.data!;
+          inviteCode = invite.code;
+          expect(invite, isNotNull);
+          await avoidRateLimit();
+        });
+
+        test('Get channel invites', () async {
+          final response = await api.channels.getChannelInvites(channelId);
+          expect(response.data!.length, greaterThan(0));
+          await avoidRateLimit();
+        });
+
         test('Get invite', () async {
           final response = await api.invites.getInvite(inviteCode);
           expect(response.data!.code, inviteCode);
@@ -271,50 +272,66 @@ void main() async {
         await avoidRateLimit();
       });
 
-      test('Pin message', () async {
-        final createMessageResponse = await api.channels.createMessage(
-          channelId,
-          content: 'Test message',
-        );
-        messageId = createMessageResponse.data!.id;
-        await avoidRateLimit();
+      group('Message pinning:', () {
+        late final String messageId;
 
-        final response = await api.channels.pinMessage(
-          channelId,
-          messageId: messageId,
-        );
-        expect(response.error, isNull);
-        await avoidRateLimit();
-      });
+        test('Pin message', () async {
+          final createMessageResponse = await api.channels.createMessage(
+            channelId,
+            content: 'Test message',
+          );
+          messageId = createMessageResponse.data!.id;
+          await avoidRateLimit();
 
-      test('Get pinned messages', () async {
-        final response = await api.channels.getPinnedMessages(channelId);
-        expect(response.data!.length, greaterThan(0));
-        await avoidRateLimit();
-      });
+          final response = await api.channels.pinMessage(
+            channelId,
+            messageId: messageId,
+          );
+          expect(response.error, isNull);
+          await avoidRateLimit();
+        });
 
-      test('Unpin message', () async {
-        final response = await api.channels.unpinMessage(
-          channelId,
-          messageId: messageId,
-          reason: 'Testing reasons',
-        );
-        expect(response.error, isNull);
-        await avoidRateLimit();
+        test('Get pinned messages', () async {
+          final response = await api.channels.getPinnedMessages(channelId);
+          expect(response.data!.length, greaterThan(0));
+          await avoidRateLimit();
+        });
+
+        test('Unpin message', () async {
+          final response = await api.channels.unpinMessage(
+            channelId,
+            messageId: messageId,
+            reason: 'Testing reasons',
+          );
+          expect(response.error, isNull);
+          await avoidRateLimit();
+        });
       });
 
       test('Delete channel', () async {
-        // TODO: Need to create a channel with the GuildsAPI first to delete it
+        final response = await api.channels.deleteChannel(channelId);
+        expect(response.error, isNull);
+        await avoidRateLimit();
       });
     });
 
     group('Thread:', () {
+      late final String messageId;
       late final String threadId;
       late final String threadId2;
 
       test('Start thread with message', () async {
+        final createMessageResponse = await api.channels.createMessage(
+          credentials.channelId,
+          content: 'Test message',
+        );
+
+        messageId = createMessageResponse.data!.id;
+
+        await avoidRateLimit();
+
         final response = await api.channels.startThreadWithMessage(
-          channelId,
+          credentials.channelId,
           messageId: messageId,
           name: 'test_thread',
         );
@@ -324,19 +341,21 @@ void main() async {
       });
 
       test('Start thread without message', () async {
-        final startThreadResponse =
-            await api.channels.startThreadWithoutMessage(
-          channelId,
+        final response = await api.channels.startThreadWithoutMessage(
+          credentials.channelId,
           name: 'test_thread_2',
           type: ChannelType.guildPublicThread,
         );
-        threadId2 = startThreadResponse.data!.id;
-        expect(startThreadResponse.data!.name, 'test_thread_2');
+        threadId2 = response.data!.id;
+        expect(response.data!.name, 'test_thread_2');
         await avoidRateLimit();
       });
 
       test('List active threads', () async {
-        // TODO: Need the Guilds API to list active threads
+        final response =
+            await api.guilds.listActiveThreads(credentials.guildId);
+        expect(response.error, isNull);
+        expect(response.data?.threads.length, greaterThan(0));
         await avoidRateLimit();
       });
 
@@ -400,7 +419,7 @@ void main() async {
 
       test('List public archived threads', () async {
         final response =
-            await api.channels.listPublicArchivedThreads(channelId);
+            await api.channels.listPublicArchivedThreads(credentials.channelId);
         final responseThreads = response.data!;
         expect(responseThreads.threads.length, greaterThan(0));
         await avoidRateLimit();
