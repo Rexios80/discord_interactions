@@ -1,3 +1,9 @@
+## 0.0.11
+- Added more convenience constructors to InteractionResponse
+- Made less fields nullable
+- Improved API call structure
+- Wrote a lot more tests
+
 ## 0.0.10
 - Updated the Channels API
 - Added a convenience property to get the invoking user of an Interaction

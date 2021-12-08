@@ -1,6 +1,7 @@
-// Package imports:
+// Dart imports:
 import 'dart:io';
 
+// Package imports:
 import 'package:test/test.dart';
 
 // Project imports:

@@ -57,7 +57,7 @@ Future<Response> function(Request request) async {
 
 Future<void> respond(Interaction interaction) async {
   // Avoid using null check operators in production code
-  final commandName = interaction.data!.name;
+  final commandName = interaction.data!.name!;
 
   // Parse the command into the enum
   final command = EnumToString.fromString(Command.values, commandName)!;
