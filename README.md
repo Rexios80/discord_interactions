@@ -72,7 +72,8 @@ final api = DiscordApi(
 );
 
 await api.interactions.createInteractionResponse(
-    interaction,
+    interaction.id,
+    interactionToken: interaction.token,
     response:
         InteractionResponse.message(content: 'Hello, Discord Interactions!'),
 );

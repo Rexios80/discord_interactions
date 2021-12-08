@@ -75,6 +75,9 @@ Future<void> respond(Interaction interaction) async {
   }
 
   // Respond to the interaction
-  await api.interactions
-      .createInteractionResponse(interaction, response: response);
+  await api.interactions.createInteractionResponse(
+    interaction.id,
+    interactionToken: interaction.token,
+    response: response,
+  );
 }
