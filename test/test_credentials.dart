@@ -14,6 +14,7 @@ class TestCredentials {
   final String roleIconId;
   final String channelId;
   final String userId;
+  final String userAccessToken;
   final String emojiName;
   final String emojiId;
   final String stickerId;
@@ -28,6 +29,7 @@ class TestCredentials {
     required this.roleIconId,
     required this.channelId,
     required this.userId,
+    required this.userAccessToken,
     required this.emojiName,
     required this.emojiId,
     required this.stickerId,

@@ -57,7 +57,7 @@ void main() async {
       await avoidRateLimit();
     });
 
-    group('Reactions: ', () {
+    group('Reactions:', () {
       test('Create reaction', () async {
         final response = await api.channels.createReaction(
           credentials.channelId,
@@ -182,7 +182,6 @@ void main() async {
   group('Channel operations:', () {
     group('Channel:', () {
       late final String channelId;
-      late final String inviteCode;
 
       test('Create channel', () async {
         final response = await api.guilds
@@ -239,16 +238,27 @@ void main() async {
       });
 
       group('Invites:', () {
+        late final String inviteCode;
+
         test('Create channel invite', () async {
-          final response = await api.channels.createChannelInvite(channelId);
+          final response =
+              await api.channels.createChannelInvite(credentials.channelId);
           final invite = response.data!;
-          inviteCode = invite.code;
+          inviteCode = invite.code!;
           expect(invite, isNotNull);
           await avoidRateLimit();
         });
 
         test('Get channel invites', () async {
-          final response = await api.channels.getChannelInvites(channelId);
+          final response =
+              await api.channels.getChannelInvites(credentials.channelId);
+          expect(response.data!.length, greaterThan(0));
+          await avoidRateLimit();
+        });
+
+        test('Get guild invites', () async {
+          final response =
+              await api.guilds.getGuildInvites(credentials.guildId);
           expect(response.data!.length, greaterThan(0));
           await avoidRateLimit();
         });

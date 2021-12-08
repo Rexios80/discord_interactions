@@ -7,7 +7,7 @@ part of 'invite.dart';
 // **************************************************************************
 
 Invite _$InviteFromJson(Map<String, dynamic> json) => Invite(
-      code: json['code'] as String,
+      code: json['code'] as String?,
       guild: json['guild'] == null
           ? null
           : Guild.fromJson(json['guild'] as Map<String, dynamic>),
@@ -49,9 +49,7 @@ Invite _$InviteFromJson(Map<String, dynamic> json) => Invite(
     );
 
 Map<String, dynamic> _$InviteToJson(Invite instance) {
-  final val = <String, dynamic>{
-    'code': instance.code,
-  };
+  final val = <String, dynamic>{};
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -59,6 +57,7 @@ Map<String, dynamic> _$InviteToJson(Invite instance) {
     }
   }
 
+  writeNotNull('code', instance.code);
   writeNotNull('guild', instance.guild);
   writeNotNull('channel', instance.channel);
   writeNotNull('inviter', instance.inviter);

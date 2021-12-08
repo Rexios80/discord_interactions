@@ -101,7 +101,7 @@ class UsersApi {
 
   /// Leave a guild. Returns a 204 empty response on success.
   ///
-  /// * It seems like a bot can't do this
+  /// * It seems like a webhook bot can't do this
   ///
   /// https://discord.com/developers/docs/resources/user#leave-guild
   Future<DiscordResponse<void>> leaveGuild(String guildId) {

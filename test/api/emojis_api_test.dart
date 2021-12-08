@@ -9,13 +9,12 @@ import 'package:test/test.dart';
 import 'package:discord_interactions/discord_interactions.dart';
 import '../test_utils.dart';
 
-// These tests must be run in the written order to pass
 void main() async {
   await setup();
 
   late final String emojiId;
 
-  test('Create guild emoji', () async {
+  setUpAll(() async {
     final emojiFile = File('test_resources/test_emoji.gif');
     final emojiBytes = await emojiFile.readAsBytes();
     final emojiBase64 = base64Encode(emojiBytes);
@@ -56,7 +55,7 @@ void main() async {
     await avoidRateLimit();
   });
 
-  test('Delete guild emoji', () async {
+  tearDownAll(() async {
     final response = await api.emojis.deleteGuildEmoji(
       credentials.guildId,
       emojiId: emojiId,

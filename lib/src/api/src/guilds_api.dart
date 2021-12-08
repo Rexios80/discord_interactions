@@ -25,23 +25,24 @@ class GuildsApi {
   ///
   /// This endpoint can be used only by bots in less than 10 guilds.
   ///
-  /// When using the roles parameter, the first member of the array is used to
+  /// When using the [roles] parameter, the first member of the array is used to
   /// change properties of the guild's @everyone role. If you are trying to
-  /// bootstrap a guild with additional roles, keep this in mind.
+  /// bootstrap a guild with additional [roles], keep this in mind.
   ///
-  /// When using the roles parameter, the required id field within each role
-  /// object is an integer placeholder, and will be replaced by the API upon
-  /// consumption. Its purpose is to allow you to overwrite a role's permissions
-  /// in a channel when also passing in channels with the channels array.
+  /// When using the [roles] parameter, the required [id] field within each
+  /// [Role] object is an integer placeholder, and will be replaced by the API
+  /// upon consumption. Its purpose is to allow you to overwrite a role's
+  /// permissions in a channel when also passing in channels with the [channels]
+  /// array.
   ///
-  /// When using the channels parameter, the position field is ignored, and none
-  /// of the default channels are created.
+  /// When using the [channels] parameter, the [position] field is ignored, and
+  /// none of the default channels are created.
   ///
-  /// When using the channels parameter, the id field within each channel object
-  /// may be set to an integer placeholder, and will be replaced by the API upon
-  /// consumption. Its purpose is to allow you to create GUILD_CATEGORY channels
-  /// by setting the parent_id field on any children to the category's id field.
-  /// Category channels must be listed before any children.
+  /// When using the [channels] parameter, the [id] field within each [Channel]
+  /// object may be set to an integer placeholder, and will be replaced by the
+  /// API upon consumption. Its purpose is to allow you to create GUILD_CATEGORY
+  /// channels by setting the [parentId] field on any children to the category's
+  /// [id] field. Category channels must be listed before any children.
   ///
   /// https://discord.com/developers/docs/resources/guild#create-guild
   Future<DiscordResponse<Guild>> createGuild({
@@ -759,6 +760,9 @@ class GuildsApi {
         options: Options(
           headers: {
             if (reason != null) DiscordHeader.auditLogReason: reason,
+            // This is the ONLY api call that freaks out with the default content-type
+            // Screw you Discord
+            'Content-Type': '',
           },
         ),
       ),
@@ -1158,9 +1162,7 @@ class GuildsApi {
   /// Returns the widget for the guild.
   ///
   /// https://discord.com/developers/docs/resources/guild#get-guild-widget
-  Future<DiscordResponse<Map<String, dynamic>>> getGuildWidget(
-    String guildId,
-  ) {
+  Future<DiscordResponse<Map<String, dynamic>>> getGuildWidget(String guildId) {
     return validateApiCall(_dio.get('$_basePath/$guildId/widget.json'));
   }
 

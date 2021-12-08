@@ -12,7 +12,7 @@ part 'invite.g.dart';
 @JsonSerializable(includeIfNull: false)
 class Invite {
   /// the invite code (unique ID)
-  final String code;
+  final String? code;
 
   /// the guild this invite is for
   final Guild? guild;
@@ -85,7 +85,7 @@ class Invite {
 
   /// Constructor
   Invite({
-    required this.code,
+    this.code,
     this.guild,
     this.channel,
     this.inviter,
