@@ -59,7 +59,7 @@ Now you can respond to Application Commands
 
 Discord requires a specially formatted user agent for API calls. The `DiscordUserAgent` class handles this for you.  The `url` field should point to a useful webpage for your bot. The `versionNumber` field should match your bot's version number. There is also an optional `extra` field if you would like to provide additional information about your bot to Discord.
 
-The `applicationId` and `botToken` fields comes from your application's page on the Discord Developer Portal. If you do not provide a `botToken`, you must provide a `credentialsToken` instead.
+The `applicationId` and `botToken` fields come from your application's page on the Discord Developer Portal. If you do not provide a `botToken`, you must provide a `credentialsToken` instead.
 
 ```dart
 final api = DiscordApi(
