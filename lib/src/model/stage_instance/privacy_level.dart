@@ -1,15 +1,15 @@
 // Package imports:
 import 'package:json_annotation/json_annotation.dart';
 
-/// Stage Instance Privacy levels
+/// Privacy Levels for guild scheduled events, stage instances, etc.
 ///
 /// https://discord.com/developers/docs/resources/stage-instance#stage-instance-object-privacy-level
 enum PrivacyLevel {
-  /// The Stage instance is visible publicly, such as on Stage Discovery.
+  /// The event is visible publicly, such as on Stage Discovery.
   @JsonValue(1)
   public,
 
-  /// The Stage instance is visible to only guild members.
+  /// The event is visible to only guild members.
   @JsonValue(2)
   guildOnly,
 }

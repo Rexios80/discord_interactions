@@ -93,4 +93,12 @@ void main() {
       expect(fromValue, enumValue);
     }
   });
+
+  test('GuildScheduledEventEntityType value', () {
+    for (final enumValue in GuildScheduledEventEntityType.values) {
+      final value = enumValue.value;
+      final fromValue = GuildScheduledEventEntityTypeExtension.fromValue(value);
+      expect(fromValue, enumValue);
+    }
+  });
 }

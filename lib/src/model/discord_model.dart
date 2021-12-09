@@ -106,6 +106,7 @@ export 'guild/integration/integration.dart';
 export 'guild_scheduled_event/guild_scheduled_event_entity_metadata.dart';
 export 'guild_scheduled_event/guild_scheduled_event_entity_type.dart';
 export 'guild_scheduled_event/guild_scheduled_event_status.dart';
+export 'guild_scheduled_event/guild_scheduled_event_user.dart';
 export 'guild_scheduled_event/guild_scheduled_event.dart';
 
 // interactions/application_commands

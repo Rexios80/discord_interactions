@@ -1,4 +1,7 @@
+// Package imports:
 import 'package:dio/dio.dart';
+
+// Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
 import 'package:discord_interactions/src/util/discord_api_utils.dart';
 
@@ -17,7 +20,6 @@ class WebhooksApi {
   /// [Webhook] object on success. Webhook names follow our naming restrictions
   /// that can be found in our Usernames and Nicknames documentation, with the
   /// following additional stipulations:
-  ///
   /// - Webhook names cannot be: 'clyde'
   ///
   /// https://discord.com/developers/docs/resources/webhook#create-webhook
@@ -174,6 +176,8 @@ class WebhooksApi {
   /// For the webhook embed objects, you can set every field except [type] (it
   /// will be rich regardless of if you try to set it), [provider], [video], and
   /// any [height], [width], or [proxyUrl] values for images.
+  ///
+  /// https://discord.com/developers/docs/resources/webhook#execute-webhook
   Future<DiscordResponse<Message?>> executeWebhook(
     String webhookId, {
     required String webhookToken,
@@ -399,7 +403,7 @@ class WebhooksApi {
     String? content,
 
     /// embedded rich content
-    /// 
+    ///
     /// array of up to 10 embed objects
     List<Embed>? embeds,
 
@@ -407,7 +411,7 @@ class WebhooksApi {
     AllowedMentions? allowedMentions,
 
     /// the components to include with the message
-    /// 
+    ///
     /// * Requires an application-owned webhook.
     List<Component>? components,
 
@@ -439,7 +443,7 @@ class WebhooksApi {
 
   /// Deletes a message that was created by the webhook. Returns a 204 NO
   /// CONTENT response on success.
-  /// 
+  ///
   /// https://discord.com/developers/docs/resources/webhook#delete-webhook-message
   Future<DiscordResponse<void>> deleteWebhookMessage(
     String webhookId, {

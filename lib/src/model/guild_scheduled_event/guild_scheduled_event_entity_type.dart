@@ -17,3 +17,20 @@ enum GuildScheduledEventEntityType {
   @JsonValue(3)
   external,
 }
+
+/// Extension on [GuildScheduledEventEntityType]
+extension GuildScheduledEventEntityTypeExtension
+    on GuildScheduledEventEntityType {
+  static const _enumMap = <GuildScheduledEventEntityType, int>{
+    GuildScheduledEventEntityType.stageInstance: 1,
+    GuildScheduledEventEntityType.voice: 2,
+    GuildScheduledEventEntityType.external: 3,
+  };
+
+  /// Get the enum value
+  int get value => _enumMap[this]!;
+
+  /// Create a [PrivacyLevel] from an [int]
+  static GuildScheduledEventEntityType fromValue(int value) =>
+      _enumMap.entries.singleWhere((e) => e.value == value).key;
+}
