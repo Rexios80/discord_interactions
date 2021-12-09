@@ -1,4 +1,7 @@
+// Package imports:
 import 'package:dio/dio.dart';
+
+// Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
 import 'package:discord_interactions/src/util/discord_api_utils.dart';
 
@@ -107,7 +110,7 @@ class GuildTemplatesApi {
 
   /// Modifies the template's metadata. Requires the MANAGE_GUILD permission.
   /// Returns the [GuildTemplate] object on success.
-  /// 
+  ///
   /// https://discord.com/developers/docs/resources/guild-template#modify-guild-template
   Future<DiscordResponse<GuildTemplate>> modifyGuildTemplate(
     String guildId, {
@@ -133,7 +136,7 @@ class GuildTemplatesApi {
 
   /// Deletes the template. Requires the MANAGE_GUILD permission. Returns the
   /// deleted [GuildTemplate] object on success.
-  /// 
+  ///
   /// https://discord.com/developers/docs/resources/guild-template#delete-guild-template
   Future<DiscordResponse<GuildTemplate>> deleteGuildTemplate(
     String guildId, {

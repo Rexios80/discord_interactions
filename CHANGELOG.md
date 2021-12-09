@@ -1,3 +1,9 @@
+## 0.0.12
+- Added Webhooks API
+- Added Guild Scheduled Events API
+- Added Guild Templates API
+- Changed the structure of some API calls
+
 ## 0.0.11
 - Added more convenience constructors to InteractionResponse
 - Made less fields nullable
