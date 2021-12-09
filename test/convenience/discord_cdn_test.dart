@@ -14,80 +14,112 @@ void main() async {
     await dio.get(cdnUrl);
   });
 
-  // TODO: Need the ability to fetch guilds first
-  // final guildId = credentials.guildId;
-  // final guildResponse = await api.guilds.getGuild(guildId);
-  // final guild = guildResponse.data!;
   group('Guild:', () {
+    late final Guild guild;
+
+    setUpAll(() async {
+      final response = await api.guilds.getGuild(credentials.guildId);
+      guild = response.data!;
+    });
+
     test('Guild icon', () async {
-      // TODO
+      final cdnUrl = DiscordCdn.guildIcon(guild.id, guild.icon!);
+      await dio.get(cdnUrl);
     });
 
-    test('Guild splash', () async {
-      // TODO
-    });
+    test(
+      'Guild splash',
+      () async {
+        final cdnUrl = DiscordCdn.guildSplash(guild.id, guild.splash!);
+        await dio.get(cdnUrl);
+      },
+      skip: 'Need a boosted guild',
+    );
 
-    test('Guild discovery splash', () async {
-      // TODO
-    });
+    test(
+      'Guild discovery splash',
+      () async {
+        final cdnUrl =
+            DiscordCdn.guildDiscoverySplash(guild.id, guild.discoverySplash!);
+        await dio.get(cdnUrl);
+      },
+      skip: 'Need a boosted guild',
+    );
 
-    test('Guild banner', () async {
-      // TODO
-    });
+    test(
+      'Guild banner',
+      () async {
+        final cdnUrl = DiscordCdn.guildBanner(guild.id, guild.banner!);
+        await dio.get(cdnUrl);
+      },
+      skip: 'Need a boosted guild',
+    );
   });
 
-  final userId = credentials.userId;
-  final userResponse = await api.users.getUser(userId);
-  final user = userResponse.data!;
   group('User:', () {
-    test('User banner', () async {
-      final cdnUrl = DiscordCdn.userBanner(userId, user.banner!);
-      await dio.get(cdnUrl);
+    late final GuildMember member;
+
+    setUpAll(() async {
+      final response = await api.guilds
+          .getGuildMember(credentials.guildId, userId: credentials.userId);
+      member = response.data!;
     });
 
     test('Default user avatar', () async {
       final cdnUrl =
-          DiscordCdn.defaultUserAvatar(int.parse(user.discriminator));
+          DiscordCdn.defaultUserAvatar(int.parse(member.user!.discriminator));
       await dio.get(cdnUrl);
     });
 
     test('User avatar', () async {
-      final cdnUrl = DiscordCdn.userAvatar(userId, user.avatar!);
+      final cdnUrl =
+          DiscordCdn.userAvatar(member.user!.id, member.user!.avatar!);
       await dio.get(cdnUrl);
     });
 
     test('Guild member avatar', () async {
-      // TODO
-      // final cdnUrl = DiscordCdn.guildMemberAvatar(guildId, userId);
-      // await dio.get(cdnUrl);
+      final cdnUrl = DiscordCdn.guildMemberAvatar(
+        credentials.guildId,
+        member.user!.id,
+        member.avatar!,
+      );
+      await dio.get(cdnUrl);
     });
   });
 
-  group('Application:', () {
-    test('Application icon', () async {
-      // TODO
+  group(
+    'Application:',
+    () {
+      test('Application icon', () async {});
+
+      test('Application cover', () async {});
+
+      test('Application asset', () async {});
+
+      test('Achievement icon', () async {});
+    },
+    skip: 'Don\'t have an application to test with',
+  );
+
+  group('Sticker pack:', () {
+    late final StickerPack stickerPack;
+
+    setUpAll(() async {
+      final response = await api.stickers.getNitroStickerPacks();
+      stickerPack = response.data!.first;
     });
 
-    test('Application cover', () async {
-      // TODO
-    });
-
-    test('Application asset', () async {
-      // TODO
-    });
-
-    test('Achievement icon', () async {
-      // TODO
+    test('Sicker pack banner', () async {
+      final cdnUrl = DiscordCdn.stickerPackBanner(stickerPack.bannerAssetId);
+      await dio.get(cdnUrl);
     });
   });
 
-  test('Sicker pack banner', () async {
-    // TODO
-  });
-
-  test('Team icon', () async {
-    // TODO
-  });
+  test(
+    'Team icon',
+    () async {},
+    skip: 'Don\'t have a team to test with',
+  );
 
   test(
     'Sticker',

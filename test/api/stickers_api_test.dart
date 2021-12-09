@@ -41,15 +41,21 @@ void main() async {
     skip: 'Don\'t have any stickers to test with',
   );
 
-  test('Create guild sticker', () async {
-    // TODO
-  });
+  test(
+    'Create guild sticker',
+    () async {},
+    skip: 'Need a boosted server',
+  );
 
-  test('Modify guild sticker', () async {
-    // TODO
-  });
+  test(
+    'Modify guild sticker',
+    () async {},
+    skip: 'Need a boosted server',
+  );
 
-  test('Delete guild sticker', () async {
-    // TODO
-  });
+  test(
+    'Delete guild sticker',
+    () async {},
+    skip: 'Need a boosted server',
+  );
 }
