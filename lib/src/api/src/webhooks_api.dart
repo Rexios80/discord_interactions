@@ -86,10 +86,10 @@ class WebhooksApi {
   /// https://discord.com/developers/docs/resources/webhook#get-webhook-with-token
   Future<DiscordResponse<Webhook>> getWebhookWithToken(
     String webhookId, {
-    required String webhookToken,
+    required String token,
   }) {
     return validateApiCall(
-      _dio.get('$_basePath/$webhookId/$webhookToken'),
+      _dio.get('$_basePath/$webhookId/$token'),
       responseTransformer: (data) => Webhook.fromJson(data),
     );
   }
@@ -132,7 +132,7 @@ class WebhooksApi {
   /// https://discord.com/developers/docs/resources/webhook#modify-webhook-with-token
   Future<DiscordResponse<Webhook>> modifyWebhookWithToken(
     String webhookId, {
-    required String webhookToken,
+    required String token,
 
     /// the default name of the webhook
     String? name,
@@ -142,7 +142,7 @@ class WebhooksApi {
   }) {
     return validateApiCall(
       _dio.patch(
-        '$_basePath/$webhookId/$webhookToken',
+        '$_basePath/$webhookId/$token',
         data: {
           if (name != null) 'name': name,
           if (avatarImageData != null) 'avatar': avatarImageData,
@@ -165,9 +165,9 @@ class WebhooksApi {
   /// https://discord.com/developers/docs/resources/webhook#delete-webhook-with-token
   Future<DiscordResponse<void>> deleteWebhookWithToken(
     String webhookId, {
-    required String webhookToken,
+    required String token,
   }) {
-    return validateApiCall(_dio.delete('$_basePath/$webhookId/$webhookToken'));
+    return validateApiCall(_dio.delete('$_basePath/$webhookId/$token'));
   }
 
   /// Note that when sending a message, you must provide a value for at least
@@ -180,7 +180,7 @@ class WebhooksApi {
   /// https://discord.com/developers/docs/resources/webhook#execute-webhook
   Future<DiscordResponse<Message?>> executeWebhook(
     String webhookId, {
-    required String webhookToken,
+    required String token,
 
     /// waits for server confirmation of message send before response, and
     /// returns the created message body (defaults to false; when false a
@@ -246,7 +246,7 @@ class WebhooksApi {
   }) {
     return validateApiCall(
       _dio.post(
-        '$_basePath/$webhookId/$webhookToken',
+        '$_basePath/$webhookId/$token',
         queryParameters: {
           if (wait != null) 'wait': wait,
           if (threadId != null) 'thread_id': threadId,
@@ -276,7 +276,7 @@ class WebhooksApi {
   /// https://discord.com/developers/docs/resources/webhook#execute-slackcompatible-webhook
   Future<DiscordResponse<dynamic>> executeSlackCompatibleWebhook(
     String webhookId, {
-    required String webhookToken,
+    required String token,
 
     /// waits for server confirmation of message send before response, and
     /// returns the created message body (defaults to false; when false a
@@ -294,7 +294,7 @@ class WebhooksApi {
   }) {
     return validateApiCall(
       _dio.post(
-        '$_basePath/$webhookId/$webhookToken',
+        '$_basePath/$webhookId/$token',
         queryParameters: {
           if (wait != null) 'wait': wait,
           if (threadId != null) 'thread_id': threadId,
@@ -313,7 +313,7 @@ class WebhooksApi {
   /// https://discord.com/developers/docs/resources/webhook#execute-githubcompatible-webhook
   Future<DiscordResponse<dynamic>> executeGitHubCompatibleWebhook(
     String webhookId, {
-    required String webhookToken,
+    required String token,
 
     /// waits for server confirmation of message send before response, and
     /// returns the created message body (defaults to false; when false a
@@ -331,7 +331,7 @@ class WebhooksApi {
   }) {
     return validateApiCall(
       _dio.post(
-        '$_basePath/$webhookId/$webhookToken',
+        '$_basePath/$webhookId/$token',
         queryParameters: {
           if (wait != null) 'wait': wait,
           if (threadId != null) 'thread_id': threadId,
@@ -347,7 +347,7 @@ class WebhooksApi {
   /// https://discord.com/developers/docs/resources/webhook#get-webhook-message
   Future<DiscordResponse<Message>> getWebhookMessage(
     String webhookId, {
-    required String webhookToken,
+    required String token,
     required String messageId,
 
     /// id of the thread the message is in
@@ -357,7 +357,7 @@ class WebhooksApi {
   }) {
     return validateApiCall(
       _dio.get(
-        '$_basePath/$webhookId/$webhookToken/messages/$messageId',
+        '$_basePath/$webhookId/$token/messages/$messageId',
         queryParameters: {
           if (threadId != null) 'thread_id': threadId,
         },
@@ -391,7 +391,7 @@ class WebhooksApi {
   /// https://discord.com/developers/docs/resources/webhook#edit-webhook-message
   Future<DiscordResponse<Message>> editWebhookMessage(
     String webhookId, {
-    required String webhookToken,
+    required String token,
     required String messageId,
 
     /// id of the thread the message is in
@@ -423,7 +423,7 @@ class WebhooksApi {
   }) {
     return validateApiCall(
       _dio.patch(
-        '$_basePath/$webhookId/$webhookToken/messages/$messageId',
+        '$_basePath/$webhookId/$token/messages/$messageId',
         queryParameters: {
           if (threadId != null) 'thread_id': threadId,
         },
@@ -447,7 +447,7 @@ class WebhooksApi {
   /// https://discord.com/developers/docs/resources/webhook#delete-webhook-message
   Future<DiscordResponse<void>> deleteWebhookMessage(
     String webhookId, {
-    required String webhookToken,
+    required String token,
     required String messageId,
 
     /// id of the thread the message is in
@@ -457,7 +457,7 @@ class WebhooksApi {
   }) {
     return validateApiCall(
       _dio.delete(
-        '$_basePath/$webhookId/$webhookToken/messages/$messageId',
+        '$_basePath/$webhookId/$token/messages/$messageId',
         queryParameters: {
           if (threadId != null) 'thread_id': threadId,
         },

@@ -9,7 +9,7 @@ part 'guild_scheduled_event_user.g.dart';
 /// Guild Scheduled Event User structure
 ///
 /// https://discord.com/developers/docs/resources/guild-scheduled-event#guild-scheduled-event-user-object-guild-scheduled-event-user-structure
-@JsonSerializable()
+@JsonSerializable(includeIfNull: false)
 class GuildScheduledEventUser {
   /// the scheduled event id which the user subscribed to
   @JsonKey(name: 'guild_scheduled_event_id')

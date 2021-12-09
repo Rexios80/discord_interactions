@@ -109,6 +109,9 @@ export 'guild_scheduled_event/guild_scheduled_event_status.dart';
 export 'guild_scheduled_event/guild_scheduled_event_user.dart';
 export 'guild_scheduled_event/guild_scheduled_event.dart';
 
+// guild_template
+export 'guild_template/guild_template.dart';
+
 // interactions/application_commands
 export 'interactions/application_commands/application_command_interaction_data_option.dart';
 export 'interactions/application_commands/application_command_option_choice.dart';

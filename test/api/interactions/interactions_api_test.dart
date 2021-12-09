@@ -81,7 +81,7 @@ void main() async {
 
       final response = await api.interactions.createInteractionResponse(
         interaction.id,
-        interactionToken: interaction.token,
+        token: interaction.token,
         response: InteractionResponse.message(content: 'Test response'),
       );
       expect(response.error, isNull);
@@ -172,7 +172,7 @@ void main() async {
       final createInteractionResponseResponse =
           await api.interactions.createInteractionResponse(
         interaction.id,
-        interactionToken: interaction.token,
+        token: interaction.token,
         response: InteractionResponse.message(
           content: 'Test response',
           components: [
@@ -202,7 +202,7 @@ void main() async {
       final buttonInteractionResponseResponse =
           await api.interactions.createInteractionResponse(
         buttonInteraction.id,
-        interactionToken: buttonInteraction.token,
+        token: buttonInteraction.token,
         response: InteractionResponse.message(
           type: InteractionCallbackType.updateMessage,
           content: 'Button clicked',
@@ -224,7 +224,7 @@ void main() async {
       final createInteractionResponseResponse =
           await api.interactions.createInteractionResponse(
         interaction.id,
-        interactionToken: interaction.token,
+        token: interaction.token,
         response: InteractionResponse.message(
           content: 'Test response',
           components: [
@@ -258,7 +258,7 @@ void main() async {
       final createInteractionResponseResponse =
           await api.interactions.createInteractionResponse(
         interaction.id,
-        interactionToken: interaction.token,
+        token: interaction.token,
         response: InteractionResponse.message(
           content: 'Make a selection',
           components: [
@@ -306,7 +306,7 @@ void main() async {
       final buttonInteractionResponseResponse =
           await api.interactions.createInteractionResponse(
         buttonInteraction.id,
-        interactionToken: buttonInteraction.token,
+        token: buttonInteraction.token,
         response: InteractionResponse.message(
           type: InteractionCallbackType.updateMessage,
           content: 'Selection made: $selectedValues',
@@ -333,7 +333,7 @@ void main() async {
 
       final response = await api.interactions.createInteractionResponse(
         autocompleteInteraction.id,
-        interactionToken: autocompleteInteraction.token,
+        token: autocompleteInteraction.token,
         response: InteractionResponse.autocomplete([
           ApplicationCommandOptionChoice(name: 'test', value: 'test'),
         ]),
@@ -347,7 +347,7 @@ void main() async {
 
       final response2 = await api.interactions.createInteractionResponse(
         interaction.id,
-        interactionToken: interaction.token,
+        token: interaction.token,
         response: InteractionResponse.message(content: 'It worked'),
       );
       expect(response2.error, isNull);
@@ -366,7 +366,7 @@ void main() async {
 
     final response = await api.interactions.createInteractionResponse(
       interaction.id,
-      interactionToken: interaction.token,
+      token: interaction.token,
       response: InteractionResponse.message(
         content: 'Message id: $messageId',
       ),
@@ -385,7 +385,7 @@ void main() async {
 
     final response = await api.interactions.createInteractionResponse(
       interaction.id,
-      interactionToken: interaction.token,
+      token: interaction.token,
       response: InteractionResponse.message(
         content: 'User id: $userId',
       ),

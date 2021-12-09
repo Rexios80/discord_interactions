@@ -17,9 +17,18 @@ GuildScheduledEventUser _$GuildScheduledEventUserFromJson(
     );
 
 Map<String, dynamic> _$GuildScheduledEventUserToJson(
-        GuildScheduledEventUser instance) =>
-    <String, dynamic>{
-      'guild_scheduled_event_id': instance.guildScheduledEventId,
-      'user': instance.user,
-      'member': instance.member,
-    };
+    GuildScheduledEventUser instance) {
+  final val = <String, dynamic>{
+    'guild_scheduled_event_id': instance.guildScheduledEventId,
+    'user': instance.user,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('member', instance.member);
+  return val;
+}

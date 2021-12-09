@@ -29,13 +29,13 @@ class InteractionsApi {
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#create-interaction-response
   Future<DiscordResponse<void>> createInteractionResponse(
     String interactionId, {
-    required String interactionToken,
+    required String token,
     required InteractionResponse response,
     List<MultipartFile>? files,
   }) {
     return validateApiCall(
       _dio.post(
-        '/interactions/$interactionId/$interactionToken/callback',
+        '/interactions/$interactionId/$token/callback',
         data: createFormData(response, files),
       ),
     );
@@ -46,10 +46,10 @@ class InteractionsApi {
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#get-original-interaction-response
   Future<DiscordResponse<Message>> getOriginalInteractionResponse(
-    String interactionToken,
+    String token,
   ) {
     return validateApiCall(
-      _dio.get('$_basePath/$interactionToken/messages/@original'),
+      _dio.get('$_basePath/$token/messages/@original'),
       responseTransformer: (data) => Message.fromJson(data),
     );
   }
@@ -73,7 +73,7 @@ class InteractionsApi {
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#edit-original-interaction-response
   Future<DiscordResponse<Message>> editOriginalInteractionResponse(
-    String interactionToken, {
+    String token, {
 
     /// the message contents (up to 2000 characters)
     String? content,
@@ -95,7 +95,7 @@ class InteractionsApi {
   }) {
     return validateApiCall(
       _dio.patch(
-        '$_basePath/$interactionToken/messages/@original',
+        '$_basePath/$token/messages/@original',
         data: createFormData(
           {
             if (content != null) 'content': content,
@@ -115,10 +115,10 @@ class InteractionsApi {
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#delete-original-interaction-response
   Future<DiscordResponse<void>> deleteOriginalInteractionResponse(
-    String interactionToken,
+    String token,
   ) {
     return validateApiCall(
-      _dio.delete('$_basePath/$interactionToken/messages/@original'),
+      _dio.delete('$_basePath/$token/messages/@original'),
     );
   }
 
@@ -137,7 +137,7 @@ class InteractionsApi {
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#create-followup-message
   Future<DiscordResponse<Message>> createFollowupMessage(
-    String interactionToken, {
+    String token, {
 
     /// the message contents (up to 2000 characters)
     String? content,
@@ -160,7 +160,7 @@ class InteractionsApi {
   }) {
     return validateApiCall(
       _dio.post(
-        '$_basePath/$interactionToken',
+        '$_basePath/$token',
         data: createFormData(
           {
             if (content != null) 'content': content,
@@ -182,11 +182,11 @@ class InteractionsApi {
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#get-followup-message
   Future<DiscordResponse<Message>> getFollowupMessage(
-    String interactionToken, {
+    String token, {
     required String messageId,
   }) {
     return validateApiCall(
-      _dio.get('$_basePath/$interactionToken/messages/$messageId'),
+      _dio.get('$_basePath/$token/messages/$messageId'),
       responseTransformer: (data) => Message.fromJson(data),
     );
   }
@@ -210,7 +210,7 @@ class InteractionsApi {
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#edit-followup-message
   Future<DiscordResponse<Message>> editFollowupMessage(
-    String interactionToken, {
+    String token, {
     required String messageId,
 
     /// the message contents (up to 2000 characters)
@@ -233,7 +233,7 @@ class InteractionsApi {
   }) {
     return validateApiCall(
       _dio.patch(
-        '$_basePath/$interactionToken/messages/$messageId',
+        '$_basePath/$token/messages/$messageId',
         data: createFormData(
           {
             if (content != null) 'content': content,
@@ -254,11 +254,11 @@ class InteractionsApi {
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#delete-followup-message
   Future<DiscordResponse<void>> deleteFollowupMessage(
-    String interactionToken, {
+    String token, {
     required String messageId,
   }) {
     return validateApiCall(
-      _dio.delete('$_basePath/$interactionToken/messages/$messageId'),
+      _dio.delete('$_basePath/$token/messages/$messageId'),
     );
   }
 }

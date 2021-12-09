@@ -6,6 +6,7 @@ import 'package:discord_interactions/src/api/src/audit_logs_api.dart';
 import 'package:discord_interactions/src/api/src/channels_api.dart';
 import 'package:discord_interactions/src/api/src/emojis_api.dart';
 import 'package:discord_interactions/src/api/src/guild_scheduled_events_api.dart';
+import 'package:discord_interactions/src/api/src/guild_templates_api.dart';
 import 'package:discord_interactions/src/api/src/guilds_api.dart';
 import 'package:discord_interactions/src/api/src/interactions/application_commands_api.dart';
 import 'package:discord_interactions/src/api/src/interactions/interactions_api.dart';
@@ -42,6 +43,9 @@ class DiscordApi {
 
   /// Access to the Guild Scheduled Events API
   late final GuildScheduledEventsApi guildScheduledEvents;
+
+  /// Access to the Guild Templates API
+  late final GuildTemplatesApi guildTemplates;
 
   /// Access to the Guilds API
   late final GuildsApi guilds;
@@ -93,6 +97,7 @@ class DiscordApi {
     channels = ChannelsApi(_dio);
     emojis = EmojisApi(_dio);
     guildScheduledEvents = GuildScheduledEventsApi(_dio);
+    guildTemplates = GuildTemplatesApi(_dio);
     guilds = GuildsApi(_dio);
     invites = InvitesApi(_dio);
     stageInstances = StageInstancesApi(_dio);
