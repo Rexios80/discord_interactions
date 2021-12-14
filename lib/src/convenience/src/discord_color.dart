@@ -139,4 +139,6 @@ class DiscordColor {
 
   /// Sienna, or #882D17.
   static const sienna = 0x882D17;
+
+  DiscordColor._();
 }

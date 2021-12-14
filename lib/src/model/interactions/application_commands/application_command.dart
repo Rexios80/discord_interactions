@@ -9,7 +9,7 @@ part 'application_command.g.dart';
 /// Application Command structure
 ///
 /// Application commands are commands that an application can register to Discord
-/// 
+///
 /// NOTE: Not all of these fields are nullable in the API, but they have been
 /// left nullable for convenience with creating commands
 ///

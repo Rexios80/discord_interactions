@@ -10,4 +10,6 @@ class DiscordHeader {
 
   /// The signature timestamp header key
   static const timestampHeaderKey = 'X-Signature-Timestamp';
+
+  DiscordHeader._();
 }
