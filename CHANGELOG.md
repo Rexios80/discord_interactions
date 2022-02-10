@@ -1,3 +1,6 @@
+## 0.0.12+1
+- Fixed pana issues
+
 ## 0.0.12
 - Added Webhooks API
 - Added Guild Scheduled Events API

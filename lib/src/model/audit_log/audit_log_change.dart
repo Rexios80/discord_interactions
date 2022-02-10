@@ -5,8 +5,6 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:discord_interactions/discord_interactions.dart';
 import 'package:discord_interactions/src/converter/flag/permission_converter.dart';
 
-part 'audit_log_change.g.dart';
-
 /// Audit Log Change structure
 ///
 /// If new_value is not present in the change object, while old_value is, that
