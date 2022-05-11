@@ -20,7 +20,6 @@ class DiscordUserAgent {
 
   @override
   String toString() {
-    return 'DiscordBot ($url, $versionNumber)' +
-        (extra != null ? ', $extra' : '');
+    return 'DiscordBot ($url, $versionNumber)${extra != null ? ', $extra' : ''}';
   }
 }

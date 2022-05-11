@@ -17,15 +17,15 @@ void main() async {
     final timestamp = DateTime.now();
 
     var content = MessageFormatting.user(userId);
-    content += '\n' + MessageFormatting.userNickname(userId);
-    content += '\n' + MessageFormatting.channel(channelId);
-    content += '\n' + MessageFormatting.role(roleId);
-    content += '\n' + MessageFormatting.emoji(emojiName, emojiId);
-    content += '\n' + MessageFormatting.emojiAnimated(emojiName, emojiId);
-    content += '\n' + MessageFormatting.timestamp(timestamp);
+    content += '\n${MessageFormatting.userNickname(userId)}';
+    content += '\n${MessageFormatting.channel(channelId)}';
+    content += '\n${MessageFormatting.role(roleId)}';
+    content += '\n${MessageFormatting.emoji(emojiName, emojiId)}';
+    content += '\n${MessageFormatting.emojiAnimated(emojiName, emojiId)}';
+    content += '\n${MessageFormatting.timestamp(timestamp)}';
 
     for (final style in TimestampStyle.values) {
-      content += '\n' + MessageFormatting.timestampStyled(timestamp, style);
+      content += '\n${MessageFormatting.timestampStyled(timestamp, style)}';
     }
 
     final createMessageResponse = await api.channels.createMessage(
