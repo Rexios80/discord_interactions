@@ -104,7 +104,7 @@ class DiscordCdn {
   /// of images returned is constant with the "size" querystring parameter
   /// being ignored.
   static String defaultUserAvatar(int userDiscriminator) {
-    int discriminator = userDiscriminator % 5;
+    final discriminator = userDiscriminator % 5;
     return '$imageBaseUrl/embed/avatars/$discriminator${ImageFormat.png.extension}';
   }
 
