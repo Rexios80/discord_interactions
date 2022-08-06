@@ -1,3 +1,6 @@
+## 0.0.13
+- Updated dependencies
+
 ## 0.0.12+1
 - Fixed pana issues
 
