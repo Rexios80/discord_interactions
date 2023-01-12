@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: require_trailing_commas
+
 part of 'list_threads_response.dart';
 
 // **************************************************************************

@@ -1,7 +1,6 @@
 library discord_model;
 
 // api
-export 'api/discord_response.dart';
 export 'api/discord_user_agent.dart';
 
 // api/channels_api
