@@ -1,11 +1,11 @@
 import 'dart:io';
 
 void main() {
-  final files = Directory('lib').listSync(recursive: true).whereType<File>();
+  final files = Directory('lib/src/api/src').listSync(recursive: true).whereType<File>();
 
   final typeRegex = RegExp(r'DiscordResponse<(.*)>');
   final callRegex = RegExp(
-    r'validateApiCall\((.*),.*responseTransformer: \(data\) => (.*)\(data\).*\)',
+    r'validateApiCall\(\s*_dio.(.*?)\((.*?)\),\s*responseTransformer: \(data\) => (.*?)\(data\),\s*\);',
     dotAll: true,
   );
 
@@ -18,12 +18,12 @@ void main() {
             contents
                 .replaceAllMapped(
                   typeRegex,
-                  (m) =>
-                      'ValidatedResponse<Map<String, dynamic>, ${m[1]}>',
+                  (m) => 'ValidatedResponse<Map<String, dynamic>, ${m[1]}>',
                 )
                 .replaceAllMapped(
                   callRegex,
-                  (m) => '${m[1]}.validate(transform: ${m[2]})',
+                  (m) =>
+                      '_dio.${m[1]}<Map<String, dynamic>>(${m[2]}).validate(transform: ${m[3]});',
                 );
 
     file.writeAsStringSync(newContents);
