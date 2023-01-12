@@ -475,7 +475,7 @@ class GuildsApi {
   /// completes screening.
   ///
   /// https://discord.com/developers/docs/resources/guild#add-guild-member
-  Future<ValidatedResponse<Map<String, dynamic>, GuildMember?>> addGuildMember(
+  Future<ValidatedResponse<Map<String, dynamic>?, GuildMember?>> addGuildMember(
     String guildId, {
     required String userId,
 
@@ -503,7 +503,7 @@ class GuildsApi {
     /// Permission: DEAFEN_MEMBERS
     bool? deaf,
   }) {
-    return _dio.put<Map<String, dynamic>>(
+    return _dio.put<Map<String, dynamic>?>(
       '$_basePath/$guildId/members/$userId',
       data: {
         'access_token': accessToken,
@@ -513,7 +513,7 @@ class GuildsApi {
         if (deaf != null) 'deaf': deaf,
       },
     ).validate(
-      transform: data != null ? GuildMember.fromJson : null,
+      transform: (data) => data != null ? GuildMember.fromJson(data) : null,
     );
   }
 

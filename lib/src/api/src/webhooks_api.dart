@@ -173,7 +173,7 @@ class WebhooksApi {
   /// any [height], [width], or [proxyUrl] values for images.
   ///
   /// https://discord.com/developers/docs/resources/webhook#execute-webhook
-  Future<ValidatedResponse<Map<String, dynamic>, Message?>> executeWebhook(
+  Future<ValidatedResponse<Map<String, dynamic>?, Message?>> executeWebhook(
     String webhookId, {
     required String token,
 
@@ -240,7 +240,7 @@ class WebhooksApi {
     List<MultipartFile>? files,
   }) {
     return _dio
-        .post<Map<String, dynamic>>(
+        .post<Map<String, dynamic>?>(
           '$_basePath/$webhookId/$token',
           queryParameters: {
             if (wait != null) 'wait': wait,
@@ -261,7 +261,7 @@ class WebhooksApi {
           ),
         )
         .validate(
-          transform: data != null ? Message.fromJson : null,
+          transform: (data) => data != null ? Message.fromJson(data) : null,
         );
   }
 
