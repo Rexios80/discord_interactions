@@ -1,6 +1,5 @@
 // Package imports:
 import 'package:dio/dio.dart';
-import 'package:dio_response_validator/dio_response_validator.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
