@@ -18,7 +18,7 @@ void main() async {
         name: 'test_name',
         description: 'test description',
       );
-      command = response.data!;
+      command = response.success!.data;
       expect(command.name, 'test_name');
       expect(command.description, 'test description');
     });
@@ -26,7 +26,7 @@ void main() async {
     test('Get global appliction command', () async {
       final response = await api.applicationCommands
           .getGlobalApplicationCommand(command.id!);
-      final fetchedCommand = response.data!;
+      final fetchedCommand = response.success!.data;
       expect(fetchedCommand.name, 'test_name');
     });
 
@@ -35,7 +35,7 @@ void main() async {
     test('Get global application commands', () async {
       final response =
           await api.applicationCommands.getGlobalApplicationCommands();
-      commands = response.data!;
+      commands = response.success!.data;
       expect(commands.length, greaterThan(0));
       expect(commands.map((e) => e.name), contains('test_name'));
     });
@@ -46,14 +46,14 @@ void main() async {
         command.id!,
         name: 'edited_name',
       );
-      final editedCommand = response.data!;
+      final editedCommand = response.success!.data;
       expect(editedCommand.name, 'edited_name');
     });
 
     test('Bulk overwrite global application commands', () async {
       final response = await api.applicationCommands
           .bulkOverwriteGlobalApplicationCommands(commands);
-      final newCommands = response.data!;
+      final newCommands = response.success!.data;
       expect(newCommands.map((e) => e.name), contains('test_name'));
     });
 
@@ -63,7 +63,7 @@ void main() async {
         command.id!,
       );
 
-      expect(response.error, isNull);
+      expect(response.failure, isNull);
     });
 
     test(
@@ -71,7 +71,7 @@ void main() async {
       () async {
         final response = await api.applicationCommands
             .bulkOverwriteGlobalApplicationCommands([]);
-        expect(response.error, isNull);
+        expect(response.failure, isNull);
       },
       skip: 'This test only runs manually',
     );
@@ -88,7 +88,7 @@ void main() async {
         name: 'test_name',
         description: 'test description',
       );
-      command = response.data!;
+      command = response.success!.data;
       expect(command.name, 'test_name');
       expect(command.description, 'test description');
     });
@@ -98,7 +98,7 @@ void main() async {
         guildId,
         commandId: command.id!,
       );
-      final fetchedCommand = response.data!;
+      final fetchedCommand = response.success!.data;
       expect(fetchedCommand.name, 'test_name');
     });
 
@@ -107,7 +107,7 @@ void main() async {
     test('Get guild application commands', () async {
       final response =
           await api.applicationCommands.getGuildApplicationCommands(guildId);
-      commands = response.data!;
+      commands = response.success!.data;
       expect(commands.length, greaterThan(0));
       expect(commands.map((e) => e.name), contains('test_name'));
     });
@@ -119,14 +119,14 @@ void main() async {
         commandId: command.id!,
         name: 'edited_name',
       );
-      final editedCommand = response.data!;
+      final editedCommand = response.success!.data;
       expect(editedCommand.name, 'edited_name');
     });
 
     test('Bulk overwrite guild application commands', () async {
       final response = await api.applicationCommands
           .bulkOverwriteGuildApplicationCommands(guildId, commands: commands);
-      final newCommands = response.data!;
+      final newCommands = response.success!.data;
       expect(newCommands.map((e) => e.name), contains('test_name'));
     });
 
@@ -136,7 +136,7 @@ void main() async {
         guildId,
         commandId: command.id!,
       );
-      expect(response.error, isNull);
+      expect(response.failure, isNull);
     });
 
     test(
@@ -150,7 +150,7 @@ void main() async {
           commands: [],
         );
 
-        expect(response.error, isNull);
+        expect(response.failure, isNull);
       },
       skip: 'This test only runs manually',
     );
@@ -168,7 +168,7 @@ void main() async {
         name: 'test_name',
         description: 'test description',
       );
-      command = response.data!;
+      command = response.success!.data;
     });
 
     test('Edit application command permissions', () async {
@@ -184,7 +184,7 @@ void main() async {
           ),
         ],
       );
-      final permissions = response.data!;
+      final permissions = response.success!.data;
       expect(permissions.permissions.length, 1);
     });
 
@@ -193,7 +193,7 @@ void main() async {
           await api.applicationCommands.getGuildApplicationCommandPermissions(
         guildId,
       );
-      final guildPermissions = response.data!;
+      final guildPermissions = response.success!.data;
       expect(guildPermissions.length, 1);
     });
 
@@ -203,7 +203,7 @@ void main() async {
         guildId,
         commandId: command.id!,
       );
-      final fetchedPermissions = response.data!;
+      final fetchedPermissions = response.success!.data;
       expect(fetchedPermissions.permissions.length, 1);
     });
 
@@ -213,7 +213,7 @@ void main() async {
         guildId,
         permissions: [],
       );
-      final batchPermissions = response.data!;
+      final batchPermissions = response.success!.data;
       expect(batchPermissions.length, 0);
     });
 

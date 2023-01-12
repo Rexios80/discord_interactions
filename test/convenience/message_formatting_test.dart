@@ -33,6 +33,6 @@ void main() async {
       content: content,
     );
 
-    expect(createMessageResponse.data!.content, content);
+    expect(createMessageResponse.success!.data.content, content);
   });
 }

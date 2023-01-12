@@ -14,13 +14,13 @@ void main() async {
 
   test('Get current user', () async {
     final response = await api.users.getCurrentUser();
-    expect(response.error, isNull);
+    expect(response.failure, isNull);
   });
 
   test('Get user', () async {
     final getUserResponse = await api.users.getUser(credentials.userId);
 
-    expect(getUserResponse.data, isNotNull);
+    expect(getUserResponse.success, isNotNull);
   });
 
   test('Modify current user', () async {
@@ -34,22 +34,22 @@ void main() async {
       avatarImageData: avatarImageData,
     );
 
-    expect(response.error, isNull);
+    expect(response.failure, isNull);
   });
 
   test('Get current user guilds', () async {
     final response = await api.users.getCurrentUserGuilds();
-    expect(response.error, isNull);
+    expect(response.failure, isNull);
 
     await avoidRateLimit();
 
     final response2 = await api.users.getCurrentUserGuilds(limit: 1);
-    expect(response2.error, isNull);
-    expect(response2.data, hasLength(1));
+    expect(response2.failure, isNull);
+    expect(response2.success, hasLength(1));
   });
 
   test('Create DM', () async {
     final response = await api.users.createDm(credentials.userId);
-    expect(response.error, isNull);
+    expect(response.failure, isNull);
   });
 }

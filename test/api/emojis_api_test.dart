@@ -26,21 +26,21 @@ void main() async {
       imageData: emojiImageData,
       reason: 'Testing reasons',
     );
-    emojiId = response.data!.id!;
-    expect(response.data!.name, 'test_emoji');
+    emojiId = response.success!.data.id!;
+    expect(response.success!.data.name, 'test_emoji');
     await avoidRateLimit();
   });
 
   test('List guild emojis', () async {
     final response = await api.emojis.listGuildEmojis(credentials.guildId);
-    expect(response.data!.length, greaterThan(0));
+    expect(response.success!.data.length, greaterThan(0));
     await avoidRateLimit();
   });
 
   test('Get guild emoji', () async {
     final response =
         await api.emojis.getGuildEmoji(credentials.guildId, emojiId: emojiId);
-    expect(response.data!.id, emojiId);
+    expect(response.success!.data.id, emojiId);
     await avoidRateLimit();
   });
 
@@ -51,7 +51,7 @@ void main() async {
       name: 'test_emoji_modified',
       reason: 'Testing reasons',
     );
-    expect(response.data!.name, 'test_emoji_modified');
+    expect(response.success!.data.name, 'test_emoji_modified');
     await avoidRateLimit();
   });
 
@@ -61,7 +61,7 @@ void main() async {
       emojiId: emojiId,
       reason: 'Testing reasons',
     );
-    expect(response.error, isNull);
+    expect(response.failure, isNull);
     await avoidRateLimit();
   });
 }

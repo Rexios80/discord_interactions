@@ -11,20 +11,20 @@ void main() async {
     'Get sticker',
     () async {
       final response = await api.stickers.getSticker(credentials.stickerId);
-      expect(response.data!.id, credentials.stickerId);
+      expect(response.success!.data.id, credentials.stickerId);
     },
     skip: 'Don\'t have any stickers to test with',
   );
 
   test('Get nitro sticker packs', () async {
     final response = await api.stickers.getNitroStickerPacks();
-    expect(response.data!.length, greaterThan(0));
+    expect(response.success!.data.length, greaterThan(0));
     await avoidRateLimit();
   });
 
   test('Get guild stickers', () async {
     final response = await api.stickers.getGuildStickers(credentials.guildId);
-    expect(response.error, isNull);
+    expect(response.failure, isNull);
     await avoidRateLimit();
   });
 
@@ -35,7 +35,7 @@ void main() async {
         credentials.guildId,
         stickerId: credentials.stickerId,
       );
-      expect(response.error, isNull);
+      expect(response.failure, isNull);
       await avoidRateLimit();
     },
     skip: 'Don\'t have any stickers to test with',

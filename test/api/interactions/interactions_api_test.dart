@@ -31,7 +31,7 @@ void main() async {
       description: 'test command',
     );
 
-    testCommand = response.data!;
+    testCommand = response.success!.data;
 
     final response2 =
         await api.applicationCommands.createGuildApplicationCommand(
@@ -49,7 +49,7 @@ void main() async {
       ],
     );
 
-    autocompleteCommand = response2.data!;
+    autocompleteCommand = response2.success!.data;
 
     final response3 =
         await api.applicationCommands.createGuildApplicationCommand(
@@ -58,7 +58,7 @@ void main() async {
       name: 'test message command',
     );
 
-    messageCommand = response3.data!;
+    messageCommand = response3.success!.data;
 
     final response4 =
         await api.applicationCommands.createGuildApplicationCommand(
@@ -67,7 +67,7 @@ void main() async {
       name: 'test user command',
     );
 
-    userCommand = response4.data!;
+    userCommand = response4.success!.data;
   });
 
   // These tests must be run in the written order to pass
@@ -84,7 +84,7 @@ void main() async {
         token: interaction.token,
         response: InteractionResponse.message(content: 'Test response'),
       );
-      expect(response.error, isNull);
+      expect(response.failure, isNull);
 
       client.notifyInteractionHandled();
     });
@@ -93,7 +93,7 @@ void main() async {
       final response = await api.interactions
           .getOriginalInteractionResponse(interaction.token);
       expect(
-        response.data?.content,
+        response.success?.data.content,
         'Test response',
       );
       await avoidRateLimit();
@@ -105,7 +105,7 @@ void main() async {
         content: 'Edited response',
       );
       expect(
-        response.data?.content,
+        response.success?.data.content,
         'Edited response',
       );
       await avoidRateLimit();
@@ -114,7 +114,7 @@ void main() async {
     test('Delete original interaction response', () async {
       final response = await api.interactions
           .deleteOriginalInteractionResponse(interaction.token);
-      expect(response.error, isNull);
+      expect(response.failure, isNull);
       await avoidRateLimit();
     });
 
@@ -126,7 +126,7 @@ void main() async {
         content: 'Test followup message',
       );
 
-      followupMessage = response.data!;
+      followupMessage = response.success!.data;
       expect(followupMessage.content, 'Test followup message');
       await avoidRateLimit();
     });
@@ -136,7 +136,7 @@ void main() async {
         interaction.token,
         messageId: followupMessage.id,
       );
-      expect(response.data?.content, 'Test followup message');
+      expect(response.success?.data.content, 'Test followup message');
       await avoidRateLimit();
     });
 
@@ -147,7 +147,7 @@ void main() async {
         content: 'Edited followup message',
       );
       expect(
-        response.data?.content,
+        response.success?.data.content,
         'Edited followup message',
       );
       await avoidRateLimit();
@@ -158,7 +158,7 @@ void main() async {
         interaction.token,
         messageId: followupMessage.id,
       );
-      expect(response.error, isNull);
+      expect(response.failure, isNull);
     });
   });
 
@@ -190,7 +190,7 @@ void main() async {
           ],
         ),
       );
-      expect(createInteractionResponseResponse.error, isNull);
+      expect(createInteractionResponseResponse.failure, isNull);
 
       client.notifyInteractionHandled();
 
@@ -210,7 +210,7 @@ void main() async {
           components: [],
         ),
       );
-      expect(buttonInteractionResponseResponse.error, isNull);
+      expect(buttonInteractionResponseResponse.failure, isNull);
 
       client.notifyInteractionHandled();
     });
@@ -242,7 +242,7 @@ void main() async {
           ],
         ),
       );
-      expect(createInteractionResponseResponse.error, isNull);
+      expect(createInteractionResponseResponse.failure, isNull);
 
       client.notifyInteractionHandled();
     });
@@ -290,7 +290,7 @@ void main() async {
           ],
         ),
       );
-      expect(createInteractionResponseResponse.error, isNull);
+      expect(createInteractionResponseResponse.failure, isNull);
 
       client.notifyInteractionHandled();
 
@@ -314,7 +314,7 @@ void main() async {
           components: [],
         ),
       );
-      expect(buttonInteractionResponseResponse.error, isNull);
+      expect(buttonInteractionResponseResponse.failure, isNull);
 
       client.notifyInteractionHandled();
     });
@@ -338,7 +338,7 @@ void main() async {
           ApplicationCommandOptionChoice(name: 'test', value: 'test'),
         ]),
       );
-      expect(response.error, isNull);
+      expect(response.failure, isNull);
 
       client.notifyInteractionHandled();
 
@@ -350,7 +350,7 @@ void main() async {
         token: interaction.token,
         response: InteractionResponse.message(content: 'It worked'),
       );
-      expect(response2.error, isNull);
+      expect(response2.failure, isNull);
 
       client.notifyInteractionHandled();
     },
@@ -371,7 +371,7 @@ void main() async {
         content: 'Message id: $messageId',
       ),
     );
-    expect(response.error, isNull);
+    expect(response.failure, isNull);
 
     client.notifyInteractionHandled();
   });
@@ -390,7 +390,7 @@ void main() async {
         content: 'User id: $userId',
       ),
     );
-    expect(response.error, isNull);
+    expect(response.failure, isNull);
 
     client.notifyInteractionHandled();
   });

@@ -19,7 +19,7 @@ void main() async {
 
     setUpAll(() async {
       final response = await api.guilds.getGuild(credentials.guildId);
-      guild = response.data!;
+      guild = response.success!.data;
     });
 
     test('Guild icon', () async {
@@ -62,7 +62,7 @@ void main() async {
     setUpAll(() async {
       final response = await api.guilds
           .getGuildMember(credentials.guildId, userId: credentials.userId);
-      member = response.data!;
+      member = response.success!.data;
     });
 
     test('Default user avatar', () async {
@@ -106,7 +106,7 @@ void main() async {
 
     setUpAll(() async {
       final response = await api.stickers.getNitroStickerPacks();
-      stickerPack = response.data!.first;
+      stickerPack = response.success!.data.first;
     });
 
     test('Sicker pack banner', () async {

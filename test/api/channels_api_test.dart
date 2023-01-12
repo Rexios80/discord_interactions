@@ -23,7 +23,7 @@ void main() async {
         credentials.channelId,
         content: 'This is a test',
       );
-      final responseMessage = response.data!;
+      final responseMessage = response.success!.data;
       messageId = responseMessage.id;
 
       expect(responseMessage.content, 'This is a test');
@@ -33,7 +33,7 @@ void main() async {
     test('Get channel message', () async {
       final response = await api.channels
           .getChannelMessage(credentials.channelId, messageId: messageId);
-      final responseMessage = response.data!;
+      final responseMessage = response.success!.data;
 
       expect(responseMessage.content, 'This is a test');
       await avoidRateLimit();
@@ -42,7 +42,7 @@ void main() async {
     test('Get channel messages', () async {
       final response =
           await api.channels.getChannelMessages(credentials.channelId);
-      expect(response.data!.length, greaterThan(0));
+      expect(response.success!.data.length, greaterThan(0));
       await avoidRateLimit();
     });
 
@@ -52,7 +52,7 @@ void main() async {
         messageId: messageId,
         content: 'This is an edited test',
       );
-      final responseMessage = response.data!;
+      final responseMessage = response.success!.data;
       expect(responseMessage.content, 'This is an edited test');
       await avoidRateLimit();
     });
@@ -65,7 +65,7 @@ void main() async {
           emojiName: credentials.emojiName,
           emojiId: credentials.emojiId,
         );
-        expect(response.error, isNull);
+        expect(response.failure, isNull);
         await avoidRateLimit();
       });
 
@@ -76,7 +76,7 @@ void main() async {
           emojiName: credentials.emojiName,
           emojiId: credentials.emojiId,
         );
-        final responseReactions = response.data!;
+        final responseReactions = response.success!.data;
 
         expect(responseReactions.length, 1);
         await avoidRateLimit();
@@ -89,7 +89,7 @@ void main() async {
           emojiName: credentials.emojiName,
           emojiId: credentials.emojiId,
         );
-        expect(response.error, isNull);
+        expect(response.failure, isNull);
         await avoidRateLimit();
       });
 
@@ -101,7 +101,7 @@ void main() async {
           emojiId: credentials.emojiId,
           userId: credentials.userId,
         );
-        expect(response.error, isNull);
+        expect(response.failure, isNull);
         await avoidRateLimit();
       });
 
@@ -112,7 +112,7 @@ void main() async {
           emojiName: credentials.emojiName,
           emojiId: credentials.emojiId,
         );
-        expect(response.error, isNull);
+        expect(response.failure, isNull);
         await avoidRateLimit();
       });
 
@@ -121,7 +121,7 @@ void main() async {
           credentials.channelId,
           messageId: messageId,
         );
-        expect(response.error, isNull);
+        expect(response.failure, isNull);
         await avoidRateLimit();
       });
     });
@@ -131,7 +131,7 @@ void main() async {
         credentials.channelId,
         messageId: messageId,
       );
-      expect(response.error, isNull);
+      expect(response.failure, isNull);
       await avoidRateLimit();
     });
 
@@ -153,9 +153,9 @@ void main() async {
         attachments: [attachment],
         files: [multipartFile],
       );
-      fileUploadMessageId = response.data!.id;
+      fileUploadMessageId = response.success!.data.id;
 
-      expect(response.data!.attachments.length, 1);
+      expect(response.success!.data.attachments.length, 1);
       await avoidRateLimit();
     });
 
@@ -164,7 +164,7 @@ void main() async {
         credentials.channelId,
         content: 'Delete me',
       );
-      final newMessageId = newMessageResponse.data!.id;
+      final newMessageId = newMessageResponse.success!.data.id;
 
       await avoidRateLimit();
 
@@ -173,7 +173,7 @@ void main() async {
         messageIds: [fileUploadMessageId, newMessageId],
         reason: 'Testing reasons',
       );
-      expect(response.error, isNull);
+      expect(response.failure, isNull);
       await avoidRateLimit();
     });
   });
@@ -186,14 +186,14 @@ void main() async {
       test('Create channel', () async {
         final response = await api.guilds
             .createGuildChannel(credentials.guildId, name: 'test_channel');
-        expect(response.error, isNull);
-        channelId = response.data!.id;
+        expect(response.failure, isNull);
+        channelId = response.success!.data.id;
         await avoidRateLimit();
       });
 
       test('Get channel', () async {
         final response = await api.channels.getChannel(channelId);
-        final responseChannel = response.data!;
+        final responseChannel = response.success!.data;
 
         expect(responseChannel.id, channelId);
         await avoidRateLimit();
@@ -206,7 +206,7 @@ void main() async {
           type: ChannelType.guildText,
           reason: 'Testing reasons',
         );
-        final responseChannel = response.data!;
+        final responseChannel = response.success!.data;
 
         expect(responseChannel.name, 'test_channel_modified');
         await avoidRateLimit();
@@ -223,7 +223,7 @@ void main() async {
           ),
           reason: 'Testing reasons',
         );
-        expect(response.error, isNull);
+        expect(response.failure, isNull);
         await avoidRateLimit();
       });
 
@@ -233,7 +233,7 @@ void main() async {
           overwriteId: credentials.roleId,
           reason: 'Testing reasons',
         );
-        expect(response.error, isNull);
+        expect(response.failure, isNull);
         await avoidRateLimit();
       });
 
@@ -243,7 +243,7 @@ void main() async {
         test('Create channel invite', () async {
           final response =
               await api.channels.createChannelInvite(credentials.channelId);
-          final invite = response.data!;
+          final invite = response.success!.data;
           inviteCode = invite.code!;
           expect(invite, isNotNull);
           await avoidRateLimit();
@@ -252,33 +252,33 @@ void main() async {
         test('Get channel invites', () async {
           final response =
               await api.channels.getChannelInvites(credentials.channelId);
-          expect(response.data!.length, greaterThan(0));
+          expect(response.success!.data.length, greaterThan(0));
           await avoidRateLimit();
         });
 
         test('Get guild invites', () async {
           final response =
               await api.guilds.getGuildInvites(credentials.guildId);
-          expect(response.data!.length, greaterThan(0));
+          expect(response.success!.data.length, greaterThan(0));
           await avoidRateLimit();
         });
 
         test('Get invite', () async {
           final response = await api.invites.getInvite(inviteCode);
-          expect(response.data!.code, inviteCode);
+          expect(response.success!.data.code, inviteCode);
           await avoidRateLimit();
         });
 
         test('Delete invite', () async {
           final response = await api.invites.deleteInvite(inviteCode);
-          expect(response.error, isNull);
+          expect(response.failure, isNull);
           await avoidRateLimit();
         });
       });
 
       test('Trigger typing indicator', () async {
         final response = await api.channels.triggerTypingIndicator(channelId);
-        expect(response.error, isNull);
+        expect(response.failure, isNull);
         await avoidRateLimit();
       });
 
@@ -290,20 +290,20 @@ void main() async {
             channelId,
             content: 'Test message',
           );
-          messageId = createMessageResponse.data!.id;
+          messageId = createMessageResponse.success!.data.id;
           await avoidRateLimit();
 
           final response = await api.channels.pinMessage(
             channelId,
             messageId: messageId,
           );
-          expect(response.error, isNull);
+          expect(response.failure, isNull);
           await avoidRateLimit();
         });
 
         test('Get pinned messages', () async {
           final response = await api.channels.getPinnedMessages(channelId);
-          expect(response.data!.length, greaterThan(0));
+          expect(response.success!.data.length, greaterThan(0));
           await avoidRateLimit();
         });
 
@@ -313,14 +313,14 @@ void main() async {
             messageId: messageId,
             reason: 'Testing reasons',
           );
-          expect(response.error, isNull);
+          expect(response.failure, isNull);
           await avoidRateLimit();
         });
       });
 
       test('Delete channel', () async {
         final response = await api.channels.deleteChannel(channelId);
-        expect(response.error, isNull);
+        expect(response.failure, isNull);
         await avoidRateLimit();
       });
     });
@@ -336,7 +336,7 @@ void main() async {
           content: 'Test message',
         );
 
-        messageId = createMessageResponse.data!.id;
+        messageId = createMessageResponse.success!.data.id;
 
         await avoidRateLimit();
 
@@ -345,8 +345,8 @@ void main() async {
           messageId: messageId,
           name: 'test_thread',
         );
-        threadId = response.data!.id;
-        expect(response.data!.name, 'test_thread');
+        threadId = response.success!.data.id;
+        expect(response.success!.data.name, 'test_thread');
         await avoidRateLimit();
       });
 
@@ -356,16 +356,16 @@ void main() async {
           name: 'test_thread_2',
           type: ChannelType.guildPublicThread,
         );
-        threadId2 = response.data!.id;
-        expect(response.data!.name, 'test_thread_2');
+        threadId2 = response.success!.data.id;
+        expect(response.success!.data.name, 'test_thread_2');
         await avoidRateLimit();
       });
 
       test('List active threads', () async {
         final response =
             await api.guilds.listActiveThreads(credentials.guildId);
-        expect(response.error, isNull);
-        expect(response.data?.threads.length, greaterThan(0));
+        expect(response.failure, isNull);
+        expect(response.success?.data.threads.length, greaterThan(0));
         await avoidRateLimit();
       });
 
@@ -374,7 +374,7 @@ void main() async {
           threadId,
           userId: credentials.userId,
         );
-        expect(response.error, isNull);
+        expect(response.failure, isNull);
         await avoidRateLimit();
       });
 
@@ -383,13 +383,13 @@ void main() async {
           threadId,
           userId: credentials.userId,
         );
-        expect(response.data, isNotNull);
+        expect(response.success, isNotNull);
         await avoidRateLimit();
       });
 
       test('List thread members', () async {
         final response = await api.channels.listThreadMembers(threadId);
-        expect(response.data!.length, greaterThan(0));
+        expect(response.success!.data.length, greaterThan(0));
         await avoidRateLimit();
       });
 
@@ -398,19 +398,19 @@ void main() async {
           threadId,
           userId: credentials.userId,
         );
-        expect(response.error, isNull);
+        expect(response.failure, isNull);
         await avoidRateLimit();
       });
 
       test('Leave thread', () async {
         final response = await api.channels.leaveThread(threadId);
-        expect(response.error, isNull);
+        expect(response.failure, isNull);
         await avoidRateLimit();
       });
 
       test('Join thread', () async {
         final response = await api.channels.joinThread(threadId);
-        expect(response.error, isNull);
+        expect(response.failure, isNull);
         await avoidRateLimit();
       });
 
@@ -421,7 +421,7 @@ void main() async {
           archived: true,
           reason: 'Testing reasons',
         );
-        final responseThread = response.data!;
+        final responseThread = response.success!.data;
 
         expect(responseThread.name, 'test_thread_modified');
         await avoidRateLimit();
@@ -430,7 +430,7 @@ void main() async {
       test('List public archived threads', () async {
         final response =
             await api.channels.listPublicArchivedThreads(credentials.channelId);
-        final responseThreads = response.data!;
+        final responseThreads = response.success!.data;
         expect(responseThreads.threads.length, greaterThan(0));
         await avoidRateLimit();
       });
@@ -440,11 +440,11 @@ void main() async {
           threadId,
           reason: 'Testing reasons',
         );
-        expect(response.error, isNull);
+        expect(response.failure, isNull);
         await avoidRateLimit();
 
         final response2 = await api.channels.deleteChannel(threadId2);
-        expect(response2.error, isNull);
+        expect(response2.failure, isNull);
         await avoidRateLimit();
       });
     });

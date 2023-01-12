@@ -58,11 +58,11 @@ void main() async {
         ),
       ],
     );
-    expect(response.error, isNull);
-    expect(response.data?.name, 'test_guild');
-    expect(response.data?.roles?.length, 2);
+    expect(response.failure, isNull);
+    expect(response.success?.data.name, 'test_guild');
+    expect(response.success?.data.roles?.length, 2);
 
-    guildId = response.data!.id;
+    guildId = response.success!.data.id;
 
     await avoidRateLimit();
   });
@@ -70,16 +70,16 @@ void main() async {
   group('Basic operations:', () {
     test('Get guild', () async {
       final response = await api.guilds.getGuild(guildId);
-      expect(response.error, isNull);
-      expect(response.data?.name, 'test_guild');
+      expect(response.failure, isNull);
+      expect(response.success?.data.name, 'test_guild');
 
       await avoidRateLimit();
     });
 
     test('Get guild preview', () async {
       final response = await api.guilds.getGuildPreview(guildId);
-      expect(response.error, isNull);
-      expect(response.data?.name, 'test_guild');
+      expect(response.failure, isNull);
+      expect(response.success?.data.name, 'test_guild');
 
       await avoidRateLimit();
     });
@@ -87,8 +87,8 @@ void main() async {
     test('Modify guild', () async {
       final response =
           await api.guilds.modifyGuild(guildId, name: 'test_guild_modified');
-      expect(response.error, isNull);
-      expect(response.data?.name, 'test_guild_modified');
+      expect(response.failure, isNull);
+      expect(response.success?.data.name, 'test_guild_modified');
 
       await avoidRateLimit();
     });
@@ -97,8 +97,8 @@ void main() async {
   group('Channels:', () {
     test('Get guild channels', () async {
       final response = await api.guilds.getGuildChannels(guildId);
-      expect(response.error, isNull);
-      expect(response.data?.length, 3);
+      expect(response.failure, isNull);
+      expect(response.success?.data.length, 3);
 
       await avoidRateLimit();
     });
@@ -114,7 +114,7 @@ void main() async {
           ),
         ],
       );
-      expect(response.error, isNull);
+      expect(response.failure, isNull);
 
       await avoidRateLimit();
     });
@@ -124,16 +124,16 @@ void main() async {
     test('Get guild member', () async {
       final response = await api.guilds
           .getGuildMember(guildId, userId: credentials.applicationId);
-      expect(response.error, isNull);
-      expect(response.data?.user?.id, credentials.applicationId);
+      expect(response.failure, isNull);
+      expect(response.success?.data.user?.id, credentials.applicationId);
 
       await avoidRateLimit();
     });
 
     test('List guild members', () async {
       final response = await api.guilds.listGuildMembers(guildId);
-      expect(response.error, isNull);
-      expect(response.data?.length, 1);
+      expect(response.failure, isNull);
+      expect(response.success?.data.length, 1);
 
       await avoidRateLimit();
     });
@@ -141,8 +141,8 @@ void main() async {
     test('Search guild members', () async {
       final response = await api.guilds
           .searchGuildMembers(guildId, query: 'discord_interactions_test');
-      expect(response.error, isNull);
-      expect(response.data?.length, 1);
+      expect(response.failure, isNull);
+      expect(response.success?.data.length, 1);
 
       await avoidRateLimit();
     });
@@ -155,8 +155,8 @@ void main() async {
           userId: credentials.userId,
           accessToken: credentials.userAccessToken,
         );
-        expect(response.error, isNull);
-        expect(response.data?.user?.id, credentials.userId);
+        expect(response.failure, isNull);
+        expect(response.success?.data?.user?.id, credentials.userId);
 
         await avoidRateLimit();
       },
@@ -168,8 +168,8 @@ void main() async {
         guildId,
         nick: 'test_nick_modified',
       );
-      expect(response.error, isNull);
-      expect(response.data?.nick, 'test_nick_modified');
+      expect(response.failure, isNull);
+      expect(response.success?.data.nick, 'test_nick_modified');
 
       await avoidRateLimit();
     });
@@ -187,18 +187,18 @@ void main() async {
         permissions: [],
         mentionable: true,
       );
-      expect(response.error, isNull);
-      expect(response.data?.name, 'test_role_3');
+      expect(response.failure, isNull);
+      expect(response.success?.data.name, 'test_role_3');
 
-      roleId = response.data!.id;
+      roleId = response.success!.data.id;
 
       await avoidRateLimit();
     });
 
     test('Get guild roles', () async {
       final response = await api.guilds.getGuildRoles(guildId);
-      expect(response.error, isNull);
-      expect(response.data?.length, 3);
+      expect(response.failure, isNull);
+      expect(response.success?.data.length, 3);
 
       await avoidRateLimit();
     });
@@ -209,7 +209,7 @@ void main() async {
         userId: credentials.applicationId,
         roleId: roleId,
       );
-      expect(response.error, isNull);
+      expect(response.failure, isNull);
 
       await avoidRateLimit();
     });
@@ -220,7 +220,7 @@ void main() async {
         userId: credentials.applicationId,
         roleId: roleId,
       );
-      expect(response.error, isNull);
+      expect(response.failure, isNull);
 
       await avoidRateLimit();
     });
@@ -235,9 +235,9 @@ void main() async {
           ),
         ],
       );
-      expect(response.error, isNull);
-      expect(response.data?.last.id, roleId);
-      expect(response.data?.last.position, 1);
+      expect(response.failure, isNull);
+      expect(response.success?.data.last.id, roleId);
+      expect(response.success?.data.last.position, 1);
 
       await avoidRateLimit();
     });
@@ -249,8 +249,8 @@ void main() async {
         name: 'test_role_modified',
         color: DiscordColor.blue,
       );
-      expect(response.error, isNull);
-      expect(response.data?.name, 'test_role_modified');
+      expect(response.failure, isNull);
+      expect(response.success?.data.name, 'test_role_modified');
 
       await avoidRateLimit();
     });
@@ -258,7 +258,7 @@ void main() async {
     tearDownAll(() async {
       final response =
           await api.guilds.deleteGuildRole(guildId, roleId: roleId);
-      expect(response.error, isNull);
+      expect(response.failure, isNull);
 
       await avoidRateLimit();
     });
@@ -267,8 +267,8 @@ void main() async {
   group('Pruning:', () {
     test('Get guild prune count', () async {
       final response = await api.guilds.getGuildPruneCount(guildId);
-      expect(response.error, isNull);
-      expect(response.data, isNotNull);
+      expect(response.failure, isNull);
+      expect(response.success, isNotNull);
 
       await avoidRateLimit();
     });
@@ -278,7 +278,7 @@ void main() async {
         guildId,
         days: 1,
       );
-      expect(response.error, isNull);
+      expect(response.failure, isNull);
 
       await avoidRateLimit();
     });
@@ -286,8 +286,8 @@ void main() async {
 
   test('Get guild voice regions', () async {
     final response = await api.guilds.getGuildVoiceRegions(guildId);
-    expect(response.error, isNull);
-    expect(response.data?.length, greaterThan(0));
+    expect(response.failure, isNull);
+    expect(response.success?.data.length, greaterThan(0));
 
     await avoidRateLimit();
   });
@@ -298,10 +298,10 @@ void main() async {
 
     test('Get guild integrations', () async {
       final response = await api.guilds.getGuildIntegrations(guildId);
-      expect(response.error, isNull);
-      expect(response.data?.length, greaterThan(0));
+      expect(response.failure, isNull);
+      expect(response.success?.data.length, greaterThan(0));
 
-      integrationId = response.data!.first.id;
+      integrationId = response.success!.data.first.id;
 
       await avoidRateLimit();
     });
@@ -311,7 +311,7 @@ void main() async {
         guildId,
         integrationId: integrationId,
       );
-      expect(response.error, isNull);
+      expect(response.failure, isNull);
 
       await avoidRateLimit();
     });
@@ -324,21 +324,21 @@ void main() async {
         guildId,
         enabled: true,
       );
-      expect(response.error, isNull);
+      expect(response.failure, isNull);
 
       await avoidRateLimit();
     });
 
     test('Get guild widget settings', () async {
       final response = await api.guilds.getGuildWidgetSettings(guildId);
-      expect(response.error, isNull);
+      expect(response.failure, isNull);
 
       await avoidRateLimit();
     });
 
     test('Get guild widget', () async {
       final response = await api.guilds.getGuildWidget(guildId);
-      expect(response.error, isNull);
+      expect(response.failure, isNull);
 
       await avoidRateLimit();
     });
@@ -346,10 +346,10 @@ void main() async {
     test('Get guild widget image', () async {
       final response = await api.guilds
           .getGuildWidgetImage(guildId, style: GuildWidgetStyle.banner1);
-      expect(response.error, isNull);
+      expect(response.failure, isNull);
 
       File('test_resources/guild_widget_image.png')
-          .writeAsBytesSync(response.data!);
+          .writeAsBytesSync(response.success!.data);
 
       await avoidRateLimit();
     });
@@ -363,7 +363,7 @@ void main() async {
           credentials.guildId,
           enabled: true,
         );
-        expect(response.error, isNull);
+        expect(response.failure, isNull);
 
         await avoidRateLimit();
       });
@@ -371,7 +371,7 @@ void main() async {
       test('Get guild welcome screen', () async {
         final response =
             await api.guilds.getGuildWelcomeScreen(credentials.guildId);
-        expect(response.error, isNull);
+        expect(response.failure, isNull);
 
         await avoidRateLimit();
       });
@@ -387,7 +387,7 @@ void main() async {
           guildId,
           channelId: '',
         );
-        expect(response.error, isNull);
+        expect(response.failure, isNull);
 
         await avoidRateLimit();
       });
@@ -398,7 +398,7 @@ void main() async {
           userId: credentials.applicationId,
           channelId: '',
         );
-        expect(response.error, isNull);
+        expect(response.failure, isNull);
 
         await avoidRateLimit();
       });
@@ -410,7 +410,7 @@ void main() async {
     'Get guild vanity url',
     () async {
       final response = await api.guilds.getGuildVanityUrl(credentials.guildId);
-      expect(response.error, isNull);
+      expect(response.failure, isNull);
     },
     skip: 'Need a guild with a vanity url',
   );
@@ -421,13 +421,13 @@ void main() async {
     () {
       test('Create invite link', () async {
         final channelsResponse = await api.guilds.getGuildChannels(guildId);
-        final channelId = channelsResponse.data!
+        final channelId = channelsResponse.success!.data
             .firstWhere((e) => e.type == ChannelType.guildText)
             .id;
 
         final response = await api.channels.createChannelInvite(channelId);
         print(
-          'Join the server with this link: https://discord.gg/${response.data!.code}',
+          'Join the server with this link: https://discord.gg/${response.success!.data.code}',
         );
 
         await Future.delayed(Duration(seconds: 10));
@@ -439,8 +439,8 @@ void main() async {
           userId: credentials.userId,
           nick: 'test_nick',
         );
-        expect(response.error, isNull);
-        expect(response.data?.nick, 'test_nick');
+        expect(response.failure, isNull);
+        expect(response.success?.data.nick, 'test_nick');
 
         await avoidRateLimit();
       });
@@ -450,7 +450,7 @@ void main() async {
           guildId,
           userId: credentials.userId,
         );
-        expect(response.error, isNull);
+        expect(response.failure, isNull);
 
         await avoidRateLimit();
       });
@@ -465,15 +465,15 @@ void main() async {
           guildId,
           userId: credentials.userId,
         );
-        expect(response.error, isNull);
+        expect(response.failure, isNull);
 
         await avoidRateLimit();
       });
 
       test('Get guild bans', () async {
         final response = await api.guilds.getGuildBans(guildId);
-        expect(response.error, isNull);
-        expect(response.data?.length, 1);
+        expect(response.failure, isNull);
+        expect(response.success?.data.length, 1);
 
         await avoidRateLimit();
       });
@@ -483,8 +483,8 @@ void main() async {
           guildId,
           userId: credentials.userId,
         );
-        expect(response.error, isNull);
-        expect(response.data?.user.id, credentials.userId);
+        expect(response.failure, isNull);
+        expect(response.success?.data.user.id, credentials.userId);
 
         await avoidRateLimit();
       });
@@ -494,7 +494,7 @@ void main() async {
           guildId,
           userId: credentials.userId,
         );
-        expect(response.error, isNull);
+        expect(response.failure, isNull);
 
         await avoidRateLimit();
       });
@@ -504,7 +504,7 @@ void main() async {
 
   tearDownAll(() async {
     final response = await api.guilds.deleteGuild(guildId);
-    expect(response.error, isNull);
+    expect(response.failure, isNull);
 
     await avoidRateLimit();
   });
