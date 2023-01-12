@@ -24,8 +24,8 @@ void main() async {
     commands: commands,
   );
 
-  if (response.error != null) {
-    print(response.error);
+  if (response.failure != null) {
+    print(response.failure);
   } else {
     print('Successfully overwritten application commands');
   }
