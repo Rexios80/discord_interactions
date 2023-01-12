@@ -39,7 +39,7 @@ class InvitesApi {
         if (guildScheduledEventId != null)
           'guild_scheduled_event_id': guildScheduledEventId,
       },
-    ).validate(transform: (data) => Invite.fromJson(data));
+    ).validate(transform: Invite.fromJson);
   }
 
   /// Delete an invite. Requires the MANAGE_CHANNELS permission on the channel
@@ -63,6 +63,6 @@ class InvitesApi {
             },
           ),
         )
-        .validate(transform: (data) => Invite.fromJson(data));
+        .validate(transform: Invite.fromJson);
   }
 }

@@ -24,7 +24,7 @@ class StickersApi {
   ) {
     return _dio
         .get<Map<String, dynamic>>('/stickers/$stickerId')
-        .validate(transform: (data) => Sticker.fromJson(data));
+        .validate(transform: Sticker.fromJson);
   }
 
   /// Returns the list of sticker packs available to Nitro subscribers.
@@ -65,7 +65,7 @@ class StickersApi {
   }) {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$guildId/stickers/$stickerId')
-        .validate(transform: (data) => Sticker.fromJson(data));
+        .validate(transform: Sticker.fromJson);
   }
 
   /// Create a new sticker for the guild. Send a multipart/form-data body.
@@ -110,7 +110,7 @@ class StickersApi {
             },
           ),
         )
-        .validate(transform: (data) => Sticker.fromJson(data));
+        .validate(transform: Sticker.fromJson);
   }
 
   /// Modify the given sticker. Requires the MANAGE_EMOJIS_AND_STICKERS
@@ -147,7 +147,7 @@ class StickersApi {
             },
           ),
         )
-        .validate(transform: (data) => Sticker.fromJson(data));
+        .validate(transform: Sticker.fromJson);
   }
 
   /// Delete the given sticker. Requires the MANAGE_EMOJIS_AND_STICKERS

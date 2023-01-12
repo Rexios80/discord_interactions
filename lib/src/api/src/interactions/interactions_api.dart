@@ -52,7 +52,7 @@ class InteractionsApi {
   ) {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$token/messages/@original')
-        .validate(transform: (data) => Message.fromJson(data));
+        .validate(transform: Message.fromJson);
   }
 
   /// Edits the initial [InteractionResponse]. Functions the same as Edit
@@ -109,7 +109,7 @@ class InteractionsApi {
             files,
           ),
         )
-        .validate(transform: (data) => Message.fromJson(data));
+        .validate(transform: Message.fromJson);
   }
 
   /// Deletes the initial Interaction response. Returns 204 on success.
@@ -173,7 +173,7 @@ class InteractionsApi {
             files,
           ),
         )
-        .validate(transform: (data) => Message.fromJson(data));
+        .validate(transform: Message.fromJson);
   }
 
   /// Returns a followup message for an Interaction. Functions the same as Get
@@ -186,7 +186,7 @@ class InteractionsApi {
   }) {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$token/messages/$messageId')
-        .validate(transform: (data) => Message.fromJson(data));
+        .validate(transform: Message.fromJson);
   }
 
   /// Edits a followup message for an Interaction. Functions the same as Edit
@@ -243,7 +243,7 @@ class InteractionsApi {
             files,
           ),
         )
-        .validate(transform: (data) => Message.fromJson(data));
+        .validate(transform: Message.fromJson);
   }
 
   /// Deletes a followup message for an Interaction. Returns 204 on success.

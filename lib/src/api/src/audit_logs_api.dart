@@ -43,6 +43,6 @@ class AuditLogsApi {
         if (before != null) 'before': before,
         if (limit != null) 'limit': limit,
       },
-    ).validate(transform: (data) => AuditLog.fromJson(data));
+    ).validate(transform: AuditLog.fromJson);
   }
 }

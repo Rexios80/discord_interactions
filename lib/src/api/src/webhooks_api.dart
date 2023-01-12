@@ -41,7 +41,7 @@ class WebhooksApi {
         'name': name,
         if (avatarImageData != null) 'avatar': avatarImageData,
       },
-    ).validate(transform: (data) => Webhook.fromJson(data));
+    ).validate(transform: Webhook.fromJson);
   }
 
   /// Returns a list of channel [Webhook] objects. Requires the MANAGE_WEBHOOKS
@@ -78,7 +78,7 @@ class WebhooksApi {
   ) {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$webhookId')
-        .validate(transform: (data) => Webhook.fromJson(data));
+        .validate(transform: Webhook.fromJson);
   }
 
   /// Same as above, except this call does not require authentication and
@@ -91,7 +91,7 @@ class WebhooksApi {
   }) {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$webhookId/$token')
-        .validate(transform: (data) => Webhook.fromJson(data));
+        .validate(transform: Webhook.fromJson);
   }
 
   /// Modify a webhook. Requires the MANAGE_WEBHOOKS permission. Returns the
@@ -119,7 +119,7 @@ class WebhooksApi {
         if (avatarImageData != null) 'avatar': avatarImageData,
         if (channelId != null) 'channel_id': channelId,
       },
-    ).validate(transform: (data) => Webhook.fromJson(data));
+    ).validate(transform: Webhook.fromJson);
   }
 
   /// Same as above, except this call does not require authentication, does not
@@ -144,7 +144,7 @@ class WebhooksApi {
         if (name != null) 'name': name,
         if (avatarImageData != null) 'avatar': avatarImageData,
       },
-    ).validate(transform: (data) => Webhook.fromJson(data));
+    ).validate(transform: Webhook.fromJson);
   }
 
   /// Delete a webhook permanently. Requires the MANAGE_WEBHOOKS permission.
@@ -261,7 +261,7 @@ class WebhooksApi {
           ),
         )
         .validate(
-          transform: (data) => data != null ? Message.fromJson(data) : null,
+          transform: data != null ? Message.fromJson : null,
         );
   }
 

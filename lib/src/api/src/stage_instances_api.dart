@@ -49,7 +49,7 @@ class StageInstancesApi {
             },
           ),
         )
-        .validate(transform: (data) => StageInstance.fromJson(data));
+        .validate(transform: StageInstance.fromJson);
   }
 
   /// Gets the stage instance associated with the Stage channel, if it exists.
@@ -61,7 +61,7 @@ class StageInstancesApi {
   ) {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$channelId')
-        .validate(transform: (data) => StageInstance.fromJson(data));
+        .validate(transform: StageInstance.fromJson);
   }
 
   /// Updates fields of an existing Stage instance.
@@ -95,7 +95,7 @@ class StageInstancesApi {
             },
           ),
         )
-        .validate(transform: (data) => StageInstance.fromJson(data));
+        .validate(transform: StageInstance.fromJson);
   }
 
   /// Deletes the Stage instance.

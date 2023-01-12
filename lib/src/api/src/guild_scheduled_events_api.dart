@@ -85,7 +85,7 @@ class GuildScheduledEventsApi {
         if (description != null) 'description': description,
         'entity_type': entityType.value,
       },
-    ).validate(transform: (data) => GuildScheduledEvent.fromJson(data));
+    ).validate(transform: GuildScheduledEvent.fromJson);
   }
 
   /// Get a guild scheduled event. Returns a [GuildScheduledEvent] object on
@@ -105,7 +105,7 @@ class GuildScheduledEventsApi {
       queryParameters: {
         if (withUserCount != null) 'with_user_count': withUserCount,
       },
-    ).validate(transform: (data) => GuildScheduledEvent.fromJson(data));
+    ).validate(transform: GuildScheduledEvent.fromJson);
   }
 
   /// Modify a guild scheduled event. Returns the modified [GuildScheduledEvent]
@@ -168,7 +168,7 @@ class GuildScheduledEventsApi {
         if (entityType != null) 'entity_type': entityType.value,
         if (status != null) 'status': status.value,
       },
-    ).validate(transform: (data) => GuildScheduledEvent.fromJson(data));
+    ).validate(transform: GuildScheduledEvent.fromJson);
   }
 
   /// Delete a guild scheduled event. Returns a 204 on success.

@@ -27,7 +27,7 @@ class ChannelsApi {
   ) async {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$channelId')
-        .validate(transform: (data) => Channel.fromJson(data));
+        .validate(transform: Channel.fromJson);
   }
 
   /// Update a group dm's settings. Returns a channel on success, and a 400 BAD
@@ -49,7 +49,7 @@ class ChannelsApi {
         if (name != null) 'name': name,
         if (iconBase64 != null) 'icon': iconBase64,
       },
-    ).validate(transform: (data) => Channel.fromJson(data));
+    ).validate(transform: Channel.fromJson);
   }
 
   /// Update a channel's settings. Returns a channel on success, and a 400 BAD
@@ -169,7 +169,7 @@ class ChannelsApi {
             },
           ),
         )
-        .validate(transform: (data) => Channel.fromJson(data));
+        .validate(transform: Channel.fromJson);
   }
 
   /// Update a thread's settings. Returns a channel on success, and a 400 BAD
@@ -234,7 +234,7 @@ class ChannelsApi {
             },
           ),
         )
-        .validate(transform: (data) => Channel.fromJson(data));
+        .validate(transform: Channel.fromJson);
   }
 
   /// Delete a channel, or close a private message. Requires the MANAGE_CHANNELS
@@ -324,7 +324,7 @@ class ChannelsApi {
   }) async {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$channelId/messages/$messageId')
-        .validate(transform: (data) => Message.fromJson(data));
+        .validate(transform: Message.fromJson);
   }
 
   /// Discord may strip certain characters from message content, like invalid
@@ -423,7 +423,7 @@ class ChannelsApi {
             files,
           ),
         )
-        .validate(transform: (data) => Message.fromJson(data));
+        .validate(transform: Message.fromJson);
   }
 
   /// Crosspost a message in a News Channel to following channels. This endpoint
@@ -442,7 +442,7 @@ class ChannelsApi {
         .post<Map<String, dynamic>>(
           '$_basePath/$channelId/messages/$messageId/crosspost',
         )
-        .validate(transform: (data) => Message.fromJson(data));
+        .validate(transform: Message.fromJson);
   }
 
   /// Create a reaction for the message. This endpoint requires the
@@ -663,7 +663,7 @@ class ChannelsApi {
             files,
           ),
         )
-        .validate(transform: (data) => Message.fromJson(data));
+        .validate(transform: Message.fromJson);
   }
 
   /// Delete a message. If operating on a guild channel and trying to delete a
@@ -838,7 +838,7 @@ class ChannelsApi {
             },
           ),
         )
-        .validate(transform: (data) => Invite.fromJson(data));
+        .validate(transform: Invite.fromJson);
   }
 
   /// Delete a channel permission overwrite for a user or role in a channel.
@@ -883,7 +883,7 @@ class ChannelsApi {
       data: {
         'webhook_channel_id': webhookChannelId,
       },
-    ).validate(transform: (data) => FollowedChannel.fromJson(data));
+    ).validate(transform: FollowedChannel.fromJson);
   }
 
   /// Post a typing indicator for the specified channel. Generally bots should
@@ -1047,7 +1047,7 @@ class ChannelsApi {
             },
           ),
         )
-        .validate(transform: (data) => Channel.fromJson(data));
+        .validate(transform: Channel.fromJson);
   }
 
   /// Creates a new thread that is not connected to an existing message. The
@@ -1112,7 +1112,7 @@ class ChannelsApi {
             },
           ),
         )
-        .validate(transform: (data) => Channel.fromJson(data));
+        .validate(transform: Channel.fromJson);
   }
 
   /// Adds the current user to a thread. Also requires the thread is not
@@ -1173,7 +1173,7 @@ class ChannelsApi {
         .get<Map<String, dynamic>>(
           '$_basePath/$channelId/thread-members/$userId',
         )
-        .validate(transform: (data) => ThreadMember.fromJson(data));
+        .validate(transform: ThreadMember.fromJson);
   }
 
   /// Returns array of thread members objects that are members of the thread.
@@ -1218,7 +1218,7 @@ class ChannelsApi {
         if (before != null) 'before': before.toIso8601String(),
         if (limit != null) 'limit': limit,
       },
-    ).validate(transform: (data) => ListThreadsResponse.fromJson(data));
+    ).validate(transform: ListThreadsResponse.fromJson);
   }
 
   /// Returns archived threads in the channel that are of type
@@ -1243,7 +1243,7 @@ class ChannelsApi {
         if (before != null) 'before': before.toIso8601String(),
         if (limit != null) 'limit': limit,
       },
-    ).validate(transform: (data) => ListThreadsResponse.fromJson(data));
+    ).validate(transform: ListThreadsResponse.fromJson);
   }
 
   /// Returns archived threads in the channel that are of type
@@ -1268,6 +1268,6 @@ class ChannelsApi {
         if (before != null) 'before': before,
         if (limit != null) 'limit': limit,
       },
-    ).validate(transform: (data) => ListThreadsResponse.fromJson(data));
+    ).validate(transform: ListThreadsResponse.fromJson);
   }
 }

@@ -102,7 +102,7 @@ class GuildsApi {
           'system_channel_flags':
               const SystemChannelFlagConverter().toJson(systemChannelFlags),
       },
-    ).validate(transform: (data) => Guild.fromJson(data));
+    ).validate(transform: Guild.fromJson);
   }
 
   /// Returns the guild object for the given id. If with_counts is set to true,
@@ -122,7 +122,7 @@ class GuildsApi {
       queryParameters: {
         if (withCounts != null) 'with_counts': withCounts,
       },
-    ).validate(transform: (data) => Guild.fromJson(data));
+    ).validate(transform: Guild.fromJson);
   }
 
   /// Returns the guild preview object for the given id. If the user is not in
@@ -135,7 +135,7 @@ class GuildsApi {
   ) {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$guildId/preview')
-        .validate(transform: (data) => GuildPreview.fromJson(data));
+        .validate(transform: GuildPreview.fromJson);
   }
 
   /// Modify a guild's settings. Requires the MANAGE_GUILD permission. Returns
@@ -257,7 +257,7 @@ class GuildsApi {
             },
           ),
         )
-        .validate(transform: (data) => Guild.fromJson(data));
+        .validate(transform: Guild.fromJson);
   }
 
   /// Delete a guild permanently. User must be owner. Returns 204 No Content on
@@ -331,7 +331,7 @@ class GuildsApi {
             },
           ),
         )
-        .validate(transform: (data) => Channel.fromJson(data));
+        .validate(transform: Channel.fromJson);
   }
 
   /// Modify the positions of a set of channel objects for the guild. Requires
@@ -371,7 +371,7 @@ class GuildsApi {
   ) {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$guildId/threads/active')
-        .validate(transform: (data) => ListThreadsResponse.fromJson(data));
+        .validate(transform: ListThreadsResponse.fromJson);
   }
 
   /// Returns a [GuildMember] object for the specified user.
@@ -383,7 +383,7 @@ class GuildsApi {
   }) {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$guildId/members/$userId')
-        .validate(transform: (data) => GuildMember.fromJson(data));
+        .validate(transform: GuildMember.fromJson);
   }
 
   /// Returns a list of guild member objects that are members of the guild.
@@ -513,7 +513,7 @@ class GuildsApi {
         if (deaf != null) 'deaf': deaf,
       },
     ).validate(
-      transform: (data) => data != null ? GuildMember.fromJson(data) : null,
+      transform: data != null ? GuildMember.fromJson : null,
     );
   }
 
@@ -578,7 +578,7 @@ class GuildsApi {
             },
           ),
         )
-        .validate(transform: (data) => GuildMember.fromJson(data));
+        .validate(transform: GuildMember.fromJson);
   }
 
   /// Modifies the current member in a guild. Returns a 200 with the updated
@@ -605,7 +605,7 @@ class GuildsApi {
             },
           ),
         )
-        .validate(transform: (data) => GuildMember.fromJson(data));
+        .validate(transform: GuildMember.fromJson);
   }
 
   /// Adds a role to a guild member. Requires the MANAGE_ROLES permission.
@@ -704,7 +704,7 @@ class GuildsApi {
   }) {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$guildId/bans/$userId')
-        .validate(transform: (data) => Ban.fromJson(data));
+        .validate(transform: Ban.fromJson);
   }
 
   /// Create a guild ban, and optionally delete previous messages sent by the
@@ -843,7 +843,7 @@ class GuildsApi {
             },
           ),
         )
-        .validate(transform: (data) => Role.fromJson(data));
+        .validate(transform: Role.fromJson);
   }
 
   /// Modify the positions of a set of role objects for the guild. Requires the
@@ -931,7 +931,7 @@ class GuildsApi {
             },
           ),
         )
-        .validate(transform: (data) => Role.fromJson(data));
+        .validate(transform: Role.fromJson);
   }
 
   /// Delete a guild role. Requires the MANAGE_ROLES permission. Returns a 204
@@ -1124,7 +1124,7 @@ class GuildsApi {
   ) {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$guildId/widget')
-        .validate(transform: (data) => GuildWidget.fromJson(data));
+        .validate(transform: GuildWidget.fromJson);
   }
 
   /// Modify a guild widget object for the guild. All attributes may be passed
@@ -1154,7 +1154,7 @@ class GuildsApi {
             },
           ),
         )
-        .validate(transform: (data) => GuildWidget.fromJson(data));
+        .validate(transform: GuildWidget.fromJson);
   }
 
   /// Returns the widget for the guild.
@@ -1177,7 +1177,7 @@ class GuildsApi {
   ) {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$guildId/vanity-url')
-        .validate(transform: (data) => Invite.fromJson(data));
+        .validate(transform: Invite.fromJson);
   }
 
   /// Returns a PNG image widget for the guild. Requires no permissions or
@@ -1216,7 +1216,7 @@ class GuildsApi {
   ) {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$guildId/welcome-screen')
-        .validate(transform: (data) => WelcomeScreen.fromJson(data));
+        .validate(transform: WelcomeScreen.fromJson);
   }
 
   /// Modify the guild's Welcome Screen. Requires the MANAGE_GUILD permission.
@@ -1255,7 +1255,7 @@ class GuildsApi {
             },
           ),
         )
-        .validate(transform: (data) => WelcomeScreen.fromJson(data));
+        .validate(transform: WelcomeScreen.fromJson);
   }
 
   /// Updates the current user's voice state.

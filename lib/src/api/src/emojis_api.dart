@@ -39,7 +39,7 @@ class EmojisApi {
   }) {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$guildId/emojis/$emojiId')
-        .validate(transform: (data) => Emoji.fromJson(data));
+        .validate(transform: Emoji.fromJson);
   }
 
   /// Create a new emoji for the guild. Requires the MANAGE_EMOJIS_AND_STICKERS
@@ -82,7 +82,7 @@ class EmojisApi {
             },
           ),
         )
-        .validate(transform: (data) => Emoji.fromJson(data));
+        .validate(transform: Emoji.fromJson);
   }
 
   /// Modify the given emoji. Requires the MANAGE_EMOJIS_AND_STICKERS
@@ -116,7 +116,7 @@ class EmojisApi {
             },
           ),
         )
-        .validate(transform: (data) => Emoji.fromJson(data));
+        .validate(transform: Emoji.fromJson);
   }
 
   /// Delete the given emoji. Requires the MANAGE_EMOJIS_AND_STICKERS

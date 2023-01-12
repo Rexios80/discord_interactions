@@ -25,7 +25,7 @@ class UsersApi {
   Future<ValidatedResponse<Map<String, dynamic>, User>> getCurrentUser() {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/@me')
-        .validate(transform: (data) => User.fromJson(data));
+        .validate(transform: User.fromJson);
   }
 
   /// Returns a user object for a given user ID.
@@ -34,7 +34,7 @@ class UsersApi {
   Future<ValidatedResponse<Map<String, dynamic>, User>> getUser(String userId) {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$userId')
-        .validate(transform: (data) => User.fromJson(data));
+        .validate(transform: User.fromJson);
   }
 
   /// Modify the requester's user account settings. Returns a user object on
@@ -57,7 +57,7 @@ class UsersApi {
         if (username != null) 'username': username,
         if (avatarImageData != null) 'avatar': avatarImageData,
       },
-    ).validate(transform: (data) => User.fromJson(data));
+    ).validate(transform: User.fromJson);
   }
 
   /// Returns a list of partial guild objects the current user is a member of.
@@ -117,7 +117,7 @@ class UsersApi {
     return _dio.post<Map<String, dynamic>>(
       '$_basePath/@me/channels',
       data: {'recipient_id': userId},
-    ).validate(transform: (data) => Channel.fromJson(data));
+    ).validate(transform: Channel.fromJson);
   }
 
   /// Create a new group DM channel with multiple users. Returns a DM channel

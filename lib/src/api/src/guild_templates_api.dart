@@ -23,7 +23,7 @@ class GuildTemplatesApi {
       getGuildTemplate(String code) {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/templates/$code')
-        .validate(transform: (data) => GuildTemplate.fromJson(data));
+        .validate(transform: GuildTemplate.fromJson);
   }
 
   /// Create a new guild based on a template. Returns a [Guild] object on
@@ -50,7 +50,7 @@ class GuildTemplatesApi {
         'name': name,
         if (iconImageData != null) 'icon': iconImageData,
       },
-    ).validate(transform: (data) => Guild.fromJson(data));
+    ).validate(transform: Guild.fromJson);
   }
 
   /// Returns an array of [GuildTemplate] objects. Requires the MANAGE_GUILD
@@ -89,7 +89,7 @@ class GuildTemplatesApi {
         'name': name,
         if (description != null) 'description': description,
       },
-    ).validate(transform: (data) => GuildTemplate.fromJson(data));
+    ).validate(transform: GuildTemplate.fromJson);
   }
 
   /// Syncs the template to the guild's current state. Requires the
@@ -103,7 +103,7 @@ class GuildTemplatesApi {
   }) {
     return _dio
         .put<Map<String, dynamic>>('$_basePath/$guildId/templates/$code')
-        .validate(transform: (data) => GuildTemplate.fromJson(data));
+        .validate(transform: GuildTemplate.fromJson);
   }
 
   /// Modifies the template's metadata. Requires the MANAGE_GUILD permission.
@@ -127,7 +127,7 @@ class GuildTemplatesApi {
         if (name != null) 'name': name,
         if (description != null) 'description': description,
       },
-    ).validate(transform: (data) => GuildTemplate.fromJson(data));
+    ).validate(transform: GuildTemplate.fromJson);
   }
 
   /// Deletes the template. Requires the MANAGE_GUILD permission. Returns the
@@ -141,6 +141,6 @@ class GuildTemplatesApi {
   }) {
     return _dio
         .delete<Map<String, dynamic>>('$_basePath/$guildId/templates/$code')
-        .validate(transform: (data) => GuildTemplate.fromJson(data));
+        .validate(transform: GuildTemplate.fromJson);
   }
 }

@@ -67,7 +67,7 @@ class ApplicationCommandsApi {
         if (defaultPermission != null) 'default_permission': defaultPermission,
         if (type != null) 'type': type.value,
       },
-    ).validate(transform: (data) => ApplicationCommand.fromJson(data));
+    ).validate(transform: ApplicationCommand.fromJson);
   }
 
   /// Fetch a global command for your application. Returns an
@@ -80,7 +80,7 @@ class ApplicationCommandsApi {
   ) {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/commands/$commandId')
-        .validate(transform: (data) => ApplicationCommand.fromJson(data));
+        .validate(transform: ApplicationCommand.fromJson);
   }
 
   /// Edit a global command. Updates will be available in all guilds after 1 hour.
@@ -114,7 +114,7 @@ class ApplicationCommandsApi {
         if (options != null) 'options': options,
         if (defaultPermission != null) 'default_permission': defaultPermission,
       },
-    ).validate(transform: (data) => ApplicationCommand.fromJson(data));
+    ).validate(transform: ApplicationCommand.fromJson);
   }
 
   /// Deletes a global command. Returns 204.
@@ -201,7 +201,7 @@ class ApplicationCommandsApi {
         if (defaultPermission != null) 'default_permission': defaultPermission,
         if (type != null) 'type': type.value,
       },
-    ).validate(transform: (data) => ApplicationCommand.fromJson(data));
+    ).validate(transform: ApplicationCommand.fromJson);
   }
 
   /// Fetch a guild command for your application. Returns an [ApplicationCommand] object.
@@ -216,7 +216,7 @@ class ApplicationCommandsApi {
         .get<Map<String, dynamic>>(
           '$_basePath/guilds/$guildId/commands/$commandId',
         )
-        .validate(transform: (data) => ApplicationCommand.fromJson(data));
+        .validate(transform: ApplicationCommand.fromJson);
   }
 
   /// Edit a guild command. Updates for guild commands will be available immediately.
@@ -251,7 +251,7 @@ class ApplicationCommandsApi {
         if (options != null) 'options': options,
         if (defaultPermission != null) 'default_permission': defaultPermission,
       },
-    ).validate(transform: (data) => ApplicationCommand.fromJson(data));
+    ).validate(transform: ApplicationCommand.fromJson);
   }
 
   /// Delete a guild command. Returns 204 on success.
@@ -349,7 +349,7 @@ class ApplicationCommandsApi {
       '$_basePath/guilds/$guildId/commands/$commandId/permissions',
       data: {'permissions': permissions},
     ).validate(
-      transform: (data) => GuildApplicationCommandPermissions.fromJson(data),
+      transform: GuildApplicationCommandPermissions.fromJson,
     );
   }
 
