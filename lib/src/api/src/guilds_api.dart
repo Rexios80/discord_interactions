@@ -2,6 +2,7 @@
 
 // Package imports:
 import 'package:dio/dio.dart';
+import 'package:dio_response_validator/dio_response_validator.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
@@ -269,8 +270,8 @@ class GuildsApi {
   /// success. Fires a Guild Delete Gateway event.
   ///
   /// https://discord.com/developers/docs/resources/guild#delete-guild
-  Future<DiscordResponse<void>> deleteGuild(String guildId) {
-    return validateApiCall(_dio.delete('$_basePath/$guildId'));
+  Future<ValidatedResponse<void, void>> deleteGuild(String guildId) {
+    return _dio.delete('$_basePath/$guildId').validate();
   }
 
   /// Returns a list of guild channel objects. Does not include threads.
@@ -346,22 +347,22 @@ class GuildsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/guild#modify-guild-channel-positions
-  Future<DiscordResponse<void>> modifyGuildChannelPositions(
+  Future<ValidatedResponse<void, void>> modifyGuildChannelPositions(
     String guildId, {
     required List<ModifyGuildChannelPositionsParams> params,
     String? reason,
   }) {
-    return validateApiCall(
-      _dio.patch(
-        '$_basePath/$guildId/channels',
-        data: params,
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
-          },
-        ),
-      ),
-    );
+    return _dio
+        .patch(
+          '$_basePath/$guildId/channels',
+          data: params,
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+            },
+          ),
+        )
+        .validate();
   }
 
   /// Returns all active threads in the guild, including public and private
@@ -621,22 +622,22 @@ class GuildsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/guild#add-guild-member-role
-  Future<DiscordResponse<void>> addGuildMemberRole(
+  Future<ValidatedResponse<void, void>> addGuildMemberRole(
     String guildId, {
     required String userId,
     required String roleId,
     String? reason,
   }) {
-    return validateApiCall(
-      _dio.put(
-        '$_basePath/$guildId/members/$userId/roles/$roleId',
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
-          },
-        ),
-      ),
-    );
+    return _dio
+        .put(
+          '$_basePath/$guildId/members/$userId/roles/$roleId',
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+            },
+          ),
+        )
+        .validate();
   }
 
   /// Removes a role from a guild member. Requires the MANAGE_ROLES permission.
@@ -646,22 +647,22 @@ class GuildsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/guild#remove-guild-member-role
-  Future<DiscordResponse<void>> removeGuildMemberRole(
+  Future<ValidatedResponse<void, void>> removeGuildMemberRole(
     String guildId, {
     required String userId,
     required String roleId,
     String? reason,
   }) {
-    return validateApiCall(
-      _dio.delete(
-        '$_basePath/$guildId/members/$userId/roles/$roleId',
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
-          },
-        ),
-      ),
-    );
+    return _dio
+        .delete(
+          '$_basePath/$guildId/members/$userId/roles/$roleId',
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+            },
+          ),
+        )
+        .validate();
   }
 
   /// Remove a member from a guild. Requires KICK_MEMBERS permission. Returns a
@@ -670,21 +671,21 @@ class GuildsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/guild#remove-guild-member
-  Future<DiscordResponse<void>> removeGuildMember(
+  Future<ValidatedResponse<void, void>> removeGuildMember(
     String guildId, {
     required String userId,
     String? reason,
   }) {
-    return validateApiCall(
-      _dio.delete(
-        '$_basePath/$guildId/members/$userId',
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
-          },
-        ),
-      ),
-    );
+    return _dio
+        .delete(
+          '$_basePath/$guildId/members/$userId',
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+            },
+          ),
+        )
+        .validate();
   }
 
   /// Returns a list of ban objects for the users banned from this guild.
@@ -720,7 +721,7 @@ class GuildsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/guild#create-guild-ban
-  Future<DiscordResponse<void>> createGuildBan(
+  Future<ValidatedResponse<void, void>> createGuildBan(
     String guildId, {
     required String userId,
 
@@ -728,19 +729,19 @@ class GuildsApi {
     int? deleteMessageDays,
     String? reason,
   }) {
-    return validateApiCall(
-      _dio.put(
-        '$_basePath/$guildId/bans/$userId',
-        data: {
-          'delete_message_days': deleteMessageDays,
-        },
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
+    return _dio
+        .put(
+          '$_basePath/$guildId/bans/$userId',
+          data: {
+            'delete_message_days': deleteMessageDays,
           },
-        ),
-      ),
-    );
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+            },
+          ),
+        )
+        .validate();
   }
 
   /// Remove the ban for a user. Requires the BAN_MEMBERS permissions. Returns
@@ -749,24 +750,24 @@ class GuildsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/guild#remove-guild-ban
-  Future<DiscordResponse<void>> removeGuildBan(
+  Future<ValidatedResponse<void, void>> removeGuildBan(
     String guildId, {
     required String userId,
     String? reason,
   }) {
-    return validateApiCall(
-      _dio.delete(
-        '$_basePath/$guildId/bans/$userId',
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
-            // This is the ONLY api call that freaks out with the default content-type
-            // Screw you Discord
-            'Content-Type': '',
-          },
-        ),
-      ),
-    );
+    return _dio
+        .delete(
+          '$_basePath/$guildId/bans/$userId',
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+              // This is the ONLY api call that freaks out with the default content-type
+              // Screw you Discord
+              'Content-Type': '',
+            },
+          ),
+        )
+        .validate();
   }
 
   /// Returns a list of [Role] objects for the guild.
@@ -945,21 +946,21 @@ class GuildsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/guild#delete-guild-role
-  Future<DiscordResponse<void>> deleteGuildRole(
+  Future<ValidatedResponse<void, void>> deleteGuildRole(
     String guildId, {
     required String roleId,
     String? reason,
   }) {
-    return validateApiCall(
-      _dio.delete(
-        '$_basePath/$guildId/roles/$roleId',
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
-          },
-        ),
-      ),
-    );
+    return _dio
+        .delete(
+          '$_basePath/$guildId/roles/$roleId',
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+            },
+          ),
+        )
+        .validate();
   }
 
   /// Returns an object with one 'pruned' key indicating the number of members
@@ -1100,21 +1101,21 @@ class GuildsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/guild#delete-guild-integration
-  Future<DiscordResponse<void>> deleteGuildIntegration(
+  Future<ValidatedResponse<void, void>> deleteGuildIntegration(
     String guildId, {
     required String integrationId,
     String? reason,
   }) {
-    return validateApiCall(
-      _dio.delete(
-        '$_basePath/$guildId/integrations/$integrationId',
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
-          },
-        ),
-      ),
-    );
+    return _dio
+        .delete(
+          '$_basePath/$guildId/integrations/$integrationId',
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+            },
+          ),
+        )
+        .validate();
   }
 
   /// Returns a guild widget object. Requires the MANAGE_GUILD permission.
@@ -1162,8 +1163,11 @@ class GuildsApi {
   /// Returns the widget for the guild.
   ///
   /// https://discord.com/developers/docs/resources/guild#get-guild-widget
-  Future<DiscordResponse<Map<String, dynamic>>> getGuildWidget(String guildId) {
-    return validateApiCall(_dio.get('$_basePath/$guildId/widget.json'));
+  Future<ValidatedResponse<Map<String, dynamic>, Map<String, dynamic>>>
+      getGuildWidget(String guildId) {
+    return _dio
+        .get<Map<String, dynamic>>('$_basePath/$guildId/widget.json')
+        .validate();
   }
 
   /// Returns a partial invite object for guilds with that feature enabled.
@@ -1184,7 +1188,7 @@ class GuildsApi {
   /// All parameters to this endpoint are optional.
   ///
   /// https://discord.com/developers/docs/resources/guild#get-guild-widget-image
-  Future<DiscordResponse<List<int>>> getGuildWidgetImage(
+  Future<ValidatedResponse<List<int>, List<int>>> getGuildWidgetImage(
     String guildId, {
 
     /// style of the widget image returned
@@ -1192,17 +1196,17 @@ class GuildsApi {
     /// default: [GuildWidgetStyle.shield]
     GuildWidgetStyle? style,
   }) {
-    return validateApiCall(
-      _dio.get(
-        '$_basePath/$guildId/widget.png',
-        queryParameters: {
-          if (style != null) 'style': style.value,
-        },
-        options: Options(
-          responseType: ResponseType.bytes,
-        ),
-      ),
-    );
+    return _dio
+        .get<List<int>>(
+          '$_basePath/$guildId/widget.png',
+          queryParameters: {
+            if (style != null) 'style': style.value,
+          },
+          options: Options(
+            responseType: ResponseType.bytes,
+          ),
+        )
+        .validate();
   }
 
   /// Returns the Welcome Screen object for the guild.
@@ -1276,7 +1280,7 @@ class GuildsApi {
   /// time.
   ///
   /// https://discord.com/developers/docs/resources/guild#modify-current-user-voice-state
-  Future<DiscordResponse<void>> modifyCurrentUserVoiceState(
+  Future<ValidatedResponse<void, void>> modifyCurrentUserVoiceState(
     String guildId, {
 
     /// the id of the channel the user is currently in
@@ -1288,18 +1292,16 @@ class GuildsApi {
     /// sets the user's request to speak
     DateTime? requestToSpeakTimestamp,
   }) {
-    return validateApiCall(
-      _dio.patch(
-        '$_basePath/$guildId/voice-states/@me',
-        data: {
-          'channel_id': channelId,
-          if (suppress != null) 'suppress': suppress,
-          if (requestToSpeakTimestamp != null)
-            'request_to_speak_timestamp':
-                requestToSpeakTimestamp.toIso8601String(),
-        },
-      ),
-    );
+    return _dio.patch(
+      '$_basePath/$guildId/voice-states/@me',
+      data: {
+        'channel_id': channelId,
+        if (suppress != null) 'suppress': suppress,
+        if (requestToSpeakTimestamp != null)
+          'request_to_speak_timestamp':
+              requestToSpeakTimestamp.toIso8601String(),
+      },
+    ).validate();
   }
 
   /// Updates another user's voice state.
@@ -1322,7 +1324,7 @@ class GuildsApi {
   /// time.
   ///
   /// https://discord.com/developers/docs/resources/guild#modify-user-voice-state
-  Future<DiscordResponse<void>> modifyUserVoiceState(
+  Future<ValidatedResponse<void, void>> modifyUserVoiceState(
     String guildId, {
     required String userId,
 
@@ -1332,14 +1334,12 @@ class GuildsApi {
     /// toggles the user's suppress state
     bool? suppress,
   }) {
-    return validateApiCall(
-      _dio.patch(
-        '$_basePath/$guildId/voice-states/$userId',
-        data: {
-          'channel_id': channelId,
-          if (suppress != null) 'suppress': suppress,
-        },
-      ),
-    );
+    return _dio.patch(
+      '$_basePath/$guildId/voice-states/$userId',
+      data: {
+        'channel_id': channelId,
+        if (suppress != null) 'suppress': suppress,
+      },
+    ).validate();
   }
 }

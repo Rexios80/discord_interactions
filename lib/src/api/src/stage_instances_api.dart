@@ -1,5 +1,6 @@
 // Package imports:
 import 'package:dio/dio.dart';
+import 'package:dio_response_validator/dio_response_validator.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
@@ -105,19 +106,19 @@ class StageInstancesApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/stage-instance#delete-stage-instance
-  Future<DiscordResponse<void>> deleteStageInstance(
+  Future<ValidatedResponse<void, void>> deleteStageInstance(
     String channelId, {
     String? reason,
   }) {
-    return validateApiCall(
-      _dio.delete(
-        '$_basePath/$channelId',
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
-          },
-        ),
-      ),
-    );
+    return _dio
+        .delete(
+          '$_basePath/$channelId',
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+            },
+          ),
+        )
+        .validate();
   }
 }

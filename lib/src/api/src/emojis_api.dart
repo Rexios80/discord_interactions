@@ -1,5 +1,6 @@
 // Package imports:
 import 'package:dio/dio.dart';
+import 'package:dio_response_validator/dio_response_validator.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
@@ -126,20 +127,20 @@ class EmojisApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/emoji#delete-guild-emoji
-  Future<DiscordResponse<void>> deleteGuildEmoji(
+  Future<ValidatedResponse<void, void>> deleteGuildEmoji(
     String guildId, {
     required String emojiId,
     String? reason,
   }) {
-    return validateApiCall(
-      _dio.delete(
-        '$_basePath/$guildId/emojis/$emojiId',
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
-          },
-        ),
-      ),
-    );
+    return _dio
+        .delete(
+          '$_basePath/$guildId/emojis/$emojiId',
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+            },
+          ),
+        )
+        .validate();
   }
 }

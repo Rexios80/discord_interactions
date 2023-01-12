@@ -11,7 +11,7 @@ import 'package:discord_interactions/src/model/discord_model.dart';
 /// Call a Discord API endpoint and validate the response
 Future<DiscordResponse<T>> validateApiCall<T>(
   Future<Response> call, {
-  T Function(dynamic)? responseTransformer,
+  required T Function(dynamic)? responseTransformer,
 }) async {
   final Response response;
 

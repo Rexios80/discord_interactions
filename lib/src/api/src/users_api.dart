@@ -1,5 +1,6 @@
 // Package imports:
 import 'package:dio/dio.dart';
+import 'package:dio_response_validator/dio_response_validator.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
@@ -104,8 +105,8 @@ class UsersApi {
   /// * It seems like a webhook bot can't do this
   ///
   /// https://discord.com/developers/docs/resources/user#leave-guild
-  Future<DiscordResponse<void>> leaveGuild(String guildId) {
-    return validateApiCall(_dio.delete('$_basePath/@me/guilds/$guildId'));
+  Future<ValidatedResponse<void, void>> leaveGuild(String guildId) {
+    return _dio.delete('$_basePath/@me/guilds/$guildId').validate();
   }
 
   /// Create a new DM channel with a user. Returns a DM channel object.
@@ -144,7 +145,7 @@ class UsersApi {
   /// * Pretty sure bots can't have connections
   ///
   /// https://discord.com/developers/docs/resources/user#get-user-connections
-  Future<DiscordResponse<dynamic>> getUserConnections() {
-    return validateApiCall(_dio.get('$_basePath/@me/connections'));
+  Future<ValidatedResponse> getUserConnections() {
+    return _dio.get('$_basePath/@me/connections').validate();
   }
 }

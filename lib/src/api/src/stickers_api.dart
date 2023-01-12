@@ -1,5 +1,6 @@
 // Package imports:
 import 'package:dio/dio.dart';
+import 'package:dio_response_validator/dio_response_validator.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
@@ -156,20 +157,20 @@ class StickersApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/sticker#delete-guild-sticker
-  Future<DiscordResponse<void>> deleteGuildSticker(
+  Future<ValidatedResponse<void, void>> deleteGuildSticker(
     String guildId, {
     required String stickerId,
     String? reason,
   }) {
-    return validateApiCall(
-      _dio.delete(
-        '$_basePath/$guildId/stickers/$stickerId',
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
-          },
-        ),
-      ),
-    );
+    return _dio
+        .delete(
+          '$_basePath/$guildId/stickers/$stickerId',
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+            },
+          ),
+        )
+        .validate();
   }
 }

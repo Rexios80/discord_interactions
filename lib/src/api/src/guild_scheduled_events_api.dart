@@ -1,5 +1,6 @@
 // Package imports:
 import 'package:dio/dio.dart';
+import 'package:dio_response_validator/dio_response_validator.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
@@ -181,13 +182,13 @@ class GuildScheduledEventsApi {
   /// Delete a guild scheduled event. Returns a 204 on success.
   ///
   /// https://discord.com/developers/docs/resources/guild-scheduled-event#delete-guild-scheduled-event
-  Future<DiscordResponse<void>> deleteGuildScheduledEvent(
+  Future<ValidatedResponse<void, void>> deleteGuildScheduledEvent(
     String guildId, {
     required String scheduledEventId,
   }) {
-    return validateApiCall(
-      _dio.delete('$_basePath/$guildId/scheduled-events/$scheduledEventId'),
-    );
+    return _dio
+        .delete('$_basePath/$guildId/scheduled-events/$scheduledEventId')
+        .validate();
   }
 
   /// Get a list of guild scheduled event users subscribed to a guild scheduled

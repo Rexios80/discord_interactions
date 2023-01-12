@@ -1,5 +1,6 @@
 // Package imports:
 import 'package:dio/dio.dart';
+import 'package:dio_response_validator/dio_response_validator.dart';
 
 // Project imports:
 import 'package:discord_interactions/src/model/discord_model.dart';
@@ -126,10 +127,10 @@ class ApplicationCommandsApi {
   /// Deletes a global command. Returns 204.
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#delete-global-application-command
-  Future<DiscordResponse<void>> deleteGlobalApplicationCommand(
+  Future<ValidatedResponse<void, void>> deleteGlobalApplicationCommand(
     String commandId,
   ) {
-    return validateApiCall(_dio.delete('$_basePath/commands/$commandId'));
+    return _dio.delete('$_basePath/commands/$commandId').validate();
   }
 
   /// Takes a list of [ApplicationCommand]s, overwriting the existing global command list for this application.
@@ -262,13 +263,13 @@ class ApplicationCommandsApi {
   /// Delete a guild command. Returns 204 on success.
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#delete-guild-application-command
-  Future<DiscordResponse<void>> deleteGuildApplicationCommand(
+  Future<ValidatedResponse<void, void>> deleteGuildApplicationCommand(
     String guildId, {
     required String commandId,
   }) {
-    return validateApiCall(
-      _dio.delete('$_basePath/guilds/$guildId/commands/$commandId'),
-    );
+    return _dio
+        .delete('$_basePath/guilds/$guildId/commands/$commandId')
+        .validate();
   }
 
   /// Takes a list of application commands, overwriting the existing command list for this

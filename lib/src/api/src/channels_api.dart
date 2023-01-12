@@ -1,5 +1,6 @@
 // Package imports:
 import 'package:dio/dio.dart';
+import 'package:dio_response_validator/dio_response_validator.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
@@ -256,20 +257,20 @@ class ChannelsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/channel#deleteclose-channel
-  Future<DiscordResponse<void>> deleteChannel(
+  Future<ValidatedResponse<void, void>> deleteChannel(
     String channelId, {
     String? reason,
   }) async {
-    return validateApiCall(
-      _dio.delete(
-        '$_basePath/$channelId',
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
-          },
-        ),
-      ),
-    );
+    return _dio
+        .delete(
+          '$_basePath/$channelId',
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+            },
+          ),
+        )
+        .validate();
   }
 
   /// Returns the messages for a channel. If operating on a guild channel, this
@@ -458,18 +459,18 @@ class ChannelsApi {
   /// This method handles emoji encoding for you
   ///
   /// https://discord.com/developers/docs/resources/channel#create-reaction
-  Future<DiscordResponse<void>> createReaction(
+  Future<ValidatedResponse<void, void>> createReaction(
     String channelId, {
     required String messageId,
     required String emojiName,
     required String emojiId,
   }) async {
     final emoji = EmojiEncoder.urlEncode(emojiName, emojiId);
-    return validateApiCall(
-      _dio.put(
-        '$_basePath/$channelId/messages/$messageId/reactions/$emoji/@me',
-      ),
-    );
+    return _dio
+        .put(
+          '$_basePath/$channelId/messages/$messageId/reactions/$emoji/@me',
+        )
+        .validate();
   }
 
   /// Delete a reaction the current user has made for the message. Returns a 204
@@ -480,18 +481,18 @@ class ChannelsApi {
   /// This method handles emoji encoding for you
   ///
   /// https://discord.com/developers/docs/resources/channel#delete-own-reaction
-  Future<DiscordResponse<void>> deleteOwnReaction(
+  Future<ValidatedResponse<void, void>> deleteOwnReaction(
     String channelId, {
     required String messageId,
     required String emojiName,
     required String emojiId,
   }) async {
     final emoji = EmojiEncoder.urlEncode(emojiName, emojiId);
-    return validateApiCall(
-      _dio.delete(
-        '$_basePath/$channelId/messages/$messageId/reactions/$emoji/@me',
-      ),
-    );
+    return _dio
+        .delete(
+          '$_basePath/$channelId/messages/$messageId/reactions/$emoji/@me',
+        )
+        .validate();
   }
 
   /// Deletes another user's reaction. This endpoint requires the
@@ -503,7 +504,7 @@ class ChannelsApi {
   /// This method handles emoji encoding for you
   ///
   /// https://discord.com/developers/docs/resources/channel#delete-user-reaction
-  Future<DiscordResponse<void>> deleteUserReaction(
+  Future<ValidatedResponse<void, void>> deleteUserReaction(
     String channelId, {
     required String messageId,
     required String emojiName,
@@ -511,11 +512,11 @@ class ChannelsApi {
     required String userId,
   }) async {
     final emoji = EmojiEncoder.urlEncode(emojiName, emojiId);
-    return validateApiCall(
-      _dio.delete(
-        '$_basePath/$channelId/messages/$messageId/reactions/$emoji/$userId',
-      ),
-    );
+    return _dio
+        .delete(
+          '$_basePath/$channelId/messages/$messageId/reactions/$emoji/$userId',
+        )
+        .validate();
   }
 
   /// Get a list of users that reacted with this emoji. Returns an array of user
@@ -560,13 +561,13 @@ class ChannelsApi {
   /// Message Reaction Remove All Gateway event.
   ///
   /// https://discord.com/developers/docs/resources/channel#delete-all-reactions
-  Future<DiscordResponse<void>> deleteAllReactions(
+  Future<ValidatedResponse<void, void>> deleteAllReactions(
     String channelId, {
     required String messageId,
   }) async {
-    return validateApiCall(
-      _dio.delete('$_basePath/$channelId/messages/$messageId/reactions'),
-    );
+    return _dio
+        .delete('$_basePath/$channelId/messages/$messageId/reactions')
+        .validate();
   }
 
   /// Deletes all the reactions for a given emoji on a message. This endpoint
@@ -579,16 +580,16 @@ class ChannelsApi {
   /// This method handles emoji encoding for you
   ///
   /// https://discord.com/developers/docs/resources/channel#delete-all-reactions-for-emoji
-  Future<DiscordResponse<void>> deleteAllReactionsForEmoji(
+  Future<ValidatedResponse<void, void>> deleteAllReactionsForEmoji(
     String channelId, {
     required String messageId,
     required String emojiName,
     required String emojiId,
   }) async {
     final emoji = EmojiEncoder.urlEncode(emojiName, emojiId);
-    return validateApiCall(
-      _dio.delete('$_basePath/$channelId/messages/$messageId/reactions/$emoji'),
-    );
+    return _dio
+        .delete('$_basePath/$channelId/messages/$messageId/reactions/$emoji')
+        .validate();
   }
 
   /// Edit a previously sent message. The fields content, embeds, and flags can
@@ -675,21 +676,21 @@ class ChannelsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/channel#delete-message
-  Future<DiscordResponse<void>> deleteMessage(
+  Future<ValidatedResponse<void, void>> deleteMessage(
     String channelId, {
     required String messageId,
     String? reason,
   }) async {
-    return validateApiCall(
-      _dio.delete(
-        '$_basePath/$channelId/messages/$messageId',
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
-          },
-        ),
-      ),
-    );
+    return _dio
+        .delete(
+          '$_basePath/$channelId/messages/$messageId',
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+            },
+          ),
+        )
+        .validate();
   }
 
   /// Delete multiple messages in a single request. This endpoint can only be
@@ -707,26 +708,26 @@ class ChannelsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/channel#bulk-delete-messages
-  Future<DiscordResponse<void>> bulkDeleteMessages(
+  Future<ValidatedResponse<void, void>> bulkDeleteMessages(
     String channelId, {
 
     /// an array of message ids to delete (2-100)
     required List<String> messageIds,
     String? reason,
   }) async {
-    return validateApiCall(
-      _dio.post(
-        '$_basePath/$channelId/messages/bulk-delete',
-        data: {
-          'messages': messageIds,
-        },
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
+    return _dio
+        .post(
+          '$_basePath/$channelId/messages/bulk-delete',
+          data: {
+            'messages': messageIds,
           },
-        ),
-      ),
-    );
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+            },
+          ),
+        )
+        .validate();
   }
 
   /// Edit the channel permission overwrites for a user or role in a channel.
@@ -739,22 +740,22 @@ class ChannelsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/channel#edit-channel-permissions
-  Future<DiscordResponse<void>> editChannelPermissions(
+  Future<ValidatedResponse<void, void>> editChannelPermissions(
     String channelId, {
     required PermissionOverwrite overwrite,
     String? reason,
   }) async {
-    return validateApiCall(
-      _dio.put(
-        '$_basePath/$channelId/permissions/${overwrite.id}',
-        data: overwrite,
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
-          },
-        ),
-      ),
-    );
+    return _dio
+        .put(
+          '$_basePath/$channelId/permissions/${overwrite.id}',
+          data: overwrite,
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+            },
+          ),
+        )
+        .validate();
   }
 
   /// Returns a list of [Invite] objects (with [InviteMetadata]) for the channel.
@@ -849,21 +850,21 @@ class ChannelsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/channel#delete-channel-permission
-  Future<DiscordResponse<void>> deleteChannelPermission(
+  Future<ValidatedResponse<void, void>> deleteChannelPermission(
     String channelId, {
     required String overwriteId,
     String? reason,
   }) async {
-    return validateApiCall(
-      _dio.delete(
-        '$_basePath/$channelId/permissions/$overwriteId',
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
-          },
-        ),
-      ),
-    );
+    return _dio
+        .delete(
+          '$_basePath/$channelId/permissions/$overwriteId',
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+            },
+          ),
+        )
+        .validate();
   }
 
   /// Follow a News Channel to send messages to a target channel. Requires the
@@ -896,8 +897,9 @@ class ChannelsApi {
   /// event.
   ///
   /// https://discord.com/developers/docs/resources/channel#trigger-typing-indicator
-  Future<DiscordResponse<void>> triggerTypingIndicator(String channelId) async {
-    return validateApiCall(_dio.post('$_basePath/$channelId/typing'));
+  Future<ValidatedResponse<void, void>> triggerTypingIndicator(
+      String channelId) async {
+    return _dio.post('$_basePath/$channelId/typing').validate();
   }
 
   /// Returns all pinned messages in the channel as an array of message objects.
@@ -921,21 +923,21 @@ class ChannelsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/channel#pin-message
-  Future<DiscordResponse<void>> pinMessage(
+  Future<ValidatedResponse<void, void>> pinMessage(
     String channelId, {
     required String messageId,
     String? reason,
   }) async {
-    return validateApiCall(
-      _dio.put(
-        '$_basePath/$channelId/pins/$messageId',
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
-          },
-        ),
-      ),
-    );
+    return _dio
+        .put(
+          '$_basePath/$channelId/pins/$messageId',
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+            },
+          ),
+        )
+        .validate();
   }
 
   /// Unpin a message in a channel. Requires the MANAGE_MESSAGES permission.
@@ -944,28 +946,28 @@ class ChannelsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/channel#unpin-message
-  Future<DiscordResponse<void>> unpinMessage(
+  Future<ValidatedResponse<void, void>> unpinMessage(
     String channelId, {
     required String messageId,
     String? reason,
   }) async {
-    return validateApiCall(
-      _dio.delete(
-        '$_basePath/$channelId/pins/$messageId',
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
-          },
-        ),
-      ),
-    );
+    return _dio
+        .delete(
+          '$_basePath/$channelId/pins/$messageId',
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+            },
+          ),
+        )
+        .validate();
   }
 
   /// Adds a recipient to a Group DM using their access token.
   ///
   /// https://discord.com/developers/docs/resources/channel#group-dm-add-recipient
   @Deprecated('Pretty sure this is deprecated')
-  Future<DiscordResponse<void>> groupDmAddRecipient(
+  Future<ValidatedResponse<void, void>> groupDmAddRecipient(
     String channelId, {
     required String userId,
 
@@ -975,28 +977,24 @@ class ChannelsApi {
     /// nickname of the user being added
     required String nick,
   }) async {
-    return validateApiCall(
-      _dio.put(
-        '$_basePath/$channelId/recipients/$userId',
-        data: {
-          'access_token': accessToken,
-          'nick': nick,
-        },
-      ),
-    );
+    return _dio.put(
+      '$_basePath/$channelId/recipients/$userId',
+      data: {
+        'access_token': accessToken,
+        'nick': nick,
+      },
+    ).validate();
   }
 
   /// Removes a recipient from a Group DM.
   ///
   /// https://discord.com/developers/docs/resources/channel#group-dm-remove-recipient
   @Deprecated('Pretty sure this is deprecated')
-  Future<DiscordResponse<void>> groupDmRemoveRecipient(
+  Future<ValidatedResponse<void, void>> groupDmRemoveRecipient(
     String channelId, {
     required String userId,
   }) async {
-    return validateApiCall(
-      _dio.delete('$_basePath/$channelId/recipients/$userId'),
-    );
+    return _dio.delete('$_basePath/$channelId/recipients/$userId').validate();
   }
 
   /// Creates a new thread from an existing message. Returns a channel on
@@ -1118,10 +1116,8 @@ class ChannelsApi {
   /// Update Gateway event.
   ///
   /// https://discord.com/developers/docs/resources/channel#join-thread
-  Future<DiscordResponse<void>> joinThread(String channelId) async {
-    return validateApiCall(
-      _dio.put('$_basePath/$channelId/thread-members/@me'),
-    );
+  Future<ValidatedResponse<void, void>> joinThread(String channelId) async {
+    return _dio.put('$_basePath/$channelId/thread-members/@me').validate();
   }
 
   /// Adds another member to a thread. Requires the ability to send messages in
@@ -1130,13 +1126,11 @@ class ChannelsApi {
   /// the thread. Fires a Thread Members Update Gateway event.
   ///
   /// https://discord.com/developers/docs/resources/channel#add-thread-member
-  Future<DiscordResponse<void>> addThreadMember(
+  Future<ValidatedResponse<void, void>> addThreadMember(
     String channelId, {
     required String userId,
   }) async {
-    return validateApiCall(
-      _dio.put('$_basePath/$channelId/thread-members/$userId'),
-    );
+    return _dio.put('$_basePath/$channelId/thread-members/$userId').validate();
   }
 
   /// Removes the current user from a thread. Also requires the thread is not
@@ -1144,10 +1138,8 @@ class ChannelsApi {
   /// Update Gateway event.
   ///
   /// https://discord.com/developers/docs/resources/channel#leave-thread
-  Future<DiscordResponse<void>> leaveThread(String channelId) async {
-    return validateApiCall(
-      _dio.delete('$_basePath/$channelId/thread-members/@me'),
-    );
+  Future<ValidatedResponse<void, void>> leaveThread(String channelId) async {
+    return _dio.delete('$_basePath/$channelId/thread-members/@me').validate();
   }
 
   /// Removes another member from a thread. Requires the MANAGE_THREADS
@@ -1156,13 +1148,13 @@ class ChannelsApi {
   /// success. Fires a Thread Members Update Gateway event.
   ///
   /// https://discord.com/developers/docs/resources/channel#remove-thread-member
-  Future<DiscordResponse<void>> removeThreadMember(
+  Future<ValidatedResponse<void, void>> removeThreadMember(
     String channelId, {
     required String userId,
   }) async {
-    return validateApiCall(
-      _dio.delete('$_basePath/$channelId/thread-members/$userId'),
-    );
+    return _dio
+        .delete('$_basePath/$channelId/thread-members/$userId')
+        .validate();
   }
 
   /// Returns a thread member object for the specified user if they are a

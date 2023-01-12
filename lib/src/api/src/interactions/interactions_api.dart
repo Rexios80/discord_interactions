@@ -1,5 +1,6 @@
 // Package imports:
 import 'package:dio/dio.dart';
+import 'package:dio_response_validator/dio_response_validator.dart';
 
 // Project imports:
 import 'package:discord_interactions/src/model/discord_model.dart';
@@ -27,18 +28,18 @@ class InteractionsApi {
   /// uploading files and multipart/form-data requests.
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#create-interaction-response
-  Future<DiscordResponse<void>> createInteractionResponse(
+  Future<ValidatedResponse<void, void>> createInteractionResponse(
     String interactionId, {
     required String token,
     required InteractionResponse response,
     List<MultipartFile>? files,
   }) {
-    return validateApiCall(
-      _dio.post(
-        '/interactions/$interactionId/$token/callback',
-        data: createFormData(response, files),
-      ),
-    );
+    return _dio
+        .post(
+          '/interactions/$interactionId/$token/callback',
+          data: createFormData(response, files),
+        )
+        .validate();
   }
 
   /// Returns the initial [Message] object created by the Interaction.
@@ -114,12 +115,10 @@ class InteractionsApi {
   /// Deletes the initial Interaction response. Returns 204 on success.
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#delete-original-interaction-response
-  Future<DiscordResponse<void>> deleteOriginalInteractionResponse(
+  Future<ValidatedResponse<void, void>> deleteOriginalInteractionResponse(
     String token,
   ) {
-    return validateApiCall(
-      _dio.delete('$_basePath/$token/messages/@original'),
-    );
+    return _dio.delete('$_basePath/$token/messages/@original').validate();
   }
 
   /// Create a followup message for an [Interaction]. Functions the same as
@@ -253,12 +252,10 @@ class InteractionsApi {
   /// Does not support ephemeral followups.
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#delete-followup-message
-  Future<DiscordResponse<void>> deleteFollowupMessage(
+  Future<ValidatedResponse<void, void>> deleteFollowupMessage(
     String token, {
     required String messageId,
   }) {
-    return validateApiCall(
-      _dio.delete('$_basePath/$token/messages/$messageId'),
-    );
+    return _dio.delete('$_basePath/$token/messages/$messageId').validate();
   }
 }

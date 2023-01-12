@@ -1,5 +1,6 @@
 // Package imports:
 import 'package:dio/dio.dart';
+import 'package:dio_response_validator/dio_response_validator.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
@@ -156,18 +157,18 @@ class WebhooksApi {
   /// Returns a 204 NO CONTENT response on success.
   ///
   /// https://discord.com/developers/docs/resources/webhook#delete-webhook
-  Future<DiscordResponse<void>> deleteWebhook(String webhookId) {
-    return validateApiCall(_dio.delete('$_basePath/$webhookId'));
+  Future<ValidatedResponse<void, void>> deleteWebhook(String webhookId) {
+    return _dio.delete('$_basePath/$webhookId').validate();
   }
 
   /// Same as above, except this call does not require authentication.
   ///
   /// https://discord.com/developers/docs/resources/webhook#delete-webhook-with-token
-  Future<DiscordResponse<void>> deleteWebhookWithToken(
+  Future<ValidatedResponse<void, void>> deleteWebhookWithToken(
     String webhookId, {
     required String token,
   }) {
-    return validateApiCall(_dio.delete('$_basePath/$webhookId/$token'));
+    return _dio.delete('$_basePath/$webhookId/$token').validate();
   }
 
   /// Note that when sending a message, you must provide a value for at least
@@ -274,7 +275,7 @@ class WebhooksApi {
   /// Slack's channel, icon_emoji, mrkdwn, or mrkdwn_in properties.
   ///
   /// https://discord.com/developers/docs/resources/webhook#execute-slackcompatible-webhook
-  Future<DiscordResponse<dynamic>> executeSlackCompatibleWebhook(
+  Future<ValidatedResponse> executeSlackCompatibleWebhook(
     String webhookId, {
     required String token,
 
@@ -292,16 +293,16 @@ class WebhooksApi {
     String? threadId,
     dynamic data,
   }) {
-    return validateApiCall(
-      _dio.post(
-        '$_basePath/$webhookId/$token',
-        queryParameters: {
-          if (wait != null) 'wait': wait,
-          if (threadId != null) 'thread_id': threadId,
-        },
-        data: data,
-      ),
-    );
+    return _dio
+        .post(
+          '$_basePath/$webhookId/$token',
+          queryParameters: {
+            if (wait != null) 'wait': wait,
+            if (threadId != null) 'thread_id': threadId,
+          },
+          data: data,
+        )
+        .validate();
   }
 
   /// Add a new webhook to your GitHub repo (in the repo's settings), and use
@@ -311,7 +312,7 @@ class WebhooksApi {
   /// configuring.
   ///
   /// https://discord.com/developers/docs/resources/webhook#execute-githubcompatible-webhook
-  Future<DiscordResponse<dynamic>> executeGitHubCompatibleWebhook(
+  Future<ValidatedResponse> executeGitHubCompatibleWebhook(
     String webhookId, {
     required String token,
 
@@ -329,23 +330,23 @@ class WebhooksApi {
     String? threadId,
     dynamic data,
   }) {
-    return validateApiCall(
-      _dio.post(
-        '$_basePath/$webhookId/$token',
-        queryParameters: {
-          if (wait != null) 'wait': wait,
-          if (threadId != null) 'thread_id': threadId,
-        },
-        data: data,
-      ),
-    );
+    return _dio
+        .post(
+          '$_basePath/$webhookId/$token',
+          queryParameters: {
+            if (wait != null) 'wait': wait,
+            if (threadId != null) 'thread_id': threadId,
+          },
+          data: data,
+        )
+        .validate();
   }
 
   /// Returns a previously-sent webhook message from the same token. Returns a
   /// [Message] object on success.
   ///
   /// https://discord.com/developers/docs/resources/webhook#get-webhook-message
-  Future<DiscordResponse<Message>> getWebhookMessage(
+  Future<ValidatedResponse<Map<String, dynamic>, Message>> getWebhookMessage(
     String webhookId, {
     required String token,
     required String messageId,
@@ -355,14 +356,12 @@ class WebhooksApi {
     /// Required: false
     String? threadId,
   }) {
-    return validateApiCall(
-      _dio.get(
-        '$_basePath/$webhookId/$token/messages/$messageId',
-        queryParameters: {
-          if (threadId != null) 'thread_id': threadId,
-        },
-      ),
-    );
+    return _dio.get<Map<String, dynamic>>(
+      '$_basePath/$webhookId/$token/messages/$messageId',
+      queryParameters: {
+        if (threadId != null) 'thread_id': threadId,
+      },
+    ).validate(transform: Message.fromJson);
   }
 
   /// Edits a previously-sent webhook message from the same token. Returns a
@@ -389,7 +388,7 @@ class WebhooksApi {
   /// All parameters to this endpoint are optional and nullable.
   ///
   /// https://discord.com/developers/docs/resources/webhook#edit-webhook-message
-  Future<DiscordResponse<Message>> editWebhookMessage(
+  Future<ValidatedResponse<Map<String, dynamic>, Message>> editWebhookMessage(
     String webhookId, {
     required String token,
     required String messageId,
@@ -421,31 +420,31 @@ class WebhooksApi {
     /// the contents of the file being sent/edited
     List<MultipartFile>? files,
   }) {
-    return validateApiCall(
-      _dio.patch(
-        '$_basePath/$webhookId/$token/messages/$messageId',
-        queryParameters: {
-          if (threadId != null) 'thread_id': threadId,
-        },
-        data: createFormData(
-          {
-            if (content != null) 'content': content,
-            if (embeds != null) 'embeds': embeds,
-            if (allowedMentions != null) 'allowed_mentions': allowedMentions,
-            if (components != null) 'components': components,
-            if (attachments != null) 'attachments': attachments,
+    return _dio
+        .patch<Map<String, dynamic>>(
+          '$_basePath/$webhookId/$token/messages/$messageId',
+          queryParameters: {
+            if (threadId != null) 'thread_id': threadId,
           },
-          files,
-        ),
-      ),
-    );
+          data: createFormData(
+            {
+              if (content != null) 'content': content,
+              if (embeds != null) 'embeds': embeds,
+              if (allowedMentions != null) 'allowed_mentions': allowedMentions,
+              if (components != null) 'components': components,
+              if (attachments != null) 'attachments': attachments,
+            },
+            files,
+          ),
+        )
+        .validate(transform: Message.fromJson);
   }
 
   /// Deletes a message that was created by the webhook. Returns a 204 NO
   /// CONTENT response on success.
   ///
   /// https://discord.com/developers/docs/resources/webhook#delete-webhook-message
-  Future<DiscordResponse<void>> deleteWebhookMessage(
+  Future<ValidatedResponse<void, void>> deleteWebhookMessage(
     String webhookId, {
     required String token,
     required String messageId,
@@ -455,13 +454,11 @@ class WebhooksApi {
     /// Required: false
     String? threadId,
   }) {
-    return validateApiCall(
-      _dio.delete(
-        '$_basePath/$webhookId/$token/messages/$messageId',
-        queryParameters: {
-          if (threadId != null) 'thread_id': threadId,
-        },
-      ),
-    );
+    return _dio.delete(
+      '$_basePath/$webhookId/$token/messages/$messageId',
+      queryParameters: {
+        if (threadId != null) 'thread_id': threadId,
+      },
+    ).validate();
   }
 }
