@@ -49,6 +49,7 @@ class ChannelsApi {
           if (iconBase64 != null) 'icon': iconBase64,
         },
       ),
+      responseTransformer: (data) => Channel.fromJson(data),
     );
   }
 
