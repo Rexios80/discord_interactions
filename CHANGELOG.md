@@ -1,3 +1,6 @@
+## 0.0.14
+- Replaces `DiscordResponse` with `ValidatedResponse` from `dio_response_validator`
+
 ## 0.0.13
 - Updated dependencies
 
