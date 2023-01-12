@@ -14,12 +14,12 @@ void main() {
 
     final newContents =
         // ignore: prefer_interpolation_to_compose_strings
-        "import 'package:dio_response_validator/dio_response_validator.dart'\n" +
+        "import 'package:dio_response_validator/dio_response_validator.dart';\n" +
             contents
                 .replaceAllMapped(
                   typeRegex,
                   (m) =>
-                      'Future<ValidatedResponse<Map<String, dynamic>, ${m[1]}>',
+                      'ValidatedResponse<Map<String, dynamic>, ${m[1]}>',
                 )
                 .replaceAllMapped(
                   callRegex,
