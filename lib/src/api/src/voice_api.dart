@@ -1,9 +1,9 @@
 // Package imports:
 import 'package:dio/dio.dart';
+import 'package:dio_response_validator/dio_response_validator.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
-import 'package:discord_interactions/src/util/discord_api_utils.dart';
 
 /// Access to the Voice API
 ///
@@ -20,11 +20,11 @@ class VoiceApi {
   /// voice or stage channel's rtc_region.
   ///
   /// https://discord.com/developers/docs/resources/voice#list-voice-regions
-  Future<DiscordResponse<List<VoiceRegion>>> listVoiceRegions() {
-    return validateApiCall(
-      _dio.get('$_basePath/regions'),
-      responseTransformer: (data) =>
-          (data as List).map((e) => VoiceRegion.fromJson(e)).toList(),
-    );
+  Future<ValidatedResponse<Map<String, dynamic>, List<VoiceRegion>>>
+      listVoiceRegions() {
+    return _dio.get<Map<String, dynamic>>('$_basePath/regions').validate(
+          transform: (data) =>
+              (data as List).map((e) => VoiceRegion.fromJson(e)).toList(),
+        );
   }
 }

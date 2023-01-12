@@ -29,7 +29,7 @@ Component _$ComponentFromJson(Map<String, dynamic> json) => Component(
 
 Map<String, dynamic> _$ComponentToJson(Component instance) {
   final val = <String, dynamic>{
-    'type': _$ComponentTypeEnumMap[instance.type],
+    'type': _$ComponentTypeEnumMap[instance.type]!,
   };
 
   void writeNotNull(String key, dynamic value) {

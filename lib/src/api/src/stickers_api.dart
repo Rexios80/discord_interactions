@@ -4,7 +4,6 @@ import 'package:dio_response_validator/dio_response_validator.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
-import 'package:discord_interactions/src/util/discord_api_utils.dart';
 
 /// Access to the Stickers API
 ///
@@ -20,51 +19,53 @@ class StickersApi {
   /// Returns a sticker object for the given sticker ID.
   ///
   /// https://discord.com/developers/docs/resources/sticker#get-sticker
-  Future<DiscordResponse<Sticker>> getSticker(String stickerId) {
-    return validateApiCall(
-      _dio.get('/stickers/$stickerId'),
-      responseTransformer: (data) => Sticker.fromJson(data),
-    );
+  Future<ValidatedResponse<Map<String, dynamic>, Sticker>> getSticker(
+    String stickerId,
+  ) {
+    return _dio
+        .get<Map<String, dynamic>>('/stickers/$stickerId')
+        .validate(transform: (data) => Sticker.fromJson(data));
   }
 
   /// Returns the list of sticker packs available to Nitro subscribers.
   ///
   /// https://discord.com/developers/docs/resources/sticker#list-nitro-sticker-packs
-  Future<DiscordResponse<List<StickerPack>>> getNitroStickerPacks() {
-    return validateApiCall(
-      _dio.get('/sticker-packs'),
-      responseTransformer: (data) => (data['sticker_packs'] as List)
-          .map((e) => StickerPack.fromJson(e))
-          .toList(),
-    );
+  Future<ValidatedResponse<Map<String, dynamic>, List<StickerPack>>>
+      getNitroStickerPacks() {
+    return _dio.get<Map<String, dynamic>>('/sticker-packs').validate(
+          transform: (data) => (data['sticker_packs'] as List)
+              .map((e) => StickerPack.fromJson(e))
+              .toList(),
+        );
   }
 
   /// Returns an array of sticker objects for the given guild. Includes user
   /// fields if the bot has the MANAGE_EMOJIS_AND_STICKERS permission.
   ///
   /// https://discord.com/developers/docs/resources/sticker#list-guild-stickers
-  Future<DiscordResponse<List<Sticker>>> getGuildStickers(
+  Future<ValidatedResponse<Map<String, dynamic>, List<Sticker>>>
+      getGuildStickers(
     String guildId,
   ) {
-    return validateApiCall(
-      _dio.get('$_basePath/$guildId/stickers'),
-      responseTransformer: (data) =>
-          (data as List).map((e) => Sticker.fromJson(e)).toList(),
-    );
+    return _dio
+        .get<Map<String, dynamic>>('$_basePath/$guildId/stickers')
+        .validate(
+          transform: (data) =>
+              (data as List).map((e) => Sticker.fromJson(e)).toList(),
+        );
   }
 
   /// Returns a sticker object for the given guild and sticker IDs. Includes the
   /// user field if the bot has the MANAGE_EMOJIS_AND_STICKERS permission.
   ///
   /// https://discord.com/developers/docs/resources/sticker#get-guild-sticker
-  Future<DiscordResponse<Sticker>> getGuildSticker(
+  Future<ValidatedResponse<Map<String, dynamic>, Sticker>> getGuildSticker(
     String guildId, {
     required String stickerId,
   }) {
-    return validateApiCall(
-      _dio.get('$_basePath/$guildId/stickers/$stickerId'),
-      responseTransformer: (data) => Sticker.fromJson(data),
-    );
+    return _dio
+        .get<Map<String, dynamic>>('$_basePath/$guildId/stickers/$stickerId')
+        .validate(transform: (data) => Sticker.fromJson(data));
   }
 
   /// Create a new sticker for the guild. Send a multipart/form-data body.
@@ -77,7 +78,7 @@ class StickersApi {
   /// VERIFIED and/or the PARTNERED guild feature.
   ///
   /// https://discord.com/developers/docs/resources/sticker#create-guild-sticker
-  Future<DiscordResponse<Sticker>> createGuildSticker(
+  Future<ValidatedResponse<Map<String, dynamic>, Sticker>> createGuildSticker(
     String guildId, {
 
     /// name of the sticker (2-30 characters)
@@ -94,23 +95,22 @@ class StickersApi {
     required MultipartFile file,
     String? reason,
   }) {
-    return validateApiCall(
-      _dio.post(
-        '$_basePath/$guildId/stickers',
-        data: FormData.fromMap({
-          'name': name,
-          'description': description,
-          'tags': tags,
-          'file': file,
-        }),
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
-          },
-        ),
-      ),
-      responseTransformer: (data) => Sticker.fromJson(data),
-    );
+    return _dio
+        .post<Map<String, dynamic>>(
+          '$_basePath/$guildId/stickers',
+          data: FormData.fromMap({
+            'name': name,
+            'description': description,
+            'tags': tags,
+            'file': file,
+          }),
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+            },
+          ),
+        )
+        .validate(transform: (data) => Sticker.fromJson(data));
   }
 
   /// Modify the given sticker. Requires the MANAGE_EMOJIS_AND_STICKERS
@@ -119,7 +119,7 @@ class StickersApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/sticker#modify-guild-sticker
-  Future<DiscordResponse<Sticker>> modifyGuildSticker(
+  Future<ValidatedResponse<Map<String, dynamic>, Sticker>> modifyGuildSticker(
     String guildId, {
     required String stickerId,
 
@@ -133,22 +133,21 @@ class StickersApi {
     String? tags,
     String? reason,
   }) {
-    return validateApiCall(
-      _dio.patch(
-        '$_basePath/$guildId/stickers/$stickerId',
-        data: {
-          if (name != null) 'name': name,
-          if (description != null) 'description': description,
-          if (tags != null) 'tags': tags,
-        },
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
+    return _dio
+        .patch<Map<String, dynamic>>(
+          '$_basePath/$guildId/stickers/$stickerId',
+          data: {
+            if (name != null) 'name': name,
+            if (description != null) 'description': description,
+            if (tags != null) 'tags': tags,
           },
-        ),
-      ),
-      responseTransformer: (data) => Sticker.fromJson(data),
-    );
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+            },
+          ),
+        )
+        .validate(transform: (data) => Sticker.fromJson(data));
   }
 
   /// Delete the given sticker. Requires the MANAGE_EMOJIS_AND_STICKERS

@@ -4,7 +4,6 @@ import 'package:dio_response_validator/dio_response_validator.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
-import 'package:discord_interactions/src/util/discord_api_utils.dart';
 
 /// Access to the Guild Scheduled Events API
 class GuildScheduledEventsApi {
@@ -18,21 +17,20 @@ class GuildScheduledEventsApi {
   /// Returns a list of [GuildScheduledEvent] objects for the given guild.
   ///
   /// https://discord.com/developers/docs/resources/guild-scheduled-event#list-scheduled-events-for-guild
-  Future<DiscordResponse<List<GuildScheduledEvent>>>
+  Future<ValidatedResponse<Map<String, dynamic>, List<GuildScheduledEvent>>>
       listScheduledEventsForGuild(
     String guildId, {
 
     /// include number of users subscribed to each event
     bool? withUserCount,
   }) {
-    return validateApiCall(
-      _dio.get(
-        '$_basePath/$guildId/scheduled-events',
-        queryParameters: {
-          if (withUserCount != null) 'with_user_count': withUserCount,
-        },
-      ),
-      responseTransformer: (data) =>
+    return _dio.get<Map<String, dynamic>>(
+      '$_basePath/$guildId/scheduled-events',
+      queryParameters: {
+        if (withUserCount != null) 'with_user_count': withUserCount,
+      },
+    ).validate(
+      transform: (data) =>
           (data as List).map((e) => GuildScheduledEvent.fromJson(e)).toList(),
     );
   }
@@ -44,7 +42,8 @@ class GuildScheduledEventsApi {
   /// at any time.
   ///
   /// https://discord.com/developers/docs/resources/guild-scheduled-event#create-guild-scheduled-event
-  Future<DiscordResponse<GuildScheduledEvent>> createGuildScheduledEvent(
+  Future<ValidatedResponse<Map<String, dynamic>, GuildScheduledEvent>>
+      createGuildScheduledEvent(
     String guildId, {
 
     /// the channel id of the scheduled event.
@@ -73,45 +72,40 @@ class GuildScheduledEventsApi {
     /// the entity type of the scheduled event
     required GuildScheduledEventEntityType entityType,
   }) {
-    return validateApiCall(
-      _dio.post(
-        '$_basePath/$guildId/scheduled-events',
-        data: {
-          if (channelId != null) 'channel_id': channelId,
-          if (entityMetadata != null) 'entity_metadata': entityMetadata,
-          'name': name,
-          'privacy_level': privacyLevel.value,
-          'scheduled_start_time': scheduledStartTime.toIso8601String(),
-          if (scheduledEndTime != null)
-            'scheduled_end_time': scheduledEndTime.toIso8601String(),
-          if (description != null) 'description': description,
-          'entity_type': entityType.value,
-        },
-      ),
-      responseTransformer: (data) => GuildScheduledEvent.fromJson(data),
-    );
+    return _dio.post<Map<String, dynamic>>(
+      '$_basePath/$guildId/scheduled-events',
+      data: {
+        if (channelId != null) 'channel_id': channelId,
+        if (entityMetadata != null) 'entity_metadata': entityMetadata,
+        'name': name,
+        'privacy_level': privacyLevel.value,
+        'scheduled_start_time': scheduledStartTime.toIso8601String(),
+        if (scheduledEndTime != null)
+          'scheduled_end_time': scheduledEndTime.toIso8601String(),
+        if (description != null) 'description': description,
+        'entity_type': entityType.value,
+      },
+    ).validate(transform: (data) => GuildScheduledEvent.fromJson(data));
   }
 
   /// Get a guild scheduled event. Returns a [GuildScheduledEvent] object on
   /// success.
   ///
   /// https://discord.com/developers/docs/resources/guild-scheduled-event#get-guild-scheduled-event
-  Future<DiscordResponse<GuildScheduledEvent>> getGuildScheduledEvent(
+  Future<ValidatedResponse<Map<String, dynamic>, GuildScheduledEvent>>
+      getGuildScheduledEvent(
     String guildId, {
     required String scheduledEventId,
 
     /// include number of users subscribed to this event
     bool? withUserCount,
   }) {
-    return validateApiCall(
-      _dio.get(
-        '$_basePath/$guildId/scheduled-events/$scheduledEventId',
-        queryParameters: {
-          if (withUserCount != null) 'with_user_count': withUserCount,
-        },
-      ),
-      responseTransformer: (data) => GuildScheduledEvent.fromJson(data),
-    );
+    return _dio.get<Map<String, dynamic>>(
+      '$_basePath/$guildId/scheduled-events/$scheduledEventId',
+      queryParameters: {
+        if (withUserCount != null) 'with_user_count': withUserCount,
+      },
+    ).validate(transform: (data) => GuildScheduledEvent.fromJson(data));
   }
 
   /// Modify a guild scheduled event. Returns the modified [GuildScheduledEvent]
@@ -126,7 +120,8 @@ class GuildScheduledEventsApi {
   /// - [scheduledEndTime] must be provided
   ///
   /// https://discord.com/developers/docs/resources/guild-scheduled-event#modify-guild-scheduled-event
-  Future<DiscordResponse<GuildScheduledEvent>> modifyGuildScheduledEvent(
+  Future<ValidatedResponse<Map<String, dynamic>, GuildScheduledEvent>>
+      modifyGuildScheduledEvent(
     String guildId, {
     required String scheduledEventId,
 
@@ -158,25 +153,22 @@ class GuildScheduledEventsApi {
     /// the status of the scheduled event
     GuildScheduledEventStatus? status,
   }) {
-    return validateApiCall(
-      _dio.patch(
-        '$_basePath/$guildId/scheduled-events/$scheduledEventId',
-        data: {
-          if (channelId != null) 'channel_id': channelId,
-          if (entityMetadata != null) 'entity_metadata': entityMetadata,
-          if (name != null) 'name': name,
-          if (privacyLevel != null) 'privacy_level': privacyLevel.value,
-          if (scheduledStartTime != null)
-            'scheduled_start_time': scheduledStartTime.toIso8601String(),
-          if (scheduledEndTime != null)
-            'scheduled_end_time': scheduledEndTime.toIso8601String(),
-          if (description != null) 'description': description,
-          if (entityType != null) 'entity_type': entityType.value,
-          if (status != null) 'status': status.value,
-        },
-      ),
-      responseTransformer: (data) => GuildScheduledEvent.fromJson(data),
-    );
+    return _dio.patch<Map<String, dynamic>>(
+      '$_basePath/$guildId/scheduled-events/$scheduledEventId',
+      data: {
+        if (channelId != null) 'channel_id': channelId,
+        if (entityMetadata != null) 'entity_metadata': entityMetadata,
+        if (name != null) 'name': name,
+        if (privacyLevel != null) 'privacy_level': privacyLevel.value,
+        if (scheduledStartTime != null)
+          'scheduled_start_time': scheduledStartTime.toIso8601String(),
+        if (scheduledEndTime != null)
+          'scheduled_end_time': scheduledEndTime.toIso8601String(),
+        if (description != null) 'description': description,
+        if (entityType != null) 'entity_type': entityType.value,
+        if (status != null) 'status': status.value,
+      },
+    ).validate(transform: (data) => GuildScheduledEvent.fromJson(data));
   }
 
   /// Delete a guild scheduled event. Returns a 204 on success.
@@ -202,7 +194,7 @@ class GuildScheduledEventsApi {
   /// in-between [before] and [after] is not supported.
   ///
   /// https://discord.com/developers/docs/resources/guild-scheduled-event#get-guild-scheduled-event-users
-  Future<DiscordResponse<List<GuildScheduledEventUser>>>
+  Future<ValidatedResponse<Map<String, dynamic>, List<GuildScheduledEventUser>>>
       getGuildScheduledEventUsers(
     String guildId, {
     required String scheduledEventId,
@@ -227,17 +219,16 @@ class GuildScheduledEventsApi {
     /// Default: null
     String? after,
   }) {
-    return validateApiCall(
-      _dio.get(
-        '$_basePath/$guildId/scheduled-events/$scheduledEventId/users',
-        queryParameters: {
-          if (limit != null) 'limit': limit,
-          if (withMember != null) 'with_member': withMember,
-          if (before != null) 'before': before,
-          if (after != null) 'after': after,
-        },
-      ),
-      responseTransformer: (data) => (data as List)
+    return _dio.get<Map<String, dynamic>>(
+      '$_basePath/$guildId/scheduled-events/$scheduledEventId/users',
+      queryParameters: {
+        if (limit != null) 'limit': limit,
+        if (withMember != null) 'with_member': withMember,
+        if (before != null) 'before': before,
+        if (after != null) 'after': after,
+      },
+    ).validate(
+      transform: (data) => (data as List)
           .map((e) => GuildScheduledEventUser.fromJson(e))
           .toList(),
     );

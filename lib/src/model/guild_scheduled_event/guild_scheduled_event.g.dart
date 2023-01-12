@@ -53,10 +53,10 @@ Map<String, dynamic> _$GuildScheduledEventToJson(GuildScheduledEvent instance) {
   val['scheduled_start_time'] = instance.scheduledStartTime.toIso8601String();
   writeNotNull(
       'scheduled_end_time', instance.scheduledEndTime?.toIso8601String());
-  val['privacy_level'] = _$PrivacyLevelEnumMap[instance.privacyLevel];
-  val['status'] = _$GuildScheduledEventStatusEnumMap[instance.status];
+  val['privacy_level'] = _$PrivacyLevelEnumMap[instance.privacyLevel]!;
+  val['status'] = _$GuildScheduledEventStatusEnumMap[instance.status]!;
   val['entity_type'] =
-      _$GuildScheduledEventEntityTypeEnumMap[instance.entityType];
+      _$GuildScheduledEventEntityTypeEnumMap[instance.entityType]!;
   writeNotNull('entity_id', instance.entityId);
   writeNotNull('entity_metadata', instance.entityMetadata);
   writeNotNull('creator', instance.creator);

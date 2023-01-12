@@ -17,7 +17,7 @@ MessageInteraction _$MessageInteractionFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$MessageInteractionToJson(MessageInteraction instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'type': _$InteractionTypeEnumMap[instance.type],
+      'type': _$InteractionTypeEnumMap[instance.type]!,
       'name': instance.name,
       'user': instance.user,
     };

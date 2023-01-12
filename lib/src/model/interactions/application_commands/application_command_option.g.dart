@@ -32,7 +32,7 @@ ApplicationCommandOption _$ApplicationCommandOptionFromJson(
 Map<String, dynamic> _$ApplicationCommandOptionToJson(
     ApplicationCommandOption instance) {
   final val = <String, dynamic>{
-    'type': _$ApplicationCommandOptionTypeEnumMap[instance.type],
+    'type': _$ApplicationCommandOptionTypeEnumMap[instance.type]!,
     'name': instance.name,
     'description': instance.description,
   };
@@ -47,7 +47,7 @@ Map<String, dynamic> _$ApplicationCommandOptionToJson(
   writeNotNull('choices', instance.choices);
   writeNotNull('options', instance.options);
   writeNotNull('channel_types',
-      instance.channelTypes?.map((e) => _$ChannelTypeEnumMap[e]).toList());
+      instance.channelTypes?.map((e) => _$ChannelTypeEnumMap[e]!).toList());
   writeNotNull('min_value', instance.minValue);
   writeNotNull('max_value', instance.maxValue);
   writeNotNull('autocomplete', instance.autocomplete);

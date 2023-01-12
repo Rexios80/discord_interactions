@@ -18,7 +18,7 @@ TeamMember _$TeamMemberFromJson(Map<String, dynamic> json) => TeamMember(
 
 Map<String, dynamic> _$TeamMemberToJson(TeamMember instance) =>
     <String, dynamic>{
-      'membership_state': _$MembershipStateEnumMap[instance.membershipState],
+      'membership_state': _$MembershipStateEnumMap[instance.membershipState]!,
       'permissions': instance.permissions,
       'team_id': instance.teamId,
       'user': instance.user,

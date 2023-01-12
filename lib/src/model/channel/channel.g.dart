@@ -53,7 +53,7 @@ Channel _$ChannelFromJson(Map<String, dynamic> json) => Channel(
 Map<String, dynamic> _$ChannelToJson(Channel instance) {
   final val = <String, dynamic>{
     'id': instance.id,
-    'type': _$ChannelTypeEnumMap[instance.type],
+    'type': _$ChannelTypeEnumMap[instance.type]!,
   };
 
   void writeNotNull(String key, dynamic value) {

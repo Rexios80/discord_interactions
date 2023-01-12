@@ -17,7 +17,7 @@ InteractionResponse _$InteractionResponseFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$InteractionResponseToJson(InteractionResponse instance) {
   final val = <String, dynamic>{
-    'type': _$InteractionCallbackTypeEnumMap[instance.type],
+    'type': _$InteractionCallbackTypeEnumMap[instance.type]!,
   };
 
   void writeNotNull(String key, dynamic value) {

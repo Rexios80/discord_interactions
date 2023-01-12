@@ -37,7 +37,7 @@ Map<String, dynamic> _$IntegrationToJson(Integration instance) {
   final val = <String, dynamic>{
     'id': instance.id,
     'name': instance.name,
-    'type': _$IntegrationTypeEnumMap[instance.type],
+    'type': _$IntegrationTypeEnumMap[instance.type]!,
     'enabled': instance.enabled,
   };
 

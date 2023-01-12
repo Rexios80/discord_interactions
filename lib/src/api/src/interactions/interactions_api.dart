@@ -46,13 +46,13 @@ class InteractionsApi {
   /// Functions the same as Get Webhook Message.
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#get-original-interaction-response
-  Future<DiscordResponse<Message>> getOriginalInteractionResponse(
+  Future<ValidatedResponse<Map<String, dynamic>, Message>>
+      getOriginalInteractionResponse(
     String token,
   ) {
-    return validateApiCall(
-      _dio.get('$_basePath/$token/messages/@original'),
-      responseTransformer: (data) => Message.fromJson(data),
-    );
+    return _dio
+        .get<Map<String, dynamic>>('$_basePath/$token/messages/@original')
+        .validate(transform: (data) => Message.fromJson(data));
   }
 
   /// Edits the initial [InteractionResponse]. Functions the same as Edit
@@ -73,7 +73,8 @@ class InteractionsApi {
   /// All parameters to this endpoint are optional and nullable.
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#edit-original-interaction-response
-  Future<DiscordResponse<Message>> editOriginalInteractionResponse(
+  Future<ValidatedResponse<Map<String, dynamic>, Message>>
+      editOriginalInteractionResponse(
     String token, {
 
     /// the message contents (up to 2000 characters)
@@ -94,22 +95,21 @@ class InteractionsApi {
     List<Attachment>? attachments,
     List<MultipartFile>? files,
   }) {
-    return validateApiCall(
-      _dio.patch(
-        '$_basePath/$token/messages/@original',
-        data: createFormData(
-          {
-            if (content != null) 'content': content,
-            if (embeds != null) 'embeds': embeds,
-            if (allowedMentions != null) 'allowed_mentions': allowedMentions,
-            if (components != null) 'components': components,
-            if (attachments != null) 'attachments': attachments,
-          },
-          files,
-        ),
-      ),
-      responseTransformer: (data) => Message.fromJson(data),
-    );
+    return _dio
+        .patch<Map<String, dynamic>>(
+          '$_basePath/$token/messages/@original',
+          data: createFormData(
+            {
+              if (content != null) 'content': content,
+              if (embeds != null) 'embeds': embeds,
+              if (allowedMentions != null) 'allowed_mentions': allowedMentions,
+              if (components != null) 'components': components,
+              if (attachments != null) 'attachments': attachments,
+            },
+            files,
+          ),
+        )
+        .validate(transform: (data) => Message.fromJson(data));
   }
 
   /// Deletes the initial Interaction response. Returns 204 on success.
@@ -135,7 +135,8 @@ class InteractionsApi {
   /// any height, width, or proxy_url values for images.
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#create-followup-message
-  Future<DiscordResponse<Message>> createFollowupMessage(
+  Future<ValidatedResponse<Map<String, dynamic>, Message>>
+      createFollowupMessage(
     String token, {
 
     /// the message contents (up to 2000 characters)
@@ -157,37 +158,35 @@ class InteractionsApi {
     List<Attachment>? attachments,
     List<MultipartFile>? files,
   }) {
-    return validateApiCall(
-      _dio.post(
-        '$_basePath/$token',
-        data: createFormData(
-          {
-            if (content != null) 'content': content,
-            if (tts != null) 'tts': tts,
-            if (embeds != null) 'embeds': embeds,
-            if (allowedMentions != null) 'allowed_mentions': allowedMentions,
-            if (components != null) 'components': components,
-            if (attachments != null) 'attachments': attachments,
-          },
-          files,
-        ),
-      ),
-      responseTransformer: (data) => Message.fromJson(data),
-    );
+    return _dio
+        .post<Map<String, dynamic>>(
+          '$_basePath/$token',
+          data: createFormData(
+            {
+              if (content != null) 'content': content,
+              if (tts != null) 'tts': tts,
+              if (embeds != null) 'embeds': embeds,
+              if (allowedMentions != null) 'allowed_mentions': allowedMentions,
+              if (components != null) 'components': components,
+              if (attachments != null) 'attachments': attachments,
+            },
+            files,
+          ),
+        )
+        .validate(transform: (data) => Message.fromJson(data));
   }
 
   /// Returns a followup message for an Interaction. Functions the same as Get
   /// Webhook Message. Does not support ephemeral followups.
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#get-followup-message
-  Future<DiscordResponse<Message>> getFollowupMessage(
+  Future<ValidatedResponse<Map<String, dynamic>, Message>> getFollowupMessage(
     String token, {
     required String messageId,
   }) {
-    return validateApiCall(
-      _dio.get('$_basePath/$token/messages/$messageId'),
-      responseTransformer: (data) => Message.fromJson(data),
-    );
+    return _dio
+        .get<Map<String, dynamic>>('$_basePath/$token/messages/$messageId')
+        .validate(transform: (data) => Message.fromJson(data));
   }
 
   /// Edits a followup message for an Interaction. Functions the same as Edit
@@ -208,7 +207,7 @@ class InteractionsApi {
   /// All parameters to this endpoint are optional and nullable.
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#edit-followup-message
-  Future<DiscordResponse<Message>> editFollowupMessage(
+  Future<ValidatedResponse<Map<String, dynamic>, Message>> editFollowupMessage(
     String token, {
     required String messageId,
 
@@ -230,22 +229,21 @@ class InteractionsApi {
     List<Attachment>? attachments,
     List<MultipartFile>? files,
   }) {
-    return validateApiCall(
-      _dio.patch(
-        '$_basePath/$token/messages/$messageId',
-        data: createFormData(
-          {
-            if (content != null) 'content': content,
-            if (embeds != null) 'embeds': embeds,
-            if (allowedMentions != null) 'allowed_mentions': allowedMentions,
-            if (components != null) 'components': components,
-            if (attachments != null) 'attachments': attachments,
-          },
-          files,
-        ),
-      ),
-      responseTransformer: (data) => Message.fromJson(data),
-    );
+    return _dio
+        .patch<Map<String, dynamic>>(
+          '$_basePath/$token/messages/$messageId',
+          data: createFormData(
+            {
+              if (content != null) 'content': content,
+              if (embeds != null) 'embeds': embeds,
+              if (allowedMentions != null) 'allowed_mentions': allowedMentions,
+              if (components != null) 'components': components,
+              if (attachments != null) 'attachments': attachments,
+            },
+            files,
+          ),
+        )
+        .validate(transform: (data) => Message.fromJson(data));
   }
 
   /// Deletes a followup message for an Interaction. Returns 204 on success.

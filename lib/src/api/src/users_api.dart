@@ -4,7 +4,6 @@ import 'package:dio_response_validator/dio_response_validator.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
-import 'package:discord_interactions/src/util/discord_api_utils.dart';
 
 /// Access to the Users API
 ///
@@ -23,28 +22,26 @@ class UsersApi {
   /// email.
   ///
   /// https://discord.com/developers/docs/resources/user#get-current-user
-  Future<DiscordResponse<User>> getCurrentUser() {
-    return validateApiCall(
-      _dio.get('$_basePath/@me'),
-      responseTransformer: (data) => User.fromJson(data),
-    );
+  Future<ValidatedResponse<Map<String, dynamic>, User>> getCurrentUser() {
+    return _dio
+        .get<Map<String, dynamic>>('$_basePath/@me')
+        .validate(transform: (data) => User.fromJson(data));
   }
 
   /// Returns a user object for a given user ID.
   ///
   /// https://discord.com/developers/docs/resources/user#get-user
-  Future<DiscordResponse<User>> getUser(String userId) {
-    return validateApiCall(
-      _dio.get('$_basePath/$userId'),
-      responseTransformer: (data) => User.fromJson(data),
-    );
+  Future<ValidatedResponse<Map<String, dynamic>, User>> getUser(String userId) {
+    return _dio
+        .get<Map<String, dynamic>>('$_basePath/$userId')
+        .validate(transform: (data) => User.fromJson(data));
   }
 
   /// Modify the requester's user account settings. Returns a user object on
   /// success.
   ///
   /// https://discord.com/developers/docs/resources/user#modify-current-user
-  Future<DiscordResponse<User>> modifyCurrentUser({
+  Future<ValidatedResponse<Map<String, dynamic>, User>> modifyCurrentUser({
     /// user's username, if changed may cause the user's discriminator to be
     /// randomized.
     String? username,
@@ -54,16 +51,13 @@ class UsersApi {
     /// Use [ImageData.fromBase64] to create this string
     String? avatarImageData,
   }) {
-    return validateApiCall(
-      _dio.patch(
-        '$_basePath/@me',
-        data: {
-          if (username != null) 'username': username,
-          if (avatarImageData != null) 'avatar': avatarImageData,
-        },
-      ),
-      responseTransformer: (data) => User.fromJson(data),
-    );
+    return _dio.patch<Map<String, dynamic>>(
+      '$_basePath/@me',
+      data: {
+        if (username != null) 'username': username,
+        if (avatarImageData != null) 'avatar': avatarImageData,
+      },
+    ).validate(transform: (data) => User.fromJson(data));
   }
 
   /// Returns a list of partial guild objects the current user is a member of.
@@ -74,7 +68,8 @@ class UsersApi {
   /// for integrations that need to get a list of the users' guilds.
   ///
   /// https://discord.com/developers/docs/resources/user#get-current-user-guilds
-  Future<DiscordResponse<List<Guild>>> getCurrentUserGuilds({
+  Future<ValidatedResponse<Map<String, dynamic>, List<Guild>>>
+      getCurrentUserGuilds({
     /// get guilds before this guild ID
     String? before,
 
@@ -86,16 +81,15 @@ class UsersApi {
     /// default: 200
     int? limit,
   }) {
-    return validateApiCall(
-      _dio.get(
-        '$_basePath/@me/guilds',
-        queryParameters: {
-          if (before != null) 'before': before,
-          if (after != null) 'after': after,
-          if (limit != null) 'limit': limit,
-        },
-      ),
-      responseTransformer: (data) =>
+    return _dio.get<Map<String, dynamic>>(
+      '$_basePath/@me/guilds',
+      queryParameters: {
+        if (before != null) 'before': before,
+        if (after != null) 'after': after,
+        if (limit != null) 'limit': limit,
+      },
+    ).validate(
+      transform: (data) =>
           (data as List).map((guild) => Guild.fromJson(guild)).toList(),
     );
   }
@@ -117,11 +111,13 @@ class UsersApi {
   /// or blocked from opening new ones.
   ///
   /// https://discord.com/developers/docs/resources/user#create-dm
-  Future<DiscordResponse<Channel>> createDm(String userId) {
-    return validateApiCall(
-      _dio.post('$_basePath/@me/channels', data: {'recipient_id': userId}),
-      responseTransformer: (data) => Channel.fromJson(data),
-    );
+  Future<ValidatedResponse<Map<String, dynamic>, Channel>> createDm(
+    String userId,
+  ) {
+    return _dio.post<Map<String, dynamic>>(
+      '$_basePath/@me/channels',
+      data: {'recipient_id': userId},
+    ).validate(transform: (data) => Channel.fromJson(data));
   }
 
   /// Create a new group DM channel with multiple users. Returns a DM channel
@@ -135,7 +131,7 @@ class UsersApi {
     ' SDK. DMs created with this endpoint will not be shown in the Discord'
     ' client',
   )
-  Future<DiscordResponse<dynamic>> createGroupDm() {
+  Future<ValidatedResponse<Map<String, dynamic>, dynamic>> createGroupDm() {
     throw UnimplementedError();
   }
 

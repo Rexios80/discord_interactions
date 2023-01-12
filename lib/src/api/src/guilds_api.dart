@@ -1,6 +1,4 @@
 // Package imports:
-
-// Package imports:
 import 'package:dio/dio.dart';
 import 'package:dio_response_validator/dio_response_validator.dart';
 
@@ -8,7 +6,8 @@ import 'package:dio_response_validator/dio_response_validator.dart';
 import 'package:discord_interactions/discord_interactions.dart';
 import 'package:discord_interactions/src/converter/flag/permission_converter.dart';
 import 'package:discord_interactions/src/converter/flag/system_channel_flag_converter.dart';
-import 'package:discord_interactions/src/util/discord_api_utils.dart';
+
+// Package imports:
 
 /// Access to the Guilds API
 ///
@@ -46,7 +45,7 @@ class GuildsApi {
   /// [id] field. Category channels must be listed before any children.
   ///
   /// https://discord.com/developers/docs/resources/guild#create-guild
-  Future<DiscordResponse<Guild>> createGuild({
+  Future<ValidatedResponse<Map<String, dynamic>, Guild>> createGuild({
     /// name of the guild (2-100 characters)
     required String name,
 
@@ -83,30 +82,27 @@ class GuildsApi {
     /// system channel flags
     List<SystemChannelFlag>? systemChannelFlags,
   }) {
-    return validateApiCall(
-      _dio.post(
-        _basePath,
-        data: {
-          'name': name,
-          if (iconImageData != null) 'icon': iconImageData,
-          if (verificationLevel != null)
-            'verification_level': verificationLevel.value,
-          if (defaultMessageNotifications != null)
-            'default_message_notifications': defaultMessageNotifications.value,
-          if (explicitContentFilter != null)
-            'explicit_content_filter': explicitContentFilter.value,
-          if (roles != null) 'roles': roles,
-          if (channels != null) 'channels': channels,
-          if (afkChannelId != null) 'afk_channel_id': afkChannelId,
-          if (afkTimeout != null) 'afk_timeout': afkTimeout,
-          if (systemChannelId != null) 'system_channel_id': systemChannelId,
-          if (systemChannelFlags != null)
-            'system_channel_flags':
-                const SystemChannelFlagConverter().toJson(systemChannelFlags),
-        },
-      ),
-      responseTransformer: (data) => Guild.fromJson(data),
-    );
+    return _dio.post<Map<String, dynamic>>(
+      _basePath,
+      data: {
+        'name': name,
+        if (iconImageData != null) 'icon': iconImageData,
+        if (verificationLevel != null)
+          'verification_level': verificationLevel.value,
+        if (defaultMessageNotifications != null)
+          'default_message_notifications': defaultMessageNotifications.value,
+        if (explicitContentFilter != null)
+          'explicit_content_filter': explicitContentFilter.value,
+        if (roles != null) 'roles': roles,
+        if (channels != null) 'channels': channels,
+        if (afkChannelId != null) 'afk_channel_id': afkChannelId,
+        if (afkTimeout != null) 'afk_timeout': afkTimeout,
+        if (systemChannelId != null) 'system_channel_id': systemChannelId,
+        if (systemChannelFlags != null)
+          'system_channel_flags':
+              const SystemChannelFlagConverter().toJson(systemChannelFlags),
+      },
+    ).validate(transform: (data) => Guild.fromJson(data));
   }
 
   /// Returns the guild object for the given id. If with_counts is set to true,
@@ -114,22 +110,19 @@ class GuildsApi {
   /// approximate_presence_count for the guild.
   ///
   /// https://discord.com/developers/docs/resources/guild#get-guild
-  Future<DiscordResponse<Guild>> getGuild(
+  Future<ValidatedResponse<Map<String, dynamic>, Guild>> getGuild(
     String guildId, {
 
     /// when true, will return approximate member and presence counts for the
     /// guild
     bool? withCounts,
   }) {
-    return validateApiCall(
-      _dio.get(
-        '$_basePath/$guildId',
-        queryParameters: {
-          if (withCounts != null) 'with_counts': withCounts,
-        },
-      ),
-      responseTransformer: (data) => Guild.fromJson(data),
-    );
+    return _dio.get<Map<String, dynamic>>(
+      '$_basePath/$guildId',
+      queryParameters: {
+        if (withCounts != null) 'with_counts': withCounts,
+      },
+    ).validate(transform: (data) => Guild.fromJson(data));
   }
 
   /// Returns the guild preview object for the given id. If the user is not in
@@ -137,11 +130,12 @@ class GuildsApi {
   /// have a live public stage).
   ///
   /// https://discord.com/developers/docs/resources/guild#get-guild-preview
-  Future<DiscordResponse<GuildPreview>> getGuildPreview(String guildId) {
-    return validateApiCall(
-      _dio.get('$_basePath/$guildId/preview'),
-      responseTransformer: (data) => GuildPreview.fromJson(data),
-    );
+  Future<ValidatedResponse<Map<String, dynamic>, GuildPreview>> getGuildPreview(
+    String guildId,
+  ) {
+    return _dio
+        .get<Map<String, dynamic>>('$_basePath/$guildId/preview')
+        .validate(transform: (data) => GuildPreview.fromJson(data));
   }
 
   /// Modify a guild's settings. Requires the MANAGE_GUILD permission. Returns
@@ -152,7 +146,7 @@ class GuildsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/guild#modify-guild
-  Future<DiscordResponse<Guild>> modifyGuild(
+  Future<ValidatedResponse<Map<String, dynamic>, Guild>> modifyGuild(
     String guildId, {
 
     /// guild name
@@ -226,44 +220,44 @@ class GuildsApi {
     String? description,
     String? reason,
   }) {
-    return validateApiCall(
-      _dio.patch(
-        '$_basePath/$guildId',
-        data: {
-          if (name != null) 'name': name,
-          if (verificationLevel != null)
-            'verification_level': verificationLevel.value,
-          if (defaultMessageNotifications != null)
-            'default_message_notifications': defaultMessageNotifications.value,
-          if (explicitContentFilter != null)
-            'explicit_content_filter': explicitContentFilter.value,
-          if (afkChannelId != null) 'afk_channel_id': afkChannelId,
-          if (afkTimeout != null) 'afk_timeout': afkTimeout,
-          if (iconImageData != null) 'icon': iconImageData,
-          if (ownerId != null) 'owner_id': ownerId,
-          if (splashImageData != null) 'splash': splashImageData,
-          if (discoverySplashImageData != null)
-            'discovery_splash': discoverySplashImageData,
-          if (bannerImageData != null) 'banner': bannerImageData,
-          if (systemChannelId != null) 'system_channel_id': systemChannelId,
-          if (systemChannelFlags != null)
-            'system_channel_flags':
-                const SystemChannelFlagConverter().toJson(systemChannelFlags),
-          if (rulesChannelId != null) 'rules_channel_id': rulesChannelId,
-          if (publicUpdatesChannelId != null)
-            'public_updates_channel_id': publicUpdatesChannelId,
-          if (preferredLocale != null) 'preferred_locale': preferredLocale,
-          if (features != null) 'features': features,
-          if (description != null) 'description': description,
-        },
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
+    return _dio
+        .patch<Map<String, dynamic>>(
+          '$_basePath/$guildId',
+          data: {
+            if (name != null) 'name': name,
+            if (verificationLevel != null)
+              'verification_level': verificationLevel.value,
+            if (defaultMessageNotifications != null)
+              'default_message_notifications':
+                  defaultMessageNotifications.value,
+            if (explicitContentFilter != null)
+              'explicit_content_filter': explicitContentFilter.value,
+            if (afkChannelId != null) 'afk_channel_id': afkChannelId,
+            if (afkTimeout != null) 'afk_timeout': afkTimeout,
+            if (iconImageData != null) 'icon': iconImageData,
+            if (ownerId != null) 'owner_id': ownerId,
+            if (splashImageData != null) 'splash': splashImageData,
+            if (discoverySplashImageData != null)
+              'discovery_splash': discoverySplashImageData,
+            if (bannerImageData != null) 'banner': bannerImageData,
+            if (systemChannelId != null) 'system_channel_id': systemChannelId,
+            if (systemChannelFlags != null)
+              'system_channel_flags':
+                  const SystemChannelFlagConverter().toJson(systemChannelFlags),
+            if (rulesChannelId != null) 'rules_channel_id': rulesChannelId,
+            if (publicUpdatesChannelId != null)
+              'public_updates_channel_id': publicUpdatesChannelId,
+            if (preferredLocale != null) 'preferred_locale': preferredLocale,
+            if (features != null) 'features': features,
+            if (description != null) 'description': description,
           },
-        ),
-      ),
-      responseTransformer: (data) => Guild.fromJson(data),
-    );
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+            },
+          ),
+        )
+        .validate(transform: (data) => Guild.fromJson(data));
   }
 
   /// Delete a guild permanently. User must be owner. Returns 204 No Content on
@@ -277,14 +271,16 @@ class GuildsApi {
   /// Returns a list of guild channel objects. Does not include threads.
   ///
   /// https://discord.com/developers/docs/resources/guild#get-guild-channels
-  Future<DiscordResponse<List<Channel>>> getGuildChannels(
+  Future<ValidatedResponse<Map<String, dynamic>, List<Channel>>>
+      getGuildChannels(
     String guildId,
   ) {
-    return validateApiCall(
-      _dio.get('$_basePath/$guildId/channels'),
-      responseTransformer: (data) =>
-          (data as List).map((e) => Channel.fromJson(e)).toList(),
-    );
+    return _dio
+        .get<Map<String, dynamic>>('$_basePath/$guildId/channels')
+        .validate(
+          transform: (data) =>
+              (data as List).map((e) => Channel.fromJson(e)).toList(),
+        );
   }
 
   /// Create a new channel object for the guild. Requires the MANAGE_CHANNELS
@@ -298,7 +294,7 @@ class GuildsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/guild#create-guild-channel
-  Future<DiscordResponse<Channel>> createGuildChannel(
+  Future<ValidatedResponse<Map<String, dynamic>, Channel>> createGuildChannel(
     String guildId, {
     required String name,
     ChannelType? type,
@@ -312,30 +308,30 @@ class GuildsApi {
     bool? nsfw,
     String? reason,
   }) {
-    return validateApiCall(
-      _dio.post(
-        '$_basePath/$guildId/channels',
-        data: {
-          'name': name,
-          if (type != null) 'type': type.value,
-          if (topic != null) 'topic': topic,
-          if (bitrate != null) 'bitrate': bitrate,
-          if (userLimit != null) 'user_limit': userLimit,
-          if (rateLimitPerUser != null) 'rate_limit_per_user': rateLimitPerUser,
-          if (position != null) 'position': position,
-          if (permissionOverwrites != null)
-            'permission_overwrites': permissionOverwrites,
-          if (parentId != null) 'parent_id': parentId,
-          if (nsfw != null) 'nsfw': nsfw,
-        },
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
+    return _dio
+        .post<Map<String, dynamic>>(
+          '$_basePath/$guildId/channels',
+          data: {
+            'name': name,
+            if (type != null) 'type': type.value,
+            if (topic != null) 'topic': topic,
+            if (bitrate != null) 'bitrate': bitrate,
+            if (userLimit != null) 'user_limit': userLimit,
+            if (rateLimitPerUser != null)
+              'rate_limit_per_user': rateLimitPerUser,
+            if (position != null) 'position': position,
+            if (permissionOverwrites != null)
+              'permission_overwrites': permissionOverwrites,
+            if (parentId != null) 'parent_id': parentId,
+            if (nsfw != null) 'nsfw': nsfw,
           },
-        ),
-      ),
-      responseTransformer: (data) => Channel.fromJson(data),
-    );
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+            },
+          ),
+        )
+        .validate(transform: (data) => Channel.fromJson(data));
   }
 
   /// Modify the positions of a set of channel objects for the guild. Requires
@@ -369,26 +365,25 @@ class GuildsApi {
   /// threads. Threads are ordered by their id, in descending order.
   ///
   /// https://discord.com/developers/docs/resources/guild#list-active-threads
-  Future<DiscordResponse<ListThreadsResponse>> listActiveThreads(
+  Future<ValidatedResponse<Map<String, dynamic>, ListThreadsResponse>>
+      listActiveThreads(
     String guildId,
   ) {
-    return validateApiCall(
-      _dio.get('$_basePath/$guildId/threads/active'),
-      responseTransformer: (data) => ListThreadsResponse.fromJson(data),
-    );
+    return _dio
+        .get<Map<String, dynamic>>('$_basePath/$guildId/threads/active')
+        .validate(transform: (data) => ListThreadsResponse.fromJson(data));
   }
 
   /// Returns a [GuildMember] object for the specified user.
   ///
   /// https://discord.com/developers/docs/resources/guild#get-guild-member
-  Future<DiscordResponse<GuildMember>> getGuildMember(
+  Future<ValidatedResponse<Map<String, dynamic>, GuildMember>> getGuildMember(
     String guildId, {
     required String userId,
   }) {
-    return validateApiCall(
-      _dio.get('$_basePath/$guildId/members/$userId'),
-      responseTransformer: (data) => GuildMember.fromJson(data),
-    );
+    return _dio
+        .get<Map<String, dynamic>>('$_basePath/$guildId/members/$userId')
+        .validate(transform: (data) => GuildMember.fromJson(data));
   }
 
   /// Returns a list of guild member objects that are members of the guild.
@@ -399,7 +394,8 @@ class GuildsApi {
   /// All parameters to this endpoint are optional
   ///
   /// https://discord.com/developers/docs/resources/guild#list-guild-members
-  Future<DiscordResponse<List<GuildMember>>> listGuildMembers(
+  Future<ValidatedResponse<Map<String, dynamic>, List<GuildMember>>>
+      listGuildMembers(
     String guildId, {
 
     /// max number of members to return (1-1000)
@@ -412,15 +408,14 @@ class GuildsApi {
     /// default: 0
     String? after,
   }) {
-    return validateApiCall(
-      _dio.get(
-        '$_basePath/$guildId/members',
-        queryParameters: {
-          if (limit != null) 'limit': limit,
-          if (after != null) 'after': after,
-        },
-      ),
-      responseTransformer: (data) =>
+    return _dio.get<Map<String, dynamic>>(
+      '$_basePath/$guildId/members',
+      queryParameters: {
+        if (limit != null) 'limit': limit,
+        if (after != null) 'after': after,
+      },
+    ).validate(
+      transform: (data) =>
           (data as List).map((e) => GuildMember.fromJson(e)).toList(),
     );
   }
@@ -431,7 +426,8 @@ class GuildsApi {
   /// All parameters to this endpoint except for query are optional
   ///
   /// https://discord.com/developers/docs/resources/guild#search-guild-members
-  Future<DiscordResponse<List<GuildMember>>> searchGuildMembers(
+  Future<ValidatedResponse<Map<String, dynamic>, List<GuildMember>>>
+      searchGuildMembers(
     String guildId, {
 
     /// Query string to match username(s) and nickname(s) against.
@@ -442,15 +438,14 @@ class GuildsApi {
     /// default: 1
     int? limit,
   }) {
-    return validateApiCall(
-      _dio.get(
-        '$_basePath/$guildId/members/search',
-        queryParameters: {
-          'query': query,
-          if (limit != null) 'limit': limit,
-        },
-      ),
-      responseTransformer: (data) =>
+    return _dio.get<Map<String, dynamic>>(
+      '$_basePath/$guildId/members/search',
+      queryParameters: {
+        'query': query,
+        if (limit != null) 'limit': limit,
+      },
+    ).validate(
+      transform: (data) =>
           (data as List).map((e) => GuildMember.fromJson(e)).toList(),
     );
   }
@@ -480,7 +475,7 @@ class GuildsApi {
   /// completes screening.
   ///
   /// https://discord.com/developers/docs/resources/guild#add-guild-member
-  Future<DiscordResponse<GuildMember?>> addGuildMember(
+  Future<ValidatedResponse<Map<String, dynamic>, GuildMember?>> addGuildMember(
     String guildId, {
     required String userId,
 
@@ -508,19 +503,17 @@ class GuildsApi {
     /// Permission: DEAFEN_MEMBERS
     bool? deaf,
   }) {
-    return validateApiCall(
-      _dio.put(
-        '$_basePath/$guildId/members/$userId',
-        data: {
-          'access_token': accessToken,
-          if (nick != null) 'nick': nick,
-          if (roleIds != null) 'roles': roleIds,
-          if (mute != null) 'mute': mute,
-          if (deaf != null) 'deaf': deaf,
-        },
-      ),
-      responseTransformer: (data) =>
-          data != null ? GuildMember.fromJson(data) : null,
+    return _dio.put<Map<String, dynamic>>(
+      '$_basePath/$guildId/members/$userId',
+      data: {
+        'access_token': accessToken,
+        if (nick != null) 'nick': nick,
+        if (roleIds != null) 'roles': roleIds,
+        if (mute != null) 'mute': mute,
+        if (deaf != null) 'deaf': deaf,
+      },
+    ).validate(
+      transform: (data) => data != null ? GuildMember.fromJson(data) : null,
     );
   }
 
@@ -536,7 +529,8 @@ class GuildsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/guild#modify-guild-member
-  Future<DiscordResponse<GuildMember>> modifyGuildMember(
+  Future<ValidatedResponse<Map<String, dynamic>, GuildMember>>
+      modifyGuildMember(
     String guildId, {
     required String userId,
 
@@ -568,24 +562,23 @@ class GuildsApi {
     String? channelId,
     String? reason,
   }) {
-    return validateApiCall(
-      _dio.patch(
-        '$_basePath/$guildId/members/$userId',
-        data: {
-          if (nick != null) 'nick': nick,
-          if (roleIds != null) 'roles': roleIds,
-          if (mute != null) 'mute': mute,
-          if (deaf != null) 'deaf': deaf,
-          if (channelId != null) 'channel_id': channelId,
-        },
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
+    return _dio
+        .patch<Map<String, dynamic>>(
+          '$_basePath/$guildId/members/$userId',
+          data: {
+            if (nick != null) 'nick': nick,
+            if (roleIds != null) 'roles': roleIds,
+            if (mute != null) 'mute': mute,
+            if (deaf != null) 'deaf': deaf,
+            if (channelId != null) 'channel_id': channelId,
           },
-        ),
-      ),
-      responseTransformer: (data) => GuildMember.fromJson(data),
-    );
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+            },
+          ),
+        )
+        .validate(transform: (data) => GuildMember.fromJson(data));
   }
 
   /// Modifies the current member in a guild. Returns a 200 with the updated
@@ -594,25 +587,25 @@ class GuildsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/guild#modify-current-member
-  Future<DiscordResponse<GuildMember>> modifyCurrentMember(
+  Future<ValidatedResponse<Map<String, dynamic>, GuildMember>>
+      modifyCurrentMember(
     String guildId, {
     String? nick,
     String? reason,
   }) {
-    return validateApiCall(
-      _dio.patch(
-        '$_basePath/$guildId/members/@me',
-        data: {
-          'nick': nick,
-        },
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
+    return _dio
+        .patch<Map<String, dynamic>>(
+          '$_basePath/$guildId/members/@me',
+          data: {
+            'nick': nick,
           },
-        ),
-      ),
-      responseTransformer: (data) => GuildMember.fromJson(data),
-    );
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+            },
+          ),
+        )
+        .validate(transform: (data) => GuildMember.fromJson(data));
   }
 
   /// Adds a role to a guild member. Requires the MANAGE_ROLES permission.
@@ -692,26 +685,26 @@ class GuildsApi {
   /// Requires the BAN_MEMBERS permission.
   ///
   /// https://discord.com/developers/docs/resources/guild#get-guild-bans
-  Future<DiscordResponse<List<Ban>>> getGuildBans(String guildId) {
-    return validateApiCall(
-      _dio.get('$_basePath/$guildId/bans'),
-      responseTransformer: (data) =>
-          (data as List).map((ban) => Ban.fromJson(ban)).toList(),
-    );
+  Future<ValidatedResponse<Map<String, dynamic>, List<Ban>>> getGuildBans(
+    String guildId,
+  ) {
+    return _dio.get<Map<String, dynamic>>('$_basePath/$guildId/bans').validate(
+          transform: (data) =>
+              (data as List).map((ban) => Ban.fromJson(ban)).toList(),
+        );
   }
 
   /// Returns a ban object for the given user or a 404 not found if the ban
   /// cannot be found. Requires the BAN_MEMBERS permission.
   ///
   /// https://discord.com/developers/docs/resources/guild#get-guild-ban
-  Future<DiscordResponse<Ban>> getGuildBan(
+  Future<ValidatedResponse<Map<String, dynamic>, Ban>> getGuildBan(
     String guildId, {
     required String userId,
   }) {
-    return validateApiCall(
-      _dio.get('$_basePath/$guildId/bans/$userId'),
-      responseTransformer: (data) => Ban.fromJson(data),
-    );
+    return _dio
+        .get<Map<String, dynamic>>('$_basePath/$guildId/bans/$userId')
+        .validate(transform: (data) => Ban.fromJson(data));
   }
 
   /// Create a guild ban, and optionally delete previous messages sent by the
@@ -773,12 +766,13 @@ class GuildsApi {
   /// Returns a list of [Role] objects for the guild.
   ///
   /// https://discord.com/developers/docs/resources/guild#get-guild-roles
-  Future<DiscordResponse<List<Role>>> getGuildRoles(String guildId) {
-    return validateApiCall(
-      _dio.get('$_basePath/$guildId/roles'),
-      responseTransformer: (data) =>
-          (data as List).map((role) => Role.fromJson(role)).toList(),
-    );
+  Future<ValidatedResponse<Map<String, dynamic>, List<Role>>> getGuildRoles(
+    String guildId,
+  ) {
+    return _dio.get<Map<String, dynamic>>('$_basePath/$guildId/roles').validate(
+          transform: (data) =>
+              (data as List).map((role) => Role.fromJson(role)).toList(),
+        );
   }
 
   /// Create a new role for the guild. Requires the MANAGE_ROLES permission.
@@ -788,7 +782,7 @@ class GuildsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/guild#create-guild-role
-  Future<DiscordResponse<Role>> createGuildRole(
+  Future<ValidatedResponse<Map<String, dynamic>, Role>> createGuildRole(
     String guildId, {
 
     /// name of the role
@@ -830,27 +824,26 @@ class GuildsApi {
     bool? mentionable,
     String? reason,
   }) {
-    return validateApiCall(
-      _dio.post(
-        '$_basePath/$guildId/roles',
-        data: {
-          if (name != null) 'name': name,
-          if (permissions != null)
-            'permissions': const PermissionConverter().toJson(permissions),
-          if (color != null) 'color': color,
-          if (hoist != null) 'hoist': hoist,
-          if (iconImageData != null) 'icon': iconImageData,
-          if (unicodeEmoji != null) 'unicode_emoji': unicodeEmoji,
-          if (mentionable != null) 'mentionable': mentionable,
-        },
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
+    return _dio
+        .post<Map<String, dynamic>>(
+          '$_basePath/$guildId/roles',
+          data: {
+            if (name != null) 'name': name,
+            if (permissions != null)
+              'permissions': const PermissionConverter().toJson(permissions),
+            if (color != null) 'color': color,
+            if (hoist != null) 'hoist': hoist,
+            if (iconImageData != null) 'icon': iconImageData,
+            if (unicodeEmoji != null) 'unicode_emoji': unicodeEmoji,
+            if (mentionable != null) 'mentionable': mentionable,
           },
-        ),
-      ),
-      responseTransformer: (data) => Role.fromJson(data),
-    );
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+            },
+          ),
+        )
+        .validate(transform: (data) => Role.fromJson(data));
   }
 
   /// Modify the positions of a set of role objects for the guild. Requires the
@@ -862,24 +855,26 @@ class GuildsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/guild#modify-guild-role-positions
-  Future<DiscordResponse<List<Role>>> modifyGuildRolePositions(
+  Future<ValidatedResponse<Map<String, dynamic>, List<Role>>>
+      modifyGuildRolePositions(
     String guildId, {
     required List<ModifyGuildRolePositionsParams> params,
     String? reason,
   }) {
-    return validateApiCall(
-      _dio.patch(
-        '$_basePath/$guildId/roles',
-        data: params,
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
-          },
-        ),
-      ),
-      responseTransformer: (data) =>
-          (data as List).map((role) => Role.fromJson(role)).toList(),
-    );
+    return _dio
+        .patch<Map<String, dynamic>>(
+          '$_basePath/$guildId/roles',
+          data: params,
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+            },
+          ),
+        )
+        .validate(
+          transform: (data) =>
+              (data as List).map((role) => Role.fromJson(role)).toList(),
+        );
   }
 
   /// Modify a guild role. Requires the MANAGE_ROLES permission. Returns the
@@ -888,7 +883,7 @@ class GuildsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/guild#modify-guild-role
-  Future<DiscordResponse<Role>> modifyGuildRole(
+  Future<ValidatedResponse<Map<String, dynamic>, Role>> modifyGuildRole(
     String guildId, {
     required String roleId,
 
@@ -917,27 +912,26 @@ class GuildsApi {
     bool? mentionable,
     String? reason,
   }) {
-    return validateApiCall(
-      _dio.patch(
-        '$_basePath/$guildId/roles/$roleId',
-        data: {
-          if (name != null) 'name': name,
-          if (permissions != null)
-            'permissions': const PermissionConverter().toJson(permissions),
-          if (color != null) 'color': color,
-          if (hoist != null) 'hoist': hoist,
-          if (iconImageData != null) 'icon': iconImageData,
-          if (unicodeEmoji != null) 'unicode_emoji': unicodeEmoji,
-          if (mentionable != null) 'mentionable': mentionable,
-        },
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
+    return _dio
+        .patch<Map<String, dynamic>>(
+          '$_basePath/$guildId/roles/$roleId',
+          data: {
+            if (name != null) 'name': name,
+            if (permissions != null)
+              'permissions': const PermissionConverter().toJson(permissions),
+            if (color != null) 'color': color,
+            if (hoist != null) 'hoist': hoist,
+            if (iconImageData != null) 'icon': iconImageData,
+            if (unicodeEmoji != null) 'unicode_emoji': unicodeEmoji,
+            if (mentionable != null) 'mentionable': mentionable,
           },
-        ),
-      ),
-      responseTransformer: (data) => Role.fromJson(data),
-    );
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+            },
+          ),
+        )
+        .validate(transform: (data) => Role.fromJson(data));
   }
 
   /// Delete a guild role. Requires the MANAGE_ROLES permission. Returns a 204
@@ -973,7 +967,7 @@ class GuildsApi {
   /// will be counted in the prune and users with additional roles will not.
   ///
   /// https://discord.com/developers/docs/resources/guild#get-guild-prune-count
-  Future<DiscordResponse<int>> getGuildPruneCount(
+  Future<ValidatedResponse<Map<String, dynamic>, int>> getGuildPruneCount(
     String guildId, {
 
     /// number of days to count prune for (1-30)
@@ -986,16 +980,13 @@ class GuildsApi {
     /// default: none
     List<String>? includeRoleIds,
   }) {
-    return validateApiCall(
-      _dio.get(
-        '$_basePath/$guildId/prune',
-        queryParameters: {
-          if (days != null) 'days': days,
-          if (includeRoleIds != null) 'include_roles': includeRoleIds.join(','),
-        },
-      ),
-      responseTransformer: (data) => data['pruned'] as int,
-    );
+    return _dio.get<Map<String, dynamic>>(
+      '$_basePath/$guildId/prune',
+      queryParameters: {
+        if (days != null) 'days': days,
+        if (includeRoleIds != null) 'include_roles': includeRoleIds.join(','),
+      },
+    ).validate(transform: (data) => data['pruned'] as int);
   }
 
   /// Begin a prune operation. Requires the KICK_MEMBERS permission. Returns an
@@ -1012,7 +1003,7 @@ class GuildsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/guild#begin-guild-prune
-  Future<DiscordResponse<int?>> beginGuildPrune(
+  Future<ValidatedResponse<Map<String, dynamic>, int?>> beginGuildPrune(
     String guildId, {
 
     /// number of days to prune (1-30)
@@ -1031,66 +1022,72 @@ class GuildsApi {
     List<String>? includeRoleIds,
     String? reason,
   }) {
-    return validateApiCall(
-      _dio.post(
-        '$_basePath/$guildId/prune',
-        data: {
-          if (days != null) 'days': days,
-          if (computePruneCount != null)
-            'compute_prune_count': computePruneCount,
-          if (includeRoleIds != null) 'include_roles': includeRoleIds.join(','),
-        },
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
+    return _dio
+        .post<Map<String, dynamic>>(
+          '$_basePath/$guildId/prune',
+          data: {
+            if (days != null) 'days': days,
+            if (computePruneCount != null)
+              'compute_prune_count': computePruneCount,
+            if (includeRoleIds != null)
+              'include_roles': includeRoleIds.join(','),
           },
-        ),
-      ),
-      responseTransformer: (data) => data['pruned'] as int?,
-    );
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+            },
+          ),
+        )
+        .validate(transform: (data) => data['pruned'] as int?);
   }
 
   /// Returns a list of voice region objects for the guild. Unlike the similar
   /// /voice route, this returns VIP servers when the guild is VIP-enabled.
   ///
   /// https://discord.com/developers/docs/resources/guild#get-guild-voice-regions
-  Future<DiscordResponse<List<VoiceRegion>>> getGuildVoiceRegions(
+  Future<ValidatedResponse<Map<String, dynamic>, List<VoiceRegion>>>
+      getGuildVoiceRegions(
     String guildId,
   ) {
-    return validateApiCall(
-      _dio.get('$_basePath/$guildId/regions'),
-      responseTransformer: (data) =>
-          (data as List).map((region) => VoiceRegion.fromJson(region)).toList(),
-    );
+    return _dio
+        .get<Map<String, dynamic>>('$_basePath/$guildId/regions')
+        .validate(
+          transform: (data) => (data as List)
+              .map((region) => VoiceRegion.fromJson(region))
+              .toList(),
+        );
   }
 
   /// Returns a list of invite objects (with invite metadata) for the guild.
   /// Requires the MANAGE_GUILD permission.
   ///
   /// https://discord.com/developers/docs/resources/guild#get-guild-invites
-  Future<DiscordResponse<List<Invite>>> getGuildInvites(
+  Future<ValidatedResponse<Map<String, dynamic>, List<Invite>>> getGuildInvites(
     String guildId,
   ) {
-    return validateApiCall(
-      _dio.get('$_basePath/$guildId/invites'),
-      responseTransformer: (data) =>
-          (data as List).map((invite) => Invite.fromJson(invite)).toList(),
-    );
+    return _dio
+        .get<Map<String, dynamic>>('$_basePath/$guildId/invites')
+        .validate(
+          transform: (data) =>
+              (data as List).map((invite) => Invite.fromJson(invite)).toList(),
+        );
   }
 
   /// Returns a list of integration objects for the guild. Requires the
   /// MANAGE_GUILD permission.
   ///
   /// https://discord.com/developers/docs/resources/guild#get-guild-integrations
-  Future<DiscordResponse<List<Integration>>> getGuildIntegrations(
+  Future<ValidatedResponse<Map<String, dynamic>, List<Integration>>>
+      getGuildIntegrations(
     String guildId,
   ) {
-    return validateApiCall(
-      _dio.get('$_basePath/$guildId/integrations'),
-      responseTransformer: (data) => (data as List)
-          .map((integration) => Integration.fromJson(integration))
-          .toList(),
-    );
+    return _dio
+        .get<Map<String, dynamic>>('$_basePath/$guildId/integrations')
+        .validate(
+          transform: (data) => (data as List)
+              .map((integration) => Integration.fromJson(integration))
+              .toList(),
+        );
   }
 
   /// Delete the attached integration object for the guild. Deletes any
@@ -1121,13 +1118,13 @@ class GuildsApi {
   /// Returns a guild widget object. Requires the MANAGE_GUILD permission.
   ///
   /// https://discord.com/developers/docs/resources/guild#get-guild-widget-settings
-  Future<DiscordResponse<GuildWidget>> getGuildWidgetSettings(
+  Future<ValidatedResponse<Map<String, dynamic>, GuildWidget>>
+      getGuildWidgetSettings(
     String guildId,
   ) {
-    return validateApiCall(
-      _dio.get('$_basePath/$guildId/widget'),
-      responseTransformer: (data) => GuildWidget.fromJson(data),
-    );
+    return _dio
+        .get<Map<String, dynamic>>('$_basePath/$guildId/widget')
+        .validate(transform: (data) => GuildWidget.fromJson(data));
   }
 
   /// Modify a guild widget object for the guild. All attributes may be passed
@@ -1137,27 +1134,27 @@ class GuildsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/guild#modify-guild-widget
-  Future<DiscordResponse<GuildWidget>> modifyGuildWidgetSettings(
+  Future<ValidatedResponse<Map<String, dynamic>, GuildWidget>>
+      modifyGuildWidgetSettings(
     String guildId, {
     bool? enabled,
     String? channelId,
     String? reason,
   }) {
-    return validateApiCall(
-      _dio.patch(
-        '$_basePath/$guildId/widget',
-        data: {
-          if (enabled != null) 'enabled': enabled,
-          if (channelId != null) 'channel_id': channelId,
-        },
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
+    return _dio
+        .patch<Map<String, dynamic>>(
+          '$_basePath/$guildId/widget',
+          data: {
+            if (enabled != null) 'enabled': enabled,
+            if (channelId != null) 'channel_id': channelId,
           },
-        ),
-      ),
-      responseTransformer: (data) => GuildWidget.fromJson(data),
-    );
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+            },
+          ),
+        )
+        .validate(transform: (data) => GuildWidget.fromJson(data));
   }
 
   /// Returns the widget for the guild.
@@ -1175,11 +1172,12 @@ class GuildsApi {
   /// for the guild is not set.
   ///
   /// https://discord.com/developers/docs/resources/guild#get-guild-vanity-url
-  Future<DiscordResponse<Invite>> getGuildVanityUrl(String guildId) {
-    return validateApiCall(
-      _dio.get('$_basePath/$guildId/vanity-url'),
-      responseTransformer: (data) => Invite.fromJson(data),
-    );
+  Future<ValidatedResponse<Map<String, dynamic>, Invite>> getGuildVanityUrl(
+    String guildId,
+  ) {
+    return _dio
+        .get<Map<String, dynamic>>('$_basePath/$guildId/vanity-url')
+        .validate(transform: (data) => Invite.fromJson(data));
   }
 
   /// Returns a PNG image widget for the guild. Requires no permissions or
@@ -1212,13 +1210,13 @@ class GuildsApi {
   /// Returns the Welcome Screen object for the guild.
   ///
   /// https://discord.com/developers/docs/resources/guild#get-guild-welcome-screen
-  Future<DiscordResponse<WelcomeScreen>> getGuildWelcomeScreen(
+  Future<ValidatedResponse<Map<String, dynamic>, WelcomeScreen>>
+      getGuildWelcomeScreen(
     String guildId,
   ) {
-    return validateApiCall(
-      _dio.get('$_basePath/$guildId/welcome-screen'),
-      responseTransformer: (data) => WelcomeScreen.fromJson(data),
-    );
+    return _dio
+        .get<Map<String, dynamic>>('$_basePath/$guildId/welcome-screen')
+        .validate(transform: (data) => WelcomeScreen.fromJson(data));
   }
 
   /// Modify the guild's Welcome Screen. Requires the MANAGE_GUILD permission.
@@ -1229,7 +1227,8 @@ class GuildsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/guild#modify-guild-welcome-screen
-  Future<DiscordResponse<WelcomeScreen>> modifyGuildWelcomeScreen(
+  Future<ValidatedResponse<Map<String, dynamic>, WelcomeScreen>>
+      modifyGuildWelcomeScreen(
     String guildId, {
 
     /// whether the welcome screen is enabled
@@ -1242,22 +1241,21 @@ class GuildsApi {
     String? description,
     String? reason,
   }) {
-    return validateApiCall(
-      _dio.patch(
-        '$_basePath/$guildId/welcome-screen',
-        data: {
-          if (enabled != null) 'enabled': enabled,
-          if (welcomeChannels != null) 'welcome_channels': welcomeChannels,
-          if (description != null) 'description': description,
-        },
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
+    return _dio
+        .patch<Map<String, dynamic>>(
+          '$_basePath/$guildId/welcome-screen',
+          data: {
+            if (enabled != null) 'enabled': enabled,
+            if (welcomeChannels != null) 'welcome_channels': welcomeChannels,
+            if (description != null) 'description': description,
           },
-        ),
-      ),
-      responseTransformer: (data) => WelcomeScreen.fromJson(data),
-    );
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+            },
+          ),
+        )
+        .validate(transform: (data) => WelcomeScreen.fromJson(data));
   }
 
   /// Updates the current user's voice state.

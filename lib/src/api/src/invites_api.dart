@@ -1,9 +1,9 @@
 // Package imports:
 import 'package:dio/dio.dart';
+import 'package:dio_response_validator/dio_response_validator.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
-import 'package:discord_interactions/src/util/discord_api_utils.dart';
 
 /// Access to the Invites API
 ///
@@ -19,7 +19,7 @@ class InvitesApi {
   /// Returns an [Invite] object for the given code.
   ///
   /// https://discord.com/developers/docs/resources/invite#get-invite
-  Future<DiscordResponse<Invite>> getInvite(
+  Future<ValidatedResponse<Map<String, dynamic>, Invite>> getInvite(
     String inviteCode, {
 
     /// whether the invite should contain approximate member counts
@@ -31,18 +31,15 @@ class InvitesApi {
     /// the guild scheduled event to include with the invite
     String? guildScheduledEventId,
   }) {
-    return validateApiCall(
-      _dio.get(
-        '$_basePath/$inviteCode',
-        queryParameters: {
-          if (withCounts != null) 'with_counts': withCounts,
-          if (withExpiration != null) 'with_expiration': withExpiration,
-          if (guildScheduledEventId != null)
-            'guild_scheduled_event_id': guildScheduledEventId,
-        },
-      ),
-      responseTransformer: (data) => Invite.fromJson(data),
-    );
+    return _dio.get<Map<String, dynamic>>(
+      '$_basePath/$inviteCode',
+      queryParameters: {
+        if (withCounts != null) 'with_counts': withCounts,
+        if (withExpiration != null) 'with_expiration': withExpiration,
+        if (guildScheduledEventId != null)
+          'guild_scheduled_event_id': guildScheduledEventId,
+      },
+    ).validate(transform: (data) => Invite.fromJson(data));
   }
 
   /// Delete an invite. Requires the MANAGE_CHANNELS permission on the channel
@@ -53,20 +50,19 @@ class InvitesApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/invite#delete-invite
-  Future<DiscordResponse<Invite>> deleteInvite(
+  Future<ValidatedResponse<Map<String, dynamic>, Invite>> deleteInvite(
     String inviteCode, {
     String? reason,
   }) {
-    return validateApiCall(
-      _dio.delete(
-        '$_basePath/$inviteCode',
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
-          },
-        ),
-      ),
-      responseTransformer: (data) => Invite.fromJson(data),
-    );
+    return _dio
+        .delete<Map<String, dynamic>>(
+          '$_basePath/$inviteCode',
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+            },
+          ),
+        )
+        .validate(transform: (data) => Invite.fromJson(data));
   }
 }

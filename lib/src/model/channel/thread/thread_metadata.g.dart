@@ -20,7 +20,7 @@ Map<String, dynamic> _$ThreadMetadataToJson(ThreadMetadata instance) {
   final val = <String, dynamic>{
     'archived': instance.archived,
     'auto_archive_duration':
-        _$ThreadAutoArchiveDurationEnumMap[instance.autoArchiveDuration],
+        _$ThreadAutoArchiveDurationEnumMap[instance.autoArchiveDuration]!,
     'archive_timestamp': instance.archiveTimestamp.toIso8601String(),
     'locked': instance.locked,
   };

@@ -18,7 +18,7 @@ Map<String, dynamic> _$ChannelMentionToJson(ChannelMention instance) =>
     <String, dynamic>{
       'id': instance.id,
       'guild_id': instance.guildId,
-      'type': _$ChannelTypeEnumMap[instance.type],
+      'type': _$ChannelTypeEnumMap[instance.type]!,
       'name': instance.name,
     };
 

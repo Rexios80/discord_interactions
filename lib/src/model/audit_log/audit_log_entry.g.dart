@@ -35,7 +35,7 @@ Map<String, dynamic> _$AuditLogEntryToJson(AuditLogEntry instance) {
   writeNotNull('changes', instance.changes);
   writeNotNull('user_id', instance.userId);
   val['id'] = instance.id;
-  val['action_type'] = _$AuditLogEventEnumMap[instance.actionType];
+  val['action_type'] = _$AuditLogEventEnumMap[instance.actionType]!;
   writeNotNull('options', instance.options);
   writeNotNull('reason', instance.reason);
   return val;

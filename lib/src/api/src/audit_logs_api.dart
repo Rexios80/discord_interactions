@@ -1,9 +1,9 @@
 // Package imports:
 import 'package:dio/dio.dart';
+import 'package:dio_response_validator/dio_response_validator.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
-import 'package:discord_interactions/src/util/discord_api_utils.dart';
 
 /// Access to the Audit Logs API
 ///
@@ -20,7 +20,7 @@ class AuditLogsApi {
   /// permission.
   ///
   /// https://discord.com/developers/docs/resources/audit-log#get-guild-audit-log
-  Future<DiscordResponse<AuditLog>> getGuildAuditLog(
+  Future<ValidatedResponse<Map<String, dynamic>, AuditLog>> getGuildAuditLog(
     String guildId, {
 
     /// filter the log for actions made by a user
@@ -35,17 +35,14 @@ class AuditLogsApi {
     /// how many entries are returned (default 50, minimum 1, maximum 100)
     int? limit,
   }) {
-    return validateApiCall(
-      _dio.get(
-        '$_basePath/$guildId/audit-logs',
-        queryParameters: {
-          if (userId != null) 'user_id': userId,
-          if (actionType != null) 'action_type': actionType.value,
-          if (before != null) 'before': before,
-          if (limit != null) 'limit': limit,
-        },
-      ),
-      responseTransformer: (data) => AuditLog.fromJson(data),
-    );
+    return _dio.get<Map<String, dynamic>>(
+      '$_basePath/$guildId/audit-logs',
+      queryParameters: {
+        if (userId != null) 'user_id': userId,
+        if (actionType != null) 'action_type': actionType.value,
+        if (before != null) 'before': before,
+        if (limit != null) 'limit': limit,
+      },
+    ).validate(transform: (data) => AuditLog.fromJson(data));
   }
 }

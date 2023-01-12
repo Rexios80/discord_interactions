@@ -40,8 +40,7 @@ Map<String, dynamic> _$RoleToJson(Role instance) {
   writeNotNull('icon', instance.icon);
   writeNotNull('unicode_emoji', instance.unicodeEmoji);
   val['position'] = instance.position;
-  writeNotNull(
-      'permissions', const PermissionConverter().toJson(instance.permissions));
+  val['permissions'] = const PermissionConverter().toJson(instance.permissions);
   val['managed'] = instance.managed;
   val['mentionable'] = instance.mentionable;
   writeNotNull('tags', instance.tags);

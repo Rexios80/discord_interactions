@@ -30,7 +30,7 @@ Webhook _$WebhookFromJson(Map<String, dynamic> json) => Webhook(
 Map<String, dynamic> _$WebhookToJson(Webhook instance) {
   final val = <String, dynamic>{
     'id': instance.id,
-    'type': _$WebhookTypeEnumMap[instance.type],
+    'type': _$WebhookTypeEnumMap[instance.type]!,
   };
 
   void writeNotNull(String key, dynamic value) {

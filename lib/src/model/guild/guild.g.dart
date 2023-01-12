@@ -130,7 +130,7 @@ Map<String, dynamic> _$GuildToJson(Guild instance) {
   writeNotNull('roles', instance.roles);
   writeNotNull('emojis', instance.emojis);
   writeNotNull('features',
-      instance.features?.map((e) => _$GuildFeatureEnumMap[e]).toList());
+      instance.features?.map((e) => _$GuildFeatureEnumMap[e]!).toList());
   writeNotNull('mfa_level', _$MfaLevelEnumMap[instance.mfaLevel]);
   writeNotNull('application_id', instance.applicationId);
   writeNotNull('system_channel_id', instance.systemChannelId);

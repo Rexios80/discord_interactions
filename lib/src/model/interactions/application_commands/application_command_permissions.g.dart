@@ -19,7 +19,7 @@ Map<String, dynamic> _$ApplicationCommandPermissionsToJson(
         ApplicationCommandPermissions instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'type': _$ApplicationCommandPermissionTypeEnumMap[instance.type],
+      'type': _$ApplicationCommandPermissionTypeEnumMap[instance.type]!,
       'permission': instance.permission,
     };
 

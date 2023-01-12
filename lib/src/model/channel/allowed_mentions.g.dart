@@ -19,7 +19,7 @@ AllowedMentions _$AllowedMentionsFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$AllowedMentionsToJson(AllowedMentions instance) =>
     <String, dynamic>{
       'parse':
-          instance.parse.map((e) => _$AllowedMentionTypeEnumMap[e]).toList(),
+          instance.parse.map((e) => _$AllowedMentionTypeEnumMap[e]!).toList(),
       'roles': instance.roles,
       'users': instance.users,
       'replied_user': instance.repliedUser,

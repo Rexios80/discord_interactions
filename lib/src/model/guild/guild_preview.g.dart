@@ -40,7 +40,7 @@ Map<String, dynamic> _$GuildPreviewToJson(GuildPreview instance) {
   writeNotNull('discovery_splash', instance.discoverySplash);
   writeNotNull('emojis', instance.emojis);
   val['features'] =
-      instance.features.map((e) => _$GuildFeatureEnumMap[e]).toList();
+      instance.features.map((e) => _$GuildFeatureEnumMap[e]!).toList();
   val['approximate_member_count'] = instance.approximateMemberCount;
   val['approximate_presence_count'] = instance.approximatePresenceCount;
   writeNotNull('description', instance.description);

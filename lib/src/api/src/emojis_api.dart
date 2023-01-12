@@ -4,7 +4,6 @@ import 'package:dio_response_validator/dio_response_validator.dart';
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
-import 'package:discord_interactions/src/util/discord_api_utils.dart';
 
 /// Access to the Emojis API
 ///
@@ -20,25 +19,27 @@ class EmojisApi {
   /// Returns a list of [Emoji] objects for the given guild.
   ///
   /// https://discord.com/developers/docs/resources/emoji#list-guild-emojis
-  Future<DiscordResponse<List<Emoji>>> listGuildEmojis(String guildId) {
-    return validateApiCall(
-      _dio.get('$_basePath/$guildId/emojis'),
-      responseTransformer: (data) =>
-          (data as List).map((e) => Emoji.fromJson(e)).toList(),
-    );
+  Future<ValidatedResponse<Map<String, dynamic>, List<Emoji>>> listGuildEmojis(
+    String guildId,
+  ) {
+    return _dio
+        .get<Map<String, dynamic>>('$_basePath/$guildId/emojis')
+        .validate(
+          transform: (data) =>
+              (data as List).map((e) => Emoji.fromJson(e)).toList(),
+        );
   }
 
   /// Returns an emoji object for the given guild and emoji IDs.
   ///
   /// https://discord.com/developers/docs/resources/emoji#get-guild-emoji
-  Future<DiscordResponse<Emoji>> getGuildEmoji(
+  Future<ValidatedResponse<Map<String, dynamic>, Emoji>> getGuildEmoji(
     String guildId, {
     required String emojiId,
   }) {
-    return validateApiCall(
-      _dio.get('$_basePath/$guildId/emojis/$emojiId'),
-      responseTransformer: (data) => Emoji.fromJson(data),
-    );
+    return _dio
+        .get<Map<String, dynamic>>('$_basePath/$guildId/emojis/$emojiId')
+        .validate(transform: (data) => Emoji.fromJson(data));
   }
 
   /// Create a new emoji for the guild. Requires the MANAGE_EMOJIS_AND_STICKERS
@@ -52,7 +53,7 @@ class EmojisApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/emoji#create-guild-emoji
-  Future<DiscordResponse<Emoji>> createGuildEmoji(
+  Future<ValidatedResponse<Map<String, dynamic>, Emoji>> createGuildEmoji(
     String guildId, {
 
     /// name of the emoji
@@ -67,22 +68,21 @@ class EmojisApi {
     List<String>? roles,
     String? reason,
   }) {
-    return validateApiCall(
-      _dio.post(
-        '$_basePath/$guildId/emojis',
-        data: {
-          'name': name,
-          'image': imageData,
-          if (roles != null) 'roles': roles,
-        },
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
+    return _dio
+        .post<Map<String, dynamic>>(
+          '$_basePath/$guildId/emojis',
+          data: {
+            'name': name,
+            'image': imageData,
+            if (roles != null) 'roles': roles,
           },
-        ),
-      ),
-      responseTransformer: (data) => Emoji.fromJson(data),
-    );
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+            },
+          ),
+        )
+        .validate(transform: (data) => Emoji.fromJson(data));
   }
 
   /// Modify the given emoji. Requires the MANAGE_EMOJIS_AND_STICKERS
@@ -92,7 +92,7 @@ class EmojisApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/emoji#modify-guild-emoji
-  Future<DiscordResponse<Emoji>> modifyGuildEmoji(
+  Future<ValidatedResponse<Map<String, dynamic>, Emoji>> modifyGuildEmoji(
     String guildId, {
     required String emojiId,
 
@@ -103,21 +103,20 @@ class EmojisApi {
     List<String>? roles,
     String? reason,
   }) {
-    return validateApiCall(
-      _dio.patch(
-        '$_basePath/$guildId/emojis/$emojiId',
-        data: {
-          if (name != null) 'name': name,
-          if (roles != null) 'roles': roles,
-        },
-        options: Options(
-          headers: {
-            if (reason != null) DiscordHeader.auditLogReason: reason,
+    return _dio
+        .patch<Map<String, dynamic>>(
+          '$_basePath/$guildId/emojis/$emojiId',
+          data: {
+            if (name != null) 'name': name,
+            if (roles != null) 'roles': roles,
           },
-        ),
-      ),
-      responseTransformer: (data) => Emoji.fromJson(data),
-    );
+          options: Options(
+            headers: {
+              if (reason != null) DiscordHeader.auditLogReason: reason,
+            },
+          ),
+        )
+        .validate(transform: (data) => Emoji.fromJson(data));
   }
 
   /// Delete the given emoji. Requires the MANAGE_EMOJIS_AND_STICKERS

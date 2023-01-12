@@ -103,7 +103,7 @@ Map<String, dynamic> _$MessageToJson(Message instance) {
   writeNotNull('nonce', instance.nonce);
   val['pinned'] = instance.pinned;
   writeNotNull('webhook_id', instance.webhookId);
-  val['type'] = _$MessageTypeEnumMap[instance.type];
+  val['type'] = _$MessageTypeEnumMap[instance.type]!;
   writeNotNull('activity', instance.activity);
   writeNotNull('application', instance.application);
   writeNotNull('application_id', instance.applicationId);

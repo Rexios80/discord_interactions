@@ -14,7 +14,7 @@ MessageActivity _$MessageActivityFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$MessageActivityToJson(MessageActivity instance) {
   final val = <String, dynamic>{
-    'type': _$MessageActivityTypeEnumMap[instance.type],
+    'type': _$MessageActivityTypeEnumMap[instance.type]!,
   };
 
   void writeNotNull(String key, dynamic value) {

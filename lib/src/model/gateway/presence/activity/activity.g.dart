@@ -38,7 +38,7 @@ Activity _$ActivityFromJson(Map<String, dynamic> json) => Activity(
 Map<String, dynamic> _$ActivityToJson(Activity instance) {
   final val = <String, dynamic>{
     'name': instance.name,
-    'type': _$ActivityTypeEnumMap[instance.type],
+    'type': _$ActivityTypeEnumMap[instance.type]!,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -48,8 +48,7 @@ Map<String, dynamic> _$ActivityToJson(Activity instance) {
   }
 
   writeNotNull('url', instance.url);
-  writeNotNull(
-      'created_at', const UnixTimeConverter().toJson(instance.createdAt));
+  val['created_at'] = const UnixTimeConverter().toJson(instance.createdAt);
   writeNotNull('timestamps', instance.timestamps);
   writeNotNull('application_id', instance.applicationId);
   writeNotNull('details', instance.details);

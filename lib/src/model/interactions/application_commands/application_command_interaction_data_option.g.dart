@@ -25,7 +25,7 @@ Map<String, dynamic> _$ApplicationCommandInteractionDataOptionToJson(
     ApplicationCommandInteractionDataOption instance) {
   final val = <String, dynamic>{
     'name': instance.name,
-    'type': _$ApplicationCommandOptionTypeEnumMap[instance.type],
+    'type': _$ApplicationCommandOptionTypeEnumMap[instance.type]!,
   };
 
   void writeNotNull(String key, dynamic value) {

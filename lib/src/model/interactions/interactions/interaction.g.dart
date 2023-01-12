@@ -32,7 +32,7 @@ Map<String, dynamic> _$InteractionToJson(Interaction instance) {
   final val = <String, dynamic>{
     'id': instance.id,
     'application_id': instance.applicationId,
-    'type': _$InteractionTypeEnumMap[instance.type],
+    'type': _$InteractionTypeEnumMap[instance.type]!,
   };
 
   void writeNotNull(String key, dynamic value) {

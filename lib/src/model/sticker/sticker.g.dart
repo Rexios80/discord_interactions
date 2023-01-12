@@ -38,7 +38,7 @@ Map<String, dynamic> _$StickerToJson(Sticker instance) {
   writeNotNull('description', instance.description);
   writeNotNull('tags', instance.tags);
   writeNotNull('type', _$StickerTypeEnumMap[instance.type]);
-  val['format_type'] = _$StickerFormatTypeEnumMap[instance.formatType];
+  val['format_type'] = _$StickerFormatTypeEnumMap[instance.formatType]!;
   writeNotNull('available', instance.available);
   writeNotNull('guild_id', instance.guildId);
   writeNotNull('user', instance.user);

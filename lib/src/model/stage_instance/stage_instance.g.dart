@@ -22,7 +22,7 @@ Map<String, dynamic> _$StageInstanceToJson(StageInstance instance) =>
       'guild_id': instance.guildId,
       'channel_id': instance.channelId,
       'topic': instance.topic,
-      'privacy_level': _$PrivacyLevelEnumMap[instance.privacyLevel],
+      'privacy_level': _$PrivacyLevelEnumMap[instance.privacyLevel]!,
       'discovery_disabled': instance.discoveryDisabled,
     };
 
