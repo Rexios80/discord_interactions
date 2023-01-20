@@ -18,25 +18,25 @@ part 'allowed_mentions.g.dart';
 @JsonSerializable(includeIfNull: false)
 class AllowedMentions {
   /// An array of allowed mention types to parse from the content.
-  final List<AllowedMentionType> parse;
+  final List<AllowedMentionType>? parse;
 
   /// Array of role_ids to mention (Max size of 100)
-  final List<String> roles;
+  final List<String>? roles;
 
   /// Array of user_ids to mention (Max size of 100)
-  final List<String> users;
+  final List<String>? users;
 
   /// For replies, whether to mention the author of the message being replied
   /// to (default false)
   @JsonKey(name: 'replied_user')
-  final bool repliedUser;
+  final bool? repliedUser;
 
   /// Constructor
   AllowedMentions({
-    required this.parse,
-    required this.roles,
-    required this.users,
-    required this.repliedUser,
+    this.parse,
+    this.roles,
+    this.users,
+    this.repliedUser,
   });
 
   /// From json
