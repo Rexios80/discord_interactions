@@ -29,8 +29,10 @@ class GuildScheduledEventsApi {
         if (withUserCount != null) 'with_user_count': withUserCount,
       },
     ).validate(
-      transform: (data) =>
-          (data as List).map((e) => GuildScheduledEvent.fromJson(e)).toList(),
+      transform: (data) => (data as List)
+          .cast<Map<String, dynamic>>()
+          .map(GuildScheduledEvent.fromJson)
+          .toList(),
     );
   }
 
@@ -228,7 +230,8 @@ class GuildScheduledEventsApi {
       },
     ).validate(
       transform: (data) => (data as List)
-          .map((e) => GuildScheduledEventUser.fromJson(e))
+          .cast<Map<String, dynamic>>()
+          .map(GuildScheduledEventUser.fromJson)
           .toList(),
     );
   }

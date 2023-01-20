@@ -26,7 +26,8 @@ class ApplicationCommandsApi {
       getGlobalApplicationCommands() {
     return _dio.get<Map<String, dynamic>>('$_basePath/commands').validate(
           transform: (data) => (data as List)
-              .map((e) => ApplicationCommand.fromJson(e))
+              .cast<Map<String, dynamic>>()
+              .map(ApplicationCommand.fromJson)
               .toList(),
         );
   }
@@ -141,7 +142,8 @@ class ApplicationCommandsApi {
         .put<Map<String, dynamic>>('$_basePath/commands', data: commands)
         .validate(
           transform: (data) => (data as List)
-              .map((e) => ApplicationCommand.fromJson(e))
+              .cast<Map<String, dynamic>>()
+              .map(ApplicationCommand.fromJson)
               .toList(),
         );
   }
@@ -158,7 +160,8 @@ class ApplicationCommandsApi {
         .get<Map<String, dynamic>>('$_basePath/guilds/$guildId/commands')
         .validate(
           transform: (data) => (data as List)
-              .map((e) => ApplicationCommand.fromJson(e))
+              .cast<Map<String, dynamic>>()
+              .map(ApplicationCommand.fromJson)
               .toList(),
         );
   }
@@ -284,7 +287,8 @@ class ApplicationCommandsApi {
         )
         .validate(
           transform: (data) => (data as List)
-              .map((e) => ApplicationCommand.fromJson(e))
+              .cast<Map<String, dynamic>>()
+              .map(ApplicationCommand.fromJson)
               .toList(),
         );
   }
@@ -303,7 +307,8 @@ class ApplicationCommandsApi {
         )
         .validate(
           transform: (data) => (data as List)
-              .map((e) => GuildApplicationCommandPermissions.fromJson(e))
+              .cast<Map<String, dynamic>>()
+              .map(GuildApplicationCommandPermissions.fromJson)
               .toList(),
         );
   }
@@ -323,8 +328,7 @@ class ApplicationCommandsApi {
           '$_basePath/guilds/$guildId/commands/$commandId/permissions',
         )
         .validate(
-          transform: (data) =>
-              GuildApplicationCommandPermissions.fromJson(data),
+          transform: GuildApplicationCommandPermissions.fromJson,
         );
   }
 
@@ -376,7 +380,8 @@ class ApplicationCommandsApi {
         )
         .validate(
           transform: (data) => (data as List)
-              .map((e) => GuildApplicationCommandPermissions.fromJson(e))
+              .cast<Map<String, dynamic>>()
+              .map(GuildApplicationCommandPermissions.fromJson)
               .toList(),
         );
   }

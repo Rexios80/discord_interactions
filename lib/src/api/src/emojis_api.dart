@@ -24,8 +24,10 @@ class EmojisApi {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$guildId/emojis')
         .validate(
-          transform: (data) =>
-              (data as List).map((e) => Emoji.fromJson(e)).toList(),
+          transform: (data) => (data as List)
+              .cast<Map<String, dynamic>>()
+              .map(Emoji.fromJson)
+              .toList(),
         );
   }
 

@@ -33,7 +33,8 @@ class StickersApi {
       getNitroStickerPacks() {
     return _dio.get<Map<String, dynamic>>('/sticker-packs').validate(
           transform: (data) => (data['sticker_packs'] as List)
-              .map((e) => StickerPack.fromJson(e))
+              .cast<Map<String, dynamic>>()
+              .map(StickerPack.fromJson)
               .toList(),
         );
   }
@@ -49,8 +50,10 @@ class StickersApi {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$guildId/stickers')
         .validate(
-          transform: (data) =>
-              (data as List).map((e) => Sticker.fromJson(e)).toList(),
+          transform: (data) => (data as List)
+              .cast<Map<String, dynamic>>()
+              .map(Sticker.fromJson)
+              .toList(),
         );
   }
 

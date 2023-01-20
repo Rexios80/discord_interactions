@@ -20,7 +20,7 @@ class ActivityButtonListConverter
   }
 
   @override
-  toJson(List<ActivityButton>? object) {
+  List<Map<String, dynamic>>? toJson(List<ActivityButton>? object) {
     if (object == null) return null;
     return object.map((e) => e.toJson()).toList();
   }

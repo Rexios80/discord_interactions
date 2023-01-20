@@ -277,8 +277,10 @@ class GuildsApi {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$guildId/channels')
         .validate(
-          transform: (data) =>
-              (data as List).map((e) => Channel.fromJson(e)).toList(),
+          transform: (data) => (data as List)
+              .cast<Map<String, dynamic>>()
+              .map(Channel.fromJson)
+              .toList(),
         );
   }
 
@@ -414,8 +416,10 @@ class GuildsApi {
         if (after != null) 'after': after,
       },
     ).validate(
-      transform: (data) =>
-          (data as List).map((e) => GuildMember.fromJson(e)).toList(),
+      transform: (data) => (data as List)
+          .cast<Map<String, dynamic>>()
+          .map(GuildMember.fromJson)
+          .toList(),
     );
   }
 
@@ -444,8 +448,10 @@ class GuildsApi {
         if (limit != null) 'limit': limit,
       },
     ).validate(
-      transform: (data) =>
-          (data as List).map((e) => GuildMember.fromJson(e)).toList(),
+      transform: (data) => (data as List)
+          .cast<Map<String, dynamic>>()
+          .map(GuildMember.fromJson)
+          .toList(),
     );
   }
 
@@ -688,8 +694,10 @@ class GuildsApi {
     String guildId,
   ) {
     return _dio.get<Map<String, dynamic>>('$_basePath/$guildId/bans').validate(
-          transform: (data) =>
-              (data as List).map((ban) => Ban.fromJson(ban)).toList(),
+          transform: (data) => (data as List)
+              .cast<Map<String, dynamic>>()
+              .map(Ban.fromJson)
+              .toList(),
         );
   }
 
@@ -769,8 +777,10 @@ class GuildsApi {
     String guildId,
   ) {
     return _dio.get<Map<String, dynamic>>('$_basePath/$guildId/roles').validate(
-          transform: (data) =>
-              (data as List).map((role) => Role.fromJson(role)).toList(),
+          transform: (data) => (data as List)
+              .cast<Map<String, dynamic>>()
+              .map(Role.fromJson)
+              .toList(),
         );
   }
 
@@ -871,8 +881,10 @@ class GuildsApi {
           ),
         )
         .validate(
-          transform: (data) =>
-              (data as List).map((role) => Role.fromJson(role)).toList(),
+          transform: (data) => (data as List)
+              .cast<Map<String, dynamic>>()
+              .map(Role.fromJson)
+              .toList(),
         );
   }
 
@@ -1052,7 +1064,8 @@ class GuildsApi {
         .get<Map<String, dynamic>>('$_basePath/$guildId/regions')
         .validate(
           transform: (data) => (data as List)
-              .map((region) => VoiceRegion.fromJson(region))
+              .cast<Map<String, dynamic>>()
+              .map(VoiceRegion.fromJson)
               .toList(),
         );
   }
@@ -1067,8 +1080,10 @@ class GuildsApi {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$guildId/invites')
         .validate(
-          transform: (data) =>
-              (data as List).map((invite) => Invite.fromJson(invite)).toList(),
+          transform: (data) => (data as List)
+              .cast<Map<String, dynamic>>()
+              .map(Invite.fromJson)
+              .toList(),
         );
   }
 
@@ -1084,7 +1099,8 @@ class GuildsApi {
         .get<Map<String, dynamic>>('$_basePath/$guildId/integrations')
         .validate(
           transform: (data) => (data as List)
-              .map((integration) => Integration.fromJson(integration))
+              .cast<Map<String, dynamic>>()
+              .map(Integration.fromJson)
               .toList(),
         );
   }

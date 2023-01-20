@@ -52,8 +52,10 @@ class WebhooksApi {
     return _dio
         .get<Map<String, dynamic>>('/channels/$channelId/webhooks')
         .validate(
-          transform: (data) =>
-              (data as List).map((e) => Webhook.fromJson(e)).toList(),
+          transform: (data) => (data as List)
+              .cast<Map<String, dynamic>>()
+              .map(Webhook.fromJson)
+              .toList(),
         );
   }
 
@@ -64,8 +66,10 @@ class WebhooksApi {
   Future<ValidatedResponse<Map<String, dynamic>, List<Webhook>>>
       getGuildWebhooks(String guildId) {
     return _dio.get<Map<String, dynamic>>('/guilds/$guildId/webhooks').validate(
-          transform: (data) =>
-              (data as List).map((e) => Webhook.fromJson(e)).toList(),
+          transform: (data) => (data as List)
+              .cast<Map<String, dynamic>>()
+              .map(Webhook.fromJson)
+              .toList(),
         );
   }
 

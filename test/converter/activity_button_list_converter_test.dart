@@ -16,7 +16,7 @@ void main() {
     expect(buttons[0].label, buttonLabels[0]);
     expect(buttons[1].label, buttonLabels[1]);
 
-    final json = converter.toJson(buttons);
+    final json = converter.toJson(buttons)!;
     expect(json[0]['label'], buttonLabels[0]);
     expect(json[1]['label'], buttonLabels[1]);
   });
