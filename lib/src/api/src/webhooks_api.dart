@@ -176,7 +176,8 @@ class WebhooksApi {
   /// any [height], [width], or [proxyUrl] values for images.
   ///
   /// https://discord.com/developers/docs/resources/webhook#execute-webhook
-  Future<ValidatedResponse<Map<String, dynamic>?, Message?>> executeWebhook(
+  // Can return an empty string or a Message object
+  Future<ValidatedResponse<dynamic, Message?>> executeWebhook(
     String webhookId, {
     required String token,
 
@@ -243,29 +244,32 @@ class WebhooksApi {
     List<MultipartFile>? files,
   }) {
     return _dio
-        .post<Map<String, dynamic>?>(
-          '$_basePath/$webhookId/$token',
-          queryParameters: {
-            if (wait != null) 'wait': wait,
-            if (threadId != null) 'thread_id': threadId,
-          },
-          data: createFormData(
-            {
-              if (content != null) 'content': content,
-              if (username != null) 'username': username,
-              if (avatarUrl != null) 'avatar_url': avatarUrl,
-              if (tts != null) 'tts': tts,
-              if (embeds != null) 'embeds': embeds,
-              if (allowedMentions != null) 'allowed_mentions': allowedMentions,
-              if (components != null) 'components': components,
-              if (attachments != null) 'attachments': attachments,
-            },
-            files,
-          ),
-        )
+        .post(
+      '$_basePath/$webhookId/$token',
+      queryParameters: {
+        if (wait != null) 'wait': wait,
+        if (threadId != null) 'thread_id': threadId,
+      },
+      data: createFormData(
+        {
+          if (content != null) 'content': content,
+          if (username != null) 'username': username,
+          if (avatarUrl != null) 'avatar_url': avatarUrl,
+          if (tts != null) 'tts': tts,
+          if (embeds != null) 'embeds': embeds,
+          if (allowedMentions != null) 'allowed_mentions': allowedMentions,
+          if (components != null) 'components': components,
+          if (attachments != null) 'attachments': attachments,
+        },
+        files,
+      ),
+    )
         .validate(
-          transform: (data) => data != null ? Message.fromJson(data) : null,
-        );
+      transform: (data) {
+        if (data == null || data is String) return null;
+        return Message.fromJson(data);
+      },
+    );
   }
 
   /// Refer to Slack's documentation for more information. We do not support
