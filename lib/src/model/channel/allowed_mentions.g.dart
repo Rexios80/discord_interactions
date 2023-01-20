@@ -10,22 +10,32 @@ part of 'allowed_mentions.dart';
 
 AllowedMentions _$AllowedMentionsFromJson(Map<String, dynamic> json) =>
     AllowedMentions(
-      parse: (json['parse'] as List<dynamic>)
-          .map((e) => $enumDecode(_$AllowedMentionTypeEnumMap, e))
+      parse: (json['parse'] as List<dynamic>?)
+          ?.map((e) => $enumDecode(_$AllowedMentionTypeEnumMap, e))
           .toList(),
-      roles: (json['roles'] as List<dynamic>).map((e) => e as String).toList(),
-      users: (json['users'] as List<dynamic>).map((e) => e as String).toList(),
-      repliedUser: json['replied_user'] as bool,
+      roles:
+          (json['roles'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      users:
+          (json['users'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      repliedUser: json['replied_user'] as bool?,
     );
 
-Map<String, dynamic> _$AllowedMentionsToJson(AllowedMentions instance) =>
-    <String, dynamic>{
-      'parse':
-          instance.parse.map((e) => _$AllowedMentionTypeEnumMap[e]!).toList(),
-      'roles': instance.roles,
-      'users': instance.users,
-      'replied_user': instance.repliedUser,
-    };
+Map<String, dynamic> _$AllowedMentionsToJson(AllowedMentions instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('parse',
+      instance.parse?.map((e) => _$AllowedMentionTypeEnumMap[e]!).toList());
+  writeNotNull('roles', instance.roles);
+  writeNotNull('users', instance.users);
+  writeNotNull('replied_user', instance.repliedUser);
+  return val;
+}
 
 const _$AllowedMentionTypeEnumMap = {
   AllowedMentionType.roles: 'roles',
