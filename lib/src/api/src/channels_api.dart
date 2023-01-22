@@ -307,8 +307,10 @@ class ChannelsApi {
         if (limit != null) 'limit': limit,
       },
     ).validate(
-      transform: (data) =>
-          (data as List).map((message) => Message.fromJson(message)).toList(),
+      transform: (data) => (data as List)
+          .cast<Map<String, dynamic>>()
+          .map(Message.fromJson)
+          .toList(),
     );
   }
 
@@ -549,8 +551,10 @@ class ChannelsApi {
           queryParameters: query,
         )
         .validate(
-          transform: (data) =>
-              (data as List).map((user) => User.fromJson(user)).toList(),
+          transform: (data) => (data as List)
+              .cast<Map<String, dynamic>>()
+              .map(User.fromJson)
+              .toList(),
         );
   }
 
@@ -766,8 +770,10 @@ class ChannelsApi {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$channelId/invites')
         .validate(
-          transform: (data) =>
-              (data as List).map((invite) => Invite.fromJson(invite)).toList(),
+          transform: (data) => (data as List)
+              .cast<Map<String, dynamic>>()
+              .map(Invite.fromJson)
+              .toList(),
         );
   }
 
@@ -910,7 +916,8 @@ class ChannelsApi {
         .get<Map<String, dynamic>>('$_basePath/$channelId/pins')
         .validate(
           transform: (data) => (data as List)
-              .map((message) => Message.fromJson(message))
+              .cast<Map<String, dynamic>>()
+              .map(Message.fromJson)
               .toList(),
         );
   }
@@ -1189,7 +1196,8 @@ class ChannelsApi {
         .get<Map<String, dynamic>>('$_basePath/$channelId/thread-members')
         .validate(
           transform: (data) => (data as List)
-              .map<ThreadMember>((e) => ThreadMember.fromJson(e))
+              .cast<Map<String, dynamic>>()
+              .map(ThreadMember.fromJson)
               .toList(),
         );
   }

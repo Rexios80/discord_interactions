@@ -63,8 +63,10 @@ class GuildTemplatesApi {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$guildId/templates')
         .validate(
-          transform: (data) =>
-              (data as List).map((e) => GuildTemplate.fromJson(e)).toList(),
+          transform: (data) => (data as List)
+              .cast<Map<String, dynamic>>()
+              .map(GuildTemplate.fromJson)
+              .toList(),
         );
   }
 

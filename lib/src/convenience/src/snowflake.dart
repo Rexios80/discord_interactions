@@ -13,7 +13,7 @@ class Snowflake {
 
   /// Read a snowflake's timstamp
   static DateTime getTimestamp(String snowflake) {
-    final int snowflakeInt = int.parse(snowflake);
+    final snowflakeInt = int.parse(snowflake);
     final timestamp = (snowflakeInt >> 22) + discordEpoch;
     return DateTime.fromMillisecondsSinceEpoch(timestamp);
   }

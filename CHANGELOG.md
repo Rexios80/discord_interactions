@@ -1,3 +1,10 @@
+## 0.0.16
+- Makes `AllowedMentions` fields nullable
+
+## 0.0.15
+- Fixes issue parsing `executeWebhook` return data
+- Updates lints
+
 ## 0.0.14
 - Replaces `DiscordResponse` with `ValidatedResponse` from `dio_response_validator`
 

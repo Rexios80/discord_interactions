@@ -44,7 +44,7 @@ class AuditLogChange {
     );
   }
 
-  static _parseValue(AuditLogChangeKey key, dynamic value) {
+  static dynamic _parseValue(AuditLogChangeKey key, dynamic value) {
     if (value == null) return null;
 
     switch (key) {
@@ -57,7 +57,8 @@ class AuditLogChange {
         return StickerFormatTypeExtension.fromValue(value);
       case AuditLogChangeKey.permissionOverwrites:
         return (value as List)
-            .map((e) => PermissionOverwrite.fromJson(e))
+            .cast<Map<String, dynamic>>()
+            .map(PermissionOverwrite.fromJson)
             .toList();
       case AuditLogChangeKey.permissions:
         return PermissionConverter().fromJson(value);
@@ -69,7 +70,7 @@ class AuditLogChange {
         return VerificationLevelExtension.fromValue(value);
       case AuditLogChangeKey.add:
       case AuditLogChangeKey.remove:
-        return (value as List).map((e) => Role.fromJson(e));
+        return (value as List).cast<Map<String, dynamic>>().map(Role.fromJson);
       default:
         return value;
     }

@@ -22,8 +22,10 @@ class VoiceApi {
   Future<ValidatedResponse<Map<String, dynamic>, List<VoiceRegion>>>
       listVoiceRegions() {
     return _dio.get<Map<String, dynamic>>('$_basePath/regions').validate(
-          transform: (data) =>
-              (data as List).map((e) => VoiceRegion.fromJson(e)).toList(),
+          transform: (data) => (data as List)
+              .cast<Map<String, dynamic>>()
+              .map(VoiceRegion.fromJson)
+              .toList(),
         );
   }
 }

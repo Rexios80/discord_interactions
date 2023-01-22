@@ -88,8 +88,10 @@ class UsersApi {
         if (limit != null) 'limit': limit,
       },
     ).validate(
-      transform: (data) =>
-          (data as List).map((guild) => Guild.fromJson(guild)).toList(),
+      transform: (data) => (data as List)
+          .cast<Map<String, dynamic>>()
+          .map(Guild.fromJson)
+          .toList(),
     );
   }
 
