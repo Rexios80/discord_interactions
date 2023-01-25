@@ -111,7 +111,6 @@ class GuildsApi {
   /// https://discord.com/developers/docs/resources/guild#get-guild
   Future<ValidatedResponse<Map<String, dynamic>, Guild>> getGuild(
     String guildId, {
-
     /// when true, will return approximate member and presence counts for the
     /// guild
     bool? withCounts,
@@ -147,7 +146,6 @@ class GuildsApi {
   /// https://discord.com/developers/docs/resources/guild#modify-guild
   Future<ValidatedResponse<Map<String, dynamic>, Guild>> modifyGuild(
     String guildId, {
-
     /// guild name
     String? name,
 
@@ -398,7 +396,6 @@ class GuildsApi {
   Future<ValidatedResponse<Map<String, dynamic>, List<GuildMember>>>
       listGuildMembers(
     String guildId, {
-
     /// max number of members to return (1-1000)
     ///
     /// default: 1
@@ -432,7 +429,6 @@ class GuildsApi {
   Future<ValidatedResponse<Map<String, dynamic>, List<GuildMember>>>
       searchGuildMembers(
     String guildId, {
-
     /// Query string to match username(s) and nickname(s) against.
     required String query,
 
@@ -793,7 +789,6 @@ class GuildsApi {
   /// https://discord.com/developers/docs/resources/guild#create-guild-role
   Future<ValidatedResponse<Map<String, dynamic>, Role>> createGuildRole(
     String guildId, {
-
     /// name of the role
     ///
     /// default: "new role"
@@ -980,7 +975,6 @@ class GuildsApi {
   /// https://discord.com/developers/docs/resources/guild#get-guild-prune-count
   Future<ValidatedResponse<Map<String, dynamic>, int>> getGuildPruneCount(
     String guildId, {
-
     /// number of days to count prune for (1-30)
     ///
     /// default: 7
@@ -1016,7 +1010,6 @@ class GuildsApi {
   /// https://discord.com/developers/docs/resources/guild#begin-guild-prune
   Future<ValidatedResponse<Map<String, dynamic>, int?>> beginGuildPrune(
     String guildId, {
-
     /// number of days to prune (1-30)
     ///
     /// default: 7
@@ -1203,7 +1196,6 @@ class GuildsApi {
   /// https://discord.com/developers/docs/resources/guild#get-guild-widget-image
   Future<ValidatedResponse<List<int>, List<int>>> getGuildWidgetImage(
     String guildId, {
-
     /// style of the widget image returned
     ///
     /// default: [GuildWidgetStyle.shield]
@@ -1245,7 +1237,6 @@ class GuildsApi {
   Future<ValidatedResponse<Map<String, dynamic>, WelcomeScreen>>
       modifyGuildWelcomeScreen(
     String guildId, {
-
     /// whether the welcome screen is enabled
     bool? enabled,
 
@@ -1295,7 +1286,6 @@ class GuildsApi {
   /// https://discord.com/developers/docs/resources/guild#modify-current-user-voice-state
   Future<ValidatedResponse<void, void>> modifyCurrentUserVoiceState(
     String guildId, {
-
     /// the id of the channel the user is currently in
     required String channelId,
 

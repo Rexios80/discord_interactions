@@ -19,7 +19,6 @@ class GuildScheduledEventsApi {
   Future<ValidatedResponse<Map<String, dynamic>, List<GuildScheduledEvent>>>
       listScheduledEventsForGuild(
     String guildId, {
-
     /// include number of users subscribed to each event
     bool? withUserCount,
   }) {
@@ -46,7 +45,6 @@ class GuildScheduledEventsApi {
   Future<ValidatedResponse<Map<String, dynamic>, GuildScheduledEvent>>
       createGuildScheduledEvent(
     String guildId, {
-
     /// the channel id of the scheduled event.
     ///
     /// Optional for events with 'entity_type': EXTERNAL

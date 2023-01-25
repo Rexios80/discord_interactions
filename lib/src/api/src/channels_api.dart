@@ -35,7 +35,6 @@ class ChannelsApi {
   /// https://discord.com/developers/docs/resources/channel#modify-channel
   Future<ValidatedResponse<Map<String, dynamic>, Channel>> modifyGroupDm(
     String channelId, {
-
     /// 1-100 character channel name
     required String? name,
 
@@ -66,7 +65,6 @@ class ChannelsApi {
   /// https://discord.com/developers/docs/resources/channel#modify-channel
   Future<ValidatedResponse<Map<String, dynamic>, Channel>> modifyChannel(
     String channelId, {
-
     /// 1-100 character channel name
     ///
     /// Channel type: All
@@ -186,7 +184,6 @@ class ChannelsApi {
   /// https://discord.com/developers/docs/resources/channel#modify-channel
   Future<ValidatedResponse<Map<String, dynamic>, Channel>> modifyThread(
     String channelId, {
-
     /// 1-100 character channel name
     String? name,
 
@@ -283,7 +280,6 @@ class ChannelsApi {
   Future<ValidatedResponse<Map<String, dynamic>, List<Message>>>
       getChannelMessages(
     String channelId, {
-
     /// get messages around this message ID
     String? around,
 
@@ -370,7 +366,6 @@ class ChannelsApi {
   /// https://discord.com/developers/docs/resources/channel#create-message
   Future<ValidatedResponse<Map<String, dynamic>, Message>> createMessage(
     String channelId, {
-
     /// the message contents (up to 2000 characters)
     ///
     /// Required: one of [content], [files], [embeds], [sticker_ids]
@@ -711,7 +706,6 @@ class ChannelsApi {
   /// https://discord.com/developers/docs/resources/channel#bulk-delete-messages
   Future<ValidatedResponse<void, void>> bulkDeleteMessages(
     String channelId, {
-
     /// an array of message ids to delete (2-100)
     required List<String> messageIds,
     String? reason,
@@ -789,7 +783,6 @@ class ChannelsApi {
   /// https://discord.com/developers/docs/resources/channel#create-channel-invite
   Future<ValidatedResponse<Map<String, dynamic>, Invite>> createChannelInvite(
     String channelId, {
-
     /// duration of invite in seconds before expiry, or 0 for never. between 0
     /// and 604800 (7 days)
     ///
@@ -879,7 +872,6 @@ class ChannelsApi {
   Future<ValidatedResponse<Map<String, dynamic>, FollowedChannel>>
       followNewsChannel(
     String channelId, {
-
     /// id of target channel
     required String webhookChannelId,
   }) async {
@@ -1067,7 +1059,6 @@ class ChannelsApi {
   Future<ValidatedResponse<Map<String, dynamic>, Channel>>
       startThreadWithoutMessage(
     String channelId, {
-
     /// 1-100 character channel name
     required String name,
 
@@ -1212,7 +1203,6 @@ class ChannelsApi {
   Future<ValidatedResponse<Map<String, dynamic>, ListThreadsResponse>>
       listPublicArchivedThreads(
     String channelId, {
-
     /// returns threads before this timestamp
     DateTime? before,
 
@@ -1237,7 +1227,6 @@ class ChannelsApi {
   Future<ValidatedResponse<Map<String, dynamic>, ListThreadsResponse>>
       listPrivateArchivedThreads(
     String channelId, {
-
     /// returns threads before this timestamp
     DateTime? before,
 
@@ -1262,7 +1251,6 @@ class ChannelsApi {
   Future<ValidatedResponse<Map<String, dynamic>, ListThreadsResponse>>
       listJoinedPrivateArchivedThreads(
     String channelId, {
-
     /// returns threads before this id
     String? before,
 

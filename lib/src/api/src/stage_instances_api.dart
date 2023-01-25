@@ -26,7 +26,6 @@ class StageInstancesApi {
       createStageInstance(
     /// The id of the Stage channel
     String channelId, {
-
     /// The topic of the Stage instance (1-120 characters)
     required String topic,
 
@@ -73,7 +72,6 @@ class StageInstancesApi {
   Future<ValidatedResponse<Map<String, dynamic>, StageInstance>>
       modifyStageInstance(
     String channelId, {
-
     /// The topic of the Stage instance (1-120 characters)
     String? topic,
 

@@ -25,7 +25,6 @@ class WebhooksApi {
   /// https://discord.com/developers/docs/resources/webhook#create-webhook
   Future<ValidatedResponse<Map<String, dynamic>, Webhook>> createWebhook(
     String channelId, {
-
     /// name of the webhook (1-80 characters)
     required String name,
 
@@ -105,7 +104,6 @@ class WebhooksApi {
   /// https://discord.com/developers/docs/resources/webhook#modify-webhook
   Future<ValidatedResponse<Map<String, dynamic>, Webhook>> modifyWebhook(
     String webhookId, {
-
     /// the default name of the webhook
     String? name,
 

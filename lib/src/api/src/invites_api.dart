@@ -20,7 +20,6 @@ class InvitesApi {
   /// https://discord.com/developers/docs/resources/invite#get-invite
   Future<ValidatedResponse<Map<String, dynamic>, Invite>> getInvite(
     String inviteCode, {
-
     /// whether the invite should contain approximate member counts
     bool? withCounts,
 

@@ -34,7 +34,6 @@ class GuildTemplatesApi {
   Future<ValidatedResponse<Map<String, dynamic>, Guild>>
       createGuildFromGuildTemplate(
     String code, {
-
     /// name of the guild (2-100 characters)
     required String name,
 
@@ -77,7 +76,6 @@ class GuildTemplatesApi {
   Future<ValidatedResponse<Map<String, dynamic>, GuildTemplate>>
       createGuildTemplate(
     String guildId, {
-
     /// name of the template (1-100 characters)
     required String name,
 

@@ -91,7 +91,6 @@ class ApplicationCommandsApi {
   Future<ValidatedResponse<Map<String, dynamic>, ApplicationCommand>>
       editGlobalApplicationCommand(
     String commandId, {
-
     /// 1-32 character name
     String? name,
 
@@ -176,7 +175,6 @@ class ApplicationCommandsApi {
   Future<ValidatedResponse<Map<String, dynamic>, ApplicationCommand>>
       createGuildApplicationCommand(
     String guildId, {
-
     /// 1-32 character name
     required String name,
 

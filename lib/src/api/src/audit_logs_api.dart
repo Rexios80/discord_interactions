@@ -21,7 +21,6 @@ class AuditLogsApi {
   /// https://discord.com/developers/docs/resources/audit-log#get-guild-audit-log
   Future<ValidatedResponse<Map<String, dynamic>, AuditLog>> getGuildAuditLog(
     String guildId, {
-
     /// filter the log for actions made by a user
     String? userId,
 

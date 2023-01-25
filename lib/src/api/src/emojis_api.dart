@@ -56,7 +56,6 @@ class EmojisApi {
   /// https://discord.com/developers/docs/resources/emoji#create-guild-emoji
   Future<ValidatedResponse<Map<String, dynamic>, Emoji>> createGuildEmoji(
     String guildId, {
-
     /// name of the emoji
     required String name,
 

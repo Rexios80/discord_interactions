@@ -82,7 +82,6 @@ class StickersApi {
   /// https://discord.com/developers/docs/resources/sticker#create-guild-sticker
   Future<ValidatedResponse<Map<String, dynamic>, Sticker>> createGuildSticker(
     String guildId, {
-
     /// name of the sticker (2-30 characters)
     required String name,
 

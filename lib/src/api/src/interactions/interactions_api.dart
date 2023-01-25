@@ -76,7 +76,6 @@ class InteractionsApi {
   Future<ValidatedResponse<Map<String, dynamic>, Message>>
       editOriginalInteractionResponse(
     String token, {
-
     /// the message contents (up to 2000 characters)
     String? content,
 
@@ -138,7 +137,6 @@ class InteractionsApi {
   Future<ValidatedResponse<Map<String, dynamic>, Message>>
       createFollowupMessage(
     String token, {
-
     /// the message contents (up to 2000 characters)
     String? content,
 

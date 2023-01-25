@@ -1,3 +1,6 @@
+## 0.0.16+1
+- Follow new formatting rules
+
 ## 0.0.16
 - Makes `AllowedMentions` fields nullable
 
