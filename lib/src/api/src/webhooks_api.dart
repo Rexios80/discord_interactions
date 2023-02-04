@@ -47,7 +47,8 @@ class WebhooksApi {
   ///
   /// https://discord.com/developers/docs/resources/webhook#get-channel-webhooks
   Future<ValidatedResponse<List, List<Webhook>>> getChannelWebhooks(
-      String channelId) {
+    String channelId,
+  ) {
     return _dio.get<List>('/channels/$channelId/webhooks').validate(
           transform: (data) =>
               data.cast<Map<String, dynamic>>().map(Webhook.fromJson).toList(),

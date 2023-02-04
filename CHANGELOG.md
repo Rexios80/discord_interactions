@@ -1,3 +1,6 @@
+## 0.0.17
+- Fixes issues with deserializing lists
+
 ## 0.0.16+1
 - Follow new formatting rules
 
