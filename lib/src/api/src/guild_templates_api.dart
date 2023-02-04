@@ -55,14 +55,11 @@ class GuildTemplatesApi {
   /// permission.
   ///
   /// https://discord.com/developers/docs/resources/guild-template#get-guild-templates
-  Future<ValidatedResponse<Map<String, dynamic>, List<GuildTemplate>>>
-      getGuildTemplates(
+  Future<ValidatedResponse<List, List<GuildTemplate>>> getGuildTemplates(
     String guildId,
   ) {
-    return _dio
-        .get<Map<String, dynamic>>('$_basePath/$guildId/templates')
-        .validate(
-          transform: (data) => (data as List)
+    return _dio.get<List>('$_basePath/$guildId/templates').validate(
+          transform: (data) => data
               .cast<Map<String, dynamic>>()
               .map(GuildTemplate.fromJson)
               .toList(),

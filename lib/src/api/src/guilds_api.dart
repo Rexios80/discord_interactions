@@ -268,17 +268,12 @@ class GuildsApi {
   /// Returns a list of guild channel objects. Does not include threads.
   ///
   /// https://discord.com/developers/docs/resources/guild#get-guild-channels
-  Future<ValidatedResponse<Map<String, dynamic>, List<Channel>>>
-      getGuildChannels(
+  Future<ValidatedResponse<List, List<Channel>>> getGuildChannels(
     String guildId,
   ) {
-    return _dio
-        .get<Map<String, dynamic>>('$_basePath/$guildId/channels')
-        .validate(
-          transform: (data) => (data as List)
-              .cast<Map<String, dynamic>>()
-              .map(Channel.fromJson)
-              .toList(),
+    return _dio.get<List>('$_basePath/$guildId/channels').validate(
+          transform: (data) =>
+              data.cast<Map<String, dynamic>>().map(Channel.fromJson).toList(),
         );
   }
 
@@ -393,8 +388,7 @@ class GuildsApi {
   /// All parameters to this endpoint are optional
   ///
   /// https://discord.com/developers/docs/resources/guild#list-guild-members
-  Future<ValidatedResponse<Map<String, dynamic>, List<GuildMember>>>
-      listGuildMembers(
+  Future<ValidatedResponse<List, List<GuildMember>>> listGuildMembers(
     String guildId, {
     /// max number of members to return (1-1000)
     ///
@@ -406,17 +400,15 @@ class GuildsApi {
     /// default: 0
     String? after,
   }) {
-    return _dio.get<Map<String, dynamic>>(
+    return _dio.get<List>(
       '$_basePath/$guildId/members',
       queryParameters: {
         if (limit != null) 'limit': limit,
         if (after != null) 'after': after,
       },
     ).validate(
-      transform: (data) => (data as List)
-          .cast<Map<String, dynamic>>()
-          .map(GuildMember.fromJson)
-          .toList(),
+      transform: (data) =>
+          data.cast<Map<String, dynamic>>().map(GuildMember.fromJson).toList(),
     );
   }
 
@@ -426,8 +418,7 @@ class GuildsApi {
   /// All parameters to this endpoint except for query are optional
   ///
   /// https://discord.com/developers/docs/resources/guild#search-guild-members
-  Future<ValidatedResponse<Map<String, dynamic>, List<GuildMember>>>
-      searchGuildMembers(
+  Future<ValidatedResponse<List, List<GuildMember>>> searchGuildMembers(
     String guildId, {
     /// Query string to match username(s) and nickname(s) against.
     required String query,
@@ -437,17 +428,15 @@ class GuildsApi {
     /// default: 1
     int? limit,
   }) {
-    return _dio.get<Map<String, dynamic>>(
+    return _dio.get<List>(
       '$_basePath/$guildId/members/search',
       queryParameters: {
         'query': query,
         if (limit != null) 'limit': limit,
       },
     ).validate(
-      transform: (data) => (data as List)
-          .cast<Map<String, dynamic>>()
-          .map(GuildMember.fromJson)
-          .toList(),
+      transform: (data) =>
+          data.cast<Map<String, dynamic>>().map(GuildMember.fromJson).toList(),
     );
   }
 
@@ -686,14 +675,12 @@ class GuildsApi {
   /// Requires the BAN_MEMBERS permission.
   ///
   /// https://discord.com/developers/docs/resources/guild#get-guild-bans
-  Future<ValidatedResponse<Map<String, dynamic>, List<Ban>>> getGuildBans(
+  Future<ValidatedResponse<List, List<Ban>>> getGuildBans(
     String guildId,
   ) {
-    return _dio.get<Map<String, dynamic>>('$_basePath/$guildId/bans').validate(
-          transform: (data) => (data as List)
-              .cast<Map<String, dynamic>>()
-              .map(Ban.fromJson)
-              .toList(),
+    return _dio.get<List>('$_basePath/$guildId/bans').validate(
+          transform: (data) =>
+              data.cast<Map<String, dynamic>>().map(Ban.fromJson).toList(),
         );
   }
 
@@ -769,14 +756,12 @@ class GuildsApi {
   /// Returns a list of [Role] objects for the guild.
   ///
   /// https://discord.com/developers/docs/resources/guild#get-guild-roles
-  Future<ValidatedResponse<Map<String, dynamic>, List<Role>>> getGuildRoles(
+  Future<ValidatedResponse<List, List<Role>>> getGuildRoles(
     String guildId,
   ) {
-    return _dio.get<Map<String, dynamic>>('$_basePath/$guildId/roles').validate(
-          transform: (data) => (data as List)
-              .cast<Map<String, dynamic>>()
-              .map(Role.fromJson)
-              .toList(),
+    return _dio.get<List>('$_basePath/$guildId/roles').validate(
+          transform: (data) =>
+              data.cast<Map<String, dynamic>>().map(Role.fromJson).toList(),
         );
   }
 
@@ -859,14 +844,13 @@ class GuildsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/guild#modify-guild-role-positions
-  Future<ValidatedResponse<Map<String, dynamic>, List<Role>>>
-      modifyGuildRolePositions(
+  Future<ValidatedResponse<List, List<Role>>> modifyGuildRolePositions(
     String guildId, {
     required List<ModifyGuildRolePositionsParams> params,
     String? reason,
   }) {
     return _dio
-        .patch<Map<String, dynamic>>(
+        .patch<List>(
           '$_basePath/$guildId/roles',
           data: params,
           options: Options(
@@ -876,10 +860,8 @@ class GuildsApi {
           ),
         )
         .validate(
-          transform: (data) => (data as List)
-              .cast<Map<String, dynamic>>()
-              .map(Role.fromJson)
-              .toList(),
+          transform: (data) =>
+              data.cast<Map<String, dynamic>>().map(Role.fromJson).toList(),
         );
   }
 
@@ -1049,14 +1031,11 @@ class GuildsApi {
   /// /voice route, this returns VIP servers when the guild is VIP-enabled.
   ///
   /// https://discord.com/developers/docs/resources/guild#get-guild-voice-regions
-  Future<ValidatedResponse<Map<String, dynamic>, List<VoiceRegion>>>
-      getGuildVoiceRegions(
+  Future<ValidatedResponse<List, List<VoiceRegion>>> getGuildVoiceRegions(
     String guildId,
   ) {
-    return _dio
-        .get<Map<String, dynamic>>('$_basePath/$guildId/regions')
-        .validate(
-          transform: (data) => (data as List)
+    return _dio.get<List>('$_basePath/$guildId/regions').validate(
+          transform: (data) => data
               .cast<Map<String, dynamic>>()
               .map(VoiceRegion.fromJson)
               .toList(),
@@ -1067,16 +1046,12 @@ class GuildsApi {
   /// Requires the MANAGE_GUILD permission.
   ///
   /// https://discord.com/developers/docs/resources/guild#get-guild-invites
-  Future<ValidatedResponse<Map<String, dynamic>, List<Invite>>> getGuildInvites(
+  Future<ValidatedResponse<List, List<Invite>>> getGuildInvites(
     String guildId,
   ) {
-    return _dio
-        .get<Map<String, dynamic>>('$_basePath/$guildId/invites')
-        .validate(
-          transform: (data) => (data as List)
-              .cast<Map<String, dynamic>>()
-              .map(Invite.fromJson)
-              .toList(),
+    return _dio.get<List>('$_basePath/$guildId/invites').validate(
+          transform: (data) =>
+              data.cast<Map<String, dynamic>>().map(Invite.fromJson).toList(),
         );
   }
 
@@ -1084,14 +1059,11 @@ class GuildsApi {
   /// MANAGE_GUILD permission.
   ///
   /// https://discord.com/developers/docs/resources/guild#get-guild-integrations
-  Future<ValidatedResponse<Map<String, dynamic>, List<Integration>>>
-      getGuildIntegrations(
+  Future<ValidatedResponse<List, List<Integration>>> getGuildIntegrations(
     String guildId,
   ) {
-    return _dio
-        .get<Map<String, dynamic>>('$_basePath/$guildId/integrations')
-        .validate(
-          transform: (data) => (data as List)
+    return _dio.get<List>('$_basePath/$guildId/integrations').validate(
+          transform: (data) => data
               .cast<Map<String, dynamic>>()
               .map(Integration.fromJson)
               .toList(),

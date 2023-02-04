@@ -43,17 +43,12 @@ class StickersApi {
   /// fields if the bot has the MANAGE_EMOJIS_AND_STICKERS permission.
   ///
   /// https://discord.com/developers/docs/resources/sticker#list-guild-stickers
-  Future<ValidatedResponse<Map<String, dynamic>, List<Sticker>>>
-      getGuildStickers(
+  Future<ValidatedResponse<List, List<Sticker>>> getGuildStickers(
     String guildId,
   ) {
-    return _dio
-        .get<Map<String, dynamic>>('$_basePath/$guildId/stickers')
-        .validate(
-          transform: (data) => (data as List)
-              .cast<Map<String, dynamic>>()
-              .map(Sticker.fromJson)
-              .toList(),
+    return _dio.get<List>('$_basePath/$guildId/stickers').validate(
+          transform: (data) =>
+              data.cast<Map<String, dynamic>>().map(Sticker.fromJson).toList(),
         );
   }
 

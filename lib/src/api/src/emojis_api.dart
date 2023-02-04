@@ -18,16 +18,12 @@ class EmojisApi {
   /// Returns a list of [Emoji] objects for the given guild.
   ///
   /// https://discord.com/developers/docs/resources/emoji#list-guild-emojis
-  Future<ValidatedResponse<Map<String, dynamic>, List<Emoji>>> listGuildEmojis(
+  Future<ValidatedResponse<List, List<Emoji>>> listGuildEmojis(
     String guildId,
   ) {
-    return _dio
-        .get<Map<String, dynamic>>('$_basePath/$guildId/emojis')
-        .validate(
-          transform: (data) => (data as List)
-              .cast<Map<String, dynamic>>()
-              .map(Emoji.fromJson)
-              .toList(),
+    return _dio.get<List>('$_basePath/$guildId/emojis').validate(
+          transform: (data) =>
+              data.cast<Map<String, dynamic>>().map(Emoji.fromJson).toList(),
         );
   }
 

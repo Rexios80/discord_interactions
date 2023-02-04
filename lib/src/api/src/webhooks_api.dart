@@ -46,15 +46,11 @@ class WebhooksApi {
   /// permission.
   ///
   /// https://discord.com/developers/docs/resources/webhook#get-channel-webhooks
-  Future<ValidatedResponse<Map<String, dynamic>, List<Webhook>>>
-      getChannelWebhooks(String channelId) {
-    return _dio
-        .get<Map<String, dynamic>>('/channels/$channelId/webhooks')
-        .validate(
-          transform: (data) => (data as List)
-              .cast<Map<String, dynamic>>()
-              .map(Webhook.fromJson)
-              .toList(),
+  Future<ValidatedResponse<List, List<Webhook>>> getChannelWebhooks(
+      String channelId) {
+    return _dio.get<List>('/channels/$channelId/webhooks').validate(
+          transform: (data) =>
+              data.cast<Map<String, dynamic>>().map(Webhook.fromJson).toList(),
         );
   }
 
@@ -62,13 +58,12 @@ class WebhooksApi {
   /// permission.
   ///
   /// https://discord.com/developers/docs/resources/webhook#get-guild-webhooks
-  Future<ValidatedResponse<Map<String, dynamic>, List<Webhook>>>
-      getGuildWebhooks(String guildId) {
-    return _dio.get<Map<String, dynamic>>('/guilds/$guildId/webhooks').validate(
-          transform: (data) => (data as List)
-              .cast<Map<String, dynamic>>()
-              .map(Webhook.fromJson)
-              .toList(),
+  Future<ValidatedResponse<List, List<Webhook>>> getGuildWebhooks(
+    String guildId,
+  ) {
+    return _dio.get<List>('/guilds/$guildId/webhooks').validate(
+          transform: (data) =>
+              data.cast<Map<String, dynamic>>().map(Webhook.fromJson).toList(),
         );
   }
 

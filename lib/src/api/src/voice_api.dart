@@ -19,10 +19,9 @@ class VoiceApi {
   /// voice or stage channel's rtc_region.
   ///
   /// https://discord.com/developers/docs/resources/voice#list-voice-regions
-  Future<ValidatedResponse<Map<String, dynamic>, List<VoiceRegion>>>
-      listVoiceRegions() {
-    return _dio.get<Map<String, dynamic>>('$_basePath/regions').validate(
-          transform: (data) => (data as List)
+  Future<ValidatedResponse<List, List<VoiceRegion>>> listVoiceRegions() {
+    return _dio.get<List>('$_basePath/regions').validate(
+          transform: (data) => data
               .cast<Map<String, dynamic>>()
               .map(VoiceRegion.fromJson)
               .toList(),

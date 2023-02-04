@@ -277,8 +277,7 @@ class ChannelsApi {
   /// be passed at a time.
   ///
   /// https://discord.com/developers/docs/resources/channel#get-channel-messages
-  Future<ValidatedResponse<Map<String, dynamic>, List<Message>>>
-      getChannelMessages(
+  Future<ValidatedResponse<List, List<Message>>> getChannelMessages(
     String channelId, {
     /// get messages around this message ID
     String? around,
@@ -294,7 +293,7 @@ class ChannelsApi {
     /// Default: 50
     int? limit,
   }) async {
-    return _dio.get<Map<String, dynamic>>(
+    return _dio.get<List>(
       '$_basePath/$channelId/messages',
       queryParameters: {
         if (around != null) 'around': around,
@@ -303,10 +302,8 @@ class ChannelsApi {
         if (limit != null) 'limit': limit,
       },
     ).validate(
-      transform: (data) => (data as List)
-          .cast<Map<String, dynamic>>()
-          .map(Message.fromJson)
-          .toList(),
+      transform: (data) =>
+          data.cast<Map<String, dynamic>>().map(Message.fromJson).toList(),
     );
   }
 
@@ -521,7 +518,7 @@ class ChannelsApi {
   /// This method handles emoji encoding for you
   ///
   /// https://discord.com/developers/docs/resources/channel#get-reactions
-  Future<ValidatedResponse<Map<String, dynamic>, List<User>>> getReactions(
+  Future<ValidatedResponse<List, List<User>>> getReactions(
     String channelId, {
     required String messageId,
     required String emojiName,
@@ -541,15 +538,13 @@ class ChannelsApi {
       if (limit != null) 'limit': limit,
     };
     return _dio
-        .get<Map<String, dynamic>>(
+        .get<List>(
           '$_basePath/$channelId/messages/$messageId/reactions/$emoji',
           queryParameters: query,
         )
         .validate(
-          transform: (data) => (data as List)
-              .cast<Map<String, dynamic>>()
-              .map(User.fromJson)
-              .toList(),
+          transform: (data) =>
+              data.cast<Map<String, dynamic>>().map(User.fromJson).toList(),
         );
   }
 
@@ -757,17 +752,12 @@ class ChannelsApi {
   /// Only usable for guild channels. Requires the MANAGE_CHANNELS permission.
   ///
   /// https://discord.com/developers/docs/resources/channel#get-channel-invites
-  Future<ValidatedResponse<Map<String, dynamic>, List<Invite>>>
-      getChannelInvites(
+  Future<ValidatedResponse<List, List<Invite>>> getChannelInvites(
     String channelId,
   ) async {
-    return _dio
-        .get<Map<String, dynamic>>('$_basePath/$channelId/invites')
-        .validate(
-          transform: (data) => (data as List)
-              .cast<Map<String, dynamic>>()
-              .map(Invite.fromJson)
-              .toList(),
+    return _dio.get<List>('$_basePath/$channelId/invites').validate(
+          transform: (data) =>
+              data.cast<Map<String, dynamic>>().map(Invite.fromJson).toList(),
         );
   }
 
@@ -900,17 +890,12 @@ class ChannelsApi {
   /// Returns all pinned messages in the channel as an array of message objects.
   ///
   /// https://discord.com/developers/docs/resources/channel#get-pinned-messages
-  Future<ValidatedResponse<Map<String, dynamic>, List<Message>>>
-      getPinnedMessages(
+  Future<ValidatedResponse<List, List<Message>>> getPinnedMessages(
     String channelId,
   ) async {
-    return _dio
-        .get<Map<String, dynamic>>('$_basePath/$channelId/pins')
-        .validate(
-          transform: (data) => (data as List)
-              .cast<Map<String, dynamic>>()
-              .map(Message.fromJson)
-              .toList(),
+    return _dio.get<List>('$_basePath/$channelId/pins').validate(
+          transform: (data) =>
+              data.cast<Map<String, dynamic>>().map(Message.fromJson).toList(),
         );
   }
 
@@ -1179,14 +1164,11 @@ class ChannelsApi {
   /// Privileged Intent is enabled for your application.
   ///
   /// https://discord.com/developers/docs/resources/channel#list-thread-members
-  Future<ValidatedResponse<Map<String, dynamic>, List<ThreadMember>>>
-      listThreadMembers(
+  Future<ValidatedResponse<List, List<ThreadMember>>> listThreadMembers(
     String channelId,
   ) async {
-    return _dio
-        .get<Map<String, dynamic>>('$_basePath/$channelId/thread-members')
-        .validate(
-          transform: (data) => (data as List)
+    return _dio.get<List>('$_basePath/$channelId/thread-members').validate(
+          transform: (data) => data
               .cast<Map<String, dynamic>>()
               .map(ThreadMember.fromJson)
               .toList(),

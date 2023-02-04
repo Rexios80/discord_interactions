@@ -13,7 +13,7 @@ class ActivityButtonListConverter
   const ActivityButtonListConverter();
 
   @override
-  List<ActivityButton>? fromJson(json) {
+  List<ActivityButton>? fromJson(dynamic json) {
     if (json == null) return null;
     json as List;
     return json.map((e) => ActivityButton(label: e)).toList();

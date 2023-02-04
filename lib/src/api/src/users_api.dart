@@ -67,8 +67,7 @@ class UsersApi {
   /// for integrations that need to get a list of the users' guilds.
   ///
   /// https://discord.com/developers/docs/resources/user#get-current-user-guilds
-  Future<ValidatedResponse<Map<String, dynamic>, List<Guild>>>
-      getCurrentUserGuilds({
+  Future<ValidatedResponse<List, List<Guild>>> getCurrentUserGuilds({
     /// get guilds before this guild ID
     String? before,
 
@@ -80,7 +79,7 @@ class UsersApi {
     /// default: 200
     int? limit,
   }) {
-    return _dio.get<Map<String, dynamic>>(
+    return _dio.get<List>(
       '$_basePath/@me/guilds',
       queryParameters: {
         if (before != null) 'before': before,
@@ -88,10 +87,8 @@ class UsersApi {
         if (limit != null) 'limit': limit,
       },
     ).validate(
-      transform: (data) => (data as List)
-          .cast<Map<String, dynamic>>()
-          .map(Guild.fromJson)
-          .toList(),
+      transform: (data) =>
+          data.cast<Map<String, dynamic>>().map(Guild.fromJson).toList(),
     );
   }
 

@@ -16,19 +16,19 @@ class GuildScheduledEventsApi {
   /// Returns a list of [GuildScheduledEvent] objects for the given guild.
   ///
   /// https://discord.com/developers/docs/resources/guild-scheduled-event#list-scheduled-events-for-guild
-  Future<ValidatedResponse<Map<String, dynamic>, List<GuildScheduledEvent>>>
+  Future<ValidatedResponse<List, List<GuildScheduledEvent>>>
       listScheduledEventsForGuild(
     String guildId, {
     /// include number of users subscribed to each event
     bool? withUserCount,
   }) {
-    return _dio.get<Map<String, dynamic>>(
+    return _dio.get<List>(
       '$_basePath/$guildId/scheduled-events',
       queryParameters: {
         if (withUserCount != null) 'with_user_count': withUserCount,
       },
     ).validate(
-      transform: (data) => (data as List)
+      transform: (data) => data
           .cast<Map<String, dynamic>>()
           .map(GuildScheduledEvent.fromJson)
           .toList(),
@@ -193,7 +193,7 @@ class GuildScheduledEventsApi {
   /// in-between [before] and [after] is not supported.
   ///
   /// https://discord.com/developers/docs/resources/guild-scheduled-event#get-guild-scheduled-event-users
-  Future<ValidatedResponse<Map<String, dynamic>, List<GuildScheduledEventUser>>>
+  Future<ValidatedResponse<List, List<GuildScheduledEventUser>>>
       getGuildScheduledEventUsers(
     String guildId, {
     required String scheduledEventId,
@@ -218,7 +218,7 @@ class GuildScheduledEventsApi {
     /// Default: null
     String? after,
   }) {
-    return _dio.get<Map<String, dynamic>>(
+    return _dio.get<List>(
       '$_basePath/$guildId/scheduled-events/$scheduledEventId/users',
       queryParameters: {
         if (limit != null) 'limit': limit,
@@ -227,7 +227,7 @@ class GuildScheduledEventsApi {
         if (after != null) 'after': after,
       },
     ).validate(
-      transform: (data) => (data as List)
+      transform: (data) => data
           .cast<Map<String, dynamic>>()
           .map(GuildScheduledEventUser.fromJson)
           .toList(),

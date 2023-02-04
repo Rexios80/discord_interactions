@@ -22,10 +22,10 @@ class ApplicationCommandsApi {
   /// of [ApplicationCommand] objects.
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#get-global-application-commands
-  Future<ValidatedResponse<Map<String, dynamic>, List<ApplicationCommand>>>
+  Future<ValidatedResponse<List, List<ApplicationCommand>>>
       getGlobalApplicationCommands() {
-    return _dio.get<Map<String, dynamic>>('$_basePath/commands').validate(
-          transform: (data) => (data as List)
+    return _dio.get<List>('$_basePath/commands').validate(
+          transform: (data) => data
               .cast<Map<String, dynamic>>()
               .map(ApplicationCommand.fromJson)
               .toList(),
@@ -133,14 +133,12 @@ class ApplicationCommandsApi {
   /// This will overwrite all types of application commands: slash commands, user commands, and message commands.
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#bulk-overwrite-global-application-commands
-  Future<ValidatedResponse<Map<String, dynamic>, List<ApplicationCommand>>>
+  Future<ValidatedResponse<List, List<ApplicationCommand>>>
       bulkOverwriteGlobalApplicationCommands(
     List<ApplicationCommand> commands,
   ) {
-    return _dio
-        .put<Map<String, dynamic>>('$_basePath/commands', data: commands)
-        .validate(
-          transform: (data) => (data as List)
+    return _dio.put<List>('$_basePath/commands', data: commands).validate(
+          transform: (data) => data
               .cast<Map<String, dynamic>>()
               .map(ApplicationCommand.fromJson)
               .toList(),
@@ -151,14 +149,12 @@ class ApplicationCommandsApi {
   /// Returns an array of [ApplicationCommand] objects.
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#get-guild-application-commands
-  Future<ValidatedResponse<Map<String, dynamic>, List<ApplicationCommand>>>
+  Future<ValidatedResponse<List, List<ApplicationCommand>>>
       getGuildApplicationCommands(
     String guildId,
   ) {
-    return _dio
-        .get<Map<String, dynamic>>('$_basePath/guilds/$guildId/commands')
-        .validate(
-          transform: (data) => (data as List)
+    return _dio.get<List>('$_basePath/guilds/$guildId/commands').validate(
+          transform: (data) => data
               .cast<Map<String, dynamic>>()
               .map(ApplicationCommand.fromJson)
               .toList(),
@@ -273,18 +269,18 @@ class ApplicationCommandsApi {
   /// This will overwrite all types of application commands: slash commands, user commands, and message commands.
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#bulk-overwrite-guild-application-commands
-  Future<ValidatedResponse<Map<String, dynamic>, List<ApplicationCommand>>>
+  Future<ValidatedResponse<List, List<ApplicationCommand>>>
       bulkOverwriteGuildApplicationCommands(
     String guildId, {
     required List<ApplicationCommand> commands,
   }) {
     return _dio
-        .put<Map<String, dynamic>>(
+        .put<List>(
           '$_basePath/guilds/$guildId/commands',
           data: commands,
         )
         .validate(
-          transform: (data) => (data as List)
+          transform: (data) => data
               .cast<Map<String, dynamic>>()
               .map(ApplicationCommand.fromJson)
               .toList(),
@@ -295,16 +291,14 @@ class ApplicationCommandsApi {
   /// Returns an array of [GuildApplicationCommandPermissions] objects.
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#get-guild-application-command-permissions
-  Future<
-          ValidatedResponse<Map<String, dynamic>,
-              List<GuildApplicationCommandPermissions>>>
+  Future<ValidatedResponse<List, List<GuildApplicationCommandPermissions>>>
       getGuildApplicationCommandPermissions(String guildId) {
     return _dio
-        .get<Map<String, dynamic>>(
+        .get<List>(
           '$_basePath/guilds/$guildId/commands/permissions',
         )
         .validate(
-          transform: (data) => (data as List)
+          transform: (data) => data
               .cast<Map<String, dynamic>>()
               .map(GuildApplicationCommandPermissions.fromJson)
               .toList(),
@@ -364,20 +358,18 @@ class ApplicationCommandsApi {
   /// a guild,including slash commands, user commands, and message commands.
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#batch-edit-application-command-permissions
-  Future<
-          ValidatedResponse<Map<String, dynamic>,
-              List<GuildApplicationCommandPermissions>>>
+  Future<ValidatedResponse<List, List<GuildApplicationCommandPermissions>>>
       batchEditApplicationCommandPermissions(
     String guildId, {
     required List<GuildApplicationCommandPermissions> permissions,
   }) {
     return _dio
-        .put<Map<String, dynamic>>(
+        .put<List>(
           '$_basePath/guilds/$guildId/commands/permissions',
           data: permissions,
         )
         .validate(
-          transform: (data) => (data as List)
+          transform: (data) => data
               .cast<Map<String, dynamic>>()
               .map(GuildApplicationCommandPermissions.fromJson)
               .toList(),
