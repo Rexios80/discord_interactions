@@ -7,3 +7,6 @@ build/
 
 # Credentials
 lib/credentials.dart
+
+# Generated server
+bin/server.dart
