@@ -1,3 +1,6 @@
+## 0.0.18
+- Dependency upgrades
+
 ## 0.0.17
 - Fixes issues with deserializing lists
 
