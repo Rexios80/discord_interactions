@@ -82,6 +82,7 @@ class DiscordApi {
             baseUrl: _baseUrl,
             headers: {
               'User-Agent': userAgent.toString(),
+              'Content-Type': 'application/json',
               if (botToken != null) 'Authorization': 'Bot $botToken',
               if (credentialsToken != null)
                 'Authorization': 'Bearer $credentialsToken',

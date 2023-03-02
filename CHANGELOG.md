@@ -1,3 +1,6 @@
+## 0.0.19
+- Adds correct content-type header
+
 ## 0.0.18
 - Dependency upgrades
 
