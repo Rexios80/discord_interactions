@@ -1,3 +1,6 @@
+## 0.0.20
+- Fixes string encoding issue during validation
+
 ## 0.0.19
 - Adds correct content-type header
 
