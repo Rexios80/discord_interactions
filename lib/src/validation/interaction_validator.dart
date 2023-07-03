@@ -1,4 +1,6 @@
 // Package imports:
+import 'dart:convert';
+
 import 'package:convert/convert.dart';
 import 'package:pinenacl/ed25519.dart';
 
@@ -36,7 +38,7 @@ class InteractionValidator {
     try {
       return _verifyKey.verify(
         signature: Signature(Uint8List.fromList(hex.decode(signature))),
-        message: Uint8List.fromList('$timestamp$body'.codeUnits),
+        message: Uint8List.fromList(utf8.encode('$timestamp$body')),
       );
     } catch (e) {
       return false;
