@@ -13,7 +13,7 @@ final api = DiscordApi(
 
 void main() async {
   final commands = [
-    ...Command.values.map((e) => e.command).toList(),
+    ...Command.values.map((e) => e.command),
   ];
 
   // Create global commands for poduction bots

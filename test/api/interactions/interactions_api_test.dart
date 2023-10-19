@@ -186,7 +186,7 @@ void main() async {
                   style: ButtonStyle.danger,
                 ),
               ],
-            )
+            ),
           ],
         ),
       );
@@ -238,7 +238,7 @@ void main() async {
                   style: ButtonStyle.link,
                 ),
               ],
-            )
+            ),
           ],
         ),
       );
@@ -286,7 +286,7 @@ void main() async {
                   ],
                 ),
               ],
-            )
+            ),
           ],
         ),
       );
