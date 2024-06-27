@@ -1,3 +1,6 @@
+## 0.0.21
+- Dependency upgrades
+
 ## 0.0.20
 - Fixes string encoding issue during validation
 
