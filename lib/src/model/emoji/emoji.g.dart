@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'emoji.dart';
 
@@ -22,22 +22,13 @@ Emoji _$EmojiFromJson(Map<String, dynamic> json) => Emoji(
       available: json['available'] as bool?,
     );
 
-Map<String, dynamic> _$EmojiToJson(Emoji instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('id', instance.id);
-  writeNotNull('name', instance.name);
-  writeNotNull('roles', instance.roles);
-  writeNotNull('user', instance.user);
-  writeNotNull('require_colons', instance.requireColons);
-  writeNotNull('managed', instance.managed);
-  writeNotNull('animated', instance.animated);
-  writeNotNull('available', instance.available);
-  return val;
-}
+Map<String, dynamic> _$EmojiToJson(Emoji instance) => <String, dynamic>{
+      if (instance.id case final value?) 'id': value,
+      if (instance.name case final value?) 'name': value,
+      if (instance.roles case final value?) 'roles': value,
+      if (instance.user case final value?) 'user': value,
+      if (instance.requireColons case final value?) 'require_colons': value,
+      if (instance.managed case final value?) 'managed': value,
+      if (instance.animated case final value?) 'animated': value,
+      if (instance.available case final value?) 'available': value,
+    };

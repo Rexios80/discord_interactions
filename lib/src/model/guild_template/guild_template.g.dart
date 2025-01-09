@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'guild_template.dart';
 
@@ -13,7 +13,7 @@ GuildTemplate _$GuildTemplateFromJson(Map<String, dynamic> json) =>
       code: json['code'] as String,
       name: json['name'] as String,
       description: json['description'] as String?,
-      usageCount: json['usage_count'] as int,
+      usageCount: (json['usage_count'] as num).toInt(),
       creatorId: json['creator_id'] as String,
       creator: User.fromJson(json['creator'] as Map<String, dynamic>),
       createdAt: DateTime.parse(json['created_at'] as String),
@@ -24,26 +24,17 @@ GuildTemplate _$GuildTemplateFromJson(Map<String, dynamic> json) =>
       isDirty: json['is_dirty'] as bool?,
     );
 
-Map<String, dynamic> _$GuildTemplateToJson(GuildTemplate instance) {
-  final val = <String, dynamic>{
-    'code': instance.code,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  val['usage_count'] = instance.usageCount;
-  val['creator_id'] = instance.creatorId;
-  val['creator'] = instance.creator;
-  val['created_at'] = instance.createdAt.toIso8601String();
-  val['updated_at'] = instance.updatedAt.toIso8601String();
-  val['source_guild_id'] = instance.sourceGuildId;
-  val['serialized_source_guild'] = instance.serializedSourceGuild;
-  writeNotNull('is_dirty', instance.isDirty);
-  return val;
-}
+Map<String, dynamic> _$GuildTemplateToJson(GuildTemplate instance) =>
+    <String, dynamic>{
+      'code': instance.code,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      'usage_count': instance.usageCount,
+      'creator_id': instance.creatorId,
+      'creator': instance.creator,
+      'created_at': instance.createdAt.toIso8601String(),
+      'updated_at': instance.updatedAt.toIso8601String(),
+      'source_guild_id': instance.sourceGuildId,
+      'serialized_source_guild': instance.serializedSourceGuild,
+      if (instance.isDirty case final value?) 'is_dirty': value,
+    };

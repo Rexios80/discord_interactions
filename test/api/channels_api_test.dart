@@ -4,6 +4,7 @@ import 'dart:io';
 // Package imports:
 import 'package:dio/dio.dart';
 import 'package:test/test.dart';
+import 'package:path/path.dart' as path;
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
@@ -136,7 +137,7 @@ void main() async {
     });
 
     test('File upload', () async {
-      final testFile = File('test_resources/test_file.gif');
+      final testFile = File(path.join('test_resources', 'test_file.gif'));
       final testFileBytes = await testFile.readAsBytes();
       final multipartFile = MultipartFile.fromBytes(
         testFileBytes,

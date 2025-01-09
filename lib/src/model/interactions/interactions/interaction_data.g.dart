@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'interaction_data.dart';
 
@@ -28,27 +28,20 @@ InteractionData _$InteractionDataFromJson(Map<String, dynamic> json) =>
       targetId: json['target_id'] as String?,
     );
 
-Map<String, dynamic> _$InteractionDataToJson(InteractionData instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('id', instance.id);
-  writeNotNull('name', instance.name);
-  writeNotNull('type', _$ApplicationCommandTypeEnumMap[instance.type]);
-  writeNotNull('resolved', instance.resolved);
-  writeNotNull('options', instance.options);
-  writeNotNull('custom_id', instance.customId);
-  writeNotNull(
-      'component_type', _$ComponentTypeEnumMap[instance.componentType]);
-  writeNotNull('values', instance.values);
-  writeNotNull('target_id', instance.targetId);
-  return val;
-}
+Map<String, dynamic> _$InteractionDataToJson(InteractionData instance) =>
+    <String, dynamic>{
+      if (instance.id case final value?) 'id': value,
+      if (instance.name case final value?) 'name': value,
+      if (_$ApplicationCommandTypeEnumMap[instance.type] case final value?)
+        'type': value,
+      if (instance.resolved case final value?) 'resolved': value,
+      if (instance.options case final value?) 'options': value,
+      if (instance.customId case final value?) 'custom_id': value,
+      if (_$ComponentTypeEnumMap[instance.componentType] case final value?)
+        'component_type': value,
+      if (instance.values case final value?) 'values': value,
+      if (instance.targetId case final value?) 'target_id': value,
+    };
 
 const _$ApplicationCommandTypeEnumMap = {
   ApplicationCommandType.chatInput: 1,

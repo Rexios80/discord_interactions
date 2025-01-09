@@ -1,4 +1,4 @@
-library discord_interactions;
+library;
 
 export 'package:dio_response_validator/dio_response_validator.dart';
 

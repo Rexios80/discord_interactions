@@ -204,12 +204,12 @@ class Guild {
   final int? maxVideoChannelUsers;
 
   /// approximate number of members in this guild, returned from the GET
-  /// /guilds/<id> endpoint when with_counts is true
+  /// `/guilds/<id>` endpoint when with_counts is true
   @JsonKey(name: 'approximate_member_count')
   final int? approximateMemberCount;
 
   /// approximate number of non-offline members in this guild, returned from the
-  /// GET /guilds/<id> endpoint when with_counts is true
+  /// GET `/guilds/<id>` endpoint when with_counts is true
   @JsonKey(name: 'approximate_presence_count')
   final int? approximatePresenceCount;
 

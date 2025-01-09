@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'guild_scheduled_event_entity_metadata.dart';
 
@@ -15,15 +15,7 @@ GuildScheduledEventEntityMetadata _$GuildScheduledEventEntityMetadataFromJson(
     );
 
 Map<String, dynamic> _$GuildScheduledEventEntityMetadataToJson(
-    GuildScheduledEventEntityMetadata instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('location', instance.location);
-  return val;
-}
+        GuildScheduledEventEntityMetadata instance) =>
+    <String, dynamic>{
+      if (instance.location case final value?) 'location': value,
+    };

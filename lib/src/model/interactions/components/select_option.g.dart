@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'select_option.dart';
 
@@ -18,20 +18,11 @@ SelectOption _$SelectOptionFromJson(Map<String, dynamic> json) => SelectOption(
       defaultSelected: json['default'] as bool?,
     );
 
-Map<String, dynamic> _$SelectOptionToJson(SelectOption instance) {
-  final val = <String, dynamic>{
-    'label': instance.label,
-    'value': instance.value,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  writeNotNull('emoji', instance.emoji);
-  writeNotNull('default', instance.defaultSelected);
-  return val;
-}
+Map<String, dynamic> _$SelectOptionToJson(SelectOption instance) =>
+    <String, dynamic>{
+      'label': instance.label,
+      'value': instance.value,
+      if (instance.description case final value?) 'description': value,
+      if (instance.emoji case final value?) 'emoji': value,
+      if (instance.defaultSelected case final value?) 'default': value,
+    };

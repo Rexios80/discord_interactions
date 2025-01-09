@@ -66,12 +66,10 @@ Future<void> respond(Interaction interaction) async {
   switch (command) {
     case Command.hello:
       response = InteractionResponse.message(content: 'Hello!');
-      break;
     case Command.echo:
       // Get the echo string from the interaction data
       final echoString = interaction.data!.options![0].value;
       response = InteractionResponse.message(content: echoString);
-      break;
   }
 
   // Respond to the interaction

@@ -1,4 +1,4 @@
-library discord_model;
+library;
 
 // api
 export 'api/discord_user_agent.dart';

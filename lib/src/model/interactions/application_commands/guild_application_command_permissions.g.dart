@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'guild_application_command_permissions.dart';
 
@@ -21,19 +21,10 @@ GuildApplicationCommandPermissions _$GuildApplicationCommandPermissionsFromJson(
     );
 
 Map<String, dynamic> _$GuildApplicationCommandPermissionsToJson(
-    GuildApplicationCommandPermissions instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('application_id', instance.appplicationId);
-  writeNotNull('guild_id', instance.guildId);
-  val['permissions'] = instance.permissions;
-  return val;
-}
+        GuildApplicationCommandPermissions instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      if (instance.appplicationId case final value?) 'application_id': value,
+      if (instance.guildId case final value?) 'guild_id': value,
+      'permissions': instance.permissions,
+    };

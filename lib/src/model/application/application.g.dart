@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'application.dart';
 
@@ -32,37 +32,32 @@ Application _$ApplicationFromJson(Map<String, dynamic> json) => Application(
       primarySkuId: json['primary_sku_id'] as String?,
       slug: json['slug'] as String?,
       coverImage: json['cover_image'] as String?,
-      flags: const ApplicationFlagConverter().fromJson(json['flags'] as int?),
+      flags: const ApplicationFlagConverter()
+          .fromJson((json['flags'] as num?)?.toInt()),
     );
 
-Map<String, dynamic> _$ApplicationToJson(Application instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('icon', instance.icon);
-  val['description'] = instance.description;
-  writeNotNull('rpc_origins', instance.rpcOrigins);
-  val['bot_public'] = instance.botPublic;
-  val['bot_require_code_grant'] = instance.botRequireCodeGrant;
-  writeNotNull('terms_of_service_url', instance.termsOfServiceUrl);
-  writeNotNull('privacy_policy_url', instance.privacyPolicyUrl);
-  writeNotNull('owner', instance.owner);
-  val['summary'] = instance.summary;
-  val['verify_key'] = instance.verifyKey;
-  writeNotNull('team', instance.team);
-  writeNotNull('guild_id', instance.guildId);
-  writeNotNull('primary_sku_id', instance.primarySkuId);
-  writeNotNull('slug', instance.slug);
-  writeNotNull('cover_image', instance.coverImage);
-  writeNotNull(
-      'flags', const ApplicationFlagConverter().toJson(instance.flags));
-  return val;
-}
+Map<String, dynamic> _$ApplicationToJson(Application instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.icon case final value?) 'icon': value,
+      'description': instance.description,
+      if (instance.rpcOrigins case final value?) 'rpc_origins': value,
+      'bot_public': instance.botPublic,
+      'bot_require_code_grant': instance.botRequireCodeGrant,
+      if (instance.termsOfServiceUrl case final value?)
+        'terms_of_service_url': value,
+      if (instance.privacyPolicyUrl case final value?)
+        'privacy_policy_url': value,
+      if (instance.owner case final value?) 'owner': value,
+      'summary': instance.summary,
+      'verify_key': instance.verifyKey,
+      if (instance.team case final value?) 'team': value,
+      if (instance.guildId case final value?) 'guild_id': value,
+      if (instance.primarySkuId case final value?) 'primary_sku_id': value,
+      if (instance.slug case final value?) 'slug': value,
+      if (instance.coverImage case final value?) 'cover_image': value,
+      if (const ApplicationFlagConverter().toJson(instance.flags)
+          case final value?)
+        'flags': value,
+    };

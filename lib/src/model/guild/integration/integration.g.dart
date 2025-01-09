@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'integration.dart';
 
@@ -18,7 +18,7 @@ Integration _$IntegrationFromJson(Map<String, dynamic> json) => Integration(
       enableEmoticons: json['enable_emoticons'] as bool?,
       expireBehavior: $enumDecodeNullable(
           _$IntegrationExpireBehaviorEnumMap, json['expireBehavior']),
-      expireGracePeriod: json['expire_grace_period'] as int?,
+      expireGracePeriod: (json['expire_grace_period'] as num?)?.toInt(),
       user: json['user'] == null
           ? null
           : User.fromJson(json['user'] as Map<String, dynamic>),
@@ -27,7 +27,7 @@ Integration _$IntegrationFromJson(Map<String, dynamic> json) => Integration(
       syncedAt: json['synced_at'] == null
           ? null
           : DateTime.parse(json['synced_at'] as String),
-      subscriberCount: json['subscriber_count'] as int?,
+      subscriberCount: (json['subscriber_count'] as num?)?.toInt(),
       revoked: json['revoked'] as bool?,
       application: json['application'] == null
           ? null
@@ -35,34 +35,28 @@ Integration _$IntegrationFromJson(Map<String, dynamic> json) => Integration(
               json['application'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$IntegrationToJson(Integration instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-    'type': _$IntegrationTypeEnumMap[instance.type]!,
-    'enabled': instance.enabled,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('syncing', instance.syncing);
-  writeNotNull('role_id', instance.roleId);
-  writeNotNull('enable_emoticons', instance.enableEmoticons);
-  writeNotNull('expireBehavior',
-      _$IntegrationExpireBehaviorEnumMap[instance.expireBehavior]);
-  writeNotNull('expire_grace_period', instance.expireGracePeriod);
-  writeNotNull('user', instance.user);
-  val['account'] = instance.account;
-  writeNotNull('synced_at', instance.syncedAt?.toIso8601String());
-  writeNotNull('subscriber_count', instance.subscriberCount);
-  writeNotNull('revoked', instance.revoked);
-  writeNotNull('application', instance.application);
-  return val;
-}
+Map<String, dynamic> _$IntegrationToJson(Integration instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'type': _$IntegrationTypeEnumMap[instance.type]!,
+      'enabled': instance.enabled,
+      if (instance.syncing case final value?) 'syncing': value,
+      if (instance.roleId case final value?) 'role_id': value,
+      if (instance.enableEmoticons case final value?) 'enable_emoticons': value,
+      if (_$IntegrationExpireBehaviorEnumMap[instance.expireBehavior]
+          case final value?)
+        'expireBehavior': value,
+      if (instance.expireGracePeriod case final value?)
+        'expire_grace_period': value,
+      if (instance.user case final value?) 'user': value,
+      'account': instance.account,
+      if (instance.syncedAt?.toIso8601String() case final value?)
+        'synced_at': value,
+      if (instance.subscriberCount case final value?) 'subscriber_count': value,
+      if (instance.revoked case final value?) 'revoked': value,
+      if (instance.application case final value?) 'application': value,
+    };
 
 const _$IntegrationTypeEnumMap = {
   IntegrationType.twitch: 'twitch',

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'embed_footer.dart';
 
@@ -14,18 +14,9 @@ EmbedFooter _$EmbedFooterFromJson(Map<String, dynamic> json) => EmbedFooter(
       proxyIconUrl: json['proxy_icon_url'] as String?,
     );
 
-Map<String, dynamic> _$EmbedFooterToJson(EmbedFooter instance) {
-  final val = <String, dynamic>{
-    'text': instance.text,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('icon_url', instance.iconUrl);
-  writeNotNull('proxy_icon_url', instance.proxyIconUrl);
-  return val;
-}
+Map<String, dynamic> _$EmbedFooterToJson(EmbedFooter instance) =>
+    <String, dynamic>{
+      'text': instance.text,
+      if (instance.iconUrl case final value?) 'icon_url': value,
+      if (instance.proxyIconUrl case final value?) 'proxy_icon_url': value,
+    };

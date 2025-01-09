@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'integration_application.dart';
 
@@ -22,21 +22,12 @@ IntegrationApplication _$IntegrationApplicationFromJson(
     );
 
 Map<String, dynamic> _$IntegrationApplicationToJson(
-    IntegrationApplication instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('icon', instance.icon);
-  val['description'] = instance.description;
-  val['summary'] = instance.summary;
-  writeNotNull('bot', instance.bot);
-  return val;
-}
+        IntegrationApplication instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.icon case final value?) 'icon': value,
+      'description': instance.description,
+      'summary': instance.summary,
+      if (instance.bot case final value?) 'bot': value,
+    };

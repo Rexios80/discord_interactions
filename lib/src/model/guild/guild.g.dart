@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'guild.dart';
 
@@ -20,7 +20,7 @@ Guild _$GuildFromJson(Map<String, dynamic> json) => Guild(
       permissions: const PermissionConverterNullable()
           .fromJson(json['permissions'] as String?),
       afkChannelId: json['afk_channel_id'] as String?,
-      afkTimeout: json['afk_timeout'] as int?,
+      afkTimeout: (json['afk_timeout'] as num?)?.toInt(),
       widgetEnabled: json['widget_enabled'] as bool?,
       widgetChannelId: json['widget_channel_id'] as String?,
       verificationLevel: $enumDecodeNullable(
@@ -43,14 +43,14 @@ Guild _$GuildFromJson(Map<String, dynamic> json) => Guild(
       applicationId: json['application_id'] as String?,
       systemChannelId: json['system_channel_id'] as String?,
       systemChannelFlags: const SystemChannelFlagConverter()
-          .fromJson(json['system_channel_flags'] as int?),
+          .fromJson((json['system_channel_flags'] as num?)?.toInt()),
       rulesChannelId: json['rules_channel_id'] as String?,
       joinedAt: json['joined_at'] == null
           ? null
           : DateTime.parse(json['joined_at'] as String),
       large: json['large'] as bool?,
       unavailable: json['unavailable'] as bool?,
-      memberCount: json['member_count'] as int?,
+      memberCount: (json['member_count'] as num?)?.toInt(),
       voiceStates: (json['voice_states'] as List<dynamic>?)
           ?.map((e) => VoiceState.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -66,19 +66,22 @@ Guild _$GuildFromJson(Map<String, dynamic> json) => Guild(
       presences: (json['presences'] as List<dynamic>?)
           ?.map((e) => PresenceUpdateEvent.fromJson(e as Map<String, dynamic>))
           .toList(),
-      maxPresences: json['max_presences'] as int?,
-      maxMembers: json['max_members'] as int?,
+      maxPresences: (json['max_presences'] as num?)?.toInt(),
+      maxMembers: (json['max_members'] as num?)?.toInt(),
       vanityUrlCode: json['vanity_url_code'] as String?,
       description: json['description'] as String?,
       banner: json['banner'] as String?,
       premiumTier:
           $enumDecodeNullable(_$PremiumTierEnumMap, json['premium_tier']),
-      premiumSubscriptionCount: json['premium_subscription_count'] as int?,
+      premiumSubscriptionCount:
+          (json['premium_subscription_count'] as num?)?.toInt(),
       preferredLocale: json['preferred_locale'] as String?,
       publicUpdatesChannelId: json['public_updates_channel_id'] as String?,
-      maxVideoChannelUsers: json['max_video_channel_users'] as int?,
-      approximateMemberCount: json['approximate_member_count'] as int?,
-      approximatePresenceCount: json['approximate_presence_count'] as int?,
+      maxVideoChannelUsers: (json['max_video_channel_users'] as num?)?.toInt(),
+      approximateMemberCount:
+          (json['approximate_member_count'] as num?)?.toInt(),
+      approximatePresenceCount:
+          (json['approximate_presence_count'] as num?)?.toInt(),
       welcomeScreen: json['welcome_screen'] == null
           ? null
           : WelcomeScreen.fromJson(
@@ -97,78 +100,85 @@ Guild _$GuildFromJson(Map<String, dynamic> json) => Guild(
       premiumProgressBarEnabled: json['premium_progress_bar_enabled'] as bool?,
     );
 
-Map<String, dynamic> _$GuildToJson(Guild instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('icon', instance.icon);
-  writeNotNull('icon_hash', instance.iconHash);
-  writeNotNull('splash', instance.splash);
-  writeNotNull('discovery_splash', instance.discoverySplash);
-  writeNotNull('owner', instance.owner);
-  writeNotNull('ownerId', instance.ownerId);
-  writeNotNull('permissions',
-      const PermissionConverterNullable().toJson(instance.permissions));
-  writeNotNull('afk_channel_id', instance.afkChannelId);
-  writeNotNull('afk_timeout', instance.afkTimeout);
-  writeNotNull('widget_enabled', instance.widgetEnabled);
-  writeNotNull('widget_channel_id', instance.widgetChannelId);
-  writeNotNull('verification_level',
-      _$VerificationLevelEnumMap[instance.verificationLevel]);
-  writeNotNull(
-      'default_message_notifications',
-      _$DefaultMessageNotificationLevelEnumMap[
-          instance.defaultMessageNotifications]);
-  writeNotNull('explicit_content_filter',
-      _$ExplicitContentFilterLevelEnumMap[instance.explicitContentFilter]);
-  writeNotNull('roles', instance.roles);
-  writeNotNull('emojis', instance.emojis);
-  writeNotNull('features',
-      instance.features?.map((e) => _$GuildFeatureEnumMap[e]!).toList());
-  writeNotNull('mfa_level', _$MfaLevelEnumMap[instance.mfaLevel]);
-  writeNotNull('application_id', instance.applicationId);
-  writeNotNull('system_channel_id', instance.systemChannelId);
-  writeNotNull('system_channel_flags',
-      const SystemChannelFlagConverter().toJson(instance.systemChannelFlags));
-  writeNotNull('rules_channel_id', instance.rulesChannelId);
-  writeNotNull('joined_at', instance.joinedAt?.toIso8601String());
-  writeNotNull('large', instance.large);
-  writeNotNull('unavailable', instance.unavailable);
-  writeNotNull('member_count', instance.memberCount);
-  writeNotNull('voice_states', instance.voiceStates);
-  writeNotNull('members', instance.members);
-  writeNotNull('channels', instance.channels);
-  writeNotNull('threads', instance.threads);
-  writeNotNull('presences', instance.presences);
-  writeNotNull('max_presences', instance.maxPresences);
-  writeNotNull('max_members', instance.maxMembers);
-  writeNotNull('vanity_url_code', instance.vanityUrlCode);
-  writeNotNull('description', instance.description);
-  writeNotNull('banner', instance.banner);
-  writeNotNull('premium_tier', _$PremiumTierEnumMap[instance.premiumTier]);
-  writeNotNull('premium_subscription_count', instance.premiumSubscriptionCount);
-  writeNotNull('preferred_locale', instance.preferredLocale);
-  writeNotNull('public_updates_channel_id', instance.publicUpdatesChannelId);
-  writeNotNull('max_video_channel_users', instance.maxVideoChannelUsers);
-  writeNotNull('approximate_member_count', instance.approximateMemberCount);
-  writeNotNull('approximate_presence_count', instance.approximatePresenceCount);
-  writeNotNull('welcome_screen', instance.welcomeScreen);
-  writeNotNull('nsfw_level', _$GuildNsfwLevelEnumMap[instance.nsfwLevel]);
-  writeNotNull('stage_instances', instance.stageInstances);
-  writeNotNull('stickers', instance.stickers);
-  writeNotNull('guild_scheduled_events', instance.guildScheduledEvents);
-  writeNotNull(
-      'premium_progress_bar_enabled', instance.premiumProgressBarEnabled);
-  return val;
-}
+Map<String, dynamic> _$GuildToJson(Guild instance) => <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.icon case final value?) 'icon': value,
+      if (instance.iconHash case final value?) 'icon_hash': value,
+      if (instance.splash case final value?) 'splash': value,
+      if (instance.discoverySplash case final value?) 'discovery_splash': value,
+      if (instance.owner case final value?) 'owner': value,
+      if (instance.ownerId case final value?) 'ownerId': value,
+      if (const PermissionConverterNullable().toJson(instance.permissions)
+          case final value?)
+        'permissions': value,
+      if (instance.afkChannelId case final value?) 'afk_channel_id': value,
+      if (instance.afkTimeout case final value?) 'afk_timeout': value,
+      if (instance.widgetEnabled case final value?) 'widget_enabled': value,
+      if (instance.widgetChannelId case final value?)
+        'widget_channel_id': value,
+      if (_$VerificationLevelEnumMap[instance.verificationLevel]
+          case final value?)
+        'verification_level': value,
+      if (_$DefaultMessageNotificationLevelEnumMap[
+              instance.defaultMessageNotifications]
+          case final value?)
+        'default_message_notifications': value,
+      if (_$ExplicitContentFilterLevelEnumMap[instance.explicitContentFilter]
+          case final value?)
+        'explicit_content_filter': value,
+      if (instance.roles case final value?) 'roles': value,
+      if (instance.emojis case final value?) 'emojis': value,
+      if (instance.features?.map((e) => _$GuildFeatureEnumMap[e]!).toList()
+          case final value?)
+        'features': value,
+      if (_$MfaLevelEnumMap[instance.mfaLevel] case final value?)
+        'mfa_level': value,
+      if (instance.applicationId case final value?) 'application_id': value,
+      if (instance.systemChannelId case final value?)
+        'system_channel_id': value,
+      if (const SystemChannelFlagConverter().toJson(instance.systemChannelFlags)
+          case final value?)
+        'system_channel_flags': value,
+      if (instance.rulesChannelId case final value?) 'rules_channel_id': value,
+      if (instance.joinedAt?.toIso8601String() case final value?)
+        'joined_at': value,
+      if (instance.large case final value?) 'large': value,
+      if (instance.unavailable case final value?) 'unavailable': value,
+      if (instance.memberCount case final value?) 'member_count': value,
+      if (instance.voiceStates case final value?) 'voice_states': value,
+      if (instance.members case final value?) 'members': value,
+      if (instance.channels case final value?) 'channels': value,
+      if (instance.threads case final value?) 'threads': value,
+      if (instance.presences case final value?) 'presences': value,
+      if (instance.maxPresences case final value?) 'max_presences': value,
+      if (instance.maxMembers case final value?) 'max_members': value,
+      if (instance.vanityUrlCode case final value?) 'vanity_url_code': value,
+      if (instance.description case final value?) 'description': value,
+      if (instance.banner case final value?) 'banner': value,
+      if (_$PremiumTierEnumMap[instance.premiumTier] case final value?)
+        'premium_tier': value,
+      if (instance.premiumSubscriptionCount case final value?)
+        'premium_subscription_count': value,
+      if (instance.preferredLocale case final value?) 'preferred_locale': value,
+      if (instance.publicUpdatesChannelId case final value?)
+        'public_updates_channel_id': value,
+      if (instance.maxVideoChannelUsers case final value?)
+        'max_video_channel_users': value,
+      if (instance.approximateMemberCount case final value?)
+        'approximate_member_count': value,
+      if (instance.approximatePresenceCount case final value?)
+        'approximate_presence_count': value,
+      if (instance.welcomeScreen case final value?) 'welcome_screen': value,
+      if (_$GuildNsfwLevelEnumMap[instance.nsfwLevel] case final value?)
+        'nsfw_level': value,
+      if (instance.stageInstances case final value?) 'stage_instances': value,
+      if (instance.stickers case final value?) 'stickers': value,
+      if (instance.guildScheduledEvents case final value?)
+        'guild_scheduled_events': value,
+      if (instance.premiumProgressBarEnabled case final value?)
+        'premium_progress_bar_enabled': value,
+    };
 
 const _$VerificationLevelEnumMap = {
   VerificationLevel.none: 0,

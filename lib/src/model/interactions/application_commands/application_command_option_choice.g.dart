@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'application_command_option_choice.dart';
 
@@ -16,17 +16,8 @@ ApplicationCommandOptionChoice _$ApplicationCommandOptionChoiceFromJson(
     );
 
 Map<String, dynamic> _$ApplicationCommandOptionChoiceToJson(
-    ApplicationCommandOptionChoice instance) {
-  final val = <String, dynamic>{
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('value', instance.value);
-  return val;
-}
+        ApplicationCommandOptionChoice instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      if (instance.value case final value?) 'value': value,
+    };

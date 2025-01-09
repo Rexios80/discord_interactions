@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'embed_field.dart';
 
@@ -14,18 +14,9 @@ EmbedField _$EmbedFieldFromJson(Map<String, dynamic> json) => EmbedField(
       inline: json['inline'] as bool?,
     );
 
-Map<String, dynamic> _$EmbedFieldToJson(EmbedField instance) {
-  final val = <String, dynamic>{
-    'name': instance.name,
-    'value': instance.value,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('inline', instance.inline);
-  return val;
-}
+Map<String, dynamic> _$EmbedFieldToJson(EmbedField instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'value': instance.value,
+      if (instance.inline case final value?) 'inline': value,
+    };

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'guild_scheduled_event_user.dart';
 
@@ -19,18 +19,9 @@ GuildScheduledEventUser _$GuildScheduledEventUserFromJson(
     );
 
 Map<String, dynamic> _$GuildScheduledEventUserToJson(
-    GuildScheduledEventUser instance) {
-  final val = <String, dynamic>{
-    'guild_scheduled_event_id': instance.guildScheduledEventId,
-    'user': instance.user,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('member', instance.member);
-  return val;
-}
+        GuildScheduledEventUser instance) =>
+    <String, dynamic>{
+      'guild_scheduled_event_id': instance.guildScheduledEventId,
+      'user': instance.user,
+      if (instance.member case final value?) 'member': value,
+    };

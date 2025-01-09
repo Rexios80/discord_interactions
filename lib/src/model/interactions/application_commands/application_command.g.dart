@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'application_command.dart';
 
@@ -24,26 +24,20 @@ ApplicationCommand _$ApplicationCommandFromJson(Map<String, dynamic> json) =>
       version: json['version'] as String?,
     );
 
-Map<String, dynamic> _$ApplicationCommandToJson(ApplicationCommand instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('id', instance.id);
-  writeNotNull('type', _$ApplicationCommandTypeEnumMap[instance.type]);
-  writeNotNull('application_id', instance.applicationId);
-  writeNotNull('guild_id', instance.guildId);
-  val['name'] = instance.name;
-  writeNotNull('description', instance.description);
-  writeNotNull('options', instance.options);
-  writeNotNull('default_permission', instance.defaultPermission);
-  writeNotNull('version', instance.version);
-  return val;
-}
+Map<String, dynamic> _$ApplicationCommandToJson(ApplicationCommand instance) =>
+    <String, dynamic>{
+      if (instance.id case final value?) 'id': value,
+      if (_$ApplicationCommandTypeEnumMap[instance.type] case final value?)
+        'type': value,
+      if (instance.applicationId case final value?) 'application_id': value,
+      if (instance.guildId case final value?) 'guild_id': value,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.options case final value?) 'options': value,
+      if (instance.defaultPermission case final value?)
+        'default_permission': value,
+      if (instance.version case final value?) 'version': value,
+    };
 
 const _$ApplicationCommandTypeEnumMap = {
   ApplicationCommandType.chatInput: 1,

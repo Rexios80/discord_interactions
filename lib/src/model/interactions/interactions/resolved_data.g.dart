@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'resolved_data.dart';
 
@@ -26,19 +26,11 @@ ResolvedData _$ResolvedDataFromJson(Map<String, dynamic> json) => ResolvedData(
       ),
     );
 
-Map<String, dynamic> _$ResolvedDataToJson(ResolvedData instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('users', instance.users);
-  writeNotNull('members', instance.members);
-  writeNotNull('roles', instance.roles);
-  writeNotNull('channels', instance.channels);
-  writeNotNull('messages', instance.messages);
-  return val;
-}
+Map<String, dynamic> _$ResolvedDataToJson(ResolvedData instance) =>
+    <String, dynamic>{
+      if (instance.users case final value?) 'users': value,
+      if (instance.members case final value?) 'members': value,
+      if (instance.roles case final value?) 'roles': value,
+      if (instance.channels case final value?) 'channels': value,
+      if (instance.messages case final value?) 'messages': value,
+    };

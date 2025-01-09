@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'application_command_interaction_data_option.dart';
 
@@ -24,23 +24,14 @@ ApplicationCommandInteractionDataOption
         );
 
 Map<String, dynamic> _$ApplicationCommandInteractionDataOptionToJson(
-    ApplicationCommandInteractionDataOption instance) {
-  final val = <String, dynamic>{
-    'name': instance.name,
-    'type': _$ApplicationCommandOptionTypeEnumMap[instance.type]!,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('value', instance.value);
-  writeNotNull('options', instance.options);
-  writeNotNull('focused', instance.focused);
-  return val;
-}
+        ApplicationCommandInteractionDataOption instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'type': _$ApplicationCommandOptionTypeEnumMap[instance.type]!,
+      if (instance.value case final value?) 'value': value,
+      if (instance.options case final value?) 'options': value,
+      if (instance.focused case final value?) 'focused': value,
+    };
 
 const _$ApplicationCommandOptionTypeEnumMap = {
   ApplicationCommandOptionType.subCommand: 1,

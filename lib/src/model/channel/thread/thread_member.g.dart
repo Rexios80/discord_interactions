@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'thread_member.dart';
 
@@ -12,21 +12,13 @@ ThreadMember _$ThreadMemberFromJson(Map<String, dynamic> json) => ThreadMember(
       id: json['id'] as String?,
       userId: json['user_id'] as String?,
       joinTimestamp: DateTime.parse(json['join_timestamp'] as String),
-      flags: json['flags'] as int,
+      flags: (json['flags'] as num).toInt(),
     );
 
-Map<String, dynamic> _$ThreadMemberToJson(ThreadMember instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('id', instance.id);
-  writeNotNull('user_id', instance.userId);
-  val['join_timestamp'] = instance.joinTimestamp.toIso8601String();
-  val['flags'] = instance.flags;
-  return val;
-}
+Map<String, dynamic> _$ThreadMemberToJson(ThreadMember instance) =>
+    <String, dynamic>{
+      if (instance.id case final value?) 'id': value,
+      if (instance.userId case final value?) 'user_id': value,
+      'join_timestamp': instance.joinTimestamp.toIso8601String(),
+      'flags': instance.flags,
+    };

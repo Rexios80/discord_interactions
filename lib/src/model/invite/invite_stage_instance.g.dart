@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'invite_stage_instance.dart';
 
@@ -13,8 +13,8 @@ InviteStageInstance _$InviteStageInstanceFromJson(Map<String, dynamic> json) =>
       members: (json['members'] as List<dynamic>)
           .map((e) => GuildMember.fromJson(e as Map<String, dynamic>))
           .toList(),
-      participantCount: json['participant_count'] as int,
-      speakerCount: json['speaker_count'] as int,
+      participantCount: (json['participant_count'] as num).toInt(),
+      speakerCount: (json['speaker_count'] as num).toInt(),
       topic: json['topic'] as String,
     );
 

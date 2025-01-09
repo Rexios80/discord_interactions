@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'embed_image.dart';
 
@@ -11,23 +11,14 @@ part of 'embed_image.dart';
 EmbedImage _$EmbedImageFromJson(Map<String, dynamic> json) => EmbedImage(
       url: json['url'] as String,
       proxyUrl: json['proxy_url'] as String?,
-      height: json['height'] as int?,
-      width: json['width'] as int?,
+      height: (json['height'] as num?)?.toInt(),
+      width: (json['width'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$EmbedImageToJson(EmbedImage instance) {
-  final val = <String, dynamic>{
-    'url': instance.url,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('proxy_url', instance.proxyUrl);
-  writeNotNull('height', instance.height);
-  writeNotNull('width', instance.width);
-  return val;
-}
+Map<String, dynamic> _$EmbedImageToJson(EmbedImage instance) =>
+    <String, dynamic>{
+      'url': instance.url,
+      if (instance.proxyUrl case final value?) 'proxy_url': value,
+      if (instance.height case final value?) 'height': value,
+      if (instance.width case final value?) 'width': value,
+    };

@@ -14,7 +14,7 @@ void main() async {
     final roleId = credentials.roleId;
     final emojiName = credentials.emojiName;
     final emojiId = credentials.emojiId;
-    final timestamp = DateTime.now();
+    final timestamp = DateTime.timestamp();
 
     var content = MessageFormatting.user(userId);
     content += '\n${MessageFormatting.userNickname(userId)}';

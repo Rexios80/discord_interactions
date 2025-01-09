@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'interaction_response.dart';
 
@@ -17,20 +17,12 @@ InteractionResponse _$InteractionResponseFromJson(Map<String, dynamic> json) =>
               json['data'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$InteractionResponseToJson(InteractionResponse instance) {
-  final val = <String, dynamic>{
-    'type': _$InteractionCallbackTypeEnumMap[instance.type]!,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('data', instance.data);
-  return val;
-}
+Map<String, dynamic> _$InteractionResponseToJson(
+        InteractionResponse instance) =>
+    <String, dynamic>{
+      'type': _$InteractionCallbackTypeEnumMap[instance.type]!,
+      if (instance.data case final value?) 'data': value,
+    };
 
 const _$InteractionCallbackTypeEnumMap = {
   InteractionCallbackType.pong: 1,

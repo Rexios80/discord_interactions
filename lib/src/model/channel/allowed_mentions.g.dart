@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'allowed_mentions.dart';
 
@@ -20,22 +20,15 @@ AllowedMentions _$AllowedMentionsFromJson(Map<String, dynamic> json) =>
       repliedUser: json['replied_user'] as bool?,
     );
 
-Map<String, dynamic> _$AllowedMentionsToJson(AllowedMentions instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('parse',
-      instance.parse?.map((e) => _$AllowedMentionTypeEnumMap[e]!).toList());
-  writeNotNull('roles', instance.roles);
-  writeNotNull('users', instance.users);
-  writeNotNull('replied_user', instance.repliedUser);
-  return val;
-}
+Map<String, dynamic> _$AllowedMentionsToJson(AllowedMentions instance) =>
+    <String, dynamic>{
+      if (instance.parse?.map((e) => _$AllowedMentionTypeEnumMap[e]!).toList()
+          case final value?)
+        'parse': value,
+      if (instance.roles case final value?) 'roles': value,
+      if (instance.users case final value?) 'users': value,
+      if (instance.repliedUser case final value?) 'replied_user': value,
+    };
 
 const _$AllowedMentionTypeEnumMap = {
   AllowedMentionType.roles: 'roles',

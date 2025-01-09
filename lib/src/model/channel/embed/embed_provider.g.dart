@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'embed_provider.dart';
 
@@ -14,16 +14,8 @@ EmbedProvider _$EmbedProviderFromJson(Map<String, dynamic> json) =>
       url: json['url'] as String?,
     );
 
-Map<String, dynamic> _$EmbedProviderToJson(EmbedProvider instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('name', instance.name);
-  writeNotNull('url', instance.url);
-  return val;
-}
+Map<String, dynamic> _$EmbedProviderToJson(EmbedProvider instance) =>
+    <String, dynamic>{
+      if (instance.name case final value?) 'name': value,
+      if (instance.url case final value?) 'url': value,
+    };

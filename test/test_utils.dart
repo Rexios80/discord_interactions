@@ -5,6 +5,7 @@ import 'dart:io';
 // Package imports:
 import 'package:dio/dio.dart';
 import 'package:yaml/yaml.dart';
+import 'package:path/path.dart' as path;
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
@@ -17,7 +18,7 @@ late final TestCredentials credentials;
 // TODO: Make this work in GitHub Actions
 //! DO NOT USE WITH PRODUCTION CREDENTIALS OR SERVERS
 Future<void> setup() async {
-  final credentialsFile = File('test_resources/credentials.json');
+  final credentialsFile = File(path.join('test_resources', 'credentials.json'));
   final credentialsString = await credentialsFile.readAsString();
   final credentialsJson = jsonDecode(credentialsString);
   credentials = TestCredentials.fromJson(credentialsJson);

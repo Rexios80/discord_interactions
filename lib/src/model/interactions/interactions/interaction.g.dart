@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'interaction.dart';
 
@@ -24,35 +24,26 @@ Interaction _$InteractionFromJson(Map<String, dynamic> json) => Interaction(
           ? null
           : User.fromJson(json['user'] as Map<String, dynamic>),
       token: json['token'] as String,
-      version: json['version'] as int,
+      version: (json['version'] as num).toInt(),
       message: json['message'] == null
           ? null
           : Message.fromJson(json['message'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$InteractionToJson(Interaction instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'application_id': instance.applicationId,
-    'type': _$InteractionTypeEnumMap[instance.type]!,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('data', instance.data);
-  writeNotNull('guild_id', instance.guildId);
-  writeNotNull('channel_id', instance.channelId);
-  writeNotNull('member', instance.member);
-  writeNotNull('user', instance.user);
-  val['token'] = instance.token;
-  val['version'] = instance.version;
-  writeNotNull('message', instance.message);
-  return val;
-}
+Map<String, dynamic> _$InteractionToJson(Interaction instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'application_id': instance.applicationId,
+      'type': _$InteractionTypeEnumMap[instance.type]!,
+      if (instance.data case final value?) 'data': value,
+      if (instance.guildId case final value?) 'guild_id': value,
+      if (instance.channelId case final value?) 'channel_id': value,
+      if (instance.member case final value?) 'member': value,
+      if (instance.user case final value?) 'user': value,
+      'token': instance.token,
+      'version': instance.version,
+      if (instance.message case final value?) 'message': value,
+    };
 
 const _$InteractionTypeEnumMap = {
   InteractionType.ping: 1,

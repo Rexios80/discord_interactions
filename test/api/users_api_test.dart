@@ -4,6 +4,7 @@ import 'dart:io';
 
 // Package imports:
 import 'package:test/test.dart';
+import 'package:path/path.dart' as path;
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
@@ -24,7 +25,7 @@ void main() async {
   });
 
   test('Modify current user', () async {
-    final avatarFile = File('test_resources/test_avatar.png');
+    final avatarFile = File(path.join('test_resources', 'test_avatar.png'));
     final avatarBytes = await avatarFile.readAsBytes();
     final avatarBase64 = base64Encode(avatarBytes);
     final avatarImageData = ImageData.fromBase64(avatarBase64, ImageFormat.png);

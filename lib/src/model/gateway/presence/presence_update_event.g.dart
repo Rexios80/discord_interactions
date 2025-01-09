@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'presence_update_event.dart';
 
@@ -24,22 +24,16 @@ PresenceUpdateEvent _$PresenceUpdateEventFromJson(Map<String, dynamic> json) =>
               json['client_status'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$PresenceUpdateEventToJson(PresenceUpdateEvent instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('user', instance.user);
-  writeNotNull('guild_id', instance.guildId);
-  writeNotNull('status', _$PresenceStatusEnumMap[instance.status]);
-  writeNotNull('activities', instance.activities);
-  writeNotNull('client_status', instance.clientStatus);
-  return val;
-}
+Map<String, dynamic> _$PresenceUpdateEventToJson(
+        PresenceUpdateEvent instance) =>
+    <String, dynamic>{
+      if (instance.user case final value?) 'user': value,
+      if (instance.guildId case final value?) 'guild_id': value,
+      if (_$PresenceStatusEnumMap[instance.status] case final value?)
+        'status': value,
+      if (instance.activities case final value?) 'activities': value,
+      if (instance.clientStatus case final value?) 'client_status': value,
+    };
 
 const _$PresenceStatusEnumMap = {
   PresenceStatus.idle: 'idle',

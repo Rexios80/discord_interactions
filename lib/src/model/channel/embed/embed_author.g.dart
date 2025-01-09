@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'embed_author.dart';
 
@@ -15,19 +15,10 @@ EmbedAuthor _$EmbedAuthorFromJson(Map<String, dynamic> json) => EmbedAuthor(
       proxyIconUrl: json['proxy_icon_url'] as String?,
     );
 
-Map<String, dynamic> _$EmbedAuthorToJson(EmbedAuthor instance) {
-  final val = <String, dynamic>{
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('url', instance.url);
-  writeNotNull('icon_url', instance.iconUrl);
-  writeNotNull('proxy_icon_url', instance.proxyIconUrl);
-  return val;
-}
+Map<String, dynamic> _$EmbedAuthorToJson(EmbedAuthor instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      if (instance.url case final value?) 'url': value,
+      if (instance.iconUrl case final value?) 'icon_url': value,
+      if (instance.proxyIconUrl case final value?) 'proxy_icon_url': value,
+    };

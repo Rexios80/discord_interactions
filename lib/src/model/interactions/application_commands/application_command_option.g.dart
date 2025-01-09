@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'application_command_option.dart';
 
@@ -32,29 +32,21 @@ ApplicationCommandOption _$ApplicationCommandOptionFromJson(
     );
 
 Map<String, dynamic> _$ApplicationCommandOptionToJson(
-    ApplicationCommandOption instance) {
-  final val = <String, dynamic>{
-    'type': _$ApplicationCommandOptionTypeEnumMap[instance.type]!,
-    'name': instance.name,
-    'description': instance.description,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('required', instance.required);
-  writeNotNull('choices', instance.choices);
-  writeNotNull('options', instance.options);
-  writeNotNull('channel_types',
-      instance.channelTypes?.map((e) => _$ChannelTypeEnumMap[e]!).toList());
-  writeNotNull('min_value', instance.minValue);
-  writeNotNull('max_value', instance.maxValue);
-  writeNotNull('autocomplete', instance.autocomplete);
-  return val;
-}
+        ApplicationCommandOption instance) =>
+    <String, dynamic>{
+      'type': _$ApplicationCommandOptionTypeEnumMap[instance.type]!,
+      'name': instance.name,
+      'description': instance.description,
+      if (instance.required case final value?) 'required': value,
+      if (instance.choices case final value?) 'choices': value,
+      if (instance.options case final value?) 'options': value,
+      if (instance.channelTypes?.map((e) => _$ChannelTypeEnumMap[e]!).toList()
+          case final value?)
+        'channel_types': value,
+      if (instance.minValue case final value?) 'min_value': value,
+      if (instance.maxValue case final value?) 'max_value': value,
+      if (instance.autocomplete case final value?) 'autocomplete': value,
+    };
 
 const _$ApplicationCommandOptionTypeEnumMap = {
   ApplicationCommandOptionType.subCommand: 1,

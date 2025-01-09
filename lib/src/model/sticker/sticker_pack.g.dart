@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'sticker_pack.dart';
 
@@ -20,22 +20,13 @@ StickerPack _$StickerPackFromJson(Map<String, dynamic> json) => StickerPack(
       bannerAssetId: json['banner_asset_id'] as String,
     );
 
-Map<String, dynamic> _$StickerPackToJson(StickerPack instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'stickers': instance.stickers,
-    'name': instance.name,
-    'sku_id': instance.skuId,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('cover_sticker_id', instance.coverStickerId);
-  val['description'] = instance.description;
-  val['banner_asset_id'] = instance.bannerAssetId;
-  return val;
-}
+Map<String, dynamic> _$StickerPackToJson(StickerPack instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'stickers': instance.stickers,
+      'name': instance.name,
+      'sku_id': instance.skuId,
+      if (instance.coverStickerId case final value?) 'cover_sticker_id': value,
+      'description': instance.description,
+      'banner_asset_id': instance.bannerAssetId,
+    };

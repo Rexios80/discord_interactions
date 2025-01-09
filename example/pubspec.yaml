@@ -5,7 +5,7 @@ publish_to: none
 homepage: https://github.com/Rexios80/discord_interactions/tree/master/example
 
 environment:
-  sdk: ">=2.17.0 <3.0.0"
+  sdk: ^3.0.0
 
 dependencies:
   functions_framework: ^0.4.1
@@ -15,6 +15,6 @@ dependencies:
     path: ../
 
 dev_dependencies:
-  rexios_lints: ^7.0.0
+  rexios_lints: ^9.1.0
   build_runner: ^2.1.5
   functions_framework_builder: ^0.4.4

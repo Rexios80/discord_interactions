@@ -1,4 +1,4 @@
-library convenience;
+library;
 
 export 'src/discord_cdn.dart';
 export 'src/discord_color.dart';

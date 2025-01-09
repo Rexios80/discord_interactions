@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'thread_metadata.dart';
 
@@ -18,24 +18,15 @@ ThreadMetadata _$ThreadMetadataFromJson(Map<String, dynamic> json) =>
       invitable: json['invitable'] as bool?,
     );
 
-Map<String, dynamic> _$ThreadMetadataToJson(ThreadMetadata instance) {
-  final val = <String, dynamic>{
-    'archived': instance.archived,
-    'auto_archive_duration':
-        _$ThreadAutoArchiveDurationEnumMap[instance.autoArchiveDuration]!,
-    'archive_timestamp': instance.archiveTimestamp.toIso8601String(),
-    'locked': instance.locked,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('invitable', instance.invitable);
-  return val;
-}
+Map<String, dynamic> _$ThreadMetadataToJson(ThreadMetadata instance) =>
+    <String, dynamic>{
+      'archived': instance.archived,
+      'auto_archive_duration':
+          _$ThreadAutoArchiveDurationEnumMap[instance.autoArchiveDuration]!,
+      'archive_timestamp': instance.archiveTimestamp.toIso8601String(),
+      'locked': instance.locked,
+      if (instance.invitable case final value?) 'invitable': value,
+    };
 
 const _$ThreadAutoArchiveDurationEnumMap = {
   ThreadAutoArchiveDuration.oneHour: 60,

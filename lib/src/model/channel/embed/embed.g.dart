@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'embed.dart';
 
@@ -16,7 +16,7 @@ Embed _$EmbedFromJson(Map<String, dynamic> json) => Embed(
       timestamp: json['timestamp'] == null
           ? null
           : DateTime.parse(json['timestamp'] as String),
-      color: json['color'] as int?,
+      color: (json['color'] as num?)?.toInt(),
       footer: json['footer'] == null
           ? null
           : EmbedFooter.fromJson(json['footer'] as Map<String, dynamic>),
@@ -40,30 +40,22 @@ Embed _$EmbedFromJson(Map<String, dynamic> json) => Embed(
           .toList(),
     );
 
-Map<String, dynamic> _$EmbedToJson(Embed instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('title', instance.title);
-  writeNotNull('type', _$EmbedTypeEnumMap[instance.type]);
-  writeNotNull('description', instance.description);
-  writeNotNull('url', instance.url);
-  writeNotNull('timestamp', instance.timestamp?.toIso8601String());
-  writeNotNull('color', instance.color);
-  writeNotNull('footer', instance.footer);
-  writeNotNull('image', instance.image);
-  writeNotNull('thumbnail', instance.thumbnail);
-  writeNotNull('video', instance.video);
-  writeNotNull('provider', instance.provider);
-  writeNotNull('author', instance.author);
-  writeNotNull('fields', instance.fields);
-  return val;
-}
+Map<String, dynamic> _$EmbedToJson(Embed instance) => <String, dynamic>{
+      if (instance.title case final value?) 'title': value,
+      if (_$EmbedTypeEnumMap[instance.type] case final value?) 'type': value,
+      if (instance.description case final value?) 'description': value,
+      if (instance.url case final value?) 'url': value,
+      if (instance.timestamp?.toIso8601String() case final value?)
+        'timestamp': value,
+      if (instance.color case final value?) 'color': value,
+      if (instance.footer case final value?) 'footer': value,
+      if (instance.image case final value?) 'image': value,
+      if (instance.thumbnail case final value?) 'thumbnail': value,
+      if (instance.video case final value?) 'video': value,
+      if (instance.provider case final value?) 'provider': value,
+      if (instance.author case final value?) 'author': value,
+      if (instance.fields case final value?) 'fields': value,
+    };
 
 const _$EmbedTypeEnumMap = {
   EmbedType.rich: 'rich',

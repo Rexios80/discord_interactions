@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'activity.dart';
 
@@ -12,7 +12,8 @@ Activity _$ActivityFromJson(Map<String, dynamic> json) => Activity(
       name: json['name'] as String,
       type: $enumDecode(_$ActivityTypeEnumMap, json['type']),
       url: json['url'] as String?,
-      createdAt: const UnixTimeConverter().fromJson(json['created_at'] as int),
+      createdAt: const UnixTimeConverter()
+          .fromJson((json['created_at'] as num).toInt()),
       timestamps: json['timestamps'] == null
           ? null
           : ActivityTimestamps.fromJson(
@@ -33,38 +34,32 @@ Activity _$ActivityFromJson(Map<String, dynamic> json) => Activity(
           ? null
           : ActivitySecrets.fromJson(json['secrets'] as Map<String, dynamic>),
       instance: json['instance'] as bool?,
-      flags: const ActivityFlagConverter().fromJson(json['flags'] as int?),
+      flags: const ActivityFlagConverter()
+          .fromJson((json['flags'] as num?)?.toInt()),
       buttons: const ActivityButtonListConverter().fromJson(json['buttons']),
     );
 
-Map<String, dynamic> _$ActivityToJson(Activity instance) {
-  final val = <String, dynamic>{
-    'name': instance.name,
-    'type': _$ActivityTypeEnumMap[instance.type]!,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('url', instance.url);
-  val['created_at'] = const UnixTimeConverter().toJson(instance.createdAt);
-  writeNotNull('timestamps', instance.timestamps);
-  writeNotNull('application_id', instance.applicationId);
-  writeNotNull('details', instance.details);
-  writeNotNull('state', instance.state);
-  writeNotNull('emoji', instance.emoji);
-  writeNotNull('party', instance.party);
-  writeNotNull('assets', instance.assets);
-  writeNotNull('secrets', instance.secrets);
-  writeNotNull('instance', instance.instance);
-  writeNotNull('flags', const ActivityFlagConverter().toJson(instance.flags));
-  writeNotNull(
-      'buttons', const ActivityButtonListConverter().toJson(instance.buttons));
-  return val;
-}
+Map<String, dynamic> _$ActivityToJson(Activity instance) => <String, dynamic>{
+      'name': instance.name,
+      'type': _$ActivityTypeEnumMap[instance.type]!,
+      if (instance.url case final value?) 'url': value,
+      'created_at': const UnixTimeConverter().toJson(instance.createdAt),
+      if (instance.timestamps case final value?) 'timestamps': value,
+      if (instance.applicationId case final value?) 'application_id': value,
+      if (instance.details case final value?) 'details': value,
+      if (instance.state case final value?) 'state': value,
+      if (instance.emoji case final value?) 'emoji': value,
+      if (instance.party case final value?) 'party': value,
+      if (instance.assets case final value?) 'assets': value,
+      if (instance.secrets case final value?) 'secrets': value,
+      if (instance.instance case final value?) 'instance': value,
+      if (const ActivityFlagConverter().toJson(instance.flags)
+          case final value?)
+        'flags': value,
+      if (const ActivityButtonListConverter().toJson(instance.buttons)
+          case final value?)
+        'buttons': value,
+    };
 
 const _$ActivityTypeEnumMap = {
   ActivityType.game: 0,

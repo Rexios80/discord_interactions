@@ -4,30 +4,30 @@
 ///
 /// https://discord.com/developers/docs/reference#message-formatting
 class MessageFormatting {
-  /// <@USER_ID>
+  /// `<@USER_ID>`
   static String user(String userId) => '<@$userId>';
 
-  /// <@!USER_ID>
+  /// `<@!USER_ID>`
   static String userNickname(String userId) => '<@!$userId>';
 
-  /// <#CHANNEL_ID>
+  /// `<#CHANNEL_ID>`
   static String channel(String channelId) => '<#$channelId>';
 
-  /// <@&ROLE_ID>
+  /// `<@&ROLE_ID>`
   static String role(String roleId) => '<@&$roleId>';
 
-  /// <:NAME:ID>
+  /// `<:NAME:ID>`
   static String emoji(String name, String emojiId) => '<:$name:$emojiId>';
 
-  /// <a:NAME:ID>
+  /// `<a:NAME:ID>`
   static String emojiAnimated(String name, String emojiId) =>
       '<a:$name:$emojiId>';
 
-  /// <t:TIMESTAMP>
+  /// `<t:TIMESTAMP>`
   static String timestamp(DateTime timestamp) =>
       '<t:${timestamp.millisecondsSinceEpoch ~/ 1000}>';
 
-  /// <t:TIMESTAMP:STYLE>
+  /// `<t:TIMESTAMP:STYLE>`
   static String timestampStyled(DateTime timestamp, TimestampStyle style) =>
       '<t:${timestamp.millisecondsSinceEpoch ~/ 1000}:${style.value}>';
 

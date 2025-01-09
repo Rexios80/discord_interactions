@@ -10,7 +10,7 @@ void main() {
 
     // Microseconds cause issues
     final timestamp = DateTime.fromMillisecondsSinceEpoch(
-      DateTime.now().millisecondsSinceEpoch,
+      DateTime.timestamp().millisecondsSinceEpoch,
     );
     final json = converter.toJson(timestamp);
     final converted = converter.fromJson(json);
@@ -23,7 +23,7 @@ void main() {
 
     // Microseconds cause issues
     final timestamp = DateTime.fromMillisecondsSinceEpoch(
-      DateTime.now().millisecondsSinceEpoch,
+      DateTime.timestamp().millisecondsSinceEpoch,
     );
     final json = converter.toJson(timestamp);
     final converted = converter.fromJson(json);

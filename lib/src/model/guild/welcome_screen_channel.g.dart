@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'welcome_screen_channel.dart';
 
@@ -18,19 +18,10 @@ WelcomeScreenChannel _$WelcomeScreenChannelFromJson(
     );
 
 Map<String, dynamic> _$WelcomeScreenChannelToJson(
-    WelcomeScreenChannel instance) {
-  final val = <String, dynamic>{
-    'channel_id': instance.channelId,
-    'description': instance.description,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('emoji_id', instance.emojiId);
-  writeNotNull('emoji_name', instance.emojiName);
-  return val;
-}
+        WelcomeScreenChannel instance) =>
+    <String, dynamic>{
+      'channel_id': instance.channelId,
+      'description': instance.description,
+      if (instance.emojiId case final value?) 'emoji_id': value,
+      if (instance.emojiName case final value?) 'emoji_name': value,
+    };

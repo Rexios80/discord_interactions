@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'team.dart';
 
@@ -10,7 +10,7 @@ part of 'team.dart';
 
 Team _$TeamFromJson(Map<String, dynamic> json) => Team(
       icon: json['icon'] as String?,
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       members: (json['members'] as List<dynamic>)
           .map((e) => TeamMember.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -18,19 +18,10 @@ Team _$TeamFromJson(Map<String, dynamic> json) => Team(
       ownerUserId: json['owner_user_id'] as String,
     );
 
-Map<String, dynamic> _$TeamToJson(Team instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('icon', instance.icon);
-  val['id'] = instance.id;
-  val['members'] = instance.members;
-  val['name'] = instance.name;
-  val['owner_user_id'] = instance.ownerUserId;
-  return val;
-}
+Map<String, dynamic> _$TeamToJson(Team instance) => <String, dynamic>{
+      if (instance.icon case final value?) 'icon': value,
+      'id': instance.id,
+      'members': instance.members,
+      'name': instance.name,
+      'owner_user_id': instance.ownerUserId,
+    };

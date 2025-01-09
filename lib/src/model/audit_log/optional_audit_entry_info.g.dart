@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'optional_audit_entry_info.dart';
 
@@ -22,22 +22,15 @@ OptionalAuditEntryInfo _$OptionalAuditEntryInfoFromJson(
     );
 
 Map<String, dynamic> _$OptionalAuditEntryInfoToJson(
-    OptionalAuditEntryInfo instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('channel_id', instance.channelId);
-  writeNotNull('count', instance.count);
-  writeNotNull('delete_member_days', instance.deleteMemberDays);
-  writeNotNull('id', instance.id);
-  writeNotNull('members_removed', instance.membersRemoved);
-  writeNotNull('message_id', instance.messageId);
-  writeNotNull('role_name', instance.roleName);
-  writeNotNull('type', instance.type);
-  return val;
-}
+        OptionalAuditEntryInfo instance) =>
+    <String, dynamic>{
+      if (instance.channelId case final value?) 'channel_id': value,
+      if (instance.count case final value?) 'count': value,
+      if (instance.deleteMemberDays case final value?)
+        'delete_member_days': value,
+      if (instance.id case final value?) 'id': value,
+      if (instance.membersRemoved case final value?) 'members_removed': value,
+      if (instance.messageId case final value?) 'message_id': value,
+      if (instance.roleName case final value?) 'role_name': value,
+      if (instance.type case final value?) 'type': value,
+    };

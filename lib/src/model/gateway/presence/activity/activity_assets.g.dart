@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'activity_assets.dart';
 
@@ -16,18 +16,10 @@ ActivityAssets _$ActivityAssetsFromJson(Map<String, dynamic> json) =>
       smallText: json['small_text'] as String?,
     );
 
-Map<String, dynamic> _$ActivityAssetsToJson(ActivityAssets instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('large_image', instance.largeImage);
-  writeNotNull('large_text', instance.largeText);
-  writeNotNull('small_image', instance.smallImage);
-  writeNotNull('small_text', instance.smallText);
-  return val;
-}
+Map<String, dynamic> _$ActivityAssetsToJson(ActivityAssets instance) =>
+    <String, dynamic>{
+      if (instance.largeImage case final value?) 'large_image': value,
+      if (instance.largeText case final value?) 'large_text': value,
+      if (instance.smallImage case final value?) 'small_image': value,
+      if (instance.smallText case final value?) 'small_text': value,
+    };

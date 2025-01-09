@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'invite.dart';
 
@@ -28,8 +28,10 @@ Invite _$InviteFromJson(Map<String, dynamic> json) => Invite(
           ? null
           : Application.fromJson(
               json['target_application'] as Map<String, dynamic>),
-      approximatePresenceCount: json['approximate_presence_count'] as int?,
-      approximateMemberCount: json['approximate_member_count'] as int?,
+      approximatePresenceCount:
+          (json['approximate_presence_count'] as num?)?.toInt(),
+      approximateMemberCount:
+          (json['approximate_member_count'] as num?)?.toInt(),
       expiresAt: json['expires_at'] == null
           ? null
           : DateTime.parse(json['expires_at'] as String),
@@ -41,43 +43,41 @@ Invite _$InviteFromJson(Map<String, dynamic> json) => Invite(
           ? null
           : GuildScheduledEvent.fromJson(
               json['guild_scheduled_event'] as Map<String, dynamic>),
-      uses: json['uses'] as int?,
-      maxUses: json['max_uses'] as int?,
-      maxAge: json['max_age'] as int?,
+      uses: (json['uses'] as num?)?.toInt(),
+      maxUses: (json['max_uses'] as num?)?.toInt(),
+      maxAge: (json['max_age'] as num?)?.toInt(),
       temporary: json['temporary'] as bool?,
       createdAt: json['created_at'] == null
           ? null
           : DateTime.parse(json['created_at'] as String),
     );
 
-Map<String, dynamic> _$InviteToJson(Invite instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('code', instance.code);
-  writeNotNull('guild', instance.guild);
-  writeNotNull('channel', instance.channel);
-  writeNotNull('inviter', instance.inviter);
-  writeNotNull('target_type', _$InviteTargetTypeEnumMap[instance.targetType]);
-  writeNotNull('target_user', instance.targetUser);
-  writeNotNull('target_application', instance.targetApplication);
-  writeNotNull('approximate_presence_count', instance.approximatePresenceCount);
-  writeNotNull('approximate_member_count', instance.approximateMemberCount);
-  writeNotNull('expires_at', instance.expiresAt?.toIso8601String());
-  writeNotNull('stage_instance', instance.stageInstance);
-  writeNotNull('guild_scheduled_event', instance.guildScheduledEvent);
-  writeNotNull('uses', instance.uses);
-  writeNotNull('max_uses', instance.maxUses);
-  writeNotNull('max_age', instance.maxAge);
-  writeNotNull('temporary', instance.temporary);
-  writeNotNull('created_at', instance.createdAt?.toIso8601String());
-  return val;
-}
+Map<String, dynamic> _$InviteToJson(Invite instance) => <String, dynamic>{
+      if (instance.code case final value?) 'code': value,
+      if (instance.guild case final value?) 'guild': value,
+      if (instance.channel case final value?) 'channel': value,
+      if (instance.inviter case final value?) 'inviter': value,
+      if (_$InviteTargetTypeEnumMap[instance.targetType] case final value?)
+        'target_type': value,
+      if (instance.targetUser case final value?) 'target_user': value,
+      if (instance.targetApplication case final value?)
+        'target_application': value,
+      if (instance.approximatePresenceCount case final value?)
+        'approximate_presence_count': value,
+      if (instance.approximateMemberCount case final value?)
+        'approximate_member_count': value,
+      if (instance.expiresAt?.toIso8601String() case final value?)
+        'expires_at': value,
+      if (instance.stageInstance case final value?) 'stage_instance': value,
+      if (instance.guildScheduledEvent case final value?)
+        'guild_scheduled_event': value,
+      if (instance.uses case final value?) 'uses': value,
+      if (instance.maxUses case final value?) 'max_uses': value,
+      if (instance.maxAge case final value?) 'max_age': value,
+      if (instance.temporary case final value?) 'temporary': value,
+      if (instance.createdAt?.toIso8601String() case final value?)
+        'created_at': value,
+    };
 
 const _$InviteTargetTypeEnumMap = {
   InviteTargetType.stream: 1,

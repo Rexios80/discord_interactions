@@ -1,5 +1,5 @@
 @Skip('Requires test server and user input')
-library interactions_api_test;
+library;
 
 // Dart imports:
 import 'dart:async';

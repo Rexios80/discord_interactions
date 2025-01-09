@@ -3,6 +3,7 @@ import 'dart:io';
 
 // Package imports:
 import 'package:test/test.dart';
+import 'package:path/path.dart' as path;
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
@@ -348,7 +349,7 @@ void main() async {
           .getGuildWidgetImage(guildId, style: GuildWidgetStyle.banner1);
       expect(response.failure, isNull);
 
-      File('test_resources/guild_widget_image.png')
+      File(path.join('test_resources', 'guild_widget_image.png'))
           .writeAsBytesSync(response.success!.data);
 
       await avoidRateLimit();

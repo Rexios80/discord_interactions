@@ -4,6 +4,7 @@ import 'dart:io';
 
 // Package imports:
 import 'package:test/test.dart';
+import 'package:path/path.dart' as path;
 
 // Project imports:
 import 'package:discord_interactions/discord_interactions.dart';
@@ -15,7 +16,7 @@ void main() async {
   late final String emojiId;
 
   setUpAll(() async {
-    final emojiFile = File('test_resources/test_emoji.gif');
+    final emojiFile = File(path.join('test_resources', 'test_emoji.gif'));
     final emojiBytes = await emojiFile.readAsBytes();
     final emojiBase64 = base64Encode(emojiBytes);
     final emojiImageData = ImageData.fromBase64(emojiBase64, ImageFormat.gif);

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'activity_secrets.dart';
 
@@ -15,17 +15,9 @@ ActivitySecrets _$ActivitySecretsFromJson(Map<String, dynamic> json) =>
       match: json['match'] as String?,
     );
 
-Map<String, dynamic> _$ActivitySecretsToJson(ActivitySecrets instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('join', instance.join);
-  writeNotNull('spectate', instance.spectate);
-  writeNotNull('match', instance.match);
-  return val;
-}
+Map<String, dynamic> _$ActivitySecretsToJson(ActivitySecrets instance) =>
+    <String, dynamic>{
+      if (instance.join case final value?) 'join': value,
+      if (instance.spectate case final value?) 'spectate': value,
+      if (instance.match case final value?) 'match': value,
+    };

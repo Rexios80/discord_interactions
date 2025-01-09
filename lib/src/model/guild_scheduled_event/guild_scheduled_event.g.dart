@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'guild_scheduled_event.dart';
 
@@ -33,38 +33,30 @@ GuildScheduledEvent _$GuildScheduledEventFromJson(Map<String, dynamic> json) =>
       creator: json['creator'] == null
           ? null
           : User.fromJson(json['creator'] as Map<String, dynamic>),
-      userCount: json['user_count'] as int?,
+      userCount: (json['user_count'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$GuildScheduledEventToJson(GuildScheduledEvent instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'guild_id': instance.guildId,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('channel_id', instance.channelId);
-  writeNotNull('creator_id', instance.creatorId);
-  val['name'] = instance.name;
-  writeNotNull('description', instance.description);
-  val['scheduled_start_time'] = instance.scheduledStartTime.toIso8601String();
-  writeNotNull(
-      'scheduled_end_time', instance.scheduledEndTime?.toIso8601String());
-  val['privacy_level'] = _$PrivacyLevelEnumMap[instance.privacyLevel]!;
-  val['status'] = _$GuildScheduledEventStatusEnumMap[instance.status]!;
-  val['entity_type'] =
-      _$GuildScheduledEventEntityTypeEnumMap[instance.entityType]!;
-  writeNotNull('entity_id', instance.entityId);
-  writeNotNull('entity_metadata', instance.entityMetadata);
-  writeNotNull('creator', instance.creator);
-  writeNotNull('user_count', instance.userCount);
-  return val;
-}
+Map<String, dynamic> _$GuildScheduledEventToJson(
+        GuildScheduledEvent instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'guild_id': instance.guildId,
+      if (instance.channelId case final value?) 'channel_id': value,
+      if (instance.creatorId case final value?) 'creator_id': value,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      'scheduled_start_time': instance.scheduledStartTime.toIso8601String(),
+      if (instance.scheduledEndTime?.toIso8601String() case final value?)
+        'scheduled_end_time': value,
+      'privacy_level': _$PrivacyLevelEnumMap[instance.privacyLevel]!,
+      'status': _$GuildScheduledEventStatusEnumMap[instance.status]!,
+      'entity_type':
+          _$GuildScheduledEventEntityTypeEnumMap[instance.entityType]!,
+      if (instance.entityId case final value?) 'entity_id': value,
+      if (instance.entityMetadata case final value?) 'entity_metadata': value,
+      if (instance.creator case final value?) 'creator': value,
+      if (instance.userCount case final value?) 'user_count': value,
+    };
 
 const _$PrivacyLevelEnumMap = {
   PrivacyLevel.public: 1,

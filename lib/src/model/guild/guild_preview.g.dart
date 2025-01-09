@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'guild_preview.dart';
 
@@ -20,34 +20,26 @@ GuildPreview _$GuildPreviewFromJson(Map<String, dynamic> json) => GuildPreview(
       features: (json['features'] as List<dynamic>)
           .map((e) => $enumDecode(_$GuildFeatureEnumMap, e))
           .toList(),
-      approximateMemberCount: json['approximate_member_count'] as int,
-      approximatePresenceCount: json['approximate_presence_count'] as int,
+      approximateMemberCount: (json['approximate_member_count'] as num).toInt(),
+      approximatePresenceCount:
+          (json['approximate_presence_count'] as num).toInt(),
       description: json['description'] as String?,
     );
 
-Map<String, dynamic> _$GuildPreviewToJson(GuildPreview instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'name': instance.name,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('icon', instance.icon);
-  writeNotNull('splash', instance.splash);
-  writeNotNull('discovery_splash', instance.discoverySplash);
-  writeNotNull('emojis', instance.emojis);
-  val['features'] =
-      instance.features.map((e) => _$GuildFeatureEnumMap[e]!).toList();
-  val['approximate_member_count'] = instance.approximateMemberCount;
-  val['approximate_presence_count'] = instance.approximatePresenceCount;
-  writeNotNull('description', instance.description);
-  return val;
-}
+Map<String, dynamic> _$GuildPreviewToJson(GuildPreview instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      if (instance.icon case final value?) 'icon': value,
+      if (instance.splash case final value?) 'splash': value,
+      if (instance.discoverySplash case final value?) 'discovery_splash': value,
+      if (instance.emojis case final value?) 'emojis': value,
+      'features':
+          instance.features.map((e) => _$GuildFeatureEnumMap[e]!).toList(),
+      'approximate_member_count': instance.approximateMemberCount,
+      'approximate_presence_count': instance.approximatePresenceCount,
+      if (instance.description case final value?) 'description': value,
+    };
 
 const _$GuildFeatureEnumMap = {
   GuildFeature.animatedIcon: 'ANIMATED_ICON',

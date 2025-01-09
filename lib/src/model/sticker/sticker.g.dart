@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'sticker.dart';
 
@@ -21,32 +21,22 @@ Sticker _$StickerFromJson(Map<String, dynamic> json) => Sticker(
       user: json['user'] == null
           ? null
           : User.fromJson(json['user'] as Map<String, dynamic>),
-      sortValue: json['sort_value'] as int?,
+      sortValue: (json['sort_value'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$StickerToJson(Sticker instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('pack_id', instance.packId);
-  val['name'] = instance.name;
-  writeNotNull('description', instance.description);
-  writeNotNull('tags', instance.tags);
-  writeNotNull('type', _$StickerTypeEnumMap[instance.type]);
-  val['format_type'] = _$StickerFormatTypeEnumMap[instance.formatType]!;
-  writeNotNull('available', instance.available);
-  writeNotNull('guild_id', instance.guildId);
-  writeNotNull('user', instance.user);
-  writeNotNull('sort_value', instance.sortValue);
-  return val;
-}
+Map<String, dynamic> _$StickerToJson(Sticker instance) => <String, dynamic>{
+      'id': instance.id,
+      if (instance.packId case final value?) 'pack_id': value,
+      'name': instance.name,
+      if (instance.description case final value?) 'description': value,
+      if (instance.tags case final value?) 'tags': value,
+      if (_$StickerTypeEnumMap[instance.type] case final value?) 'type': value,
+      'format_type': _$StickerFormatTypeEnumMap[instance.formatType]!,
+      if (instance.available case final value?) 'available': value,
+      if (instance.guildId case final value?) 'guild_id': value,
+      if (instance.user case final value?) 'user': value,
+      if (instance.sortValue case final value?) 'sort_value': value,
+    };
 
 const _$StickerTypeEnumMap = {
   StickerType.standard: 1,

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'webhook.dart';
 
@@ -29,30 +29,20 @@ Webhook _$WebhookFromJson(Map<String, dynamic> json) => Webhook(
       url: json['url'] as String?,
     );
 
-Map<String, dynamic> _$WebhookToJson(Webhook instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'type': _$WebhookTypeEnumMap[instance.type]!,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('guild_id', instance.guildId);
-  writeNotNull('channel_id', instance.channelId);
-  writeNotNull('user', instance.user);
-  writeNotNull('name', instance.name);
-  writeNotNull('avatar', instance.avatar);
-  writeNotNull('token', instance.token);
-  val['application_id'] = instance.applicationId;
-  writeNotNull('source_guild', instance.sourceGuild);
-  writeNotNull('source_channel', instance.sourceChannel);
-  writeNotNull('url', instance.url);
-  return val;
-}
+Map<String, dynamic> _$WebhookToJson(Webhook instance) => <String, dynamic>{
+      'id': instance.id,
+      'type': _$WebhookTypeEnumMap[instance.type]!,
+      if (instance.guildId case final value?) 'guild_id': value,
+      if (instance.channelId case final value?) 'channel_id': value,
+      if (instance.user case final value?) 'user': value,
+      if (instance.name case final value?) 'name': value,
+      if (instance.avatar case final value?) 'avatar': value,
+      if (instance.token case final value?) 'token': value,
+      'application_id': instance.applicationId,
+      if (instance.sourceGuild case final value?) 'source_guild': value,
+      if (instance.sourceChannel case final value?) 'source_channel': value,
+      if (instance.url case final value?) 'url': value,
+    };
 
 const _$WebhookTypeEnumMap = {
   WebhookType.incoming: 1,

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'message.dart';
 
@@ -56,7 +56,8 @@ Message _$MessageFromJson(Map<String, dynamic> json) => Message(
           ? null
           : MessageReference.fromJson(
               json['message_reference'] as Map<String, dynamic>),
-      flags: const MessageFlagConverter().fromJson(json['flags'] as int?),
+      flags: const MessageFlagConverter()
+          .fromJson((json['flags'] as num?)?.toInt()),
       referencedMessage: json['referenced_message'] == null
           ? null
           : Message.fromJson(
@@ -76,48 +77,42 @@ Message _$MessageFromJson(Map<String, dynamic> json) => Message(
           .toList(),
     );
 
-Map<String, dynamic> _$MessageToJson(Message instance) {
-  final val = <String, dynamic>{
-    'id': instance.id,
-    'channel_id': instance.channelId,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('guild_id', instance.guildId);
-  val['author'] = instance.author;
-  writeNotNull('member', instance.member);
-  val['content'] = instance.content;
-  val['timestamp'] = instance.timestamp.toIso8601String();
-  writeNotNull('edited_timestamp', instance.editedTimestamp?.toIso8601String());
-  val['tts'] = instance.tts;
-  val['mention_everyone'] = instance.mentionEveryone;
-  val['mentions'] = instance.mentions;
-  val['mention_roles'] = instance.mentionRoles;
-  writeNotNull('mention_channels', instance.mentionChannels);
-  val['attachments'] = instance.attachments;
-  val['embeds'] = instance.embeds;
-  writeNotNull('reactions', instance.reactions);
-  writeNotNull('nonce', instance.nonce);
-  val['pinned'] = instance.pinned;
-  writeNotNull('webhook_id', instance.webhookId);
-  val['type'] = _$MessageTypeEnumMap[instance.type]!;
-  writeNotNull('activity', instance.activity);
-  writeNotNull('application', instance.application);
-  writeNotNull('application_id', instance.applicationId);
-  writeNotNull('message_reference', instance.messageReference);
-  writeNotNull('flags', const MessageFlagConverter().toJson(instance.flags));
-  writeNotNull('referenced_message', instance.referencedMessage);
-  writeNotNull('interaction', instance.interaction);
-  writeNotNull('thread', instance.thread);
-  writeNotNull('components', instance.components);
-  writeNotNull('sitcker_items', instance.stickerItems);
-  return val;
-}
+Map<String, dynamic> _$MessageToJson(Message instance) => <String, dynamic>{
+      'id': instance.id,
+      'channel_id': instance.channelId,
+      if (instance.guildId case final value?) 'guild_id': value,
+      'author': instance.author,
+      if (instance.member case final value?) 'member': value,
+      'content': instance.content,
+      'timestamp': instance.timestamp.toIso8601String(),
+      if (instance.editedTimestamp?.toIso8601String() case final value?)
+        'edited_timestamp': value,
+      'tts': instance.tts,
+      'mention_everyone': instance.mentionEveryone,
+      'mentions': instance.mentions,
+      'mention_roles': instance.mentionRoles,
+      if (instance.mentionChannels case final value?) 'mention_channels': value,
+      'attachments': instance.attachments,
+      'embeds': instance.embeds,
+      if (instance.reactions case final value?) 'reactions': value,
+      if (instance.nonce case final value?) 'nonce': value,
+      'pinned': instance.pinned,
+      if (instance.webhookId case final value?) 'webhook_id': value,
+      'type': _$MessageTypeEnumMap[instance.type]!,
+      if (instance.activity case final value?) 'activity': value,
+      if (instance.application case final value?) 'application': value,
+      if (instance.applicationId case final value?) 'application_id': value,
+      if (instance.messageReference case final value?)
+        'message_reference': value,
+      if (const MessageFlagConverter().toJson(instance.flags) case final value?)
+        'flags': value,
+      if (instance.referencedMessage case final value?)
+        'referenced_message': value,
+      if (instance.interaction case final value?) 'interaction': value,
+      if (instance.thread case final value?) 'thread': value,
+      if (instance.components case final value?) 'components': value,
+      if (instance.stickerItems case final value?) 'sitcker_items': value,
+    };
 
 const _$MessageTypeEnumMap = {
   MessageType.defaultType: 0,

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'component.dart';
 
@@ -22,37 +22,28 @@ Component _$ComponentFromJson(Map<String, dynamic> json) => Component(
           ?.map((e) => SelectOption.fromJson(e as Map<String, dynamic>))
           .toList(),
       placeholder: json['placeholder'] as String?,
-      minValues: json['min_values'] as int?,
-      maxValues: json['max_values'] as int?,
+      minValues: (json['min_values'] as num?)?.toInt(),
+      maxValues: (json['max_values'] as num?)?.toInt(),
       components: (json['components'] as List<dynamic>?)
           ?.map((e) => Component.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$ComponentToJson(Component instance) {
-  final val = <String, dynamic>{
-    'type': _$ComponentTypeEnumMap[instance.type]!,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('custom_id', instance.customId);
-  writeNotNull('disabled', instance.disabled);
-  writeNotNull('style', _$ButtonStyleEnumMap[instance.style]);
-  writeNotNull('label', instance.label);
-  writeNotNull('emoji', instance.emoji);
-  writeNotNull('url', instance.url);
-  writeNotNull('options', instance.options);
-  writeNotNull('placeholder', instance.placeholder);
-  writeNotNull('min_values', instance.minValues);
-  writeNotNull('max_values', instance.maxValues);
-  writeNotNull('components', instance.components);
-  return val;
-}
+Map<String, dynamic> _$ComponentToJson(Component instance) => <String, dynamic>{
+      'type': _$ComponentTypeEnumMap[instance.type]!,
+      if (instance.customId case final value?) 'custom_id': value,
+      if (instance.disabled case final value?) 'disabled': value,
+      if (_$ButtonStyleEnumMap[instance.style] case final value?)
+        'style': value,
+      if (instance.label case final value?) 'label': value,
+      if (instance.emoji case final value?) 'emoji': value,
+      if (instance.url case final value?) 'url': value,
+      if (instance.options case final value?) 'options': value,
+      if (instance.placeholder case final value?) 'placeholder': value,
+      if (instance.minValues case final value?) 'min_values': value,
+      if (instance.maxValues case final value?) 'max_values': value,
+      if (instance.components case final value?) 'components': value,
+    };
 
 const _$ComponentTypeEnumMap = {
   ComponentType.actionRow: 1,

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'welcome_screen.dart';
 
@@ -16,16 +16,8 @@ WelcomeScreen _$WelcomeScreenFromJson(Map<String, dynamic> json) =>
           .toList(),
     );
 
-Map<String, dynamic> _$WelcomeScreenToJson(WelcomeScreen instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('description', instance.description);
-  val['welcome_channels'] = instance.welcomeChannels;
-  return val;
-}
+Map<String, dynamic> _$WelcomeScreenToJson(WelcomeScreen instance) =>
+    <String, dynamic>{
+      if (instance.description case final value?) 'description': value,
+      'welcome_channels': instance.welcomeChannels,
+    };

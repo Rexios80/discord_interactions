@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'guild_widget.dart';
 
@@ -13,17 +13,8 @@ GuildWidget _$GuildWidgetFromJson(Map<String, dynamic> json) => GuildWidget(
       channelId: json['channel_id'] as String?,
     );
 
-Map<String, dynamic> _$GuildWidgetToJson(GuildWidget instance) {
-  final val = <String, dynamic>{
-    'enabled': instance.enabled,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('channel_id', instance.channelId);
-  return val;
-}
+Map<String, dynamic> _$GuildWidgetToJson(GuildWidget instance) =>
+    <String, dynamic>{
+      'enabled': instance.enabled,
+      if (instance.channelId case final value?) 'channel_id': value,
+    };

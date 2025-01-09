@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'message_reference.dart';
 
@@ -16,18 +16,11 @@ MessageReference _$MessageReferenceFromJson(Map<String, dynamic> json) =>
       failIfNotExists: json['fail_if_not_exists'] as bool?,
     );
 
-Map<String, dynamic> _$MessageReferenceToJson(MessageReference instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('message_id', instance.messageId);
-  writeNotNull('channel_id', instance.channelId);
-  writeNotNull('guild_id', instance.guildId);
-  writeNotNull('fail_if_not_exists', instance.failIfNotExists);
-  return val;
-}
+Map<String, dynamic> _$MessageReferenceToJson(MessageReference instance) =>
+    <String, dynamic>{
+      if (instance.messageId case final value?) 'message_id': value,
+      if (instance.channelId case final value?) 'channel_id': value,
+      if (instance.guildId case final value?) 'guild_id': value,
+      if (instance.failIfNotExists case final value?)
+        'fail_if_not_exists': value,
+    };

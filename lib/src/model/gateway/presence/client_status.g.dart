@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'client_status.dart';
 
@@ -14,20 +14,14 @@ ClientStatus _$ClientStatusFromJson(Map<String, dynamic> json) => ClientStatus(
       web: $enumDecodeNullable(_$PresenceStatusEnumMap, json['web']),
     );
 
-Map<String, dynamic> _$ClientStatusToJson(ClientStatus instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('desktop', _$PresenceStatusEnumMap[instance.desktop]);
-  writeNotNull('mobile', _$PresenceStatusEnumMap[instance.mobile]);
-  writeNotNull('web', _$PresenceStatusEnumMap[instance.web]);
-  return val;
-}
+Map<String, dynamic> _$ClientStatusToJson(ClientStatus instance) =>
+    <String, dynamic>{
+      if (_$PresenceStatusEnumMap[instance.desktop] case final value?)
+        'desktop': value,
+      if (_$PresenceStatusEnumMap[instance.mobile] case final value?)
+        'mobile': value,
+      if (_$PresenceStatusEnumMap[instance.web] case final value?) 'web': value,
+    };
 
 const _$PresenceStatusEnumMap = {
   PresenceStatus.idle: 'idle',

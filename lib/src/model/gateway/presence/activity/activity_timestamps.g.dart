@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'activity_timestamps.dart';
 
@@ -10,20 +10,12 @@ part of 'activity_timestamps.dart';
 
 ActivityTimestamps _$ActivityTimestampsFromJson(Map<String, dynamic> json) =>
     ActivityTimestamps(
-      start: json['start'] as int?,
-      end: json['end'] as int?,
+      start: (json['start'] as num?)?.toInt(),
+      end: (json['end'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$ActivityTimestampsToJson(ActivityTimestamps instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('start', instance.start);
-  writeNotNull('end', instance.end);
-  return val;
-}
+Map<String, dynamic> _$ActivityTimestampsToJson(ActivityTimestamps instance) =>
+    <String, dynamic>{
+      if (instance.start case final value?) 'start': value,
+      if (instance.end case final value?) 'end': value,
+    };

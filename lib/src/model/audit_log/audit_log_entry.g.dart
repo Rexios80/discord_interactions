@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'audit_log_entry.dart';
 
@@ -24,24 +24,16 @@ AuditLogEntry _$AuditLogEntryFromJson(Map<String, dynamic> json) =>
       reason: json['reason'] as String?,
     );
 
-Map<String, dynamic> _$AuditLogEntryToJson(AuditLogEntry instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('target_id', instance.targetId);
-  writeNotNull('changes', instance.changes);
-  writeNotNull('user_id', instance.userId);
-  val['id'] = instance.id;
-  val['action_type'] = _$AuditLogEventEnumMap[instance.actionType]!;
-  writeNotNull('options', instance.options);
-  writeNotNull('reason', instance.reason);
-  return val;
-}
+Map<String, dynamic> _$AuditLogEntryToJson(AuditLogEntry instance) =>
+    <String, dynamic>{
+      if (instance.targetId case final value?) 'target_id': value,
+      if (instance.changes case final value?) 'changes': value,
+      if (instance.userId case final value?) 'user_id': value,
+      'id': instance.id,
+      'action_type': _$AuditLogEventEnumMap[instance.actionType]!,
+      if (instance.options case final value?) 'options': value,
+      if (instance.reason case final value?) 'reason': value,
+    };
 
 const _$AuditLogEventEnumMap = {
   AuditLogEvent.guildUpdate: 1,

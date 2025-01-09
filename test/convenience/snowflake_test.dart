@@ -8,7 +8,7 @@ void main() async {
   test('Emoji', () async {
     /// The recovered timestamp does not have milliseconds
     final timestamp = DateTime.fromMillisecondsSinceEpoch(
-      DateTime.now().millisecondsSinceEpoch ~/ 1000,
+      DateTime.timestamp().millisecondsSinceEpoch ~/ 1000,
     );
     final snowflake = Snowflake.fromTimestamp(timestamp);
     final recoveredTimestamp = Snowflake.getTimestamp(snowflake);

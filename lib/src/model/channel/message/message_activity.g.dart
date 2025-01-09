@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: require_trailing_commas
+// ignore_for_file: require_trailing_commas, document_ignores
 
 part of 'message_activity.dart';
 
@@ -14,20 +14,11 @@ MessageActivity _$MessageActivityFromJson(Map<String, dynamic> json) =>
       partyId: json['party_id'] as String?,
     );
 
-Map<String, dynamic> _$MessageActivityToJson(MessageActivity instance) {
-  final val = <String, dynamic>{
-    'type': _$MessageActivityTypeEnumMap[instance.type]!,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('party_id', instance.partyId);
-  return val;
-}
+Map<String, dynamic> _$MessageActivityToJson(MessageActivity instance) =>
+    <String, dynamic>{
+      'type': _$MessageActivityTypeEnumMap[instance.type]!,
+      if (instance.partyId case final value?) 'party_id': value,
+    };
 
 const _$MessageActivityTypeEnumMap = {
   MessageActivityType.join: 1,
