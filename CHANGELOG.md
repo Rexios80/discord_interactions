@@ -1,3 +1,7 @@
+## 0.0.23
+
+- Exposes the `dio` instance
+
 ## 0.0.22
 
 - Updates analysis and fixes issues

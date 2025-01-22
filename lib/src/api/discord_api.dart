@@ -24,7 +24,10 @@ import 'package:discord_interactions/src/model/discord_model.dart';
 class DiscordApi {
   static const _baseUrl = 'https://discord.com/api/v9';
 
-  final Dio _dio;
+  /// The dio instance used for making requests
+  /// 
+  /// This is public to allow injecting a custom `HttpClientAdapter`
+  final Dio dio;
 
   /// Access to Application Commands API
   late final ApplicationCommandsApi applicationCommands;
@@ -77,7 +80,7 @@ class DiscordApi {
     String? botToken,
     String? credentialsToken,
   })  : assert(botToken != null || credentialsToken != null),
-        _dio = Dio(
+        dio = Dio(
           BaseOptions(
             baseUrl: _baseUrl,
             headers: {
@@ -90,21 +93,21 @@ class DiscordApi {
           ),
         ) {
     applicationCommands = ApplicationCommandsApi(
-      _dio,
+      dio,
       applicationId: applicationId,
     );
-    interactions = InteractionsApi(_dio, applicationId: applicationId);
-    auditLogs = AuditLogsApi(_dio);
-    channels = ChannelsApi(_dio);
-    emojis = EmojisApi(_dio);
-    guildScheduledEvents = GuildScheduledEventsApi(_dio);
-    guildTemplates = GuildTemplatesApi(_dio);
-    guilds = GuildsApi(_dio);
-    invites = InvitesApi(_dio);
-    stageInstances = StageInstancesApi(_dio);
-    stickers = StickersApi(_dio);
-    users = UsersApi(_dio);
-    voice = VoiceApi(_dio);
-    webhooks = WebhooksApi(_dio);
+    interactions = InteractionsApi(dio, applicationId: applicationId);
+    auditLogs = AuditLogsApi(dio);
+    channels = ChannelsApi(dio);
+    emojis = EmojisApi(dio);
+    guildScheduledEvents = GuildScheduledEventsApi(dio);
+    guildTemplates = GuildTemplatesApi(dio);
+    guilds = GuildsApi(dio);
+    invites = InvitesApi(dio);
+    stageInstances = StageInstancesApi(dio);
+    stickers = StickersApi(dio);
+    users = UsersApi(dio);
+    voice = VoiceApi(dio);
+    webhooks = WebhooksApi(dio);
   }
 }
