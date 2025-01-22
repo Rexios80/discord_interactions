@@ -25,7 +25,7 @@ class DiscordApi {
   static const _baseUrl = 'https://discord.com/api/v9';
 
   /// The dio instance used for making requests
-  /// 
+  ///
   /// This is public to allow injecting a custom `HttpClientAdapter`
   final Dio dio;
 
