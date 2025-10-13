@@ -28,11 +28,11 @@ void main() async {
       content += '\n${MessageFormatting.timestampStyled(timestamp, style)}';
     }
 
-    final createMessageResponse = await api.channels.createMessage(
+    final (success, failure) = await api.channels.createMessage(
       channelId,
       content: content,
     );
 
-    expect(createMessageResponse.success!.data.content, content);
+    expect(success!.data.content, content);
   });
 }

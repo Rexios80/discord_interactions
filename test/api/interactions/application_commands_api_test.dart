@@ -13,65 +13,65 @@ void main() async {
     late final ApplicationCommand command;
 
     test('Create global appliction command', () async {
-      final response =
+      final (success, failure) =
           await api.applicationCommands.createGlobalApplicationCommand(
         name: 'test_name',
         description: 'test description',
       );
-      command = response.success!.data;
+      command = success!.data;
       expect(command.name, 'test_name');
       expect(command.description, 'test description');
     });
 
     test('Get global appliction command', () async {
-      final response = await api.applicationCommands
+      final (success, failure) = await api.applicationCommands
           .getGlobalApplicationCommand(command.id!);
-      final fetchedCommand = response.success!.data;
+      final fetchedCommand = success!.data;
       expect(fetchedCommand.name, 'test_name');
     });
 
     late final List<ApplicationCommand> commands;
 
     test('Get global application commands', () async {
-      final response =
+      final (success, failure) =
           await api.applicationCommands.getGlobalApplicationCommands();
-      commands = response.success!.data;
+      commands = success!.data;
       expect(commands.length, greaterThan(0));
       expect(commands.map((e) => e.name), contains('test_name'));
     });
 
     test('Edit global application command', () async {
-      final response =
+      final (success, failure) =
           await api.applicationCommands.editGlobalApplicationCommand(
         command.id!,
         name: 'edited_name',
       );
-      final editedCommand = response.success!.data;
+      final editedCommand = success!.data;
       expect(editedCommand.name, 'edited_name');
     });
 
     test('Bulk overwrite global application commands', () async {
-      final response = await api.applicationCommands
+      final (success, failure) = await api.applicationCommands
           .bulkOverwriteGlobalApplicationCommands(commands);
-      final newCommands = response.success!.data;
+      final newCommands = success!.data;
       expect(newCommands.map((e) => e.name), contains('test_name'));
     });
 
     test('Delete global application command', () async {
-      final response =
+      final (success, failure) =
           await api.applicationCommands.deleteGlobalApplicationCommand(
         command.id!,
       );
 
-      expect(response.failure, isNull);
+      expect(failure, isNull);
     });
 
     test(
       'Delete all global commands',
       () async {
-        final response = await api.applicationCommands
+        final (success, failure) = await api.applicationCommands
             .bulkOverwriteGlobalApplicationCommands([]);
-        expect(response.failure, isNull);
+        expect(failure, isNull);
       },
       skip: 'This test only runs manually',
     );
@@ -82,61 +82,62 @@ void main() async {
     late final ApplicationCommand command;
 
     test('Create guild application command', () async {
-      final response =
+      final (success, failure) =
           await api.applicationCommands.createGuildApplicationCommand(
         guildId,
         name: 'test_name',
         description: 'test description',
       );
-      command = response.success!.data;
+      command = success!.data;
       expect(command.name, 'test_name');
       expect(command.description, 'test description');
     });
 
     test('Get guild appliction command', () async {
-      final response = await api.applicationCommands.getGuildApplicationCommand(
+      final (success, failure) =
+          await api.applicationCommands.getGuildApplicationCommand(
         guildId,
         commandId: command.id!,
       );
-      final fetchedCommand = response.success!.data;
+      final fetchedCommand = success!.data;
       expect(fetchedCommand.name, 'test_name');
     });
 
     late final List<ApplicationCommand> commands;
 
     test('Get guild application commands', () async {
-      final response =
+      final (success, failure) =
           await api.applicationCommands.getGuildApplicationCommands(guildId);
-      commands = response.success!.data;
+      commands = success!.data;
       expect(commands.length, greaterThan(0));
       expect(commands.map((e) => e.name), contains('test_name'));
     });
 
     test('Edit guild application command', () async {
-      final response =
+      final (success, failure) =
           await api.applicationCommands.editGuildApplicationCommand(
         guildId,
         commandId: command.id!,
         name: 'edited_name',
       );
-      final editedCommand = response.success!.data;
+      final editedCommand = success!.data;
       expect(editedCommand.name, 'edited_name');
     });
 
     test('Bulk overwrite guild application commands', () async {
-      final response = await api.applicationCommands
+      final (success, failure) = await api.applicationCommands
           .bulkOverwriteGuildApplicationCommands(guildId, commands: commands);
-      final newCommands = response.success!.data;
+      final newCommands = success!.data;
       expect(newCommands.map((e) => e.name), contains('test_name'));
     });
 
     test('Delete guild application command', () async {
-      final response =
+      final (success, failure) =
           await api.applicationCommands.deleteGuildApplicationCommand(
         guildId,
         commandId: command.id!,
       );
-      expect(response.failure, isNull);
+      expect(failure, isNull);
     });
 
     test(
@@ -144,13 +145,13 @@ void main() async {
       () async {
         final guildId = credentials.guildId;
 
-        final response =
+        final (success, failure) =
             await api.applicationCommands.bulkOverwriteGuildApplicationCommands(
           guildId,
           commands: [],
         );
 
-        expect(response.failure, isNull);
+        expect(failure, isNull);
       },
       skip: 'This test only runs manually',
     );
@@ -162,17 +163,17 @@ void main() async {
     late final ApplicationCommand command;
 
     setUpAll(() async {
-      final response =
+      final (success, failure) =
           await api.applicationCommands.createGuildApplicationCommand(
         guildId,
         name: 'test_name',
         description: 'test description',
       );
-      command = response.success!.data;
+      command = success!.data;
     });
 
     test('Edit application command permissions', () async {
-      final response =
+      final (success, failure) =
           await api.applicationCommands.editApplicationCommandPermissions(
         guildId,
         commandId: command.id!,
@@ -184,36 +185,36 @@ void main() async {
           ),
         ],
       );
-      final permissions = response.success!.data;
+      final permissions = success!.data;
       expect(permissions.permissions.length, 1);
     });
 
     test('Get guild application command permissions', () async {
-      final response =
+      final (success, failure) =
           await api.applicationCommands.getGuildApplicationCommandPermissions(
         guildId,
       );
-      final guildPermissions = response.success!.data;
+      final guildPermissions = success!.data;
       expect(guildPermissions.length, 1);
     });
 
     test('Get application command permissions', () async {
-      final response =
+      final (success, failure) =
           await api.applicationCommands.getApplicationCommandPermissions(
         guildId,
         commandId: command.id!,
       );
-      final fetchedPermissions = response.success!.data;
+      final fetchedPermissions = success!.data;
       expect(fetchedPermissions.permissions.length, 1);
     });
 
     test('Batch edit application command permissions', () async {
-      final response =
+      final (success, failure) =
           await api.applicationCommands.batchEditApplicationCommandPermissions(
         guildId,
         permissions: [],
       );
-      final batchPermissions = response.success!.data;
+      final batchPermissions = success!.data;
       expect(batchPermissions.length, 0);
     });
 

@@ -18,8 +18,8 @@ void main() async {
     late final Guild guild;
 
     setUpAll(() async {
-      final response = await api.guilds.getGuild(credentials.guildId);
-      guild = response.success!.data;
+      final (success, failure) = await api.guilds.getGuild(credentials.guildId);
+      guild = success!.data;
     });
 
     test('Guild icon', () async {
@@ -60,9 +60,9 @@ void main() async {
     late final GuildMember member;
 
     setUpAll(() async {
-      final response = await api.guilds
+      final (success, failure) = await api.guilds
           .getGuildMember(credentials.guildId, userId: credentials.userId);
-      member = response.success!.data;
+      member = success!.data;
     });
 
     test('Default user avatar', () async {
@@ -105,8 +105,8 @@ void main() async {
     late final StickerPack stickerPack;
 
     setUpAll(() async {
-      final response = await api.stickers.getNitroStickerPacks();
-      stickerPack = response.success!.data.first;
+      final (success, failure) = await api.stickers.getNitroStickerPacks();
+      stickerPack = success!.data.first;
     });
 
     test('Sicker pack banner', () async {

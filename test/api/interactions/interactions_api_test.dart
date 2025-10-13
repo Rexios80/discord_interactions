@@ -25,16 +25,16 @@ void main() async {
 
   setUpAll(() async {
     // Create the test command
-    final response =
+    final (success, failure) =
         await api.applicationCommands.createGuildApplicationCommand(
       credentials.guildId,
       name: 'test',
       description: 'test command',
     );
 
-    testCommand = response.success!.data;
+    testCommand = success!.data;
 
-    final response2 =
+    final (success2, failure2) =
         await api.applicationCommands.createGuildApplicationCommand(
       credentials.guildId,
       name: 'autocomplete',
@@ -50,25 +50,25 @@ void main() async {
       ],
     );
 
-    autocompleteCommand = response2.success!.data;
+    autocompleteCommand = success2!.data;
 
-    final response3 =
+    final (success3, failure3) =
         await api.applicationCommands.createGuildApplicationCommand(
       credentials.guildId,
       type: ApplicationCommandType.message,
       name: 'test message command',
     );
 
-    messageCommand = response3.success!.data;
+    messageCommand = success3!.data;
 
-    final response4 =
+    final (success4, failure4) =
         await api.applicationCommands.createGuildApplicationCommand(
       credentials.guildId,
       type: ApplicationCommandType.user,
       name: 'test user command',
     );
 
-    userCommand = response4.success!.data;
+    userCommand = success4!.data;
   });
 
   // These tests must be run in the written order to pass
@@ -80,86 +80,88 @@ void main() async {
       interaction = await client.waitForInteraction();
       expect(interaction.data?.name, testCommand.name);
 
-      final response = await api.interactions.createInteractionResponse(
+      final (success, failure) =
+          await api.interactions.createInteractionResponse(
         interaction.id,
         token: interaction.token,
         response: InteractionResponse.message(content: 'Test response'),
       );
-      expect(response.failure, isNull);
+      expect(failure, isNull);
 
       client.notifyInteractionHandled();
     });
 
     test('Get original interaction response', () async {
-      final response = await api.interactions
+      final (success, failure) = await api.interactions
           .getOriginalInteractionResponse(interaction.token);
       expect(
-        response.success?.data.content,
+        success?.data.content,
         'Test response',
       );
       await avoidRateLimit();
     });
 
     test('Edit original interaction response', () async {
-      final response = await api.interactions.editOriginalInteractionResponse(
+      final (success, failure) =
+          await api.interactions.editOriginalInteractionResponse(
         interaction.token,
         content: 'Edited response',
       );
       expect(
-        response.success?.data.content,
+        success?.data.content,
         'Edited response',
       );
       await avoidRateLimit();
     });
 
     test('Delete original interaction response', () async {
-      final response = await api.interactions
+      final (success, failure) = await api.interactions
           .deleteOriginalInteractionResponse(interaction.token);
-      expect(response.failure, isNull);
+      expect(failure, isNull);
       await avoidRateLimit();
     });
 
     late final Message followupMessage;
 
     test('Create followup message', () async {
-      final response = await api.interactions.createFollowupMessage(
+      final (success, failure) = await api.interactions.createFollowupMessage(
         interaction.token,
         content: 'Test followup message',
       );
 
-      followupMessage = response.success!.data;
+      followupMessage = success!.data;
       expect(followupMessage.content, 'Test followup message');
       await avoidRateLimit();
     });
 
     test('Get followup message', () async {
-      final response = await api.interactions.getFollowupMessage(
+      final (success, failure) = await api.interactions.getFollowupMessage(
         interaction.token,
         messageId: followupMessage.id,
       );
-      expect(response.success?.data.content, 'Test followup message');
+      expect(success?.data.content, 'Test followup message');
       await avoidRateLimit();
     });
 
     test('Edit followup message', () async {
-      final response = await api.interactions.editFollowupMessage(
+      final (success, failure) = await api.interactions.editFollowupMessage(
         interaction.token,
         messageId: followupMessage.id,
         content: 'Edited followup message',
       );
       expect(
-        response.success?.data.content,
+        success?.data.content,
         'Edited followup message',
       );
       await avoidRateLimit();
     });
 
     test('Delete followup message', () async {
-      final response = await api.interactions.deleteFollowupMessage(
+      final (success, failure) = await api.interactions.deleteFollowupMessage(
         interaction.token,
         messageId: followupMessage.id,
       );
-      expect(response.failure, isNull);
+      expect(failure, isNull);
     });
   });
 
@@ -170,7 +172,7 @@ void main() async {
       expect(interaction.data?.name, testCommand.name);
 
       // Respond to the interaction
-      final createInteractionResponseResponse =
+      final (createInteractionSuccess, createInteractionFailure) =
           await api.interactions.createInteractionResponse(
         interaction.id,
         token: interaction.token,
@@ -191,7 +193,7 @@ void main() async {
           ],
         ),
       );
-      expect(createInteractionResponseResponse.failure, isNull);
+      expect(createInteractionFailure, isNull);
 
       client.notifyInteractionHandled();
 
@@ -200,7 +202,7 @@ void main() async {
       expect(buttonInteraction.data?.customId, 'buttonId');
       expect(buttonInteraction.message?.interaction?.name, testCommand.name);
 
-      final buttonInteractionResponseResponse =
+      final (buttonInteractionSuccess, buttonInteractionFailure) =
           await api.interactions.createInteractionResponse(
         buttonInteraction.id,
         token: buttonInteraction.token,
@@ -211,7 +213,7 @@ void main() async {
           components: [],
         ),
       );
-      expect(buttonInteractionResponseResponse.failure, isNull);
+      expect(buttonInteractionFailure, isNull);
 
       client.notifyInteractionHandled();
     });
@@ -222,7 +224,7 @@ void main() async {
       expect(interaction.data?.name, testCommand.name);
 
       // Respond to the interaction
-      final createInteractionResponseResponse =
+      final (createInteractionSuccess2, createInteractionFailure2) =
           await api.interactions.createInteractionResponse(
         interaction.id,
         token: interaction.token,
@@ -243,7 +245,7 @@ void main() async {
           ],
         ),
       );
-      expect(createInteractionResponseResponse.failure, isNull);
+      expect(createInteractionFailure2, isNull);
 
       client.notifyInteractionHandled();
     });
@@ -256,7 +258,7 @@ void main() async {
       final selectOptionValues = ['option1', 'option2', 'option3'];
 
       // Respond to the interaction
-      final createInteractionResponseResponse =
+      final (createInteractionSuccess3, createInteractionFailure3) =
           await api.interactions.createInteractionResponse(
         interaction.id,
         token: interaction.token,
@@ -291,7 +293,7 @@ void main() async {
           ],
         ),
       );
-      expect(createInteractionResponseResponse.failure, isNull);
+      expect(createInteractionFailure3, isNull);
 
       client.notifyInteractionHandled();
 
@@ -304,8 +306,10 @@ void main() async {
         true,
       );
 
-      final buttonInteractionResponseResponse =
-          await api.interactions.createInteractionResponse(
+      final (
+        buttonInteractionResponseSuccess,
+        buttonInteractionResponseFailure
+      ) = await api.interactions.createInteractionResponse(
         buttonInteraction.id,
         token: buttonInteraction.token,
         response: InteractionResponse.message(
@@ -315,7 +319,7 @@ void main() async {
           components: [],
         ),
       );
-      expect(buttonInteractionResponseResponse.failure, isNull);
+      expect(buttonInteractionResponseFailure, isNull);
 
       client.notifyInteractionHandled();
     });
@@ -332,26 +336,28 @@ void main() async {
         InteractionType.applicationCommandAutocomplete,
       );
 
-      final response = await api.interactions.createInteractionResponse(
+      final (autocompleteSuccess, autocompleteFailure) =
+          await api.interactions.createInteractionResponse(
         autocompleteInteraction.id,
         token: autocompleteInteraction.token,
         response: InteractionResponse.autocomplete([
           ApplicationCommandOptionChoice(name: 'test', value: 'test'),
         ]),
       );
-      expect(response.failure, isNull);
+      expect(autocompleteFailure, isNull);
 
       client.notifyInteractionHandled();
 
       final interaction = await client.waitForInteraction();
       expect(interaction.data?.options!.first.value, 'test');
 
-      final response2 = await api.interactions.createInteractionResponse(
+      final (itWorkedSuccess, itWorkedFailure) =
+          await api.interactions.createInteractionResponse(
         interaction.id,
         token: interaction.token,
         response: InteractionResponse.message(content: 'It worked'),
       );
-      expect(response2.failure, isNull);
+      expect(itWorkedFailure, isNull);
 
       client.notifyInteractionHandled();
     },
@@ -365,14 +371,15 @@ void main() async {
 
     final messageId = interaction.data!.targetId!;
 
-    final response = await api.interactions.createInteractionResponse(
+    final (messageSuccess, messageFailure) =
+        await api.interactions.createInteractionResponse(
       interaction.id,
       token: interaction.token,
       response: InteractionResponse.message(
         content: 'Message id: $messageId',
       ),
     );
-    expect(response.failure, isNull);
+    expect(messageFailure, isNull);
 
     client.notifyInteractionHandled();
   });
@@ -384,14 +391,15 @@ void main() async {
 
     final userId = interaction.data!.targetId!;
 
-    final response = await api.interactions.createInteractionResponse(
+    final (userSuccess, userFailure) =
+        await api.interactions.createInteractionResponse(
       interaction.id,
       token: interaction.token,
       response: InteractionResponse.message(
         content: 'User id: $userId',
       ),
     );
-    expect(response.failure, isNull);
+    expect(userFailure, isNull);
 
     client.notifyInteractionHandled();
   });

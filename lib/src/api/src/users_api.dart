@@ -32,7 +32,8 @@ class UsersApi {
   ///
   /// https://discord.com/developers/docs/resources/user#get-user
   Future<TransformedResponse<Map<String, dynamic>, User>> getUser(
-      String userId) {
+    String userId,
+  ) {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$userId')
         .validate()

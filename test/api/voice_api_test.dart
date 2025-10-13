@@ -8,7 +8,7 @@ void main() async {
   await setup();
 
   test('List voice regions', () async {
-    final response = await api.voice.listVoiceRegions();
-    expect(response.success!.data.length, greaterThan(0));
+    final (success, failure) = await api.voice.listVoiceRegions();
+    expect(success!.data.length, greaterThan(0));
   });
 }
