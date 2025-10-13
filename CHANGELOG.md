@@ -1,3 +1,7 @@
+## 0.0.24
+
+- Upgrades to `dio_response_validator` version `0.3.0`
+
 ## 0.0.23
 
 - Exposes the `dio` instance
