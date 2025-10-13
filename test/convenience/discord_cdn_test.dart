@@ -90,13 +90,13 @@ void main() async {
   group(
     'Application:',
     () {
-      test('Application icon', () async {});
+      test('Application icon', () {});
 
-      test('Application cover', () async {});
+      test('Application cover', () {});
 
-      test('Application asset', () async {});
+      test('Application asset', () {});
 
-      test('Achievement icon', () async {});
+      test('Achievement icon', () {});
     },
     skip: 'Don\'t have an application to test with',
   );
@@ -117,7 +117,7 @@ void main() async {
 
   test(
     'Team icon',
-    () async {},
+    () {},
     skip: 'Don\'t have a team to test with',
   );
 

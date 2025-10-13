@@ -23,7 +23,7 @@ class ChannelsApi {
   /// https://discord.com/developers/docs/resources/channel#get-channel
   Future<TransformedResponse<Map<String, dynamic>, Channel>> getChannel(
     String channelId,
-  ) async {
+  ) {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$channelId')
         .validate()
@@ -41,7 +41,7 @@ class ChannelsApi {
 
     /// base64 encoded icon
     required String? iconBase64,
-  }) async {
+  }) {
     return _dio
         .patch<Map<String, dynamic>>(
           '$_basePath/$channelId',
@@ -141,7 +141,7 @@ class ChannelsApi {
     /// Channel type: Text, News
     ThreadAutoArchiveDuration? defaultAutoArchiveDuration,
     String? reason,
-  }) async {
+  }) {
     return _dio
         .patch<Map<String, dynamic>>(
           '$_basePath/$channelId',
@@ -215,7 +215,7 @@ class ChannelsApi {
     /// (0-21600)
     int? rateLimitPerUser,
     String? reason,
-  }) async {
+  }) {
     return _dio
         .patch<Map<String, dynamic>>(
           '$_basePath/$channelId',
@@ -260,7 +260,7 @@ class ChannelsApi {
   Future<TransformedResponse<void, void>> deleteChannel(
     String channelId, {
     String? reason,
-  }) async {
+  }) {
     return _dio
         .delete(
           '$_basePath/$channelId',
@@ -298,7 +298,7 @@ class ChannelsApi {
     ///
     /// Default: 50
     int? limit,
-  }) async {
+  }) {
     return _dio
         .get<List>(
           '$_basePath/$channelId/messages',
@@ -324,7 +324,7 @@ class ChannelsApi {
   Future<TransformedResponse<Map<String, dynamic>, Message>> getChannelMessage(
     String channelId, {
     required String messageId,
-  }) async {
+  }) {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$channelId/messages/$messageId')
         .validate()
@@ -441,7 +441,7 @@ class ChannelsApi {
   Future<TransformedResponse<Map<String, dynamic>, Message>> crosspostMessage(
     String channelId, {
     required String messageId,
-  }) async {
+  }) {
     return _dio
         .post<Map<String, dynamic>>(
           '$_basePath/$channelId/messages/$messageId/crosspost',
@@ -467,7 +467,7 @@ class ChannelsApi {
     required String messageId,
     required String emojiName,
     required String emojiId,
-  }) async {
+  }) {
     final emoji = EmojiEncoder.urlEncode(emojiName, emojiId);
     return _dio
         .put(
@@ -489,7 +489,7 @@ class ChannelsApi {
     required String messageId,
     required String emojiName,
     required String emojiId,
-  }) async {
+  }) {
     final emoji = EmojiEncoder.urlEncode(emojiName, emojiId);
     return _dio
         .delete(
@@ -513,7 +513,7 @@ class ChannelsApi {
     required String emojiName,
     required String emojiId,
     required String userId,
-  }) async {
+  }) {
     final emoji = EmojiEncoder.urlEncode(emojiName, emojiId);
     return _dio
         .delete(
@@ -543,7 +543,7 @@ class ChannelsApi {
     ///
     /// Default: 25
     int? limit,
-  }) async {
+  }) {
     final emoji = EmojiEncoder.urlEncode(emojiName, emojiId);
     final query = {
       if (after != null) 'after': after,
@@ -569,7 +569,7 @@ class ChannelsApi {
   Future<TransformedResponse<void, void>> deleteAllReactions(
     String channelId, {
     required String messageId,
-  }) async {
+  }) {
     return _dio
         .delete('$_basePath/$channelId/messages/$messageId/reactions')
         .validate();
@@ -590,7 +590,7 @@ class ChannelsApi {
     required String messageId,
     required String emojiName,
     required String emojiId,
-  }) async {
+  }) {
     final emoji = EmojiEncoder.urlEncode(emojiName, emojiId);
     return _dio
         .delete('$_basePath/$channelId/messages/$messageId/reactions/$emoji')
@@ -653,7 +653,7 @@ class ChannelsApi {
 
     /// the contents of the file being sent/edited
     List<MultipartFile>? files,
-  }) async {
+  }) {
     return _dio
         .patch<Map<String, dynamic>>(
           '$_basePath/$channelId/messages/$messageId',
@@ -685,7 +685,7 @@ class ChannelsApi {
     String channelId, {
     required String messageId,
     String? reason,
-  }) async {
+  }) {
     return _dio
         .delete(
           '$_basePath/$channelId/messages/$messageId',
@@ -718,7 +718,7 @@ class ChannelsApi {
     /// an array of message ids to delete (2-100)
     required List<String> messageIds,
     String? reason,
-  }) async {
+  }) {
     return _dio
         .post(
           '$_basePath/$channelId/messages/bulk-delete',
@@ -748,7 +748,7 @@ class ChannelsApi {
     String channelId, {
     required PermissionOverwrite overwrite,
     String? reason,
-  }) async {
+  }) {
     return _dio
         .put(
           '$_basePath/$channelId/permissions/${overwrite.id}',
@@ -768,7 +768,7 @@ class ChannelsApi {
   /// https://discord.com/developers/docs/resources/channel#get-channel-invites
   Future<TransformedResponse<List, List<Invite>>> getChannelInvites(
     String channelId,
-  ) async {
+  ) {
     return _dio.get<List>('$_basePath/$channelId/invites').validate().transform(
           data: (data) =>
               data.cast<Map<String, dynamic>>().map(Invite.fromJson).toList(),
@@ -820,7 +820,7 @@ class ChannelsApi {
     /// target_type is 2, the application must have the EMBEDDED flag
     String? targetApplicationId,
     String? reason,
-  }) async {
+  }) {
     return _dio
         .post<Map<String, dynamic>>(
           '$_basePath/$channelId/invites',
@@ -856,7 +856,7 @@ class ChannelsApi {
     String channelId, {
     required String overwriteId,
     String? reason,
-  }) async {
+  }) {
     return _dio
         .delete(
           '$_basePath/$channelId/permissions/$overwriteId',
@@ -879,7 +879,7 @@ class ChannelsApi {
     String channelId, {
     /// id of target channel
     required String webhookChannelId,
-  }) async {
+  }) {
     return _dio
         .post<Map<String, dynamic>>(
           '$_basePath/$channelId/followers',
@@ -901,7 +901,7 @@ class ChannelsApi {
   /// https://discord.com/developers/docs/resources/channel#trigger-typing-indicator
   Future<TransformedResponse<void, void>> triggerTypingIndicator(
     String channelId,
-  ) async {
+  ) {
     return _dio.post('$_basePath/$channelId/typing').validate();
   }
 
@@ -910,7 +910,7 @@ class ChannelsApi {
   /// https://discord.com/developers/docs/resources/channel#get-pinned-messages
   Future<TransformedResponse<List, List<Message>>> getPinnedMessages(
     String channelId,
-  ) async {
+  ) {
     return _dio.get<List>('$_basePath/$channelId/pins').validate().transform(
           data: (data) =>
               data.cast<Map<String, dynamic>>().map(Message.fromJson).toList(),
@@ -929,7 +929,7 @@ class ChannelsApi {
     String channelId, {
     required String messageId,
     String? reason,
-  }) async {
+  }) {
     return _dio
         .put(
           '$_basePath/$channelId/pins/$messageId',
@@ -952,7 +952,7 @@ class ChannelsApi {
     String channelId, {
     required String messageId,
     String? reason,
-  }) async {
+  }) {
     return _dio
         .delete(
           '$_basePath/$channelId/pins/$messageId',
@@ -978,7 +978,7 @@ class ChannelsApi {
 
     /// nickname of the user being added
     required String nick,
-  }) async {
+  }) {
     return _dio.put(
       '$_basePath/$channelId/recipients/$userId',
       data: {
@@ -995,7 +995,7 @@ class ChannelsApi {
   Future<TransformedResponse<void, void>> groupDmRemoveRecipient(
     String channelId, {
     required String userId,
-  }) async {
+  }) {
     return _dio.delete('$_basePath/$channelId/recipients/$userId').validate();
   }
 
@@ -1031,7 +1031,7 @@ class ChannelsApi {
     /// (0-21600)
     int? rateLimitPerUser,
     String? reason,
-  }) async {
+  }) {
     return _dio
         .post<Map<String, dynamic>>(
           '$_basePath/$channelId/messages/$messageId/threads',
@@ -1092,7 +1092,7 @@ class ChannelsApi {
     /// (0-21600)
     int? rateLimitPerUser,
     String? reason,
-  }) async {
+  }) {
     return _dio
         .post<Map<String, dynamic>>(
           '$_basePath/$channelId/threads',
@@ -1122,7 +1122,7 @@ class ChannelsApi {
   /// Update Gateway event.
   ///
   /// https://discord.com/developers/docs/resources/channel#join-thread
-  Future<TransformedResponse<void, void>> joinThread(String channelId) async {
+  Future<TransformedResponse<void, void>> joinThread(String channelId) {
     return _dio.put('$_basePath/$channelId/thread-members/@me').validate();
   }
 
@@ -1135,7 +1135,7 @@ class ChannelsApi {
   Future<TransformedResponse<void, void>> addThreadMember(
     String channelId, {
     required String userId,
-  }) async {
+  }) {
     return _dio.put('$_basePath/$channelId/thread-members/$userId').validate();
   }
 
@@ -1144,7 +1144,7 @@ class ChannelsApi {
   /// Update Gateway event.
   ///
   /// https://discord.com/developers/docs/resources/channel#leave-thread
-  Future<TransformedResponse<void, void>> leaveThread(String channelId) async {
+  Future<TransformedResponse<void, void>> leaveThread(String channelId) {
     return _dio.delete('$_basePath/$channelId/thread-members/@me').validate();
   }
 
@@ -1157,7 +1157,7 @@ class ChannelsApi {
   Future<TransformedResponse<void, void>> removeThreadMember(
     String channelId, {
     required String userId,
-  }) async {
+  }) {
     return _dio
         .delete('$_basePath/$channelId/thread-members/$userId')
         .validate();
@@ -1171,7 +1171,7 @@ class ChannelsApi {
       getThreadMember(
     String channelId, {
     required String userId,
-  }) async {
+  }) {
     return _dio
         .get<Map<String, dynamic>>(
           '$_basePath/$channelId/thread-members/$userId',
@@ -1188,7 +1188,7 @@ class ChannelsApi {
   /// https://discord.com/developers/docs/resources/channel#list-thread-members
   Future<TransformedResponse<List, List<ThreadMember>>> listThreadMembers(
     String channelId,
-  ) async {
+  ) {
     return _dio
         .get<List>('$_basePath/$channelId/thread-members')
         .validate()
@@ -1215,7 +1215,7 @@ class ChannelsApi {
 
     /// optional maximum number of threads to return
     int? limit,
-  }) async {
+  }) {
     return _dio
         .get<Map<String, dynamic>>(
           '$_basePath/$channelId/threads/archived/public',
@@ -1242,7 +1242,7 @@ class ChannelsApi {
 
     /// optional maximum number of threads to return
     int? limit,
-  }) async {
+  }) {
     return _dio
         .get<Map<String, dynamic>>(
           '$_basePath/$channelId/threads/archived/private',
@@ -1269,7 +1269,7 @@ class ChannelsApi {
 
     /// optional maximum number of threads to return
     int? limit,
-  }) async {
+  }) {
     return _dio
         .get<Map<String, dynamic>>(
           '$_basePath/$channelId/users/@me/threads/archived/private',

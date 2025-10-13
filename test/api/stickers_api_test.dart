@@ -45,19 +45,19 @@ void main() async {
 
   test(
     'Create guild sticker',
-    () async {},
+    () {},
     skip: 'Need a boosted server',
   );
 
   test(
     'Modify guild sticker',
-    () async {},
+    () {},
     skip: 'Need a boosted server',
   );
 
   test(
     'Delete guild sticker',
-    () async {},
+    () {},
     skip: 'Need a boosted server',
   );
 }
