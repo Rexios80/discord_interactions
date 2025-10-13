@@ -1,11 +1,23 @@
 import 'dart:convert';
-
+import 'dart:io';
+import 'dart:async';
 import 'package:discord_interactions/discord_interactions.dart';
 import 'package:discord_interactions_example/commands.dart';
 import 'package:discord_interactions_example/credentials.dart';
-import 'package:enum_to_string/enum_to_string.dart';
-import 'package:functions_framework/functions_framework.dart';
 import 'package:shelf/shelf.dart';
+import 'package:shelf/shelf_io.dart' as shelf_io;
+import 'package:shelf_router/shelf_router.dart';
+
+void main(List<String> arguments) async {
+  final app = Router()..get('/', handleHttpRequest);
+
+  final port = Platform.environment.containsKey('PORT')
+      ? int.parse(Platform.environment['PORT']!)
+      : 8080;
+  final server = await shelf_io.serve(app.call, '0.0.0.0', port);
+
+  print('Listening on :${server.port}');
+}
 
 final validator = InteractionValidator(
   applicationPublicKey: Credentials.applicationPublicKey,
@@ -20,9 +32,7 @@ final api = DiscordApi(
   botToken: Credentials.botToken,
 );
 
-/// The entry point of the cloud function
-@CloudFunction()
-Future<Response> function(Request request) async {
+Future<Response> handleHttpRequest(Request request) async {
   final body = await request.readAsString();
 
   // Validate the request
@@ -60,7 +70,7 @@ Future<void> respond(Interaction interaction) async {
   final commandName = interaction.data!.name!;
 
   // Parse the command into the enum
-  final command = EnumToString.fromString(Command.values, commandName)!;
+  final command = Command.values.byName(commandName);
 
   final InteractionResponse response;
   switch (command) {

@@ -1,5 +1,4 @@
 import 'package:discord_interactions/discord_interactions.dart';
-import 'package:enum_to_string/enum_to_string.dart';
 
 /// A set of basic chat commands
 enum Command {
@@ -20,7 +19,7 @@ extension CommandOptionExtension on CommandOption {
       case CommandOption.string:
         return ApplicationCommandOption(
           type: ApplicationCommandOptionType.string,
-          name: EnumToString.convertToString(this),
+          name: name,
           description: 'The string to echo',
           required: true,
         );
@@ -35,12 +34,12 @@ extension CommandExtension on Command {
     switch (this) {
       case Command.hello:
         return ApplicationCommand(
-          name: EnumToString.convertToString(this),
+          name: name,
           description: 'Says hello',
         );
       case Command.echo:
         return ApplicationCommand(
-          name: EnumToString.convertToString(this),
+          name: name,
           description: 'Echoes a string',
           options: [
             CommandOption.string.option,
