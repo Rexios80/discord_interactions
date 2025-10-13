@@ -22,7 +22,7 @@ class StageInstancesApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/stage-instance#create-stage-instance
-  Future<ValidatedResponse<Map<String, dynamic>, StageInstance>>
+  Future<TransformedResponse<Map<String, dynamic>, StageInstance>>
       createStageInstance(
     /// The id of the Stage channel
     String channelId, {
@@ -47,19 +47,21 @@ class StageInstancesApi {
             },
           ),
         )
-        .validate(transform: StageInstance.fromJson);
+        .validate()
+        .transform(data: StageInstance.fromJson);
   }
 
   /// Gets the stage instance associated with the Stage channel, if it exists.
   ///
   /// https://discord.com/developers/docs/resources/stage-instance#get-stage-instance
-  Future<ValidatedResponse<Map<String, dynamic>, StageInstance>>
+  Future<TransformedResponse<Map<String, dynamic>, StageInstance>>
       getStageInstance(
     String channelId,
   ) {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$channelId')
-        .validate(transform: StageInstance.fromJson);
+        .validate()
+        .transform(data: StageInstance.fromJson);
   }
 
   /// Updates fields of an existing Stage instance.
@@ -69,7 +71,7 @@ class StageInstancesApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/stage-instance#modify-stage-instance
-  Future<ValidatedResponse<Map<String, dynamic>, StageInstance>>
+  Future<TransformedResponse<Map<String, dynamic>, StageInstance>>
       modifyStageInstance(
     String channelId, {
     /// The topic of the Stage instance (1-120 characters)
@@ -92,7 +94,8 @@ class StageInstancesApi {
             },
           ),
         )
-        .validate(transform: StageInstance.fromJson);
+        .validate()
+        .transform(data: StageInstance.fromJson);
   }
 
   /// Deletes the Stage instance.
@@ -102,7 +105,7 @@ class StageInstancesApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/stage-instance#delete-stage-instance
-  Future<ValidatedResponse<void, void>> deleteStageInstance(
+  Future<TransformedResponse<void, void>> deleteStageInstance(
     String channelId, {
     String? reason,
   }) {

@@ -16,16 +16,16 @@ void main() async {
     ...Command.values.map((e) => e.command),
   ];
 
-  // Create global commands for poduction bots
+  // Create global commands for production bots
   // This overwrites all commands, so make sure to have them all defined
-  final response =
+  final (success, failure) =
       await api.applicationCommands.bulkOverwriteGuildApplicationCommands(
     Credentials.guildId,
     commands: commands,
   );
 
-  if (response.failure != null) {
-    print(response.failure);
+  if (success == null) {
+    print(failure);
   } else {
     print('Successfully overwritten application commands');
   }

@@ -18,21 +18,25 @@ class StickersApi {
   /// Returns a sticker object for the given sticker ID.
   ///
   /// https://discord.com/developers/docs/resources/sticker#get-sticker
-  Future<ValidatedResponse<Map<String, dynamic>, Sticker>> getSticker(
+  Future<TransformedResponse<Map<String, dynamic>, Sticker>> getSticker(
     String stickerId,
   ) {
     return _dio
         .get<Map<String, dynamic>>('/stickers/$stickerId')
-        .validate(transform: Sticker.fromJson);
+        .validate()
+        .transform(data: Sticker.fromJson);
   }
 
   /// Returns the list of sticker packs available to Nitro subscribers.
   ///
   /// https://discord.com/developers/docs/resources/sticker#list-nitro-sticker-packs
-  Future<ValidatedResponse<Map<String, dynamic>, List<StickerPack>>>
+  Future<TransformedResponse<Map<String, dynamic>, List<StickerPack>>>
       getNitroStickerPacks() {
-    return _dio.get<Map<String, dynamic>>('/sticker-packs').validate(
-          transform: (data) => (data['sticker_packs'] as List)
+    return _dio
+        .get<Map<String, dynamic>>('/sticker-packs')
+        .validate()
+        .transform(
+          data: (data) => (data['sticker_packs'] as List)
               .cast<Map<String, dynamic>>()
               .map(StickerPack.fromJson)
               .toList(),
@@ -43,11 +47,11 @@ class StickersApi {
   /// fields if the bot has the MANAGE_EMOJIS_AND_STICKERS permission.
   ///
   /// https://discord.com/developers/docs/resources/sticker#list-guild-stickers
-  Future<ValidatedResponse<List, List<Sticker>>> getGuildStickers(
+  Future<TransformedResponse<List, List<Sticker>>> getGuildStickers(
     String guildId,
   ) {
-    return _dio.get<List>('$_basePath/$guildId/stickers').validate(
-          transform: (data) =>
+    return _dio.get<List>('$_basePath/$guildId/stickers').validate().transform(
+          data: (data) =>
               data.cast<Map<String, dynamic>>().map(Sticker.fromJson).toList(),
         );
   }
@@ -56,13 +60,14 @@ class StickersApi {
   /// user field if the bot has the MANAGE_EMOJIS_AND_STICKERS permission.
   ///
   /// https://discord.com/developers/docs/resources/sticker#get-guild-sticker
-  Future<ValidatedResponse<Map<String, dynamic>, Sticker>> getGuildSticker(
+  Future<TransformedResponse<Map<String, dynamic>, Sticker>> getGuildSticker(
     String guildId, {
     required String stickerId,
   }) {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$guildId/stickers/$stickerId')
-        .validate(transform: Sticker.fromJson);
+        .validate()
+        .transform(data: Sticker.fromJson);
   }
 
   /// Create a new sticker for the guild. Send a multipart/form-data body.
@@ -75,7 +80,7 @@ class StickersApi {
   /// VERIFIED and/or the PARTNERED guild feature.
   ///
   /// https://discord.com/developers/docs/resources/sticker#create-guild-sticker
-  Future<ValidatedResponse<Map<String, dynamic>, Sticker>> createGuildSticker(
+  Future<TransformedResponse<Map<String, dynamic>, Sticker>> createGuildSticker(
     String guildId, {
     /// name of the sticker (2-30 characters)
     required String name,
@@ -106,7 +111,8 @@ class StickersApi {
             },
           ),
         )
-        .validate(transform: Sticker.fromJson);
+        .validate()
+        .transform(data: Sticker.fromJson);
   }
 
   /// Modify the given sticker. Requires the MANAGE_EMOJIS_AND_STICKERS
@@ -115,7 +121,7 @@ class StickersApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/sticker#modify-guild-sticker
-  Future<ValidatedResponse<Map<String, dynamic>, Sticker>> modifyGuildSticker(
+  Future<TransformedResponse<Map<String, dynamic>, Sticker>> modifyGuildSticker(
     String guildId, {
     required String stickerId,
 
@@ -143,7 +149,8 @@ class StickersApi {
             },
           ),
         )
-        .validate(transform: Sticker.fromJson);
+        .validate()
+        .transform(data: Sticker.fromJson);
   }
 
   /// Delete the given sticker. Requires the MANAGE_EMOJIS_AND_STICKERS
@@ -152,7 +159,7 @@ class StickersApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/sticker#delete-guild-sticker
-  Future<ValidatedResponse<void, void>> deleteGuildSticker(
+  Future<TransformedResponse<void, void>> deleteGuildSticker(
     String guildId, {
     required String stickerId,
     String? reason,

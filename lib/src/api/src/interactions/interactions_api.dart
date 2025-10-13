@@ -28,7 +28,7 @@ class InteractionsApi {
   /// uploading files and multipart/form-data requests.
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#create-interaction-response
-  Future<ValidatedResponse<void, void>> createInteractionResponse(
+  Future<TransformedResponse<void, void>> createInteractionResponse(
     String interactionId, {
     required String token,
     required InteractionResponse response,
@@ -46,13 +46,14 @@ class InteractionsApi {
   /// Functions the same as Get Webhook Message.
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#get-original-interaction-response
-  Future<ValidatedResponse<Map<String, dynamic>, Message>>
+  Future<TransformedResponse<Map<String, dynamic>, Message>>
       getOriginalInteractionResponse(
     String token,
   ) {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$token/messages/@original')
-        .validate(transform: Message.fromJson);
+        .validate()
+        .transform(data: Message.fromJson);
   }
 
   /// Edits the initial [InteractionResponse]. Functions the same as Edit
@@ -73,7 +74,7 @@ class InteractionsApi {
   /// All parameters to this endpoint are optional and nullable.
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#edit-original-interaction-response
-  Future<ValidatedResponse<Map<String, dynamic>, Message>>
+  Future<TransformedResponse<Map<String, dynamic>, Message>>
       editOriginalInteractionResponse(
     String token, {
     /// the message contents (up to 2000 characters)
@@ -108,13 +109,14 @@ class InteractionsApi {
             files,
           ),
         )
-        .validate(transform: Message.fromJson);
+        .validate()
+        .transform(data: Message.fromJson);
   }
 
   /// Deletes the initial Interaction response. Returns 204 on success.
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#delete-original-interaction-response
-  Future<ValidatedResponse<void, void>> deleteOriginalInteractionResponse(
+  Future<TransformedResponse<void, void>> deleteOriginalInteractionResponse(
     String token,
   ) {
     return _dio.delete('$_basePath/$token/messages/@original').validate();
@@ -134,7 +136,7 @@ class InteractionsApi {
   /// any height, width, or proxy_url values for images.
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#create-followup-message
-  Future<ValidatedResponse<Map<String, dynamic>, Message>>
+  Future<TransformedResponse<Map<String, dynamic>, Message>>
       createFollowupMessage(
     String token, {
     /// the message contents (up to 2000 characters)
@@ -171,20 +173,22 @@ class InteractionsApi {
             files,
           ),
         )
-        .validate(transform: Message.fromJson);
+        .validate()
+        .transform(data: Message.fromJson);
   }
 
   /// Returns a followup message for an Interaction. Functions the same as Get
   /// Webhook Message. Does not support ephemeral followups.
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#get-followup-message
-  Future<ValidatedResponse<Map<String, dynamic>, Message>> getFollowupMessage(
+  Future<TransformedResponse<Map<String, dynamic>, Message>> getFollowupMessage(
     String token, {
     required String messageId,
   }) {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$token/messages/$messageId')
-        .validate(transform: Message.fromJson);
+        .validate()
+        .transform(data: Message.fromJson);
   }
 
   /// Edits a followup message for an Interaction. Functions the same as Edit
@@ -205,7 +209,8 @@ class InteractionsApi {
   /// All parameters to this endpoint are optional and nullable.
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#edit-followup-message
-  Future<ValidatedResponse<Map<String, dynamic>, Message>> editFollowupMessage(
+  Future<TransformedResponse<Map<String, dynamic>, Message>>
+      editFollowupMessage(
     String token, {
     required String messageId,
 
@@ -241,14 +246,15 @@ class InteractionsApi {
             files,
           ),
         )
-        .validate(transform: Message.fromJson);
+        .validate()
+        .transform(data: Message.fromJson);
   }
 
   /// Deletes a followup message for an Interaction. Returns 204 on success.
   /// Does not support ephemeral followups.
   ///
   /// https://discord.com/developers/docs/interactions/receiving-and-responding#delete-followup-message
-  Future<ValidatedResponse<void, void>> deleteFollowupMessage(
+  Future<TransformedResponse<void, void>> deleteFollowupMessage(
     String token, {
     required String messageId,
   }) {

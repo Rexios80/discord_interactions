@@ -22,10 +22,10 @@ class ApplicationCommandsApi {
   /// of [ApplicationCommand] objects.
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#get-global-application-commands
-  Future<ValidatedResponse<List, List<ApplicationCommand>>>
+  Future<TransformedResponse<List, List<ApplicationCommand>>>
       getGlobalApplicationCommands() {
-    return _dio.get<List>('$_basePath/commands').validate(
-          transform: (data) => data
+    return _dio.get<List>('$_basePath/commands').validate().transform(
+          data: (data) => data
               .cast<Map<String, dynamic>>()
               .map(ApplicationCommand.fromJson)
               .toList(),
@@ -39,7 +39,7 @@ class ApplicationCommandsApi {
   /// application will overwrite the old command.
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#create-global-application-command
-  Future<ValidatedResponse<Map<String, dynamic>, ApplicationCommand>>
+  Future<TransformedResponse<Map<String, dynamic>, ApplicationCommand>>
       createGlobalApplicationCommand({
     /// 1-32 character name
     required String name,
@@ -59,36 +59,41 @@ class ApplicationCommandsApi {
     /// the type of command, defaults 1 if not set
     ApplicationCommandType? type,
   }) {
-    return _dio.post<Map<String, dynamic>>(
-      '/$_basePath/commands',
-      data: {
-        'name': name,
-        if (description != null) 'description': description,
-        if (options != null) 'options': options,
-        if (defaultPermission != null) 'default_permission': defaultPermission,
-        if (type != null) 'type': type.value,
-      },
-    ).validate(transform: ApplicationCommand.fromJson);
+    return _dio
+        .post<Map<String, dynamic>>(
+          '/$_basePath/commands',
+          data: {
+            'name': name,
+            if (description != null) 'description': description,
+            if (options != null) 'options': options,
+            if (defaultPermission != null)
+              'default_permission': defaultPermission,
+            if (type != null) 'type': type.value,
+          },
+        )
+        .validate()
+        .transform(data: ApplicationCommand.fromJson);
   }
 
   /// Fetch a global command for your application. Returns an
   /// [ApplicationCommand] object.
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#get-global-application-command
-  Future<ValidatedResponse<Map<String, dynamic>, ApplicationCommand>>
+  Future<TransformedResponse<Map<String, dynamic>, ApplicationCommand>>
       getGlobalApplicationCommand(
     String commandId,
   ) {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/commands/$commandId')
-        .validate(transform: ApplicationCommand.fromJson);
+        .validate()
+        .transform(data: ApplicationCommand.fromJson);
   }
 
   /// Edit a global command. Updates will be available in all guilds after 1 hour.
   /// Returns 200 and an [ApplicationCommand] object.
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#edit-global-application-command
-  Future<ValidatedResponse<Map<String, dynamic>, ApplicationCommand>>
+  Future<TransformedResponse<Map<String, dynamic>, ApplicationCommand>>
       editGlobalApplicationCommand(
     String commandId, {
     /// 1-32 character name
@@ -106,21 +111,25 @@ class ApplicationCommandsApi {
     /// Default: true
     bool? defaultPermission,
   }) {
-    return _dio.patch<Map<String, dynamic>>(
-      '$_basePath/commands/$commandId',
-      data: {
-        if (name != null) 'name': name,
-        if (description != null) 'description': description,
-        if (options != null) 'options': options,
-        if (defaultPermission != null) 'default_permission': defaultPermission,
-      },
-    ).validate(transform: ApplicationCommand.fromJson);
+    return _dio
+        .patch<Map<String, dynamic>>(
+          '$_basePath/commands/$commandId',
+          data: {
+            if (name != null) 'name': name,
+            if (description != null) 'description': description,
+            if (options != null) 'options': options,
+            if (defaultPermission != null)
+              'default_permission': defaultPermission,
+          },
+        )
+        .validate()
+        .transform(data: ApplicationCommand.fromJson);
   }
 
   /// Deletes a global command. Returns 204.
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#delete-global-application-command
-  Future<ValidatedResponse<void, void>> deleteGlobalApplicationCommand(
+  Future<TransformedResponse<void, void>> deleteGlobalApplicationCommand(
     String commandId,
   ) {
     return _dio.delete('$_basePath/commands/$commandId').validate();
@@ -133,12 +142,15 @@ class ApplicationCommandsApi {
   /// This will overwrite all types of application commands: slash commands, user commands, and message commands.
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#bulk-overwrite-global-application-commands
-  Future<ValidatedResponse<List, List<ApplicationCommand>>>
+  Future<TransformedResponse<List, List<ApplicationCommand>>>
       bulkOverwriteGlobalApplicationCommands(
     List<ApplicationCommand> commands,
   ) {
-    return _dio.put<List>('$_basePath/commands', data: commands).validate(
-          transform: (data) => data
+    return _dio
+        .put<List>('$_basePath/commands', data: commands)
+        .validate()
+        .transform(
+          data: (data) => data
               .cast<Map<String, dynamic>>()
               .map(ApplicationCommand.fromJson)
               .toList(),
@@ -149,12 +161,15 @@ class ApplicationCommandsApi {
   /// Returns an array of [ApplicationCommand] objects.
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#get-guild-application-commands
-  Future<ValidatedResponse<List, List<ApplicationCommand>>>
+  Future<TransformedResponse<List, List<ApplicationCommand>>>
       getGuildApplicationCommands(
     String guildId,
   ) {
-    return _dio.get<List>('$_basePath/guilds/$guildId/commands').validate(
-          transform: (data) => data
+    return _dio
+        .get<List>('$_basePath/guilds/$guildId/commands')
+        .validate()
+        .transform(
+          data: (data) => data
               .cast<Map<String, dynamic>>()
               .map(ApplicationCommand.fromJson)
               .toList(),
@@ -168,7 +183,7 @@ class ApplicationCommandsApi {
   /// Creating a command with the same name as an existing command for your application will overwrite the old command.
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#create-guild-application-command
-  Future<ValidatedResponse<Map<String, dynamic>, ApplicationCommand>>
+  Future<TransformedResponse<Map<String, dynamic>, ApplicationCommand>>
       createGuildApplicationCommand(
     String guildId, {
     /// 1-32 character name
@@ -189,22 +204,26 @@ class ApplicationCommandsApi {
     /// the type of command, defaults 1 if not set
     ApplicationCommandType? type,
   }) {
-    return _dio.post<Map<String, dynamic>>(
-      '$_basePath/guilds/$guildId/commands',
-      data: {
-        'name': name,
-        if (description != null) 'description': description,
-        if (options != null) 'options': options,
-        if (defaultPermission != null) 'default_permission': defaultPermission,
-        if (type != null) 'type': type.value,
-      },
-    ).validate(transform: ApplicationCommand.fromJson);
+    return _dio
+        .post<Map<String, dynamic>>(
+          '$_basePath/guilds/$guildId/commands',
+          data: {
+            'name': name,
+            if (description != null) 'description': description,
+            if (options != null) 'options': options,
+            if (defaultPermission != null)
+              'default_permission': defaultPermission,
+            if (type != null) 'type': type.value,
+          },
+        )
+        .validate()
+        .transform(data: ApplicationCommand.fromJson);
   }
 
   /// Fetch a guild command for your application. Returns an [ApplicationCommand] object.
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#get-guild-application-command
-  Future<ValidatedResponse<Map<String, dynamic>, ApplicationCommand>>
+  Future<TransformedResponse<Map<String, dynamic>, ApplicationCommand>>
       getGuildApplicationCommand(
     String guildId, {
     required String commandId,
@@ -213,14 +232,15 @@ class ApplicationCommandsApi {
         .get<Map<String, dynamic>>(
           '$_basePath/guilds/$guildId/commands/$commandId',
         )
-        .validate(transform: ApplicationCommand.fromJson);
+        .validate()
+        .transform(data: ApplicationCommand.fromJson);
   }
 
   /// Edit a guild command. Updates for guild commands will be available immediately.
   /// Returns 200 and an [ApplicationCommand] object.
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#edit-guild-application-command
-  Future<ValidatedResponse<Map<String, dynamic>, ApplicationCommand>>
+  Future<TransformedResponse<Map<String, dynamic>, ApplicationCommand>>
       editGuildApplicationCommand(
     String guildId, {
     required String commandId,
@@ -240,21 +260,25 @@ class ApplicationCommandsApi {
     /// Default: true
     bool? defaultPermission,
   }) {
-    return _dio.patch<Map<String, dynamic>>(
-      '$_basePath/guilds/$guildId/commands/$commandId',
-      data: {
-        if (name != null) 'name': name,
-        if (description != null) 'description': description,
-        if (options != null) 'options': options,
-        if (defaultPermission != null) 'default_permission': defaultPermission,
-      },
-    ).validate(transform: ApplicationCommand.fromJson);
+    return _dio
+        .patch<Map<String, dynamic>>(
+          '$_basePath/guilds/$guildId/commands/$commandId',
+          data: {
+            if (name != null) 'name': name,
+            if (description != null) 'description': description,
+            if (options != null) 'options': options,
+            if (defaultPermission != null)
+              'default_permission': defaultPermission,
+          },
+        )
+        .validate()
+        .transform(data: ApplicationCommand.fromJson);
   }
 
   /// Delete a guild command. Returns 204 on success.
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#delete-guild-application-command
-  Future<ValidatedResponse<void, void>> deleteGuildApplicationCommand(
+  Future<TransformedResponse<void, void>> deleteGuildApplicationCommand(
     String guildId, {
     required String commandId,
   }) {
@@ -269,7 +293,7 @@ class ApplicationCommandsApi {
   /// This will overwrite all types of application commands: slash commands, user commands, and message commands.
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#bulk-overwrite-guild-application-commands
-  Future<ValidatedResponse<List, List<ApplicationCommand>>>
+  Future<TransformedResponse<List, List<ApplicationCommand>>>
       bulkOverwriteGuildApplicationCommands(
     String guildId, {
     required List<ApplicationCommand> commands,
@@ -279,8 +303,9 @@ class ApplicationCommandsApi {
           '$_basePath/guilds/$guildId/commands',
           data: commands,
         )
-        .validate(
-          transform: (data) => data
+        .validate()
+        .transform(
+          data: (data) => data
               .cast<Map<String, dynamic>>()
               .map(ApplicationCommand.fromJson)
               .toList(),
@@ -291,14 +316,15 @@ class ApplicationCommandsApi {
   /// Returns an array of [GuildApplicationCommandPermissions] objects.
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#get-guild-application-command-permissions
-  Future<ValidatedResponse<List, List<GuildApplicationCommandPermissions>>>
+  Future<TransformedResponse<List, List<GuildApplicationCommandPermissions>>>
       getGuildApplicationCommandPermissions(String guildId) {
     return _dio
         .get<List>(
           '$_basePath/guilds/$guildId/commands/permissions',
         )
-        .validate(
-          transform: (data) => data
+        .validate()
+        .transform(
+          data: (data) => data
               .cast<Map<String, dynamic>>()
               .map(GuildApplicationCommandPermissions.fromJson)
               .toList(),
@@ -310,7 +336,7 @@ class ApplicationCommandsApi {
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#get-application-command-permissions
   Future<
-      ValidatedResponse<Map<String, dynamic>,
+      TransformedResponse<Map<String, dynamic>,
           GuildApplicationCommandPermissions>> getApplicationCommandPermissions(
     String guildId, {
     required String commandId,
@@ -319,8 +345,9 @@ class ApplicationCommandsApi {
         .get<Map<String, dynamic>>(
           '$_basePath/guilds/$guildId/commands/$commandId/permissions',
         )
-        .validate(
-          transform: GuildApplicationCommandPermissions.fromJson,
+        .validate()
+        .transform(
+          data: GuildApplicationCommandPermissions.fromJson,
         );
   }
 
@@ -334,19 +361,22 @@ class ApplicationCommandsApi {
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#edit-application-command-permissions
   Future<
-          ValidatedResponse<Map<String, dynamic>,
+          TransformedResponse<Map<String, dynamic>,
               GuildApplicationCommandPermissions>>
       editApplicationCommandPermissions(
     String guildId, {
     required String commandId,
     required List<ApplicationCommandPermissions> permissions,
   }) {
-    return _dio.put<Map<String, dynamic>>(
-      '$_basePath/guilds/$guildId/commands/$commandId/permissions',
-      data: {'permissions': permissions},
-    ).validate(
-      transform: GuildApplicationCommandPermissions.fromJson,
-    );
+    return _dio
+        .put<Map<String, dynamic>>(
+          '$_basePath/guilds/$guildId/commands/$commandId/permissions',
+          data: {'permissions': permissions},
+        )
+        .validate()
+        .transform(
+          data: GuildApplicationCommandPermissions.fromJson,
+        );
   }
 
   /// Batch edits permissions for all commands in a guild.
@@ -358,7 +388,7 @@ class ApplicationCommandsApi {
   /// a guild,including slash commands, user commands, and message commands.
   ///
   /// https://discord.com/developers/docs/interactions/application-commands#batch-edit-application-command-permissions
-  Future<ValidatedResponse<List, List<GuildApplicationCommandPermissions>>>
+  Future<TransformedResponse<List, List<GuildApplicationCommandPermissions>>>
       batchEditApplicationCommandPermissions(
     String guildId, {
     required List<GuildApplicationCommandPermissions> permissions,
@@ -368,8 +398,9 @@ class ApplicationCommandsApi {
           '$_basePath/guilds/$guildId/commands/permissions',
           data: permissions,
         )
-        .validate(
-          transform: (data) => data
+        .validate()
+        .transform(
+          data: (data) => data
               .cast<Map<String, dynamic>>()
               .map(GuildApplicationCommandPermissions.fromJson)
               .toList(),

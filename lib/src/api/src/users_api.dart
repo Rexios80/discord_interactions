@@ -21,26 +21,29 @@ class UsersApi {
   /// email.
   ///
   /// https://discord.com/developers/docs/resources/user#get-current-user
-  Future<ValidatedResponse<Map<String, dynamic>, User>> getCurrentUser() {
+  Future<TransformedResponse<Map<String, dynamic>, User>> getCurrentUser() {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/@me')
-        .validate(transform: User.fromJson);
+        .validate()
+        .transform(data: User.fromJson);
   }
 
   /// Returns a user object for a given user ID.
   ///
   /// https://discord.com/developers/docs/resources/user#get-user
-  Future<ValidatedResponse<Map<String, dynamic>, User>> getUser(String userId) {
+  Future<TransformedResponse<Map<String, dynamic>, User>> getUser(
+      String userId) {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$userId')
-        .validate(transform: User.fromJson);
+        .validate()
+        .transform(data: User.fromJson);
   }
 
   /// Modify the requester's user account settings. Returns a user object on
   /// success.
   ///
   /// https://discord.com/developers/docs/resources/user#modify-current-user
-  Future<ValidatedResponse<Map<String, dynamic>, User>> modifyCurrentUser({
+  Future<TransformedResponse<Map<String, dynamic>, User>> modifyCurrentUser({
     /// user's username, if changed may cause the user's discriminator to be
     /// randomized.
     String? username,
@@ -50,13 +53,16 @@ class UsersApi {
     /// Use [ImageData.fromBase64] to create this string
     String? avatarImageData,
   }) {
-    return _dio.patch<Map<String, dynamic>>(
-      '$_basePath/@me',
-      data: {
-        if (username != null) 'username': username,
-        if (avatarImageData != null) 'avatar': avatarImageData,
-      },
-    ).validate(transform: User.fromJson);
+    return _dio
+        .patch<Map<String, dynamic>>(
+          '$_basePath/@me',
+          data: {
+            if (username != null) 'username': username,
+            if (avatarImageData != null) 'avatar': avatarImageData,
+          },
+        )
+        .validate()
+        .transform(data: User.fromJson);
   }
 
   /// Returns a list of partial guild objects the current user is a member of.
@@ -67,7 +73,7 @@ class UsersApi {
   /// for integrations that need to get a list of the users' guilds.
   ///
   /// https://discord.com/developers/docs/resources/user#get-current-user-guilds
-  Future<ValidatedResponse<List, List<Guild>>> getCurrentUserGuilds({
+  Future<TransformedResponse<List, List<Guild>>> getCurrentUserGuilds({
     /// get guilds before this guild ID
     String? before,
 
@@ -79,17 +85,20 @@ class UsersApi {
     /// default: 200
     int? limit,
   }) {
-    return _dio.get<List>(
-      '$_basePath/@me/guilds',
-      queryParameters: {
-        if (before != null) 'before': before,
-        if (after != null) 'after': after,
-        if (limit != null) 'limit': limit,
-      },
-    ).validate(
-      transform: (data) =>
-          data.cast<Map<String, dynamic>>().map(Guild.fromJson).toList(),
-    );
+    return _dio
+        .get<List>(
+          '$_basePath/@me/guilds',
+          queryParameters: {
+            if (before != null) 'before': before,
+            if (after != null) 'after': after,
+            if (limit != null) 'limit': limit,
+          },
+        )
+        .validate()
+        .transform(
+          data: (data) =>
+              data.cast<Map<String, dynamic>>().map(Guild.fromJson).toList(),
+        );
   }
 
   /// Leave a guild. Returns a 204 empty response on success.
@@ -97,7 +106,7 @@ class UsersApi {
   /// * It seems like a webhook bot can't do this
   ///
   /// https://discord.com/developers/docs/resources/user#leave-guild
-  Future<ValidatedResponse<void, void>> leaveGuild(String guildId) {
+  Future<TransformedResponse<void, void>> leaveGuild(String guildId) {
     return _dio.delete('$_basePath/@me/guilds/$guildId').validate();
   }
 
@@ -109,13 +118,16 @@ class UsersApi {
   /// or blocked from opening new ones.
   ///
   /// https://discord.com/developers/docs/resources/user#create-dm
-  Future<ValidatedResponse<Map<String, dynamic>, Channel>> createDm(
+  Future<TransformedResponse<Map<String, dynamic>, Channel>> createDm(
     String userId,
   ) {
-    return _dio.post<Map<String, dynamic>>(
-      '$_basePath/@me/channels',
-      data: {'recipient_id': userId},
-    ).validate(transform: Channel.fromJson);
+    return _dio
+        .post<Map<String, dynamic>>(
+          '$_basePath/@me/channels',
+          data: {'recipient_id': userId},
+        )
+        .validate()
+        .transform(data: Channel.fromJson);
   }
 
   /// Create a new group DM channel with multiple users. Returns a DM channel
@@ -129,7 +141,7 @@ class UsersApi {
     ' SDK. DMs created with this endpoint will not be shown in the Discord'
     ' client',
   )
-  Future<ValidatedResponse<Map<String, dynamic>, dynamic>> createGroupDm() {
+  Future<TransformedResponse<Map<String, dynamic>, dynamic>> createGroupDm() {
     throw UnimplementedError();
   }
 
@@ -139,7 +151,7 @@ class UsersApi {
   /// * Pretty sure bots can't have connections
   ///
   /// https://discord.com/developers/docs/resources/user#get-user-connections
-  Future<ValidatedResponse> getUserConnections() {
+  Future<TransformedResponse> getUserConnections() {
     return _dio.get('$_basePath/@me/connections').validate();
   }
 }

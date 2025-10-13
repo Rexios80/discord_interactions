@@ -18,7 +18,7 @@ class InvitesApi {
   /// Returns an [Invite] object for the given code.
   ///
   /// https://discord.com/developers/docs/resources/invite#get-invite
-  Future<ValidatedResponse<Map<String, dynamic>, Invite>> getInvite(
+  Future<TransformedResponse<Map<String, dynamic>, Invite>> getInvite(
     String inviteCode, {
     /// whether the invite should contain approximate member counts
     bool? withCounts,
@@ -29,15 +29,18 @@ class InvitesApi {
     /// the guild scheduled event to include with the invite
     String? guildScheduledEventId,
   }) {
-    return _dio.get<Map<String, dynamic>>(
-      '$_basePath/$inviteCode',
-      queryParameters: {
-        if (withCounts != null) 'with_counts': withCounts,
-        if (withExpiration != null) 'with_expiration': withExpiration,
-        if (guildScheduledEventId != null)
-          'guild_scheduled_event_id': guildScheduledEventId,
-      },
-    ).validate(transform: Invite.fromJson);
+    return _dio
+        .get<Map<String, dynamic>>(
+          '$_basePath/$inviteCode',
+          queryParameters: {
+            if (withCounts != null) 'with_counts': withCounts,
+            if (withExpiration != null) 'with_expiration': withExpiration,
+            if (guildScheduledEventId != null)
+              'guild_scheduled_event_id': guildScheduledEventId,
+          },
+        )
+        .validate()
+        .transform(data: Invite.fromJson);
   }
 
   /// Delete an invite. Requires the MANAGE_CHANNELS permission on the channel
@@ -48,7 +51,7 @@ class InvitesApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/invite#delete-invite
-  Future<ValidatedResponse<Map<String, dynamic>, Invite>> deleteInvite(
+  Future<TransformedResponse<Map<String, dynamic>, Invite>> deleteInvite(
     String inviteCode, {
     String? reason,
   }) {
@@ -61,6 +64,7 @@ class InvitesApi {
             },
           ),
         )
-        .validate(transform: Invite.fromJson);
+        .validate()
+        .transform(data: Invite.fromJson);
   }
 }

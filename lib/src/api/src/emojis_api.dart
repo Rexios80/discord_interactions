@@ -18,11 +18,11 @@ class EmojisApi {
   /// Returns a list of [Emoji] objects for the given guild.
   ///
   /// https://discord.com/developers/docs/resources/emoji#list-guild-emojis
-  Future<ValidatedResponse<List, List<Emoji>>> listGuildEmojis(
+  Future<TransformedResponse<List, List<Emoji>>> listGuildEmojis(
     String guildId,
   ) {
-    return _dio.get<List>('$_basePath/$guildId/emojis').validate(
-          transform: (data) =>
+    return _dio.get<List>('$_basePath/$guildId/emojis').validate().transform(
+          data: (data) =>
               data.cast<Map<String, dynamic>>().map(Emoji.fromJson).toList(),
         );
   }
@@ -30,13 +30,14 @@ class EmojisApi {
   /// Returns an emoji object for the given guild and emoji IDs.
   ///
   /// https://discord.com/developers/docs/resources/emoji#get-guild-emoji
-  Future<ValidatedResponse<Map<String, dynamic>, Emoji>> getGuildEmoji(
+  Future<TransformedResponse<Map<String, dynamic>, Emoji>> getGuildEmoji(
     String guildId, {
     required String emojiId,
   }) {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$guildId/emojis/$emojiId')
-        .validate(transform: Emoji.fromJson);
+        .validate()
+        .transform(data: Emoji.fromJson);
   }
 
   /// Create a new emoji for the guild. Requires the MANAGE_EMOJIS_AND_STICKERS
@@ -50,7 +51,7 @@ class EmojisApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/emoji#create-guild-emoji
-  Future<ValidatedResponse<Map<String, dynamic>, Emoji>> createGuildEmoji(
+  Future<TransformedResponse<Map<String, dynamic>, Emoji>> createGuildEmoji(
     String guildId, {
     /// name of the emoji
     required String name,
@@ -78,7 +79,8 @@ class EmojisApi {
             },
           ),
         )
-        .validate(transform: Emoji.fromJson);
+        .validate()
+        .transform(data: Emoji.fromJson);
   }
 
   /// Modify the given emoji. Requires the MANAGE_EMOJIS_AND_STICKERS
@@ -88,7 +90,7 @@ class EmojisApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/emoji#modify-guild-emoji
-  Future<ValidatedResponse<Map<String, dynamic>, Emoji>> modifyGuildEmoji(
+  Future<TransformedResponse<Map<String, dynamic>, Emoji>> modifyGuildEmoji(
     String guildId, {
     required String emojiId,
 
@@ -112,7 +114,8 @@ class EmojisApi {
             },
           ),
         )
-        .validate(transform: Emoji.fromJson);
+        .validate()
+        .transform(data: Emoji.fromJson);
   }
 
   /// Delete the given emoji. Requires the MANAGE_EMOJIS_AND_STICKERS
@@ -122,7 +125,7 @@ class EmojisApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/emoji#delete-guild-emoji
-  Future<ValidatedResponse<void, void>> deleteGuildEmoji(
+  Future<TransformedResponse<void, void>> deleteGuildEmoji(
     String guildId, {
     required String emojiId,
     String? reason,

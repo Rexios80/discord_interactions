@@ -21,19 +21,20 @@ class ChannelsApi {
   /// a [ThreadMember] object is included in the returned result.
   ///
   /// https://discord.com/developers/docs/resources/channel#get-channel
-  Future<ValidatedResponse<Map<String, dynamic>, Channel>> getChannel(
+  Future<TransformedResponse<Map<String, dynamic>, Channel>> getChannel(
     String channelId,
   ) async {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$channelId')
-        .validate(transform: Channel.fromJson);
+        .validate()
+        .transform(data: Channel.fromJson);
   }
 
   /// Update a group dm's settings. Returns a channel on success, and a 400 BAD
   /// REQUEST on invalid parameters. All JSON parameters are optional.
   ///
   /// https://discord.com/developers/docs/resources/channel#modify-channel
-  Future<ValidatedResponse<Map<String, dynamic>, Channel>> modifyGroupDm(
+  Future<TransformedResponse<Map<String, dynamic>, Channel>> modifyGroupDm(
     String channelId, {
     /// 1-100 character channel name
     required String? name,
@@ -41,13 +42,16 @@ class ChannelsApi {
     /// base64 encoded icon
     required String? iconBase64,
   }) async {
-    return _dio.patch<Map<String, dynamic>>(
-      '$_basePath/$channelId',
-      data: {
-        if (name != null) 'name': name,
-        if (iconBase64 != null) 'icon': iconBase64,
-      },
-    ).validate(transform: Channel.fromJson);
+    return _dio
+        .patch<Map<String, dynamic>>(
+          '$_basePath/$channelId',
+          data: {
+            if (name != null) 'name': name,
+            if (iconBase64 != null) 'icon': iconBase64,
+          },
+        )
+        .validate()
+        .transform(data: Channel.fromJson);
   }
 
   /// Update a channel's settings. Returns a channel on success, and a 400 BAD
@@ -63,7 +67,7 @@ class ChannelsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/channel#modify-channel
-  Future<ValidatedResponse<Map<String, dynamic>, Channel>> modifyChannel(
+  Future<TransformedResponse<Map<String, dynamic>, Channel>> modifyChannel(
     String channelId, {
     /// 1-100 character channel name
     ///
@@ -166,7 +170,8 @@ class ChannelsApi {
             },
           ),
         )
-        .validate(transform: Channel.fromJson);
+        .validate()
+        .transform(data: Channel.fromJson);
   }
 
   /// Update a thread's settings. Returns a channel on success, and a 400 BAD
@@ -182,7 +187,7 @@ class ChannelsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/channel#modify-channel
-  Future<ValidatedResponse<Map<String, dynamic>, Channel>> modifyThread(
+  Future<TransformedResponse<Map<String, dynamic>, Channel>> modifyThread(
     String channelId, {
     /// 1-100 character channel name
     String? name,
@@ -230,7 +235,8 @@ class ChannelsApi {
             },
           ),
         )
-        .validate(transform: Channel.fromJson);
+        .validate()
+        .transform(data: Channel.fromJson);
   }
 
   /// Delete a channel, or close a private message. Requires the MANAGE_CHANNELS
@@ -251,7 +257,7 @@ class ChannelsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/channel#deleteclose-channel
-  Future<ValidatedResponse<void, void>> deleteChannel(
+  Future<TransformedResponse<void, void>> deleteChannel(
     String channelId, {
     String? reason,
   }) async {
@@ -277,7 +283,7 @@ class ChannelsApi {
   /// be passed at a time.
   ///
   /// https://discord.com/developers/docs/resources/channel#get-channel-messages
-  Future<ValidatedResponse<List, List<Message>>> getChannelMessages(
+  Future<TransformedResponse<List, List<Message>>> getChannelMessages(
     String channelId, {
     /// get messages around this message ID
     String? around,
@@ -293,18 +299,21 @@ class ChannelsApi {
     /// Default: 50
     int? limit,
   }) async {
-    return _dio.get<List>(
-      '$_basePath/$channelId/messages',
-      queryParameters: {
-        if (around != null) 'around': around,
-        if (before != null) 'before': before,
-        if (after != null) 'after': after,
-        if (limit != null) 'limit': limit,
-      },
-    ).validate(
-      transform: (data) =>
-          data.cast<Map<String, dynamic>>().map(Message.fromJson).toList(),
-    );
+    return _dio
+        .get<List>(
+          '$_basePath/$channelId/messages',
+          queryParameters: {
+            if (around != null) 'around': around,
+            if (before != null) 'before': before,
+            if (after != null) 'after': after,
+            if (limit != null) 'limit': limit,
+          },
+        )
+        .validate()
+        .transform(
+          data: (data) =>
+              data.cast<Map<String, dynamic>>().map(Message.fromJson).toList(),
+        );
   }
 
   /// Returns a specific message in the channel. If operating on a guild
@@ -312,13 +321,14 @@ class ChannelsApi {
   /// be present on the current user. Returns a message object on success.
   ///
   /// https://discord.com/developers/docs/resources/channel#get-channel-message
-  Future<ValidatedResponse<Map<String, dynamic>, Message>> getChannelMessage(
+  Future<TransformedResponse<Map<String, dynamic>, Message>> getChannelMessage(
     String channelId, {
     required String messageId,
   }) async {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$channelId/messages/$messageId')
-        .validate(transform: Message.fromJson);
+        .validate()
+        .transform(data: Message.fromJson);
   }
 
   /// Discord may strip certain characters from message content, like invalid
@@ -361,7 +371,7 @@ class ChannelsApi {
   /// one of content, embeds, or files[n].
   ///
   /// https://discord.com/developers/docs/resources/channel#create-message
-  Future<ValidatedResponse<Map<String, dynamic>, Message>> createMessage(
+  Future<TransformedResponse<Map<String, dynamic>, Message>> createMessage(
     String channelId, {
     /// the message contents (up to 2000 characters)
     ///
@@ -416,7 +426,8 @@ class ChannelsApi {
             files,
           ),
         )
-        .validate(transform: Message.fromJson);
+        .validate()
+        .transform(data: Message.fromJson);
   }
 
   /// Crosspost a message in a News Channel to following channels. This endpoint
@@ -427,7 +438,7 @@ class ChannelsApi {
   /// Returns a [Message] object.
   ///
   /// https://discord.com/developers/docs/resources/channel#crosspost-message
-  Future<ValidatedResponse<Map<String, dynamic>, Message>> crosspostMessage(
+  Future<TransformedResponse<Map<String, dynamic>, Message>> crosspostMessage(
     String channelId, {
     required String messageId,
   }) async {
@@ -435,7 +446,8 @@ class ChannelsApi {
         .post<Map<String, dynamic>>(
           '$_basePath/$channelId/messages/$messageId/crosspost',
         )
-        .validate(transform: Message.fromJson);
+        .validate()
+        .transform(data: Message.fromJson);
   }
 
   /// Create a reaction for the message. This endpoint requires the
@@ -450,7 +462,7 @@ class ChannelsApi {
   /// This method handles emoji encoding for you
   ///
   /// https://discord.com/developers/docs/resources/channel#create-reaction
-  Future<ValidatedResponse<void, void>> createReaction(
+  Future<TransformedResponse<void, void>> createReaction(
     String channelId, {
     required String messageId,
     required String emojiName,
@@ -472,7 +484,7 @@ class ChannelsApi {
   /// This method handles emoji encoding for you
   ///
   /// https://discord.com/developers/docs/resources/channel#delete-own-reaction
-  Future<ValidatedResponse<void, void>> deleteOwnReaction(
+  Future<TransformedResponse<void, void>> deleteOwnReaction(
     String channelId, {
     required String messageId,
     required String emojiName,
@@ -495,7 +507,7 @@ class ChannelsApi {
   /// This method handles emoji encoding for you
   ///
   /// https://discord.com/developers/docs/resources/channel#delete-user-reaction
-  Future<ValidatedResponse<void, void>> deleteUserReaction(
+  Future<TransformedResponse<void, void>> deleteUserReaction(
     String channelId, {
     required String messageId,
     required String emojiName,
@@ -518,7 +530,7 @@ class ChannelsApi {
   /// This method handles emoji encoding for you
   ///
   /// https://discord.com/developers/docs/resources/channel#get-reactions
-  Future<ValidatedResponse<List, List<User>>> getReactions(
+  Future<TransformedResponse<List, List<User>>> getReactions(
     String channelId, {
     required String messageId,
     required String emojiName,
@@ -542,8 +554,9 @@ class ChannelsApi {
           '$_basePath/$channelId/messages/$messageId/reactions/$emoji',
           queryParameters: query,
         )
-        .validate(
-          transform: (data) =>
+        .validate()
+        .transform(
+          data: (data) =>
               data.cast<Map<String, dynamic>>().map(User.fromJson).toList(),
         );
   }
@@ -553,7 +566,7 @@ class ChannelsApi {
   /// Message Reaction Remove All Gateway event.
   ///
   /// https://discord.com/developers/docs/resources/channel#delete-all-reactions
-  Future<ValidatedResponse<void, void>> deleteAllReactions(
+  Future<TransformedResponse<void, void>> deleteAllReactions(
     String channelId, {
     required String messageId,
   }) async {
@@ -572,7 +585,7 @@ class ChannelsApi {
   /// This method handles emoji encoding for you
   ///
   /// https://discord.com/developers/docs/resources/channel#delete-all-reactions-for-emoji
-  Future<ValidatedResponse<void, void>> deleteAllReactionsForEmoji(
+  Future<TransformedResponse<void, void>> deleteAllReactionsForEmoji(
     String channelId, {
     required String messageId,
     required String emojiName,
@@ -615,7 +628,7 @@ class ChannelsApi {
   /// All parameters to this endpoint are optional and nullable.
   ///
   /// https://discord.com/developers/docs/resources/channel#edit-message
-  Future<ValidatedResponse<Map<String, dynamic>, Message>> editMessage(
+  Future<TransformedResponse<Map<String, dynamic>, Message>> editMessage(
     String channelId, {
     required String messageId,
 
@@ -656,7 +669,8 @@ class ChannelsApi {
             files,
           ),
         )
-        .validate(transform: Message.fromJson);
+        .validate()
+        .transform(data: Message.fromJson);
   }
 
   /// Delete a message. If operating on a guild channel and trying to delete a
@@ -667,7 +681,7 @@ class ChannelsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/channel#delete-message
-  Future<ValidatedResponse<void, void>> deleteMessage(
+  Future<TransformedResponse<void, void>> deleteMessage(
     String channelId, {
     required String messageId,
     String? reason,
@@ -699,7 +713,7 @@ class ChannelsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/channel#bulk-delete-messages
-  Future<ValidatedResponse<void, void>> bulkDeleteMessages(
+  Future<TransformedResponse<void, void>> bulkDeleteMessages(
     String channelId, {
     /// an array of message ids to delete (2-100)
     required List<String> messageIds,
@@ -730,7 +744,7 @@ class ChannelsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/channel#edit-channel-permissions
-  Future<ValidatedResponse<void, void>> editChannelPermissions(
+  Future<TransformedResponse<void, void>> editChannelPermissions(
     String channelId, {
     required PermissionOverwrite overwrite,
     String? reason,
@@ -752,11 +766,11 @@ class ChannelsApi {
   /// Only usable for guild channels. Requires the MANAGE_CHANNELS permission.
   ///
   /// https://discord.com/developers/docs/resources/channel#get-channel-invites
-  Future<ValidatedResponse<List, List<Invite>>> getChannelInvites(
+  Future<TransformedResponse<List, List<Invite>>> getChannelInvites(
     String channelId,
   ) async {
-    return _dio.get<List>('$_basePath/$channelId/invites').validate(
-          transform: (data) =>
+    return _dio.get<List>('$_basePath/$channelId/invites').validate().transform(
+          data: (data) =>
               data.cast<Map<String, dynamic>>().map(Invite.fromJson).toList(),
         );
   }
@@ -771,7 +785,7 @@ class ChannelsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/channel#create-channel-invite
-  Future<ValidatedResponse<Map<String, dynamic>, Invite>> createChannelInvite(
+  Future<TransformedResponse<Map<String, dynamic>, Invite>> createChannelInvite(
     String channelId, {
     /// duration of invite in seconds before expiry, or 0 for never. between 0
     /// and 604800 (7 days)
@@ -826,7 +840,8 @@ class ChannelsApi {
             },
           ),
         )
-        .validate(transform: Invite.fromJson);
+        .validate()
+        .transform(data: Invite.fromJson);
   }
 
   /// Delete a channel permission overwrite for a user or role in a channel.
@@ -837,7 +852,7 @@ class ChannelsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/channel#delete-channel-permission
-  Future<ValidatedResponse<void, void>> deleteChannelPermission(
+  Future<TransformedResponse<void, void>> deleteChannelPermission(
     String channelId, {
     required String overwriteId,
     String? reason,
@@ -859,18 +874,21 @@ class ChannelsApi {
   /// channel object.
   ///
   /// https://discord.com/developers/docs/resources/channel#follow-news-channel
-  Future<ValidatedResponse<Map<String, dynamic>, FollowedChannel>>
+  Future<TransformedResponse<Map<String, dynamic>, FollowedChannel>>
       followNewsChannel(
     String channelId, {
     /// id of target channel
     required String webhookChannelId,
   }) async {
-    return _dio.post<Map<String, dynamic>>(
-      '$_basePath/$channelId/followers',
-      data: {
-        'webhook_channel_id': webhookChannelId,
-      },
-    ).validate(transform: FollowedChannel.fromJson);
+    return _dio
+        .post<Map<String, dynamic>>(
+          '$_basePath/$channelId/followers',
+          data: {
+            'webhook_channel_id': webhookChannelId,
+          },
+        )
+        .validate()
+        .transform(data: FollowedChannel.fromJson);
   }
 
   /// Post a typing indicator for the specified channel. Generally bots should
@@ -881,7 +899,7 @@ class ChannelsApi {
   /// event.
   ///
   /// https://discord.com/developers/docs/resources/channel#trigger-typing-indicator
-  Future<ValidatedResponse<void, void>> triggerTypingIndicator(
+  Future<TransformedResponse<void, void>> triggerTypingIndicator(
     String channelId,
   ) async {
     return _dio.post('$_basePath/$channelId/typing').validate();
@@ -890,11 +908,11 @@ class ChannelsApi {
   /// Returns all pinned messages in the channel as an array of message objects.
   ///
   /// https://discord.com/developers/docs/resources/channel#get-pinned-messages
-  Future<ValidatedResponse<List, List<Message>>> getPinnedMessages(
+  Future<TransformedResponse<List, List<Message>>> getPinnedMessages(
     String channelId,
   ) async {
-    return _dio.get<List>('$_basePath/$channelId/pins').validate(
-          transform: (data) =>
+    return _dio.get<List>('$_basePath/$channelId/pins').validate().transform(
+          data: (data) =>
               data.cast<Map<String, dynamic>>().map(Message.fromJson).toList(),
         );
   }
@@ -907,7 +925,7 @@ class ChannelsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/channel#pin-message
-  Future<ValidatedResponse<void, void>> pinMessage(
+  Future<TransformedResponse<void, void>> pinMessage(
     String channelId, {
     required String messageId,
     String? reason,
@@ -930,7 +948,7 @@ class ChannelsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/channel#unpin-message
-  Future<ValidatedResponse<void, void>> unpinMessage(
+  Future<TransformedResponse<void, void>> unpinMessage(
     String channelId, {
     required String messageId,
     String? reason,
@@ -951,7 +969,7 @@ class ChannelsApi {
   ///
   /// https://discord.com/developers/docs/resources/channel#group-dm-add-recipient
   @Deprecated('Pretty sure this is deprecated')
-  Future<ValidatedResponse<void, void>> groupDmAddRecipient(
+  Future<TransformedResponse<void, void>> groupDmAddRecipient(
     String channelId, {
     required String userId,
 
@@ -974,7 +992,7 @@ class ChannelsApi {
   ///
   /// https://discord.com/developers/docs/resources/channel#group-dm-remove-recipient
   @Deprecated('Pretty sure this is deprecated')
-  Future<ValidatedResponse<void, void>> groupDmRemoveRecipient(
+  Future<TransformedResponse<void, void>> groupDmRemoveRecipient(
     String channelId, {
     required String userId,
   }) async {
@@ -993,7 +1011,7 @@ class ChannelsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/channel#start-thread-with-message
-  Future<ValidatedResponse<Map<String, dynamic>, Channel>>
+  Future<TransformedResponse<Map<String, dynamic>, Channel>>
       startThreadWithMessage(
     String channelId, {
     required String messageId,
@@ -1030,7 +1048,8 @@ class ChannelsApi {
             },
           ),
         )
-        .validate(transform: Channel.fromJson);
+        .validate()
+        .transform(data: Channel.fromJson);
   }
 
   /// Creates a new thread that is not connected to an existing message. The
@@ -1041,7 +1060,7 @@ class ChannelsApi {
   /// This endpoint supports the X-Audit-Log-Reason header.
   ///
   /// https://discord.com/developers/docs/resources/channel#start-thread-without-message
-  Future<ValidatedResponse<Map<String, dynamic>, Channel>>
+  Future<TransformedResponse<Map<String, dynamic>, Channel>>
       startThreadWithoutMessage(
     String channelId, {
     /// 1-100 character channel name
@@ -1094,7 +1113,8 @@ class ChannelsApi {
             },
           ),
         )
-        .validate(transform: Channel.fromJson);
+        .validate()
+        .transform(data: Channel.fromJson);
   }
 
   /// Adds the current user to a thread. Also requires the thread is not
@@ -1102,7 +1122,7 @@ class ChannelsApi {
   /// Update Gateway event.
   ///
   /// https://discord.com/developers/docs/resources/channel#join-thread
-  Future<ValidatedResponse<void, void>> joinThread(String channelId) async {
+  Future<TransformedResponse<void, void>> joinThread(String channelId) async {
     return _dio.put('$_basePath/$channelId/thread-members/@me').validate();
   }
 
@@ -1112,7 +1132,7 @@ class ChannelsApi {
   /// the thread. Fires a Thread Members Update Gateway event.
   ///
   /// https://discord.com/developers/docs/resources/channel#add-thread-member
-  Future<ValidatedResponse<void, void>> addThreadMember(
+  Future<TransformedResponse<void, void>> addThreadMember(
     String channelId, {
     required String userId,
   }) async {
@@ -1124,7 +1144,7 @@ class ChannelsApi {
   /// Update Gateway event.
   ///
   /// https://discord.com/developers/docs/resources/channel#leave-thread
-  Future<ValidatedResponse<void, void>> leaveThread(String channelId) async {
+  Future<TransformedResponse<void, void>> leaveThread(String channelId) async {
     return _dio.delete('$_basePath/$channelId/thread-members/@me').validate();
   }
 
@@ -1134,7 +1154,7 @@ class ChannelsApi {
   /// success. Fires a Thread Members Update Gateway event.
   ///
   /// https://discord.com/developers/docs/resources/channel#remove-thread-member
-  Future<ValidatedResponse<void, void>> removeThreadMember(
+  Future<TransformedResponse<void, void>> removeThreadMember(
     String channelId, {
     required String userId,
   }) async {
@@ -1147,7 +1167,8 @@ class ChannelsApi {
   /// member of the thread, returns a 404 response otherwise.
   ///
   /// https://discord.com/developers/docs/resources/channel#get-thread-member
-  Future<ValidatedResponse<Map<String, dynamic>, ThreadMember>> getThreadMember(
+  Future<TransformedResponse<Map<String, dynamic>, ThreadMember>>
+      getThreadMember(
     String channelId, {
     required String userId,
   }) async {
@@ -1155,7 +1176,8 @@ class ChannelsApi {
         .get<Map<String, dynamic>>(
           '$_basePath/$channelId/thread-members/$userId',
         )
-        .validate(transform: ThreadMember.fromJson);
+        .validate()
+        .transform(data: ThreadMember.fromJson);
   }
 
   /// Returns array of thread members objects that are members of the thread.
@@ -1164,11 +1186,14 @@ class ChannelsApi {
   /// Privileged Intent is enabled for your application.
   ///
   /// https://discord.com/developers/docs/resources/channel#list-thread-members
-  Future<ValidatedResponse<List, List<ThreadMember>>> listThreadMembers(
+  Future<TransformedResponse<List, List<ThreadMember>>> listThreadMembers(
     String channelId,
   ) async {
-    return _dio.get<List>('$_basePath/$channelId/thread-members').validate(
-          transform: (data) => data
+    return _dio
+        .get<List>('$_basePath/$channelId/thread-members')
+        .validate()
+        .transform(
+          data: (data) => data
               .cast<Map<String, dynamic>>()
               .map(ThreadMember.fromJson)
               .toList(),
@@ -1182,7 +1207,7 @@ class ChannelsApi {
   /// the READ_MESSAGE_HISTORY permission.
   ///
   /// https://discord.com/developers/docs/resources/channel#list-public-archived-threads
-  Future<ValidatedResponse<Map<String, dynamic>, ListThreadsResponse>>
+  Future<TransformedResponse<Map<String, dynamic>, ListThreadsResponse>>
       listPublicArchivedThreads(
     String channelId, {
     /// returns threads before this timestamp
@@ -1191,13 +1216,16 @@ class ChannelsApi {
     /// optional maximum number of threads to return
     int? limit,
   }) async {
-    return _dio.get<Map<String, dynamic>>(
-      '$_basePath/$channelId/threads/archived/public',
-      queryParameters: {
-        if (before != null) 'before': before.toIso8601String(),
-        if (limit != null) 'limit': limit,
-      },
-    ).validate(transform: ListThreadsResponse.fromJson);
+    return _dio
+        .get<Map<String, dynamic>>(
+          '$_basePath/$channelId/threads/archived/public',
+          queryParameters: {
+            if (before != null) 'before': before.toIso8601String(),
+            if (limit != null) 'limit': limit,
+          },
+        )
+        .validate()
+        .transform(data: ListThreadsResponse.fromJson);
   }
 
   /// Returns archived threads in the channel that are of type
@@ -1206,7 +1234,7 @@ class ChannelsApi {
   /// MANAGE_THREADS permissions.
   ///
   /// https://discord.com/developers/docs/resources/channel#list-private-archived-threads
-  Future<ValidatedResponse<Map<String, dynamic>, ListThreadsResponse>>
+  Future<TransformedResponse<Map<String, dynamic>, ListThreadsResponse>>
       listPrivateArchivedThreads(
     String channelId, {
     /// returns threads before this timestamp
@@ -1215,13 +1243,16 @@ class ChannelsApi {
     /// optional maximum number of threads to return
     int? limit,
   }) async {
-    return _dio.get<Map<String, dynamic>>(
-      '$_basePath/$channelId/threads/archived/private',
-      queryParameters: {
-        if (before != null) 'before': before.toIso8601String(),
-        if (limit != null) 'limit': limit,
-      },
-    ).validate(transform: ListThreadsResponse.fromJson);
+    return _dio
+        .get<Map<String, dynamic>>(
+          '$_basePath/$channelId/threads/archived/private',
+          queryParameters: {
+            if (before != null) 'before': before.toIso8601String(),
+            if (limit != null) 'limit': limit,
+          },
+        )
+        .validate()
+        .transform(data: ListThreadsResponse.fromJson);
   }
 
   /// Returns archived threads in the channel that are of type
@@ -1230,7 +1261,7 @@ class ChannelsApi {
   /// permission.
   ///
   /// https://discord.com/developers/docs/resources/channel#list-joined-private-archived-threads
-  Future<ValidatedResponse<Map<String, dynamic>, ListThreadsResponse>>
+  Future<TransformedResponse<Map<String, dynamic>, ListThreadsResponse>>
       listJoinedPrivateArchivedThreads(
     String channelId, {
     /// returns threads before this id
@@ -1239,12 +1270,15 @@ class ChannelsApi {
     /// optional maximum number of threads to return
     int? limit,
   }) async {
-    return _dio.get<Map<String, dynamic>>(
-      '$_basePath/$channelId/users/@me/threads/archived/private',
-      queryParameters: {
-        if (before != null) 'before': before,
-        if (limit != null) 'limit': limit,
-      },
-    ).validate(transform: ListThreadsResponse.fromJson);
+    return _dio
+        .get<Map<String, dynamic>>(
+          '$_basePath/$channelId/users/@me/threads/archived/private',
+          queryParameters: {
+            if (before != null) 'before': before,
+            if (limit != null) 'limit': limit,
+          },
+        )
+        .validate()
+        .transform(data: ListThreadsResponse.fromJson);
   }
 }

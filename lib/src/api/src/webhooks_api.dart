@@ -23,7 +23,7 @@ class WebhooksApi {
   /// - Webhook names cannot be: 'clyde'
   ///
   /// https://discord.com/developers/docs/resources/webhook#create-webhook
-  Future<ValidatedResponse<Map<String, dynamic>, Webhook>> createWebhook(
+  Future<TransformedResponse<Map<String, dynamic>, Webhook>> createWebhook(
     String channelId, {
     /// name of the webhook (1-80 characters)
     required String name,
@@ -33,24 +33,27 @@ class WebhooksApi {
     /// Use [ImageData.fromBase64] to create this string
     String? avatarImageData,
   }) {
-    return _dio.post<Map<String, dynamic>>(
-      '/channels/$channelId/webhooks',
-      data: {
-        'name': name,
-        if (avatarImageData != null) 'avatar': avatarImageData,
-      },
-    ).validate(transform: Webhook.fromJson);
+    return _dio
+        .post<Map<String, dynamic>>(
+          '/channels/$channelId/webhooks',
+          data: {
+            'name': name,
+            if (avatarImageData != null) 'avatar': avatarImageData,
+          },
+        )
+        .validate()
+        .transform(data: Webhook.fromJson);
   }
 
   /// Returns a list of channel [Webhook] objects. Requires the MANAGE_WEBHOOKS
   /// permission.
   ///
   /// https://discord.com/developers/docs/resources/webhook#get-channel-webhooks
-  Future<ValidatedResponse<List, List<Webhook>>> getChannelWebhooks(
+  Future<TransformedResponse<List, List<Webhook>>> getChannelWebhooks(
     String channelId,
   ) {
-    return _dio.get<List>('/channels/$channelId/webhooks').validate(
-          transform: (data) =>
+    return _dio.get<List>('/channels/$channelId/webhooks').validate().transform(
+          data: (data) =>
               data.cast<Map<String, dynamic>>().map(Webhook.fromJson).toList(),
         );
   }
@@ -59,11 +62,11 @@ class WebhooksApi {
   /// permission.
   ///
   /// https://discord.com/developers/docs/resources/webhook#get-guild-webhooks
-  Future<ValidatedResponse<List, List<Webhook>>> getGuildWebhooks(
+  Future<TransformedResponse<List, List<Webhook>>> getGuildWebhooks(
     String guildId,
   ) {
-    return _dio.get<List>('/guilds/$guildId/webhooks').validate(
-          transform: (data) =>
+    return _dio.get<List>('/guilds/$guildId/webhooks').validate().transform(
+          data: (data) =>
               data.cast<Map<String, dynamic>>().map(Webhook.fromJson).toList(),
         );
   }
@@ -71,25 +74,28 @@ class WebhooksApi {
   /// Returns the new [Webhook] object for the given id.
   ///
   /// https://discord.com/developers/docs/resources/webhook#get-webhook
-  Future<ValidatedResponse<Map<String, dynamic>, Webhook>> getWebhook(
+  Future<TransformedResponse<Map<String, dynamic>, Webhook>> getWebhook(
     String webhookId,
   ) {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$webhookId')
-        .validate(transform: Webhook.fromJson);
+        .validate()
+        .transform(data: Webhook.fromJson);
   }
 
   /// Same as above, except this call does not require authentication and
   /// returns no user in the [Webhook] object.
   ///
   /// https://discord.com/developers/docs/resources/webhook#get-webhook-with-token
-  Future<ValidatedResponse<Map<String, dynamic>, Webhook>> getWebhookWithToken(
+  Future<TransformedResponse<Map<String, dynamic>, Webhook>>
+      getWebhookWithToken(
     String webhookId, {
     required String token,
   }) {
     return _dio
         .get<Map<String, dynamic>>('$_basePath/$webhookId/$token')
-        .validate(transform: Webhook.fromJson);
+        .validate()
+        .transform(data: Webhook.fromJson);
   }
 
   /// Modify a webhook. Requires the MANAGE_WEBHOOKS permission. Returns the
@@ -98,7 +104,7 @@ class WebhooksApi {
   /// All parameters to this endpoint are optional
   ///
   /// https://discord.com/developers/docs/resources/webhook#modify-webhook
-  Future<ValidatedResponse<Map<String, dynamic>, Webhook>> modifyWebhook(
+  Future<TransformedResponse<Map<String, dynamic>, Webhook>> modifyWebhook(
     String webhookId, {
     /// the default name of the webhook
     String? name,
@@ -109,14 +115,17 @@ class WebhooksApi {
     /// the new channel id this webhook should be moved to
     String? channelId,
   }) {
-    return _dio.patch<Map<String, dynamic>>(
-      '$_basePath/$webhookId',
-      data: {
-        if (name != null) 'name': name,
-        if (avatarImageData != null) 'avatar': avatarImageData,
-        if (channelId != null) 'channel_id': channelId,
-      },
-    ).validate(transform: Webhook.fromJson);
+    return _dio
+        .patch<Map<String, dynamic>>(
+          '$_basePath/$webhookId',
+          data: {
+            if (name != null) 'name': name,
+            if (avatarImageData != null) 'avatar': avatarImageData,
+            if (channelId != null) 'channel_id': channelId,
+          },
+        )
+        .validate()
+        .transform(data: Webhook.fromJson);
   }
 
   /// Same as above, except this call does not require authentication, does not
@@ -124,7 +133,7 @@ class WebhooksApi {
   /// the [Webhook] object.
   ///
   /// https://discord.com/developers/docs/resources/webhook#modify-webhook-with-token
-  Future<ValidatedResponse<Map<String, dynamic>, Webhook>>
+  Future<TransformedResponse<Map<String, dynamic>, Webhook>>
       modifyWebhookWithToken(
     String webhookId, {
     required String token,
@@ -135,27 +144,30 @@ class WebhooksApi {
     /// image for the default webhook avatar
     String? avatarImageData,
   }) {
-    return _dio.patch<Map<String, dynamic>>(
-      '$_basePath/$webhookId/$token',
-      data: {
-        if (name != null) 'name': name,
-        if (avatarImageData != null) 'avatar': avatarImageData,
-      },
-    ).validate(transform: Webhook.fromJson);
+    return _dio
+        .patch<Map<String, dynamic>>(
+          '$_basePath/$webhookId/$token',
+          data: {
+            if (name != null) 'name': name,
+            if (avatarImageData != null) 'avatar': avatarImageData,
+          },
+        )
+        .validate()
+        .transform(data: Webhook.fromJson);
   }
 
   /// Delete a webhook permanently. Requires the MANAGE_WEBHOOKS permission.
   /// Returns a 204 NO CONTENT response on success.
   ///
   /// https://discord.com/developers/docs/resources/webhook#delete-webhook
-  Future<ValidatedResponse<void, void>> deleteWebhook(String webhookId) {
+  Future<TransformedResponse<void, void>> deleteWebhook(String webhookId) {
     return _dio.delete('$_basePath/$webhookId').validate();
   }
 
   /// Same as above, except this call does not require authentication.
   ///
   /// https://discord.com/developers/docs/resources/webhook#delete-webhook-with-token
-  Future<ValidatedResponse<void, void>> deleteWebhookWithToken(
+  Future<TransformedResponse<void, void>> deleteWebhookWithToken(
     String webhookId, {
     required String token,
   }) {
@@ -171,7 +183,7 @@ class WebhooksApi {
   ///
   /// https://discord.com/developers/docs/resources/webhook#execute-webhook
   // Can return an empty string or a Message object
-  Future<ValidatedResponse<dynamic, Message?>> executeWebhook(
+  Future<TransformedResponse<dynamic, Message?>> executeWebhook(
     String webhookId, {
     required String token,
 
@@ -239,27 +251,28 @@ class WebhooksApi {
   }) {
     return _dio
         .post(
-      '$_basePath/$webhookId/$token',
-      queryParameters: {
-        if (wait != null) 'wait': wait,
-        if (threadId != null) 'thread_id': threadId,
-      },
-      data: createFormData(
-        {
-          if (content != null) 'content': content,
-          if (username != null) 'username': username,
-          if (avatarUrl != null) 'avatar_url': avatarUrl,
-          if (tts != null) 'tts': tts,
-          if (embeds != null) 'embeds': embeds,
-          if (allowedMentions != null) 'allowed_mentions': allowedMentions,
-          if (components != null) 'components': components,
-          if (attachments != null) 'attachments': attachments,
-        },
-        files,
-      ),
-    )
-        .validate(
-      transform: (data) {
+          '$_basePath/$webhookId/$token',
+          queryParameters: {
+            if (wait != null) 'wait': wait,
+            if (threadId != null) 'thread_id': threadId,
+          },
+          data: createFormData(
+            {
+              if (content != null) 'content': content,
+              if (username != null) 'username': username,
+              if (avatarUrl != null) 'avatar_url': avatarUrl,
+              if (tts != null) 'tts': tts,
+              if (embeds != null) 'embeds': embeds,
+              if (allowedMentions != null) 'allowed_mentions': allowedMentions,
+              if (components != null) 'components': components,
+              if (attachments != null) 'attachments': attachments,
+            },
+            files,
+          ),
+        )
+        .validate()
+        .transform(
+      data: (data) {
         if (data == null || data is String) return null;
         return Message.fromJson(data);
       },
@@ -270,7 +283,7 @@ class WebhooksApi {
   /// Slack's channel, icon_emoji, mrkdwn, or mrkdwn_in properties.
   ///
   /// https://discord.com/developers/docs/resources/webhook#execute-slackcompatible-webhook
-  Future<ValidatedResponse> executeSlackCompatibleWebhook(
+  Future<TransformedResponse> executeSlackCompatibleWebhook(
     String webhookId, {
     required String token,
 
@@ -307,7 +320,7 @@ class WebhooksApi {
   /// configuring.
   ///
   /// https://discord.com/developers/docs/resources/webhook#execute-githubcompatible-webhook
-  Future<ValidatedResponse> executeGitHubCompatibleWebhook(
+  Future<TransformedResponse> executeGitHubCompatibleWebhook(
     String webhookId, {
     required String token,
 
@@ -341,7 +354,7 @@ class WebhooksApi {
   /// [Message] object on success.
   ///
   /// https://discord.com/developers/docs/resources/webhook#get-webhook-message
-  Future<ValidatedResponse<Map<String, dynamic>, Message>> getWebhookMessage(
+  Future<TransformedResponse<Map<String, dynamic>, Message>> getWebhookMessage(
     String webhookId, {
     required String token,
     required String messageId,
@@ -351,12 +364,15 @@ class WebhooksApi {
     /// Required: false
     String? threadId,
   }) {
-    return _dio.get<Map<String, dynamic>>(
-      '$_basePath/$webhookId/$token/messages/$messageId',
-      queryParameters: {
-        if (threadId != null) 'thread_id': threadId,
-      },
-    ).validate(transform: Message.fromJson);
+    return _dio
+        .get<Map<String, dynamic>>(
+          '$_basePath/$webhookId/$token/messages/$messageId',
+          queryParameters: {
+            if (threadId != null) 'thread_id': threadId,
+          },
+        )
+        .validate()
+        .transform(data: Message.fromJson);
   }
 
   /// Edits a previously-sent webhook message from the same token. Returns a
@@ -383,7 +399,7 @@ class WebhooksApi {
   /// All parameters to this endpoint are optional and nullable.
   ///
   /// https://discord.com/developers/docs/resources/webhook#edit-webhook-message
-  Future<ValidatedResponse<Map<String, dynamic>, Message>> editWebhookMessage(
+  Future<TransformedResponse<Map<String, dynamic>, Message>> editWebhookMessage(
     String webhookId, {
     required String token,
     required String messageId,
@@ -432,14 +448,15 @@ class WebhooksApi {
             files,
           ),
         )
-        .validate(transform: Message.fromJson);
+        .validate()
+        .transform(data: Message.fromJson);
   }
 
   /// Deletes a message that was created by the webhook. Returns a 204 NO
   /// CONTENT response on success.
   ///
   /// https://discord.com/developers/docs/resources/webhook#delete-webhook-message
-  Future<ValidatedResponse<void, void>> deleteWebhookMessage(
+  Future<TransformedResponse<void, void>> deleteWebhookMessage(
     String webhookId, {
     required String token,
     required String messageId,

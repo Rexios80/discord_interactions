@@ -19,7 +19,7 @@ class AuditLogsApi {
   /// permission.
   ///
   /// https://discord.com/developers/docs/resources/audit-log#get-guild-audit-log
-  Future<ValidatedResponse<Map<String, dynamic>, AuditLog>> getGuildAuditLog(
+  Future<TransformedResponse<Map<String, dynamic>, AuditLog>> getGuildAuditLog(
     String guildId, {
     /// filter the log for actions made by a user
     String? userId,
@@ -33,14 +33,17 @@ class AuditLogsApi {
     /// how many entries are returned (default 50, minimum 1, maximum 100)
     int? limit,
   }) {
-    return _dio.get<Map<String, dynamic>>(
-      '$_basePath/$guildId/audit-logs',
-      queryParameters: {
-        if (userId != null) 'user_id': userId,
-        if (actionType != null) 'action_type': actionType.value,
-        if (before != null) 'before': before,
-        if (limit != null) 'limit': limit,
-      },
-    ).validate(transform: AuditLog.fromJson);
+    return _dio
+        .get<Map<String, dynamic>>(
+          '$_basePath/$guildId/audit-logs',
+          queryParameters: {
+            if (userId != null) 'user_id': userId,
+            if (actionType != null) 'action_type': actionType.value,
+            if (before != null) 'before': before,
+            if (limit != null) 'limit': limit,
+          },
+        )
+        .validate()
+        .transform(data: AuditLog.fromJson);
   }
 }
